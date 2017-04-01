@@ -1,19 +1,28 @@
 package UserAccounts;
 
-/**
- * Created by eschutzman on 4/1/17.
- */
 public class Authentication {
     private String username;
     private String password;
     private Boolean isValid;
     private Boolean isAuthentic;
+    private int authenticationLevel;
+    private String realName;
+    //list of applicaitons
 
-    public Authentication(String username, String password, Boolean isValid, Boolean isAuthentic) {
+
+    protected Authentication(String username, String password) {
         this.username = username;
         this.password = password;
-        this.isValid = isValid;
-        this.isAuthentic = isAuthentic;
+        this.isValid = false;
+        this.isAuthentic = false;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getUsername() {
@@ -47,4 +56,30 @@ public class Authentication {
     public void setAuthentic(Boolean authentic) {
         isAuthentic = authentic;
     }
+
+    public int getAuthenticationLevel() {
+        return authenticationLevel;
+    }
+
+    public void setAuthenticationLevel(int authenticationLevel) {
+        this.authenticationLevel = authenticationLevel;
+    }
+
+    /**
+     * Function checks username and password against database
+     * @return Function returns true if the user is authentic, false if not
+     */
+    public Boolean authenticate(){
+        //check username against database
+        //check password against database
+        //if they are valid, set authentication to True, return true, else nope.
+        this.isAuthentic = true;
+        //gets fields and fills them in
+        //get authentication level
+        //get list
+
+        return this.isAuthentic;
+    }
+
+
 }
