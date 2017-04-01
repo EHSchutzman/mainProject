@@ -28,9 +28,6 @@ public class SearchController {
     //location code, also known as origin code
     protected String origin;
 
-    //DATEFORMATTING
-    DateTimeFormatter fmt = DateTimeFormat.forPattern("MM/dd/yyyy");
-
     //VARIABLES FOR JAVAFX OBJECTS:
     @FXML
     private DatePicker dpDateRangeStart;
