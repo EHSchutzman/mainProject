@@ -1,7 +1,7 @@
 package DatabaseSearch;
 
 /**
- * Created by Leo on 4/1/2017.
+ * The QueryBuilder receives the search criteria from the SearchController and forms SQL statements that access the Database.
  */
 public class QueryBuilder {
 }
