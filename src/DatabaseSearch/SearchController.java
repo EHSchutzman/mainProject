@@ -5,6 +5,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -46,6 +49,7 @@ public class SearchController {
 
     //Function that reads the input entered into the search page and passes it to a QueryBuilder object.
     protected void searchCriteria(){
+        String query;
         //Set all variables equal to input date
         from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
@@ -56,5 +60,21 @@ public class SearchController {
         origin = (String)cbLocationCode.getValue();
         //store search info in a new QueryBuilder object
         queryBuilder = new QueryBuilder(from, to, brand, product, typeFrom, typeTo, origin);
+        query = queryBuilder.getQuery();
+        //Is also going to call a query function and then either return or display the results
+    }
+
+    //-maybe move this to QueryBuilder?-code from JavaTips that may be applicable to write to CSV depending on how we connect to the DB
+    protected void writeCSV(Connection conn, String filename){
+        Statement stmt;
+        String query;
+        try{
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            query = queryBuilder.getQuery();
+            stmt.executeQuery(query);
+        } catch(Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
     }
 }
