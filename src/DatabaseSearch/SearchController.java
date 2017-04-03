@@ -24,6 +24,10 @@ public class SearchController {
     private static String url = "Example";
     private static String user = "root";
     private static String pass = "root";
+    private ResultSet rs;
+    //create QueryBuilder variable to store search info
+    private QueryBuilder queryBuilder;
+    private String query;
     //VARIABLES FOR SEARCH CRITERIA:
     //Date info
     protected String from;
@@ -36,10 +40,6 @@ public class SearchController {
     protected String typeTo;
     //location code, also known as origin code
     protected String origin;
-    private ResultSet rs;
-    //create QueryBuilder variable to store search info
-    private QueryBuilder queryBuilder;
-    private String query;
 
     //VARIABLES FOR JAVAFX OBJECTS:
     @FXML
