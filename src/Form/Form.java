@@ -1,8 +1,6 @@
+package Form;
 import java.util.Date;
 
-/**
- * Created by erickmoo on 4/2/17.
- */
 public class Form {
 
     //Application
