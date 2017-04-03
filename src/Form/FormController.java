@@ -1,3 +1,4 @@
+package Form;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -6,9 +7,6 @@ import javafx.scene.control.TextField;
 import javax.xml.soap.Text;
 import java.util.Collection;
 
-/**
- * Created by erickmoo on 4/3/17.
- */
 public class FormController {
     private Collection<Form> listOfForms;
 
