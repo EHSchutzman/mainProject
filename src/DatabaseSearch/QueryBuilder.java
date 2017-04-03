@@ -5,13 +5,12 @@ package DatabaseSearch;
  */
 public class QueryBuilder {
 
-    // QUERY
-    StringBuilder stringBuilder = new StringBuilder();
-    private String query = "";
-
     // Variables for COLA search info
     private static String COLATableName = "";
     private static String COLAFields = "";      // in SQL-compatible format
+    // QUERY
+    private StringBuilder stringBuilder = new StringBuilder();
+    private String query = "";
     private String fromDate;        // Application approval date
 
     private String toDate;          // Application approval date
@@ -27,7 +26,7 @@ public class QueryBuilder {
     }
 
     // COLA search constructor
-    public QueryBuilder(String fromDate, String toDate, String brandName, String productName, String typeFrom, String typeTo, String originCode) {
+    protected QueryBuilder(String fromDate, String toDate, String brandName, String productName, String typeFrom, String typeTo, String originCode) {
         setFromDate(fromDate);
         setToDate(toDate);
         setBrandName(brandName);
@@ -151,7 +150,7 @@ public class QueryBuilder {
         this.originCode = originCode;
     }
 
-    public String getQuery() {
+    protected String getQuery() {
         return query;
     }
 
