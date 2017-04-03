@@ -67,14 +67,19 @@ public class Authentication {
 
     /**
      * Function checks username and password against database
+     *
      * @return Function returns true if the user is authentic, false if not
      */
-    public Boolean authenticate(){
-        //check username against database
+    public Boolean authenticate() {
+        //
+        //check username against database -- username is loginname field
         //check password against database
+        //Set up a query to User table
+        //check if both username and password are valid
         //if they are valid, set authentication to True, return true, else nope.
         this.isAuthentic = true;
         //gets fields and fills them in
+        //realname is name field
         //get authentication level
         //get list
 
