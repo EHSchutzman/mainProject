@@ -105,7 +105,7 @@ public class SearchController {
 
     // Function that reads the input entered into the search page and passes it to a QueryBuilder object.
     protected void searchCriteria(){
-        //Set all variables equal to input date
+        //Set all variables equal to input data
         from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         brand = txtBrandName.getText();
@@ -117,9 +117,10 @@ public class SearchController {
         setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
     }
 
+    //Function that reads (currently) an app id entered into a text box and searches for a single application
     protected void applicationSearchCriteria(){
-        //Set all variables equal to input date
-        appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see when we integrate
+        //Set all variables equal to input data
+        appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
         setQueryBuilder(new QueryBuilder(tableName, "*", appID));
     }
 
