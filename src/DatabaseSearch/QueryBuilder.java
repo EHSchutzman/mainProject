@@ -5,14 +5,19 @@ package DatabaseSearch;
  */
 public class QueryBuilder {
 
-    // Variables for COLA search info
-    private static String COLATableName = "";
-    private static String COLAFields = "";      // in SQL-compatible format
     // QUERY
     private StringBuilder stringBuilder = new StringBuilder();
+    private String tableName;
+    private String fields;      // in SQL-compatible format
     private String query = "";
-    private String fromDate;        // Application approval date
 
+    // User information
+    private String username;
+    private String password;
+
+    // Application information
+    private String appID;
+    private String fromDate;        // Application approval date
     private String toDate;          // Application approval date
     private String brandName;       // Name of brand on application
     private String productName;     // Name of product on application
@@ -25,8 +30,63 @@ public class QueryBuilder {
 
     }
 
-    // COLA search constructor
-    protected QueryBuilder(String fromDate, String toDate, String brandName, String productName, String typeFrom, String typeTo, String originCode) {
+    // User lookup search constructor
+    protected QueryBuilder(String tableName, String fields,
+                           String username, String password) {
+        setTableName(tableName);
+        setFields(fields);
+        setUsername(username);
+        setPassword(password);
+
+        // build query
+        stringBuilder.append("SELECT ").append(getFields()).append(" FROM ").append(getTableName());
+
+        // Maybe check that no strings are empty before appending where?
+        stringBuilder.append(" WHERE");
+
+        boolean firstCond = true;
+
+        if (getUsername() != null && !getUsername().isEmpty() && getPassword() != null && !getPassword().isEmpty()) {
+            stringBuilder.append(" LOGIN_NAME=").append(getUsername());
+            stringBuilder.append(" AND PASSWORD=").append(getPassword());
+        } else { // Error
+            System.out.println("Error! We need both a username and password!");
+        }
+
+        // Generate the query
+        setQuery(stringBuilder.toString());
+    }
+
+    /**
+     * COLA search constructors
+     **/
+    // Search for specific application via ID
+    protected QueryBuilder(String tableName, String fields,
+                           String appID) {
+        setTableName(tableName);
+        setFields(fields);
+        setAppID(appID);
+        setFromDate(null);
+        setToDate(null);
+        setBrandName(null);
+        setProductName(null);
+        setTypeFrom(null);
+        setTypeTo(null);
+        setOriginCode(null);
+
+        // Build the search
+        buildCOLASearchQuery();
+
+        // Generate the query
+        setQuery(stringBuilder.toString());
+    }
+
+    // Search for all applications via criteria
+    protected QueryBuilder(String tableName, String fields,
+                           String fromDate, String toDate, String brandName, String productName, String typeFrom, String typeTo, String originCode) {
+        setTableName(tableName);
+        setFields(fields);
+        setAppID(null);
         setFromDate(fromDate);
         setToDate(toDate);
         setBrandName(brandName);
@@ -35,8 +95,17 @@ public class QueryBuilder {
         setTypeTo(typeTo);
         setOriginCode(originCode);
 
+        // Build the search
+        buildCOLASearchQuery();
+
+        // Generate the query
+        setQuery(stringBuilder.toString());
+    }
+
+    // Build the COLA Search Query after parameters have been input
+    private void buildCOLASearchQuery() {
         // build query
-        stringBuilder.append("SELECT ").append(COLAFields).append(" FROM ").append(COLATableName);
+        stringBuilder.append("SELECT ").append(getFields()).append(" FROM ").append(getTableName());
 
         // Maybe check that no strings are empty before appending where?
         stringBuilder.append(" WHERE");
@@ -44,8 +113,16 @@ public class QueryBuilder {
         boolean firstCond = true;
 
         // REPLACE WITH ACTUAL DB FIELD NAMES
-        if(getFromDate() != null && !getFromDate().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()){
-            if(!firstCond) {
+        if (getAppID() != null && !getAppID().isEmpty()) {
+            if (!firstCond) {
+                stringBuilder.append(" AND ").append(" APP_ID='").append(getAppID()).append("'");
+            } else {
+                stringBuilder.append(" APP_ID='").append(getAppID()).append("'");
+                firstCond = false;
+            }
+        }
+        if (getFromDate() != null && !getFromDate().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
+            if (!firstCond) {
                 stringBuilder.append(" AND ").append(" date BETWEEN #").append(getFromDate());
                 stringBuilder.append("# AND #").append(getToDate()).append("#");
             } else {
@@ -54,24 +131,24 @@ public class QueryBuilder {
                 firstCond = false;
             }
         }
-        if(getBrandName() != null && !getBrandName().isEmpty()){
-            if(!firstCond) {
+        if (getBrandName() != null && !getBrandName().isEmpty()) {
+            if (!firstCond) {
                 stringBuilder.append(" AND ").append(" brandName='").append(getBrandName()).append("'");
             } else {
                 stringBuilder.append(" brandName='").append(getBrandName()).append("'");
                 firstCond = false;
             }
         }
-        if(getProductName() != null && !getProductName().isEmpty()){
-            if(!firstCond) {
+        if (getProductName() != null && !getProductName().isEmpty()) {
+            if (!firstCond) {
                 stringBuilder.append(" AND ").append(" productName='").append(getProductName()).append("'");
             } else {
                 stringBuilder.append(" productName='").append(getProductName()).append("'");
                 firstCond = false;
             }
         }
-        if(getTypeFrom() != null && !getTypeFrom().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()){
-            if(!firstCond) {
+        if (getTypeFrom() != null && !getTypeFrom().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
+            if (!firstCond) {
                 stringBuilder.append(" AND ").append(" type BETWEEN ").append(Integer.getInteger(getTypeFrom()));
                 stringBuilder.append(" AND ").append(Integer.getInteger(getTypeTo()));
             } else {
@@ -80,20 +157,57 @@ public class QueryBuilder {
                 firstCond = false;
             }
         }
-        if(getOriginCode() != null && !getOriginCode().isEmpty()){
-            if(!firstCond) {
+        if (getOriginCode() != null && !getOriginCode().isEmpty()) {
+            if (!firstCond) {
                 stringBuilder.append(" AND ").append(" originCode='").append(getOriginCode()).append("'");
             } else {
                 stringBuilder.append(" originCode='").append(getOriginCode()).append("'");
                 firstCond = false;
             }
         }
-
-        // Generate the query
-        setQuery(stringBuilder.toString());
     }
 
     // Getters and Setters
+    private String getTableName() {
+        return tableName;
+    }
+
+    private void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    private String getFields() {
+        return fields;
+    }
+
+    private void setFields(String fields) {
+        this.fields = fields;
+    }
+
+    private String getUsername() {
+        return username;
+    }
+
+    private void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String getPassword() {
+        return password;
+    }
+
+    private void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String getAppID() {
+        return appID;
+    }
+
+    private void setAppID(String appID) {
+        this.appID = appID;
+    }
+
     private String getFromDate() {
         return fromDate;
     }
