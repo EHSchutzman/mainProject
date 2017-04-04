@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +24,7 @@ public class SearchController {
     private static String url = "Example";
     private static String user = "root";
     private static String pass = "root";
+    private static String tableName = "APPLICATIONS";
     private ResultSet rs;
     //create QueryBuilder variable to store search info
     private QueryBuilder queryBuilder;
@@ -108,7 +109,7 @@ public class SearchController {
         typeTo = txtClassRangeEnd.getText();
         origin = cbLocationCode.getValue();
         //store search info in a new QueryBuilder object
-        setQueryBuilder(new QueryBuilder(from, to, brand, product, typeFrom, typeTo, origin));
+        setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
     }
 
     // Display DB data into a TableView

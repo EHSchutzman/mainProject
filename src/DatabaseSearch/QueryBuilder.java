@@ -47,8 +47,8 @@ public class QueryBuilder {
         boolean firstCond = true;
 
         if (getUsername() != null && !getUsername().isEmpty() && getPassword() != null && !getPassword().isEmpty()) {
-            stringBuilder.append(" LOGIN_NAME=").append(getUsername());
-            stringBuilder.append(" AND PASSWORD=").append(getPassword());
+            stringBuilder.append(" LOGIN_NAME='").append(getUsername()).append("'");
+            stringBuilder.append(" AND PASSWORD='").append(getPassword()).append("'");
         } else { // Error
             System.out.println("Error! We need both a username and password!");
         }
@@ -115,9 +115,9 @@ public class QueryBuilder {
         // REPLACE WITH ACTUAL DB FIELD NAMES
         if (getAppID() != null && !getAppID().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" APP_ID='").append(getAppID()).append("'");
+                stringBuilder.append(" AND ").append(" APP_ID=").append(getAppID());
             } else {
-                stringBuilder.append(" APP_ID='").append(getAppID()).append("'");
+                stringBuilder.append(" APP_ID=").append(getAppID());
                 firstCond = false;
             }
         }
