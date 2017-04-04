@@ -1,14 +1,11 @@
 package UserAccounts;
 
-import Initialization.AcitonController;
+import Initialization.ActionController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 import java.awt.*;
 
-public class AuthenticationController extends AcitonController{
+public class AuthenticationController extends ActionController {
     Authentication isAuthentic;
     User user;
 
@@ -20,7 +17,7 @@ public class AuthenticationController extends AcitonController{
     Label errorMessage;
 
     @FXML
-    public User loginAction(){
+    public void loginAction(){
         String name = username.getText();
         String pass = password.getText();
 
@@ -40,7 +37,9 @@ public class AuthenticationController extends AcitonController{
             errorMessage.setText("Incorrect username or password, please try again! 8^)");
             //
         }
-
-        return user;
+        userData.setUserInformation(user);
+        super.displayMainPage();
     }
+
+
 }
