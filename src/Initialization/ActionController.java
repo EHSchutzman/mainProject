@@ -21,7 +21,7 @@ public class ActionController {
         try {
             main.setDisplayToLogin();
         } catch (Exception e) {
-            return;
+            e.printStackTrace();
         }
     }
 
