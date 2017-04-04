@@ -101,6 +101,8 @@ public class FormController {
         //make radio buttons and group them
         domesticRadio=new RadioButton("domestic");
         importedRadio=new RadioButton("imported");
+        //set selected
+        importedRadio.setSelected(true);
         //create group for radio buttons
         sourceGroup = new ToggleGroup();
         domesticRadio.setToggleGroup(sourceGroup);
@@ -110,15 +112,20 @@ public class FormController {
         //make radio buttons and group them
         beerRadio=new RadioButton("beer");
         wineRadio=new RadioButton("wine");
+        //set selected
+        beerRadio.setSelected(true);
         //create group for radio buttons
         typeGroup = new ToggleGroup();
         beerRadio.setToggleGroup(typeGroup);
         wineRadio.setToggleGroup(typeGroup);
 
+        /*only available if one is an agent
         //Status
         //make radio buttons and group them
         acceptRadio=new RadioButton("accept");
         rejectRadio=new RadioButton("reject");
+        //set selected
+        rejectRadio.setSelected(true);
         //create group for radio buttons
         statusGroup = new ToggleGroup();
         acceptRadio.setToggleGroup(statusGroup);
@@ -130,7 +137,7 @@ public class FormController {
         //authenticate applicant
     }
 
-    public Form creatForm() {
+    public Form createForm() {
         Form newForm = new Form();
         //Set values of the application
 
