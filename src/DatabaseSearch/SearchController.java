@@ -3,6 +3,7 @@ package DatabaseSearch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -58,17 +59,14 @@ public class SearchController {
     @FXML
     private TextField txtClassRangeEnd;
     @FXML
-    private TextField cbLocationCode;
+    private ComboBox<String> cbLocationCode;
     @FXML
     private TableView<ObservableList<String>> tableview;
     @FXML
     private TextField txtAppID;
 
-    @FXML
     // Handle a search - effectively a "main" function for our program
     protected void handleSearch() {
-
-        System.out.println("Handles search!");
 
         // Handle search criteria
         searchCriteria();
@@ -106,50 +104,71 @@ public class SearchController {
     }
 
     // Function that reads the input entered into the search page and passes it to a QueryBuilder object.
-    protected void searchCriteria(){
-        //Set all variables equal to input data
-        from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        brand = txtBrandName.getText();
-        product = txtProductName.getText();
-        typeFrom = txtClassRangeStart.getText();
-        typeTo = txtClassRangeEnd.getText();
-        origin = cbLocationCode.getText();
-        //store search info in a new QueryBuilder object
-        setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
+    protected boolean searchCriteria(){
+        try {
+            //Set all variables equal to input data
+            from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            brand = txtBrandName.getText();
+            product = txtProductName.getText();
+            typeFrom = txtClassRangeStart.getText();
+            typeTo = txtClassRangeEnd.getText();
+            origin = cbLocationCode.getValue();
+            //store search info in a new QueryBuilder object
+            setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not build a query from search criteria.");
+            return false;
+        }
     }
 
     //Function that reads (currently) an app id entered into a text box and searches for a single application
-    protected void applicationSearchCriteria(){
-        //Set all variables equal to input data
-        appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
-        setQueryBuilder(new QueryBuilder(tableName, "*", appID));
+    protected Boolean applicationSearchCriteria(){
+        try {
+            //Set all variables equal to input data
+            appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
+            setQueryBuilder(new QueryBuilder(tableName, "*", appID));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not build a query from search criteria.");
+            return false;
+        }
     }
 
     // Display DB data into a TableView
     // http://blog.ngopal.com.np/2011/10/19/dyanmic-tableview-data-from-database/comment-page-1/
-    protected void displayData(ResultSet rs) {
-
-        // Auto-genericized?
-        ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+    protected Boolean displayData(ResultSet rs) {
 
         try {
-            // Add data to ObservableList
-            while (rs.next()) {
-                // Iterate row
-                ObservableList<String> row = FXCollections.observableArrayList();
-                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-                    // Iterate column
-                    row.add(rs.getString(i));
-                }
-                data.add(row);
-            }
+            // Auto-genericized?
+            ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
-            // Add to TableView
-            tableview.setItems(data);
+            try {
+                // Add data to ObservableList
+                while (rs.next()) {
+                    // Iterate row
+                    ObservableList<String> row = FXCollections.observableArrayList();
+                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                        // Iterate column
+                        row.add(rs.getString(i));
+                    }
+                    data.add(row);
+                }
+
+                // Add to TableView
+                tableview.setItems(data);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error building data!");
+            }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error building data!");
+            System.out.println("Error displaying data.");
+            return false;
         }
 
     }
@@ -170,13 +189,15 @@ public class SearchController {
     }
 
     // Save a CSV of the results locally
-    protected void saveCSV() {
+    protected Boolean saveCSV() {
 
         try {
             generateCSV(rs);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error generating CSV!");
+            return false;
         }
 
     }

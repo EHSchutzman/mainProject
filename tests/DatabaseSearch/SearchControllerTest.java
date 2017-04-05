@@ -2,15 +2,16 @@ package DatabaseSearch;
 
 import org.junit.jupiter.api.Test;
 
+import java.sql.ResultSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by Leo on 4/4/2017.
  */
 class SearchControllerTest {
-    @Test
-    void handleSearch() {
-    }
+    SearchController sc = new SearchController();
+    ResultSet rs;
 
     @Test
     void DBConnect() {
@@ -21,43 +22,33 @@ class SearchControllerTest {
     }
 
     @Test
-    void searchCriteria() {
+    void searchCriteriaSuccess() {
+        assertEquals(true, sc.searchCriteria());
     }
 
     @Test
-    void applicationSearchCriteria() {
+    void applicationSearchCriteriaSuccess() {
+        assertEquals(true, sc.applicationSearchCriteria());
     }
 
     @Test
     void displayData() {
+        assertEquals(true, sc.displayData(rs));
     }
 
     @Test
-    void displayApplication() {
-    }
-
-    @Test
-    void saveCSV() {
-    }
-
-    @Test
-    void generateCSV() {
+    void saveCSVSuccess() {
+        assertEquals(true, sc.saveCSV());
     }
 
     @Test
     void getQueryBuilder() {
-    }
-
-    @Test
-    void setQueryBuilder() {
+        assertEquals(null, sc.getQueryBuilder());
     }
 
     @Test
     void getQuery() {
-    }
-
-    @Test
-    void setQuery() {
+        assertEquals("", sc.getQuery());
     }
 
 }
