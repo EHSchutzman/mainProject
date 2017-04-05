@@ -6,15 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ReviseApplication">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
       <Label fx:id="errorLabel" layoutX="261.0" layoutY="14.0" prefHeight="17.0" prefWidth="78.0" />
       <Label layoutX="283.0" layoutY="73.0" text="For Wine" />
       <Label layoutX="284.0" layoutY="237.0" text="For Beer" />
-      <TextField fx:id="alterVintageYear" layoutX="215.0" layoutY="102.0" prefHeight="27.0" prefWidth="191.0" promptText="Alter A Vintage Year" />
-      <TextField fx:id="alterPH" layoutX="215.0" layoutY="138.0" prefHeight="27.0" prefWidth="191.0" promptText="Alter Amount of Acid / pH" />
-      <TextField fx:id="alterAlcContent" layoutX="217.0" layoutY="173.0" prefHeight="27.0" prefWidth="191.0" promptText="Alter Alcohol Content" />
-      <TextField fx:id="alterAlcForMalt" layoutX="183.0" layoutY="271.0" prefHeight="27.0" prefWidth="260.0" promptText="Alter Alcohol Content for Malt Beverage" />
+      <TextField fx:id="alterVintageDate" layoutX="215.0" layoutY="102.0" prefHeight="27.0" prefWidth="191.0" promptText="Alter A Vintage Year" />
+      <TextField fx:id="alterpHLevel" layoutX="215.0" layoutY="138.0" prefHeight="27.0" prefWidth="191.0" promptText="Alter Amount of Acid / pH" />
+      <TextField fx:id="alterWineAlcoholContent" layoutX="217.0" layoutY="173.0" prefHeight="27.0" prefWidth="191.0" promptText="Alter Alcohol Content" />
+      <TextField fx:id="alterBeerAlcoholContent" layoutX="183.0" layoutY="271.0" prefHeight="27.0" prefWidth="260.0" promptText="Alter Alcohol Content for Malt Beverage" />
       <Button fx:id="submitButton" layoutX="284.0" layoutY="323.0" mnemonicParsing="false" text="Submit" />
       <Label fx:id="showAppStatus" layoutX="265.0" layoutY="48.0" prefHeight="17.0" prefWidth="101.0" />
    </children>

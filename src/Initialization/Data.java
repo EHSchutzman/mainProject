@@ -1,12 +1,17 @@
 package Initialization;
+import Form.Form;
 import UserAccounts.*;
 
 import java.sql.ResultSet;
+
+import java.util.ArrayList;
 
 public class Data {
     private User userInformation;
     private int currentApplicationPage = 0;
     private ResultSet rs;
+    public ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
+    public Form tempForm = new Form();
 
     public Data(User userInformation) {
         this.userInformation = userInformation;

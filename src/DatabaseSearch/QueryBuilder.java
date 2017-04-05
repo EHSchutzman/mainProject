@@ -115,9 +115,9 @@ public class QueryBuilder {
         // REPLACE WITH ACTUAL DB FIELD NAMES
         if (getAppID() != null && !getAppID().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" FORM_ID=").append(getAppID());
+                stringBuilder.append(" AND").append(" FORM_ID='").append(getAppID()).append("'");;
             } else {
-                stringBuilder.append(" FORM_ID=").append(getAppID());
+                stringBuilder.append(" FORM_ID='").append(getAppID()).append("'");
                 firstCond = false;
             }
         }
