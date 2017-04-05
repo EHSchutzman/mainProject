@@ -28,7 +28,7 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("mainPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/mainPage.fxml"));
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.
@@ -55,7 +55,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("mainPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/mainPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -73,7 +73,7 @@ public class Main extends Application {
     public void setDisplayToLogin() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("loginPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/loginPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Login Page");
             primaryStage.getScene().setRoot(page);
@@ -92,11 +92,13 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("formPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/applicationPage0.fxml"));
             Pane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
 
+            FormController controller = loader.getController();
+            controller.setDisplay(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
