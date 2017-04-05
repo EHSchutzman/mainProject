@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ApplicationPage1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
       <TextField fx:id="IDNum" layoutX="217.0" layoutY="69.0" promptText="Rep. ID No." AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="216.0" />
       <TextField fx:id="permitNum" layoutX="217.0" layoutY="109.0" promptText="Permit No." />

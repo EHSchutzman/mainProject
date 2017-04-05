@@ -1,4 +1,6 @@
 package Form;
+import Initialization.ActionController;
+import Initialization.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -7,7 +9,12 @@ import javafx.scene.control.TextField;
 import javax.xml.soap.Text;
 import java.util.Collection;
 
-public class FormController {
+public class FormController{
+    private Main main;
+    public void setDisplay(Main main) {
+        this.main = main;
+    }
+
     private Collection<Form> listOfForms;
 
     @FXML

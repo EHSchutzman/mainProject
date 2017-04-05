@@ -1,5 +1,8 @@
 package Initialization;
 
+import DatabaseSearch.SearchController;
+import Form.Form;
+import Form.FormController;
 import UserAccounts.AuthenticationController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -51,7 +54,6 @@ public class Main extends Application {
     }
 
     public void setDisplayToMain() {
-        System.out.println("PWEON");
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -108,11 +110,13 @@ public class Main extends Application {
     public void setDisplayToSearch() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("searchPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/searchPage.fxml"));
             Pane page = loader.load();
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
 
+            SearchController controller = loader.getController();
+//            controller.setDisplay(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

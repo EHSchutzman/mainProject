@@ -1,5 +1,7 @@
 package DatabaseSearch;
 
+import Initialization.ActionController;
+import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class SearchController {
 
+    private Main main;
     // Database information
     private static String url = "Example";
     private static String user = "root";
@@ -223,4 +226,9 @@ public class SearchController {
     public void setQuery(String query) {
         this.query = query;
     }
+
+    public void setDisplay(Main main) {
+        this.main = main;
+    }
+
 }

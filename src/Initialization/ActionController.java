@@ -2,7 +2,6 @@ package Initialization;
 
 import DatabaseSearch.SearchController;
 import Form.FormController;
-import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 
 
@@ -11,7 +10,7 @@ public class ActionController {
     public Data userData = new Data(null);
 
     //Initialize other controllers
-    public SearchController searchController = new SearchController();
+    public SearchController betterSearchController = new SearchController();
     public FormController formController = new FormController();
     public User defaultUser = new User("Default", "Default User", 0);
     protected User loggedInUser = null;
@@ -27,16 +26,14 @@ public class ActionController {
 
     public void displayMainPage() {
         try {
-            System.out.println("TESTSTST");
             main.setDisplayToMain();
-            System.out.println("Tasdasdasd");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    public void searchAction() {
+    public void displaySearchPage() {
         try {
             main.setDisplayToSearch();
         } catch (Exception e) {
@@ -45,14 +42,13 @@ public class ActionController {
 
     }
 
-    public void applyAction() {
+    public void displayApplicationPage() {
         try {
             main.setDisplayToApply();
         } catch (Exception e) {
-            return;
+            e.printStackTrace();
         }
     }
-
 
 
     public void setDisplay(Main main) {

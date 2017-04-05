@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ApplicationPage5">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
       <Label layoutX="269.0" layoutY="32.0" text="Additional" />
       <Label fx:id="errorLabel" layoutX="272.0" layoutY="55.0" prefHeight="17.0" prefWidth="56.0" />
