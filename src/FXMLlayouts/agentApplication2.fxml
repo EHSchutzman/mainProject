@@ -25,6 +25,6 @@
       <Label fx:id="countryLabel" layoutX="76.0" layoutY="248.0" text="Country" />
       <Label fx:id="tradeNameLabel" layoutX="78.0" layoutY="283.0" text="Approved DBA / Tradename" />
       <Button fx:id="rejectButton" layoutX="191.0" layoutY="332.0" mnemonicParsing="false" text="Reject" />
-      <Button fx:id="nextButton" layoutX="367.0" layoutY="332.0" mnemonicParsing="false" text="Next" />
+      <Button fx:id="nextButton" layoutX="367.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#nextPage" text="Next" />
    </children>
 </AnchorPane>

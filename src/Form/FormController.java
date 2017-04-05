@@ -1,12 +1,21 @@
 package Form;
 import DatabaseSearch.QueryBuilder;
+import DatabaseSearch.TTB_database;
+import Initialization.ActionController;
 import Initialization.Main;
+import DatabaseSearch.QueryBuilder;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
-import javax.xml.soap.Text;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class FormController{
     private ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
@@ -22,6 +31,9 @@ public class FormController{
 
     @FXML
     private Button nextButton;
+
+    @FXML
+    private Button submitButton;
 
     @FXML
     private TextField repIDText;
@@ -90,11 +102,9 @@ public class FormController{
     //TTB Use (accept/reject)
     //RadioButtons to accept or reject application
     @FXML
-    private ToggleGroup statusGroup;
+    private Button acceptButton;
     @FXML
-    private RadioButton acceptRadio;
-    @FXML
-    private RadioButton rejectRadio;
+    private Button rejectButton;
     //
     @FXML
     private DatePicker approvalDate;
@@ -207,8 +217,8 @@ public class FormController{
         //initializes necessary radio buttons
         //Source
         //make radio buttons and group them
-        domesticRadio = new RadioButton("domestic");
-        importedRadio = new RadioButton("imported");
+        domesticRadio=new RadioButton("domestic");
+        importedRadio=new RadioButton("imported");
         //set selected
         importedRadio.setSelected(true);
         //create group for radio buttons
@@ -218,8 +228,8 @@ public class FormController{
 
         //Type
         //make radio buttons and group them
-        beerRadio = new RadioButton("beer");
-        wineRadio = new RadioButton("wine");
+        beerRadio=new RadioButton("beer");
+        wineRadio=new RadioButton("wine");
         //set selected
         beerRadio.setSelected(true);
         //create group for radio buttons
@@ -308,20 +318,20 @@ public class FormController{
     public Form createAgentFormPage1() {
         //initializes necessary radio buttons
         //Source
-        domesticRadio = new RadioButton("domestic");
-        importedRadio = new RadioButton("imported");
+        domesticRadio=new RadioButton("domestic");
+        importedRadio=new RadioButton("imported");
         //set selected
-        if (tempForm.getSource().equals("imported")) {
+        if(tempForm.getSource().equals("imported")) {
             importedRadio.setSelected(true);
         } else if (tempForm.getSource().equals("domestic")) {
             domesticRadio.setSelected(true);
         }
 
         //Type
-        beerRadio = new RadioButton("beer");
-        wineRadio = new RadioButton("wine");
+        beerRadio=new RadioButton("beer");
+        wineRadio=new RadioButton("wine");
         //set selected
-        if (tempForm.getType() == 901) {
+        if(tempForm.getType() == 901) {
             beerRadio.setSelected(true);
         } else if (tempForm.getType() == 80) {
             wineRadio.setSelected(true);
@@ -376,11 +386,24 @@ public class FormController{
         completedDate.setValue(tempForm.getCompletedDate());
         applicantNameText.setPromptText(tempForm.getApplicantName());
 
+        tempForm.setApprovalDate(approvalDate.getValue());
+        tempForm.setAgentName(agentNameText.getText());
+        tempForm.setExpirationDate(expirationDate.getValue());
+
         return tempForm;
     }
 
+    public void acceptForm() {
+        tempForm.setStatus("accepted");
+        submitForm();
+    }
 
-    public void chooseForm() {
+    public void rejectForm() {
+        tempForm.setStatus("rejected");
+        submitForm(tempForm);
+    }
+
+    public void chooseForm () {
         //select a form from the list of forms that need to be processed
     }
 
@@ -388,86 +411,51 @@ public class FormController{
         //get a form form DB
     }
 
-    public void submitForm() {
-        QueryBuilder qb = new QueryBuilder();
-        //builds query
+    // Connect to the DB
+    protected Connection DBConnect() throws SQLException {
+        return TTB_database.connect();
+    }
+
+    // Function will query the DB
+    protected ResultSet queryDB(String query) {
+        Connection c;
+        Statement stmt;
+        ResultSet rs = null;
+        try {
+            c = DBConnect();
+            stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+        return rs;
+    }
+
+    public void submitForm(Form form) {
+        try {
+            String formID = null;
+            Connection c = DBConnect();
+            QueryBuilder qb = new QueryBuilder("FORM", "FORM.FORM_ID", form.getFormID());
+            ResultSet rs = queryDB(qb.getQuery());
+            Statement s = rs.getStatement();
+            while(rs.next()) {
+                formID = rs.getString("FORM_ID");
+            }
+            if (formID == null || formID.isEmpty()) {
+                rs.insertRow();
+            } else {
+                rs.updateRow();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         //check if form exists if not save a new one, else update form in DB
     }
 
-    @FXML
-    public void startApplication(){
-        currentPage = 0;
-        nextPage();
-    }
     //
-    @FXML
     public void nextPage() {
-        if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
-            agentNextPage();
-        } else {
-            applicantNextPage();
-        }
-
-    }
-
-    public void agentNextPage() {
-        System.out.println("currentPage is " + currentPage);
-        if (currentPage == 0) {
-            currentPage++;
-            //display page1
-        } else if (currentPage == 1) {
-            currentPage++;
-            //display page2
-        } else if (currentPage == 2) {
-            currentPage++;
-            //display page3
-        } else if (currentPage == 3) {
-            currentPage++;
-            //display page3
-        } else if (currentPage == 4) {
-            currentPage++;
-            //display page4
-        } else if (currentPage == 5) {
-
-            currentPage = 0;
-            submitForm();
-            //display page 5
-        }
-    }
-
-    public void applicantNextPage() {
-        System.out.println("currentPage is " + currentPage);
-        if (currentPage == 0) {
-            System.out.println("0");
-            currentPage++;
-            main.changeApplicantFormView(1);
-        } else if (currentPage == 1) {
-            System.out.println("1");
-            currentPage++;
-            main.changeApplicantFormView(2);
-
-        } else if (currentPage == 2) {
-            System.out.println("2");
-            currentPage++;
-            main.changeApplicantFormView(3);
-
-        } else if (currentPage == 3) {
-            currentPage++;
-            main.changeApplicantFormView(4);
-
-        } else if (currentPage == 4) {
-            currentPage++;
-            main.changeApplicantFormView(5);
-
-        } else if (currentPage == 5) {
-            currentPage++;
-            main.changeApplicantFormView(6);
-
-        } else if (currentPage == 6) {
-            System.out.println("in here");
-            currentPage = 0;
-            //main.changeApplicantFormView(currentPage);
-
-        }
+        //next button functions
+        //save previous information into a form object
     }
 }
