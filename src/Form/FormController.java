@@ -84,11 +84,9 @@ public class FormController extends ActionController {
     //TTB Use (accept/reject)
     //RadioButtons to accept or reject application
     @FXML
-    private ToggleGroup statusGroup;
+    private Button acceptButton;
     @FXML
-    private RadioButton acceptRadio;
-    @FXML
-    private RadioButton rejectRadio;
+    private Button rejectButton;
     //
     @FXML
     private DatePicker approvalDate;
@@ -370,17 +368,21 @@ public class FormController extends ActionController {
         completedDate.setValue(tempForm.getCompletedDate());
         applicantNameText.setPromptText(tempForm.getApplicantName());
 
+        tempForm.setApprovalDate(approvalDate.getValue());
+        tempForm.setAgentName(agentNameText.getText());
+        tempForm.setExpirationDate(expirationDate.getValue());
+
         return tempForm;
     }
 
-    //Revisions AGENTS ONLY
-    public Form createAgentFormPage6() {
-        alterVintageDate.setPromptText(tempForm.getAlterVintageDate());
-        pHLevelText.setPromptText(tempForm.getAlterpHLevel());
-        alterWineAlcoholContent.setPromptText(tempForm.getAlterWineAlcoholContent());
-        alterBeerAlcoholContent.setPromptText(tempForm.getAlterBeerAlcoholContent());
+    public void acceptForm() {
+        tempForm.setStatus("accepted");
+        submitForm();
+    }
 
-        return tempForm;
+    public void rejectForm() {
+        tempForm.setStatus("rejected");
+        submitForm();
     }
 
     public void chooseForm () {
