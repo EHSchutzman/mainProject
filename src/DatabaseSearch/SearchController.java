@@ -181,7 +181,7 @@ public class SearchController {
 
         try {
             main.displaySearchResultsPage();
-            
+
             ObservableList<ObservableList> data = FXCollections.observableArrayList();
 
         try {
