@@ -1,15 +1,18 @@
 package Initialization;
 
 import DatabaseSearch.SearchController;
+import Form.Form;
 import Form.FormController;
 import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 

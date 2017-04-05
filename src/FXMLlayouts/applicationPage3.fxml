@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Form.FormController">
-    <children>
-        <Label fx:id="maillingAddressLabel" layoutX="251.0" layoutY="27.0" text="Mailing Address"/>
-        <TextField fx:id="name" layoutX="217.0" layoutY="110.0" promptText="Name"/>
-        <TextField fx:id="address1" layoutX="217.0" layoutY="148.0" promptText="Address 1"/>
-        <TextField fx:id="address2" layoutX="217.0" layoutY="187.0" promptText="Address 2"/>
-        <TextField fx:id="city" layoutX="217.0" layoutY="229.0" prefHeight="27.0" prefWidth="126.0" promptText="City"/>
-        <TextField fx:id="state" layoutX="365.0" layoutY="229.0" prefHeight="27.0" prefWidth="58.0" promptText="State"/>
-        <TextField fx:id="postalCode" layoutX="217.0" layoutY="268.0" prefHeight="27.0" prefWidth="126.0"
-                   promptText="Postal Code"/>
-        <TextField fx:id="country" layoutX="217.0" layoutY="306.0" promptText="Country"/>
-        <RadioButton layoutX="231.0" layoutY="77.0" mnemonicParsing="false" text="Same As Applicant"/>
-        <Label fx:id="errorLabel" layoutX="283.0" layoutY="52.0" prefHeight="17.0" prefWidth="47.0"/>
-        <Button fx:id="nextButton" layoutX="283.0" layoutY="348.0" mnemonicParsing="false" text="Next"/>
-    </children>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+   <children>
+      <Label fx:id="maillingAddressLabel" layoutX="251.0" layoutY="27.0" text="Mailing Address" />
+      <TextField fx:id="name" layoutX="217.0" layoutY="110.0" promptText="Name" />
+      <TextField fx:id="address1" layoutX="217.0" layoutY="148.0" promptText="Address 1" />
+      <TextField fx:id="address2" layoutX="217.0" layoutY="187.0" promptText="Address 2" />
+      <TextField fx:id="city" layoutX="217.0" layoutY="229.0" prefHeight="27.0" prefWidth="126.0" promptText="City" />
+      <TextField fx:id="state" layoutX="365.0" layoutY="229.0" prefHeight="27.0" prefWidth="58.0" promptText="State" />
+      <TextField fx:id="postalCode" layoutX="217.0" layoutY="268.0" prefHeight="27.0" prefWidth="126.0" promptText="Postal Code" />
+      <TextField fx:id="country" layoutX="217.0" layoutY="306.0" promptText="Country" />
+      <RadioButton layoutX="231.0" layoutY="77.0" mnemonicParsing="false" text="Same As Applicant" />
+      <Label fx:id="errorLabel" layoutX="283.0" layoutY="52.0" prefHeight="17.0" prefWidth="47.0" />
+      <Button fx:id="nextButton" layoutX="283.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#nextPage" text="Next" />
+   </children>
 </AnchorPane>

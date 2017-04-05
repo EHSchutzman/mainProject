@@ -1,8 +1,20 @@
 package DatabaseSearch;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableView;
+import javafx.util.Callback;
+
+import Initialization.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 
 import java.io.File;
@@ -17,11 +29,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class SearchController {
 
+    private Main main;
     // Database information
     private static String url = "Example";
     private static String user = "root";
     private static String pass = "root";
-    private static String tableName = "APPLICATIONS";
+    private static String tableName = "FORM";
     private ResultSet rs;
     private ResultSet apprs;
     //create QueryBuilder variable to store search info
@@ -56,23 +69,50 @@ public class SearchController {
     @FXML
     private TextField txtClassRangeEnd;
     @FXML
-    private ComboBox<String> cbLocationCode;
+    private TextField cbLocationCode;
     @FXML
-    private TableView<ObservableList<String>> tableview;
+    private TableView tableview = new TableView();
     @FXML
     private TextField txtAppID;
 
+
+    @FXML
     // Handle a search - effectively a "main" function for our program
     protected void handleSearch() {
 
+        System.out.println("Handles search!");
+
         // Handle search criteria
         searchCriteria();
+
+        System.out.println(getQueryBuilder().getQuery());
 
         // Set our query
         setQuery(getQueryBuilder().getQuery());
 
         // Query the DB
         rs = queryDB(getQuery());
+
+        try {
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+
+// Iterate through the data in the result set and display it.
+
+            while (rs.next()) {
+//Print one row
+                for (int i = 1; i <= columnsNumber; i++) {
+
+                    System.out.print(rs.getString(i) + " "); //Print one element of a row
+
+                }
+
+                System.out.println();//Move to the next line to print the next row.
+
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
 
         // Display our new data in the TableView
         displayData(rs);
@@ -110,9 +150,10 @@ public class SearchController {
             product = txtProductName.getText();
             typeFrom = txtClassRangeStart.getText();
             typeTo = txtClassRangeEnd.getText();
-            origin = cbLocationCode.getValue();
+            origin = cbLocationCode.getText();
             //store search info in a new QueryBuilder object
-            setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
+            setQueryBuilder(new QueryBuilder(tableName, "FORM_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN,TYPE_ID",
+                    from, to, brand, product, typeFrom, typeTo, origin));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,27 +177,36 @@ public class SearchController {
     }
 
     // Display DB data into a TableView
-    // http://blog.ngopal.com.np/2011/10/19/dyanmic-tableview-data-from-database/comment-page-1/
     protected boolean displayData(ResultSet rs) {
 
         try {
             // Auto-genericized?
-            ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+            ObservableList<ObservableList> data = FXCollections.observableArrayList();
 
-            try {
-                // Add data to ObservableList
-                while (rs.next()) {
-                    // Iterate row
-                    ObservableList<String> row = FXCollections.observableArrayList();
-                    for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
-                        // Iterate column
-                        row.add(rs.getString(i));
-                    }
-                    data.add(row);
+        try {
+
+            while (rs.next()) {
+                String formID = rs.getString("FORM_ID");
+                String permitNo = rs.getString("PERMIT_NO");
+                String serialNo = rs.getString("SERIAL_NUMBER");
+                String completedDate = rs.getString("COMPLETED_DATE");
+                String fancifulName = rs.getString("FANCIFUL_NAME");
+                String brandName = rs.getString("BRAND_NAME");
+                String origin = rs.getString("ORIGIN");
+                String type = rs.getString("TYPE_ID");
+
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+                    row.add(rs.getString(i));
                 }
+                data.add(row);
 
-                // Add to TableView
-                tableview.setItems(data);
+                System.out.println("Data "+ data);
+
+            }
+
+            //FINALLY ADDED TO TableView
+            tableview.setItems(data);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error building data!");
@@ -244,4 +294,9 @@ public class SearchController {
     public void setQuery(String query) {
         this.query = query;
     }
+
+    public void setDisplay(Main main) {
+        this.main = main;
+    }
+
 }

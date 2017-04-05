@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+    <children>
+        <Label fx:id="maillingAddressLabel" layoutX="251.0" layoutY="27.0" text="Mailing Address" />
+        <TextField fx:id="address1" editable="false" layoutX="217.0" layoutY="113.0" />
+        <TextField fx:id="address2" editable="false" layoutX="217.0" layoutY="160.0" />
+        <TextField fx:id="city" editable="false" layoutX="217.0" layoutY="208.0" prefHeight="27.0" prefWidth="92.0" />
+        <TextField fx:id="state" editable="false" layoutX="330.0" layoutY="208.0" prefHeight="27.0" prefWidth="117.0" />
+        <TextField fx:id="postalCode" editable="false" layoutX="217.0" layoutY="251.0" prefHeight="27.0" prefWidth="126.0" />
+        <TextField fx:id="country" editable="false" layoutX="217.0" layoutY="295.0" />
+        <RadioButton disable="true" layoutX="231.0" layoutY="77.0" mnemonicParsing="false" text="Same As Applicant" />
+        <Label fx:id="errorLabel" layoutX="283.0" layoutY="52.0" prefHeight="17.0" prefWidth="47.0" />
+        <Button fx:id="nextButton" layoutX="384.0" layoutY="347.0" mnemonicParsing="false" text="Next" />
+      <Label fx:id="address1Label" layoutX="107.0" layoutY="118.0" text="Address 1" />
+      <Label fx:id="address2Label" layoutX="107.0" layoutY="165.0" text="Address 2" />
+      <Label fx:id="cityStateLabel" layoutX="107.0" layoutY="213.0" text="City / State" />
+      <Label fx:id="postalCodeLabel" layoutX="107.0" layoutY="256.0" text="Postal Code" />
+      <Label fx:id="countryLabel" layoutX="107.0" layoutY="300.0" text="Country" />
+      <Button fx:id="rejectButton" layoutX="202.0" layoutY="347.0" mnemonicParsing="false" text="Reject" />
+    </children>
+</AnchorPane>

@@ -1,6 +1,5 @@
 package Initialization;
-
-import UserAccounts.User;
+import UserAccounts.*;
 
 public class Data {
     private User userInformation;
