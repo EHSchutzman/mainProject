@@ -2,12 +2,12 @@ package UserAccounts;
 
 public class User {
     private String username;
-    private String user;
+    private String realName;
     private int authenticationLevel;
 
-    public User(String username, String user, int authenticationLevel) {
+    public User(String username, String realName, int authenticationLevel) {
         this.username = username;
-        this.user = user;
+        this.realName = realName;
         this.authenticationLevel = authenticationLevel;
     }
     public String getUsername() {
@@ -18,12 +18,12 @@ public class User {
         this.username = username;
     }
 
-    public String getUser() {
-        return user;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public int getAuthenticationLevel() {

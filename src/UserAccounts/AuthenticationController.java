@@ -1,19 +1,27 @@
 package UserAccounts;
 
+import Initialization.ActionController;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 
 import java.awt.*;
+import java.awt.Label;
 
-public class AuthenticationController {
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
+
+public class AuthenticationController extends ActionController {
     Authentication isAuthentic;
     User user;
 
 
 
     @FXML
-    TextField username;
-    TextField password;
-    Label errorMessage;
+    public TextField username;
+    public TextField password;
+    public Label errorMessage;
+    public Button loginButton;
 
     @FXML
     public void loginAction(){
@@ -26,7 +34,6 @@ public class AuthenticationController {
             //make a user
             user = new User(isAuthentic.getUsername(), isAuthentic.getRealName(), isAuthentic.getAuthenticationLevel());
 
-            //now, pass user to actionController
         }
         else{
             //reset fields and wait
@@ -37,6 +44,9 @@ public class AuthenticationController {
             errorMessage.setText("Incorrect username or password, please try again! 8^)");
             //
         }
-        return;
+        userData.setUserInformation(user);
+        super.displayMainPage();
     }
+
+
 }

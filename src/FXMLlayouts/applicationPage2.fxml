@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ApplicationPage2">
+   <children>
+      <TextField fx:id="nameTextField" layoutX="218.0" layoutY="87.0" promptText="Name" />
+      <Label fx:id="applicantLabel" layoutX="271.0" layoutY="23.0" text="Applicant" />
+      <TextField fx:id="address1" layoutX="217.0" layoutY="123.0" promptText="Address 1" />
+      <TextField fx:id="address2" layoutX="217.0" layoutY="165.0" promptText="Address 2" />
+      <TextField fx:id="city" layoutX="218.0" layoutY="207.0" promptText="City" />
+      <TextField fx:id="state" layoutX="404.0" layoutY="207.0" prefHeight="27.0" prefWidth="70.0" promptText="State" />
+      <TextField fx:id="postalCode" layoutX="218.0" layoutY="253.0" prefHeight="27.0" prefWidth="121.0" promptText="Postal Code" />
+      <TextField fx:id="tradeName" layoutX="217.0" layoutY="297.0" prefHeight="27.0" prefWidth="201.0" promptText="Approved DBA / TradeName" />
+      <Button fx:id="nextButton" layoutX="278.0" layoutY="344.0" mnemonicParsing="false" text="Next" />
+      <Label fx:id="errorLabel" layoutX="277.0" layoutY="58.0" prefHeight="17.0" prefWidth="47.0" />
+   </children>
+</AnchorPane>

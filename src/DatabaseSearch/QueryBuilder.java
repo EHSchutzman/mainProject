@@ -39,7 +39,7 @@ public class QueryBuilder {
         setPassword(password);
 
         // build query
-        stringBuilder.append("SELECT ").append(getFields()).append(" FROM ").append(getTableName());
+        stringBuilder.append("SELECT ").append(getFields()).append(" FROM APP.").append(getTableName());
 
         // Maybe check that no strings are empty before appending where?
         stringBuilder.append(" WHERE");
@@ -105,7 +105,7 @@ public class QueryBuilder {
     // Build the COLA Search Query after parameters have been input
     private void buildCOLASearchQuery() {
         // build query
-        stringBuilder.append("SELECT ").append(getFields()).append(" FROM ").append(getTableName());
+        stringBuilder.append("SELECT ").append(getFields()).append(" FROM APP.").append(getTableName());
 
         // Maybe check that no strings are empty before appending where?
         stringBuilder.append(" WHERE");
@@ -115,7 +115,7 @@ public class QueryBuilder {
         // REPLACE WITH ACTUAL DB FIELD NAMES
         if (getAppID() != null && !getAppID().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" APP_ID=").append(getAppID());
+                stringBuilder.append(" AND").append(" APP_ID=").append(getAppID());
             } else {
                 stringBuilder.append(" APP_ID=").append(getAppID());
                 firstCond = false;
@@ -123,45 +123,45 @@ public class QueryBuilder {
         }
         if (getFromDate() != null && !getFromDate().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" date BETWEEN #").append(getFromDate());
-                stringBuilder.append("# AND #").append(getToDate()).append("#");
+                stringBuilder.append(" AND").append(" DATE BETWEEN '").append(getFromDate());
+                stringBuilder.append("' AND '").append(getToDate()).append("'");
             } else {
-                stringBuilder.append(" date BETWEEN #").append(getFromDate());
-                stringBuilder.append("# AND #").append(getToDate()).append("#");
+                stringBuilder.append(" DATE BETWEEN '").append(getFromDate());
+                stringBuilder.append("' AND '").append(getToDate()).append("'");
                 firstCond = false;
             }
         }
         if (getBrandName() != null && !getBrandName().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" brandName='").append(getBrandName()).append("'");
+                stringBuilder.append(" AND").append(" BRAND_NAME='").append(getBrandName()).append("'");
             } else {
-                stringBuilder.append(" brandName='").append(getBrandName()).append("'");
+                stringBuilder.append(" BRAND_NAME='").append(getBrandName()).append("'");
                 firstCond = false;
             }
         }
         if (getProductName() != null && !getProductName().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" productName='").append(getProductName()).append("'");
+                stringBuilder.append(" AND").append(" PRODUCT_NAME='").append(getProductName()).append("'");
             } else {
-                stringBuilder.append(" productName='").append(getProductName()).append("'");
+                stringBuilder.append(" PRODUCT_NAME='").append(getProductName()).append("'");
                 firstCond = false;
             }
         }
         if (getTypeFrom() != null && !getTypeFrom().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" type BETWEEN ").append(Integer.getInteger(getTypeFrom()));
-                stringBuilder.append(" AND ").append(Integer.getInteger(getTypeTo()));
+                stringBuilder.append(" AND").append(" TYPE BETWEEN ").append(getTypeFrom());
+                stringBuilder.append(" AND ").append(getTypeTo());
             } else {
-                stringBuilder.append(" type BETWEEN ").append(Integer.getInteger(getTypeFrom()));
-                stringBuilder.append(" AND ").append(Integer.getInteger(getTypeTo()));
+                stringBuilder.append(" TYPE BETWEEN ").append(getTypeFrom());
+                stringBuilder.append(" AND ").append(getTypeTo());
                 firstCond = false;
             }
         }
         if (getOriginCode() != null && !getOriginCode().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND ").append(" originCode='").append(getOriginCode()).append("'");
+                stringBuilder.append(" AND").append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
             } else {
-                stringBuilder.append(" originCode='").append(getOriginCode()).append("'");
+                stringBuilder.append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
                 firstCond = false;
             }
         }
