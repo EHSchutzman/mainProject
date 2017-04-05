@@ -417,72 +417,71 @@ public class FormController{
     //
     @FXML
     public void nextPage() {
+
         if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
-            agentNextPage();
+            if (main.userData.getCurrentApplicationPage() == 0) {
+                System.out.println("0");
+                main.userData.setCurrentApplicationPage(1);
+                main.changeAgentFormView(1);
+            } else if (main.userData.getCurrentApplicationPage() == 1) {
+                System.out.println("1");
+                main.userData.setCurrentApplicationPage(2);
+                main.changeAgentFormView(2);
+
+            } else if (main.userData.getCurrentApplicationPage() == 2) {
+                System.out.println("2");
+                main.userData.setCurrentApplicationPage(3);
+                main.changeAgentFormView(3);
+
+            } else if (main.userData.getCurrentApplicationPage() == 3) {
+                main.userData.setCurrentApplicationPage(4);
+                main.changeAgentFormView(4);
+
+            } else if (main.userData.getCurrentApplicationPage() == 4) {
+                main.userData.setCurrentApplicationPage(5);
+                main.changeAgentFormView(5);
+
+            } else if (main.userData.getCurrentApplicationPage() == 5) {
+                main.userData.setCurrentApplicationPage(6);
+                main.changeAgentFormView(6);
+
+            } else if (main.userData.getCurrentApplicationPage() == 6) {
+                main.userData.setCurrentApplicationPage(0);
+
+            }
         } else {
-            applicantNextPage();
+            System.out.println("Next applicant page");
+            if (main.userData.getCurrentApplicationPage() == 0) {
+                System.out.println("0");
+                main.userData.setCurrentApplicationPage(1);
+                main.changeApplicantFormView(1);
+            } else if (main.userData.getCurrentApplicationPage() == 1) {
+                System.out.println("1");
+                main.userData.setCurrentApplicationPage(2);
+                main.changeApplicantFormView(2);
+
+            } else if (main.userData.getCurrentApplicationPage() == 2) {
+                System.out.println("2");
+                main.userData.setCurrentApplicationPage(3);
+                main.changeApplicantFormView(3);
+
+            } else if (main.userData.getCurrentApplicationPage() == 3) {
+                main.userData.setCurrentApplicationPage(4);
+                main.changeApplicantFormView(4);
+
+            } else if (main.userData.getCurrentApplicationPage() == 4) {
+                main.userData.setCurrentApplicationPage(5);
+                main.changeApplicantFormView(5);
+
+            } else if (main.userData.getCurrentApplicationPage() == 5) {
+                main.userData.setCurrentApplicationPage(6);
+                main.changeApplicantFormView(6);
+
+            } else if (main.userData.getCurrentApplicationPage() == 6) {
+                main.userData.setCurrentApplicationPage(0);
+
+            }
         }
 
-    }
-
-    public void agentNextPage() {
-        System.out.println("currentPage is " + currentPage);
-        if (currentPage == 0) {
-            currentPage++;
-            //display page1
-        } else if (currentPage == 1) {
-            currentPage++;
-            //display page2
-        } else if (currentPage == 2) {
-            currentPage++;
-            //display page3
-        } else if (currentPage == 3) {
-            currentPage++;
-            //display page3
-        } else if (currentPage == 4) {
-            currentPage++;
-            //display page4
-        } else if (currentPage == 5) {
-
-            currentPage = 0;
-            submitForm();
-            //display page 5
-        }
-    }
-
-    public void applicantNextPage() {
-        System.out.println("currentPage is " + currentPage);
-        if (currentPage == 0) {
-            System.out.println("0");
-            currentPage++;
-            main.changeApplicantFormView(1);
-        } else if (currentPage == 1) {
-            System.out.println("1");
-            currentPage++;
-            main.changeApplicantFormView(2);
-
-        } else if (currentPage == 2) {
-            System.out.println("2");
-            currentPage++;
-            main.changeApplicantFormView(3);
-
-        } else if (currentPage == 3) {
-            currentPage++;
-            main.changeApplicantFormView(4);
-
-        } else if (currentPage == 4) {
-            currentPage++;
-            main.changeApplicantFormView(5);
-
-        } else if (currentPage == 5) {
-            currentPage++;
-            main.changeApplicantFormView(6);
-
-        } else if (currentPage == 6) {
-            System.out.println("in here");
-            currentPage = 0;
-            //main.changeApplicantFormView(currentPage);
-
-        }
     }
 }

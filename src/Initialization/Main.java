@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public Data userData = new Data(new User("test", "test test", 0));
+    public Data userData = new Data(new User("test", "test test", 3));
     private Stage primaryStage;
     private AnchorPane rootLayout;
 
@@ -125,7 +125,7 @@ public class Main extends Application {
     }
 
     public void changeApplicantFormView(int i){
-        String fxmlFile = "/FXMLLayouts/applicationPage0.fxml";;
+        String fxmlFile = "/FXMLLayouts/applicationPage0.fxml";
         try{
             FXMLLoader loader = new FXMLLoader();
             switch (i){
@@ -155,7 +155,37 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    public void changeAgentFormView(int i){
+        String fxmlFile = "/FXMLLayouts/applicationPage0.fxml";
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            switch (i){
+                case 1: fxmlFile = "/FXMLLayouts/agentApplication0.fxml";
+                    break;
+                case 2: fxmlFile = "/FXMLLayouts/agentApplication1.fxml";
+                    break;
+                case 3: fxmlFile = "/FXMLLayouts/agentApplication2.fxml";
+                    break;
+                case 4: fxmlFile = "/FXMLLayouts/agentApplication3.fxml";
+                    break;
+                case 5: fxmlFile = "/FXMLLayouts/agentApplication4.fxml";
+                    break;
+                case 6: fxmlFile = "/FXMLLayouts/agentApplication5.fxml";
+                    break;
+            }
+            loader.setLocation(getClass().getResource(fxmlFile));
+            AnchorPane pane = loader.load();
 
+            primaryStage.setTitle("Search");
+            primaryStage.getScene().setRoot(pane);
+
+            FormController controller = loader.getController();
+            controller.setDisplay(this);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         try {
