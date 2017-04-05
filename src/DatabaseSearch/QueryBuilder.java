@@ -123,11 +123,11 @@ public class QueryBuilder {
         }
         if (getFromDate() != null && !getFromDate().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" DATE BETWEEN #").append(getFromDate());
-                stringBuilder.append("# AND #").append(getToDate()).append("#");
+                stringBuilder.append(" AND").append(" DATE BETWEEN '").append(getFromDate());
+                stringBuilder.append("' AND '").append(getToDate()).append("'");
             } else {
-                stringBuilder.append(" DATE BETWEEN #").append(getFromDate());
-                stringBuilder.append("# AND #").append(getToDate()).append("#");
+                stringBuilder.append(" DATE BETWEEN '").append(getFromDate());
+                stringBuilder.append("' AND '").append(getToDate()).append("'");
                 firstCond = false;
             }
         }
