@@ -1,5 +1,6 @@
 package Form;
 import DatabaseSearch.QueryBuilder;
+import DatabaseSearch.TTB_database;
 import Initialization.ActionController;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
@@ -8,6 +9,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class FormController extends ActionController {
@@ -16,6 +21,9 @@ public class FormController extends ActionController {
 
     @FXML
     private Button nextButton;
+
+    @FXML
+    private Button submitButton;
 
     @FXML
     private TextField repIDText;
@@ -106,6 +114,8 @@ public class FormController extends ActionController {
     //Beer
     @FXML
     private TextField alterBeerAlcoholContent;
+
+    //public FormController () {}
     /*
     //might need to go in main
     //initializes all the radio buttons
@@ -377,12 +387,12 @@ public class FormController extends ActionController {
 
     public void acceptForm() {
         tempForm.setStatus("accepted");
-        submitForm();
+        submitForm(tempForm);
     }
 
     public void rejectForm() {
         tempForm.setStatus("rejected");
-        submitForm();
+        submitForm(tempForm);
     }
 
     public void chooseForm () {
@@ -393,9 +403,45 @@ public class FormController extends ActionController {
         //get a form form DB
     }
 
-    public void submitForm() {
-        QueryBuilder qb = new QueryBuilder();
-        //builds query
+    // Connect to the DB
+    protected Connection DBConnect() throws SQLException {
+        return TTB_database.connect();
+    }
+
+    // Function will query the DB
+    protected ResultSet queryDB(String query) {
+        Connection c;
+        Statement stmt;
+        ResultSet rs = null;
+        try {
+            c = DBConnect();
+            stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+        return rs;
+    }
+
+    public void submitForm(Form form) {
+        try {
+            String formID = null;
+            Connection c = DBConnect();
+            QueryBuilder qb = new QueryBuilder("FORM", "FORM.FORM_ID", form.getFormID());
+            ResultSet rs = queryDB(qb.getQuery());
+            Statement s = rs.getStatement();
+            while(rs.next()) {
+                formID = rs.getString("FORM_ID");
+            }
+            if (formID == null || formID.isEmpty()) {
+                rs.insertRow();
+            } else {
+                rs.updateRow();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         //check if form exists if not save a new one, else update form in DB
     }
 
@@ -403,5 +449,12 @@ public class FormController extends ActionController {
     public void nextPage() {
         //next button functions
         //save previous information into a form object
+    }
+
+    public static void main (String[] args) {
+        Form form = new Form();
+        form.setFormID(form.makeUniqueID());
+
+        FormController.submitForm(form);
     }
 }
