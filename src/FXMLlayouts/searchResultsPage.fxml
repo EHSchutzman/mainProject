@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -10,13 +11,16 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
     <children>
-        <TableView fx:id="resultsTable" layoutX="22.0" layoutY="35.0" prefHeight="339.0" prefWidth="558.0">
+        <TableView fx:id="resultsTable" layoutX="27.0" layoutY="53.0" prefHeight="333.0" prefWidth="548.0">
             <columns>
                 <TableColumn prefWidth="219.0" text="C1" />
                 <TableColumn prefWidth="210.0" text="C2" />
             </columns>
         </TableView>
-        <Label fx:id="pageLabel" layoutX="253.0" layoutY="14.0" text="Search Results" />
-      <Button fx:id="gen_csv" layoutX="491.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#saveCSV" text="Generate CSV" />
+        <Label fx:id="pageLabel" layoutX="244.0" layoutY="14.0" text="Search Results">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <Button fx:id="gen_csv" layoutX="464.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#saveCSV" text="Generate CSV" />
     </children>
 </AnchorPane>

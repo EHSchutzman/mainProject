@@ -393,9 +393,9 @@ public class FormController{
         return tempForm;
     }
 
-    public void acceptForm() {
+    public void acceptForm(Form form) {
         tempForm.setStatus("accepted");
-        submitForm();
+        submitForm(form);
     }
 
     public void rejectForm() {
