@@ -71,7 +71,7 @@ public class SearchController {
     @FXML
     private TextField cbLocationCode;
     @FXML
-    private TableView tableview = new TableView();
+    private TableView<ObservableList> tableview = new TableView<ObservableList>();
     @FXML
     private TextField txtAppID;
 
@@ -92,27 +92,6 @@ public class SearchController {
 
         // Query the DB
         rs = queryDB(getQuery());
-
-        try {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-
-// Iterate through the data in the result set and display it.
-
-            while (rs.next()) {
-//Print one row
-                for (int i = 1; i <= columnsNumber; i++) {
-
-                    System.out.print(rs.getString(i) + " "); //Print one element of a row
-
-                }
-
-                System.out.println();//Move to the next line to print the next row.
-
-            }
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
 
         // Display our new data in the TableView
         displayData(rs);
@@ -184,35 +163,54 @@ public class SearchController {
 
             ObservableList<ObservableList> data = FXCollections.observableArrayList();
 
-        try {
+            try {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnsNumber = rsmd.getColumnCount();
 
-            while (rs.next()) {
-                String formID = rs.getString("FORM_ID");
-                String permitNo = rs.getString("PERMIT_NO");
-                String serialNo = rs.getString("SERIAL_NUMBER");
-                String completedDate = rs.getString("COMPLETED_DATE");
-                String fancifulName = rs.getString("FANCIFUL_NAME");
-                String brandName = rs.getString("BRAND_NAME");
-                String origin = rs.getString("ORIGIN");
-                String type = rs.getString("TYPE_ID");
+// Iterate through the data in the result set and display it.
 
-                ObservableList<String> row = FXCollections.observableArrayList();
-                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                    row.add(rs.getString(i));
+                while (rs.next()) {
+//Print one row
+                    for (int i = 1; i <= columnsNumber; i++) {
+                        System.out.print(rs.getString(i) + " "); //Print one element of a row
+                    }
+
+                    System.out.println();//Move to the next line to print the next row.
+
                 }
-                data.add(row);
-
-                System.out.println("Data "+ data);
-
-            }
-
-            //FINALLY ADDED TO TableView
-            tableview.setItems(data);
-            } catch (Exception e) {
+            } catch(SQLException e){
                 e.printStackTrace();
-                System.out.println("Error building data!");
             }
-            return true;
+
+            try {
+
+                while (rs.next()) {
+                    String formID = rs.getString("FORM_ID");
+                    String permitNo = rs.getString("PERMIT_NO");
+                    String serialNo = rs.getString("SERIAL_NUMBER");
+                    String completedDate = rs.getString("COMPLETED_DATE");
+                    String fancifulName = rs.getString("FANCIFUL_NAME");
+                    String brandName = rs.getString("BRAND_NAME");
+                    String origin = rs.getString("ORIGIN");
+                    String type = rs.getString("TYPE_ID");
+
+                    ObservableList<String> row = FXCollections.observableArrayList();
+                    for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+                        row.add(rs.getString(i));
+                    }
+                    data.add(row);
+
+                    System.out.println("Data "+ data);
+
+                }
+
+                //FINALLY ADDED TO TableView
+                tableview.setItems(data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Error building data!");
+                }
+                return true;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error displaying data.");

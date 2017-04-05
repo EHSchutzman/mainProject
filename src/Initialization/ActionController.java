@@ -37,6 +37,7 @@ public class ActionController {
         try {
             main.setDisplayToSearch();
         } catch (Exception e) {
+            e.printStackTrace();
             return;
         }
 
