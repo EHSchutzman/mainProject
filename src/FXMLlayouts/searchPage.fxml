@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="DatabaseSearch.SearchController">
+    <children>
+        <Label fx:id="colaLabel" layoutX="212.0" layoutY="14.0" prefHeight="43.0" prefWidth="177.0"
+               text="COLA Registry">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="dateCompletedFrom" layoutX="83.0" layoutY="126.0" promptText="From"/>
+        <Button fx:id="searchButton" layoutX="262.0" layoutY="324.0" mnemonicParsing="false" text="Search"/>
+        <Label fx:id="errorLabel" layoutX="273.0" layoutY="78.0" prefHeight="17.0" prefWidth="54.0"/>
+        <TextField fx:id="productName" layoutX="83.0" layoutY="181.0" promptText="Product Name"/>
+        <TextField fx:id="dateCompletedTo" layoutX="306.0" layoutY="126.0" promptText="To"/>
+        <Label layoutX="83.0" layoutY="104.0" text="Date Completed:"/>
+        <TextField fx:id="productClassType" layoutX="83.0" layoutY="231.0" promptText="Product Class / Type"/>
+        <TextField fx:id="state" layoutX="83.0" layoutY="277.0" promptText="State"/>
+    </children>
+</AnchorPane>
