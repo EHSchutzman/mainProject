@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="DatabaseSearch.SearchController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
     <children>
         <TableView fx:id="resultsTable" layoutX="22.0" layoutY="35.0" prefHeight="339.0" prefWidth="558.0">
             <columns>
-                <TableColumn prefWidth="219.0" text="C1"/>
-                <TableColumn prefWidth="210.0" text="C2"/>
+                <TableColumn prefWidth="219.0" text="C1" />
+                <TableColumn prefWidth="210.0" text="C2" />
             </columns>
         </TableView>
-        <Label fx:id="pageLabel" layoutX="253.0" layoutY="14.0" text="Search Results"/>
+        <Label fx:id="pageLabel" layoutX="253.0" layoutY="14.0" text="Search Results" />
+      <Button fx:id="gen_csv" layoutX="491.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#saveCSV" text="Generate CSV" />
     </children>
 </AnchorPane>

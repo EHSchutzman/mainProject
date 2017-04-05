@@ -3,10 +3,7 @@ package DatabaseSearch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -125,7 +122,7 @@ public class SearchController {
     }
 
     //Function that reads (currently) an app id entered into a text box and searches for a single application
-    protected Boolean applicationSearchCriteria(){
+    protected boolean applicationSearchCriteria(){
         try {
             //Set all variables equal to input data
             appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
@@ -140,7 +137,7 @@ public class SearchController {
 
     // Display DB data into a TableView
     // http://blog.ngopal.com.np/2011/10/19/dyanmic-tableview-data-from-database/comment-page-1/
-    protected Boolean displayData(ResultSet rs) {
+    protected boolean displayData(ResultSet rs) {
 
         try {
             // Auto-genericized?
@@ -189,7 +186,8 @@ public class SearchController {
     }
 
     // Save a CSV of the results locally
-    protected Boolean saveCSV() {
+    @FXML
+    protected boolean saveCSV() {
 
         try {
             generateCSV(rs);
