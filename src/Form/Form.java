@@ -1,4 +1,4 @@
-
+package Form;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,11 +14,21 @@ public class Form {
     //address
     private String companyName;
     private String address;
+    private String address1;
+    private String address2;
     private String city;
     private String state;
     private String zipCode;
     private String country;
     private String tradename;
+    //mailing address
+    private String addressMailing;
+    private String addressMailing1;
+    private String addressMailing2;
+    private String cityMailing;
+    private String stateMailing;
+    private String zipCodeMailing;
+    private String countryMailing;
     //
     private String phoneNumber;
     private String email;
@@ -120,6 +130,22 @@ public class Form {
         this.address = address;
     }
 
+    public String getAddress1() {
+        return address1;
+    }
+
+    public void setAddress1(String address1) {
+        this.address1 = address1;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
     public String getCity() {
         return city;
     }
@@ -158,6 +184,62 @@ public class Form {
 
     public void setTradename(String tradename) {
         this.tradename = tradename;
+    }
+
+    public String getAddressMailing() {
+        return addressMailing;
+    }
+
+    public void setAddressMailing(String addressMailing) {
+        this.addressMailing = addressMailing;
+    }
+
+    public String getAddressMailing1() {
+        return addressMailing1;
+    }
+
+    public void setAddressMailing1(String addressMailing1) {
+        this.addressMailing1 = addressMailing1;
+    }
+
+    public String getAddressMailing2() {
+        return addressMailing2;
+    }
+
+    public void setAddressMailing2(String addressMailing2) {
+        this.addressMailing2 = addressMailing2;
+    }
+
+    public String getCityMailing() {
+        return cityMailing;
+    }
+
+    public void setCityMailing(String cityMailing) {
+        this.cityMailing = cityMailing;
+    }
+
+    public String getStateMailing() {
+        return stateMailing;
+    }
+
+    public void setStateMailing(String stateMailing) {
+        this.stateMailing = stateMailing;
+    }
+
+    public String getZipCodeMailing() {
+        return zipCodeMailing;
+    }
+
+    public void setZipCodeMailing(String zipCodeMailing) {
+        this.zipCodeMailing = zipCodeMailing;
+    }
+
+    public String getCountryMailing() {
+        return countryMailing;
+    }
+
+    public void setCountryMailing(String countryMailing) {
+        this.countryMailing = countryMailing;
     }
 
     public String getPhoneNumber() {
