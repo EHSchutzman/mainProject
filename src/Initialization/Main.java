@@ -116,7 +116,7 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
 
             SearchController controller = loader.getController();
-//            controller.setDisplay(this);
+            controller.setDisplay(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
