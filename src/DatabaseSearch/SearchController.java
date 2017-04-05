@@ -327,5 +327,13 @@ public class SearchController {
     public void setDisplay(Main main) {
         this.main = main;
     }
+    @FXML
+    public void returnToMainPage(){
+        try{
+            main.setDisplayToMain();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

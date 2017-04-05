@@ -20,6 +20,8 @@ public class FormController{
         this.main = main;
     }
 
+    @FXML
+    private Button mainPageButton;
 
     @FXML
     private Button nextButton;
@@ -474,6 +476,12 @@ public class FormController{
             //e.printStackTrace();
             System.out.println("no results");
         }
+        try {
+            main.setDisplayToMain();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        main.userData.setCurrentApplicationPage(0);
     }
 
     @FXML
@@ -554,5 +562,13 @@ public class FormController{
             }
         }
 
+    }
+    @FXML
+    public void returnToMainPage(){
+        try{
+            main.setDisplayToMain();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

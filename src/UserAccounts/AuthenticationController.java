@@ -74,21 +74,21 @@ public class AuthenticationController {
         Boolean foundUser = false;
 
 
-        isAuthentic = new Authentication(name,pass);
-        if(isAuthentic.authenticate()) {
-            //make a user
-            user = new User(isAuthentic.getUsername(), isAuthentic.getRealName(), isAuthentic.getAuthenticationLevel());
-
-        }
-        else{
-            //reset fields and wait
-            //@TODO make extra checks for if name exists, and just that password is wrong
-            password.setText(null);
-            username.setText(null);
-
-            errorMessage.setText("Incorrect username or password, please try again! 8^)");
-            //
-        }
+//        isAuthentic = new Authentication(name,pass);
+//        if(isAuthentic.authenticate()) {
+//            //make a user
+//            user = new User(isAuthentic.getUsername(), isAuthentic.getRealName(), isAuthentic.getAuthenticationLevel());
+//
+//        }
+//        else{
+//            //reset fields and wait
+//            //@TODO make extra checks for if name exists, and just that password is wrong
+//            password.setText(null);
+//            username.setText(null);
+//
+//            errorMessage.setText("Incorrect username or password, please try again! 8^)");
+//            //
+//        }
         main.userData.setUserInformation(user);
         main.setDisplayToMain();
     }
