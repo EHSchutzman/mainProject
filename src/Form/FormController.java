@@ -94,11 +94,9 @@ public class FormController{
     //TTB Use (accept/reject)
     //RadioButtons to accept or reject application
     @FXML
-    private ToggleGroup statusGroup;
+    private Button acceptButton;
     @FXML
-    private RadioButton acceptRadio;
-    @FXML
-    private RadioButton rejectRadio;
+    private Button rejectButton;
     //
     @FXML
     private DatePicker approvalDate;
@@ -312,20 +310,20 @@ public class FormController{
     public Form createAgentFormPage1() {
         //initializes necessary radio buttons
         //Source
-        domesticRadio = new RadioButton("domestic");
-        importedRadio = new RadioButton("imported");
+        domesticRadio=new RadioButton("domestic");
+        importedRadio=new RadioButton("imported");
         //set selected
-        if (tempForm.getSource().equals("imported")) {
+        if(tempForm.getSource().equals("imported")) {
             importedRadio.setSelected(true);
         } else if (tempForm.getSource().equals("domestic")) {
             domesticRadio.setSelected(true);
         }
 
         //Type
-        beerRadio = new RadioButton("beer");
-        wineRadio = new RadioButton("wine");
+        beerRadio=new RadioButton("beer");
+        wineRadio=new RadioButton("wine");
         //set selected
-        if (tempForm.getType() == 901) {
+        if(tempForm.getType() == 901) {
             beerRadio.setSelected(true);
         } else if (tempForm.getType() == 80) {
             wineRadio.setSelected(true);
@@ -380,11 +378,24 @@ public class FormController{
         completedDate.setValue(tempForm.getCompletedDate());
         applicantNameText.setPromptText(tempForm.getApplicantName());
 
+        tempForm.setApprovalDate(approvalDate.getValue());
+        tempForm.setAgentName(agentNameText.getText());
+        tempForm.setExpirationDate(expirationDate.getValue());
+
         return tempForm;
     }
 
+    public void acceptForm() {
+        tempForm.setStatus("accepted");
+        submitForm();
+    }
 
-    public void chooseForm() {
+    public void rejectForm() {
+        tempForm.setStatus("rejected");
+        submitForm();
+    }
+
+    public void chooseForm () {
         //select a form from the list of forms that need to be processed
     }
 
