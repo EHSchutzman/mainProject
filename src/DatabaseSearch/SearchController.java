@@ -2,6 +2,8 @@ package DatabaseSearch;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+
+import Initialization.Data;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 public class SearchController {
 
     private Main main;
+    private Data data = new Data();
     // Database information
     private static String url = "Example";
     private static String user = "root";
@@ -71,7 +74,7 @@ public class SearchController {
     @FXML
     private TextField cbLocationCode;
     @FXML
-    private TableView<ObservableList> tableview = new TableView<ObservableList>();
+    private TableView<ObservableList> resultsTable = new TableView<>();
     @FXML
     private TextField txtAppID;
 
@@ -91,10 +94,31 @@ public class SearchController {
         setQuery(getQueryBuilder().getQuery());
 
         // Query the DB
-        rs = queryDB(getQuery());
+        data.setSearchResults(queryDB(getQuery()));
+
+        try {
+            ResultSetMetaData rsmd = data.getSearchResults().getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+
+// Iterate through the data in the result set and display it.
+
+            while (data.getSearchResults().next()) {
+//Print one row
+                for (int i = 1; i <= columnsNumber; i++) {
+
+                    System.out.print(data.getSearchResults().getString(i) + " "); //Print one element of a row
+
+                }
+
+                System.out.println();//Move to the next line to print the next row.
+
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
 
         // Display our new data in the TableView
-        displayData(rs);
+        displayData(data.getSearchResults());
 
     }
 
@@ -158,21 +182,21 @@ public class SearchController {
     // Display DB data into a TableView
     protected boolean displayData(ResultSet rs) {
 
+        ResultSet dataa = data.getSearchResults();
+
         try {
             main.displaySearchResultsPage();
 
-            ObservableList<ObservableList> data = FXCollections.observableArrayList();
-
-            try {
-                ResultSetMetaData rsmd = rs.getMetaData();
+            /*try {
+                ResultSetMetaData rsmd = data.getSearchResults().getMetaData();
                 int columnsNumber = rsmd.getColumnCount();
-
 // Iterate through the data in the result set and display it.
 
-                while (rs.next()) {
+                while (data.getSearchResults().next()) {
+                    System.out.println("hiiiii");
 //Print one row
                     for (int i = 1; i <= columnsNumber; i++) {
-                        System.out.print(rs.getString(i) + " "); //Print one element of a row
+                        System.out.print(data.getSearchResults().getString(i) + " "); //Print one element of a row
                     }
 
                     System.out.println();//Move to the next line to print the next row.
@@ -180,32 +204,34 @@ public class SearchController {
                 }
             } catch(SQLException e){
                 e.printStackTrace();
-            }
+            }*/
 
             try {
 
-                while (rs.next()) {
-                    String formID = rs.getString("FORM_ID");
-                    String permitNo = rs.getString("PERMIT_NO");
-                    String serialNo = rs.getString("SERIAL_NUMBER");
-                    String completedDate = rs.getString("COMPLETED_DATE");
-                    String fancifulName = rs.getString("FANCIFUL_NAME");
-                    String brandName = rs.getString("BRAND_NAME");
-                    String origin = rs.getString("ORIGIN");
-                    String type = rs.getString("TYPE_ID");
+                ObservableList<ObservableList> dataList = FXCollections.observableArrayList();
+                while (dataa.next()) {
+                    String formID = dataa.getString("FORM_ID");
+                    String permitNo = dataa.getString("PERMIT_NO");
+                    String serialNo = dataa.getString("SERIAL_NUMBER");
+                    String completedDate = dataa.getString("COMPLETED_DATE");
+                    String fancifulName = dataa.getString("FANCIFUL_NAME");
+                    String brandName = dataa.getString("BRAND_NAME");
+                    String origin = dataa.getString("ORIGIN");
+                    String type = dataa.getString("TYPE_ID");
 
                     ObservableList<String> row = FXCollections.observableArrayList();
-                    for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                        row.add(rs.getString(i));
+                    for(int i=1 ; i<=dataa.getMetaData().getColumnCount(); i++){
+                        row.add(dataa.getString(i));
                     }
-                    data.add(row);
+                    dataList.add(row);
 
-                    System.out.println("Data "+ data);
+                    System.out.println("Data "+ dataList);
 
                 }
+                System.out.println("Data "+ dataList);
 
                 //FINALLY ADDED TO TableView
-                tableview.setItems(data);
+                resultsTable.setItems(dataList);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("Error building data!");
@@ -239,7 +265,7 @@ public class SearchController {
     protected boolean saveCSV() {
 
         try {
-            generateCSV(rs);
+            generateCSV();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -251,14 +277,17 @@ public class SearchController {
 
     // Generate a CSV file of the current ResultSet
     // http://stackoverflow.com/questions/22439776/how-to-convert-resultset-to-csv
-    protected void generateCSV(ResultSet rs) throws SQLException, FileNotFoundException {
+    protected void generateCSV() throws SQLException, FileNotFoundException {
 
         // Initialize file
         PrintWriter csvWriter = new PrintWriter(new File("TTB_Search_Results.csv"));
 
+        ResultSet dataa = data.getSearchResults();
+
         // Determine CSV size and headers
-        ResultSetMetaData meta = rs.getMetaData();
+        ResultSetMetaData meta = dataa.getMetaData();
         int numberOfColumns = meta.getColumnCount();
+        System.out.println(numberOfColumns);
         String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
         for (int i = 2; i < numberOfColumns + 1; i++) {
             dataHeaders += ",\"" + meta.getColumnName(i).replaceAll("\"", "\\\"") + "\"";
@@ -268,14 +297,15 @@ public class SearchController {
         csvWriter.println(dataHeaders);
 
         // Print data to CSV
-        while (rs.next()) {
-            String row = "\"" + rs.getString(1).replaceAll("\"", "\\\"") + "\"";
+        while (dataa.next()) {
+            String row = "\"" + dataa.getString(1).replaceAll("\"", "\\\"") + "\"";
             for (int i = 2; i < numberOfColumns + 1; i++) {
-                row += ",\"" + rs.getString(i).replaceAll("\"", "\\\"") + "\"";
+                row += ",\"" + dataa.getString(i).replaceAll("\"", "\\\"") + "\"";
             }
             csvWriter.println(row);
         }
         csvWriter.close();
+
     }
 
     public QueryBuilder getQueryBuilder() {
