@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.Pane?>
-
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.ActionController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.ActionController">
    <children>
-      <Button fx:id="loginButton" layoutX="196.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#displayLogin" text="Login" />
+      <Button fx:id="searchButton" layoutX="220.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Search COLA Database" />
+      <Button fx:id="submissionButton" layoutX="215.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#displayApplicationPage" text="Submit Label Application" />
+      <Button fx:id="logInButton" layoutX="272.0" layoutY="273.0" mnemonicParsing="false" onMouseClicked="#displayLogin" text="Log In" />
    </children>
 </AnchorPane>

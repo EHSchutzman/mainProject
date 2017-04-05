@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ApplicationPage3">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
       <Label fx:id="maillingAddressLabel" layoutX="251.0" layoutY="27.0" text="Mailing Address" />
       <TextField fx:id="name" layoutX="217.0" layoutY="110.0" promptText="Name" />
@@ -18,6 +18,6 @@
       <TextField fx:id="country" layoutX="217.0" layoutY="306.0" promptText="Country" />
       <RadioButton layoutX="231.0" layoutY="77.0" mnemonicParsing="false" text="Same As Applicant" />
       <Label fx:id="errorLabel" layoutX="283.0" layoutY="52.0" prefHeight="17.0" prefWidth="47.0" />
-      <Button fx:id="nextButton" layoutX="283.0" layoutY="348.0" mnemonicParsing="false" text="Next" />
+      <Button fx:id="nextButton" layoutX="283.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#nextPage" text="Next" />
    </children>
 </AnchorPane>

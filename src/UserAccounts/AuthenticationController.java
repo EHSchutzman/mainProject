@@ -1,6 +1,7 @@
 package UserAccounts;
 
-import Initialization.ActionController;
+
+import Initialization.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -11,17 +12,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 
-public class AuthenticationController extends ActionController {
+public class AuthenticationController {
     Authentication isAuthentic;
     User user;
 
 
-
+    private Main main;
     @FXML
     public TextField username;
     public TextField password;
     public Label errorMessage;
     public Button loginButton;
+
+    public AuthenticationController() {
+        errorMessage = null;
+        password = null;
+        username = null;
+    }
 
     @FXML
     public void loginAction(){
@@ -44,9 +51,11 @@ public class AuthenticationController extends ActionController {
             errorMessage.setText("Incorrect username or password, please try again! 8^)");
             //
         }
-        userData.setUserInformation(user);
-        super.displayMainPage();
+        main.userData.setUserInformation(user);
+        main.setDisplayToMain();
     }
-
+    public void setDisplay(Main main){
+        this.main = main;
+    }
 
 }

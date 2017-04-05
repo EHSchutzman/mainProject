@@ -82,9 +82,7 @@ public class Form {
         this.repID = repID;
     }
 
-    public String getPermitNo() {
-        return permitNo;
-    }
+    public String getPermitNo() { return permitNo; }
 
     public void setPermitNo(String permitNo) {
         this.permitNo = permitNo;

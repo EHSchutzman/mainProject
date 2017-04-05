@@ -1,7 +1,8 @@
 package Form;
 import DatabaseSearch.QueryBuilder;
-import DatabaseSearch.TTB_database;
 import Initialization.ActionController;
+import Initialization.Main;
+import DatabaseSearch.QueryBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -15,9 +16,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class FormController extends ActionController {
+public class FormController{
     private ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
     Form tempForm = new Form();
+    public int currentPage;
+
+    private Main main;
+
+    public void setDisplay(Main main) {
+        this.main = main;
+    }
+
 
     @FXML
     private Button nextButton;
@@ -209,8 +218,8 @@ public class FormController extends ActionController {
         //initializes necessary radio buttons
         //Source
         //make radio buttons and group them
-        domesticRadio=new RadioButton("domestic");
-        importedRadio=new RadioButton("imported");
+        domesticRadio = new RadioButton("domestic");
+        importedRadio = new RadioButton("imported");
         //set selected
         importedRadio.setSelected(true);
         //create group for radio buttons
@@ -220,8 +229,8 @@ public class FormController extends ActionController {
 
         //Type
         //make radio buttons and group them
-        beerRadio=new RadioButton("beer");
-        wineRadio=new RadioButton("wine");
+        beerRadio = new RadioButton("beer");
+        wineRadio = new RadioButton("wine");
         //set selected
         beerRadio.setSelected(true);
         //create group for radio buttons
@@ -387,12 +396,12 @@ public class FormController extends ActionController {
 
     public void acceptForm() {
         tempForm.setStatus("accepted");
-        submitForm(tempForm);
+        submitForm();
     }
 
     public void rejectForm() {
         tempForm.setStatus("rejected");
-        submitForm(tempForm);
+        submitForm();
     }
 
     public void chooseForm () {
@@ -445,10 +454,80 @@ public class FormController extends ActionController {
         //check if form exists if not save a new one, else update form in DB
     }
 
+    @FXML
+    public void startApplication(){
+        currentPage = 0;
+        nextPage();
+    }
     //
+    @FXML
     public void nextPage() {
-        //next button functions
-        //save previous information into a form object
+
+        if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
+            if (main.userData.getCurrentApplicationPage() == 0) {
+                System.out.println("0");
+                main.userData.setCurrentApplicationPage(1);
+                main.changeAgentFormView(1);
+            } else if (main.userData.getCurrentApplicationPage() == 1) {
+                System.out.println("1");
+                main.userData.setCurrentApplicationPage(2);
+                main.changeAgentFormView(2);
+
+            } else if (main.userData.getCurrentApplicationPage() == 2) {
+                System.out.println("2");
+                main.userData.setCurrentApplicationPage(3);
+                main.changeAgentFormView(3);
+
+            } else if (main.userData.getCurrentApplicationPage() == 3) {
+                main.userData.setCurrentApplicationPage(4);
+                main.changeAgentFormView(4);
+
+            } else if (main.userData.getCurrentApplicationPage() == 4) {
+                main.userData.setCurrentApplicationPage(5);
+                main.changeAgentFormView(5);
+
+            } else if (main.userData.getCurrentApplicationPage() == 5) {
+                main.userData.setCurrentApplicationPage(6);
+                main.changeAgentFormView(6);
+
+            } else if (main.userData.getCurrentApplicationPage() == 6) {
+                main.userData.setCurrentApplicationPage(0);
+
+            }
+        } else {
+            System.out.println("Next applicant page");
+            if (main.userData.getCurrentApplicationPage() == 0) {
+                System.out.println("0");
+                main.userData.setCurrentApplicationPage(1);
+                main.changeApplicantFormView(1);
+            } else if (main.userData.getCurrentApplicationPage() == 1) {
+                System.out.println("1");
+                main.userData.setCurrentApplicationPage(2);
+                main.changeApplicantFormView(2);
+
+            } else if (main.userData.getCurrentApplicationPage() == 2) {
+                System.out.println("2");
+                main.userData.setCurrentApplicationPage(3);
+                main.changeApplicantFormView(3);
+
+            } else if (main.userData.getCurrentApplicationPage() == 3) {
+                main.userData.setCurrentApplicationPage(4);
+                main.changeApplicantFormView(4);
+
+            } else if (main.userData.getCurrentApplicationPage() == 4) {
+                main.userData.setCurrentApplicationPage(5);
+                main.changeApplicantFormView(5);
+
+            } else if (main.userData.getCurrentApplicationPage() == 5) {
+                main.userData.setCurrentApplicationPage(6);
+                main.changeApplicantFormView(6);
+
+            } else if (main.userData.getCurrentApplicationPage() == 6) {
+                main.userData.setCurrentApplicationPage(0);
+
+            }
+        }
+
     }
 
     public static void main (String[] args) {

@@ -115,18 +115,18 @@ public class QueryBuilder {
         // REPLACE WITH ACTUAL DB FIELD NAMES
         if (getAppID() != null && !getAppID().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" APP_ID=").append(getAppID());
+                stringBuilder.append(" AND").append(" FORM_ID='").append(getAppID()).append("'");;
             } else {
-                stringBuilder.append(" APP_ID=").append(getAppID());
+                stringBuilder.append(" FORM_ID='").append(getAppID()).append("'");
                 firstCond = false;
             }
         }
         if (getFromDate() != null && !getFromDate().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" DATE BETWEEN '").append(getFromDate());
+                stringBuilder.append(" AND").append(" COMPLETED_DATE BETWEEN '").append(getFromDate());
                 stringBuilder.append("' AND '").append(getToDate()).append("'");
             } else {
-                stringBuilder.append(" DATE BETWEEN '").append(getFromDate());
+                stringBuilder.append(" COMPLETED_DATE BETWEEN '").append(getFromDate());
                 stringBuilder.append("' AND '").append(getToDate()).append("'");
                 firstCond = false;
             }
@@ -141,27 +141,27 @@ public class QueryBuilder {
         }
         if (getProductName() != null && !getProductName().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" PRODUCT_NAME='").append(getProductName()).append("'");
+                stringBuilder.append(" AND").append(" FANCIFUL_NAME='").append(getProductName()).append("'");
             } else {
-                stringBuilder.append(" PRODUCT_NAME='").append(getProductName()).append("'");
+                stringBuilder.append(" FANCIFUL_NAME='").append(getProductName()).append("'");
                 firstCond = false;
             }
         }
         if (getTypeFrom() != null && !getTypeFrom().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" TYPE BETWEEN ").append(getTypeFrom());
+                stringBuilder.append(" AND").append(" TYPE_ID BETWEEN ").append(getTypeFrom());
                 stringBuilder.append(" AND ").append(getTypeTo());
             } else {
-                stringBuilder.append(" TYPE BETWEEN ").append(getTypeFrom());
+                stringBuilder.append(" TYPE_ID BETWEEN ").append(getTypeFrom());
                 stringBuilder.append(" AND ").append(getTypeTo());
                 firstCond = false;
             }
         }
         if (getOriginCode() != null && !getOriginCode().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
+                stringBuilder.append(" AND").append(" ORIGIN=(SELECT ORIGIN_CODE FROM APP.ORIGIN WHERE DESCRIPTION='").append(getOriginCode()).append("')");
             } else {
-                stringBuilder.append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
+                stringBuilder.append(" ORIGIN='").append(getOriginCode()).append("'");
                 firstCond = false;
             }
         }
