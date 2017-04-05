@@ -110,7 +110,7 @@ public class Main extends Application {
     public void setDisplayToSearch() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/searchPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/searchScreen.fxml"));
             Pane page = loader.load();
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
