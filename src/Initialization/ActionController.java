@@ -28,9 +28,10 @@ public class ActionController {
     public void displayMainPage() {
         try {
             System.out.println("TESTSTST");
-            main.initRootLayout();
+            main.setDisplayToMain();
+            System.out.println("Tasdasdasd");
         } catch (Exception e) {
-            return;
+            e.printStackTrace();
         }
     }
 
@@ -54,7 +55,7 @@ public class ActionController {
 
 
 
-    public void setDisplay(Main main){
+    public void setDisplay(Main main) {
         this.main = main;
     }
 

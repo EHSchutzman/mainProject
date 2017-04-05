@@ -1,5 +1,6 @@
 package Initialization;
 
+import UserAccounts.AuthenticationController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -60,6 +61,9 @@ public class Main extends Application {
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
 
+            ActionController controller = loader.getController();
+            controller.setDisplay(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,6 +77,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Login Page");
             primaryStage.getScene().setRoot(page);
+
+            AuthenticationController controller = loader.getController();
+            controller.setDisplay(this);
+
 
         } catch (IOException e) {
             e.printStackTrace();
