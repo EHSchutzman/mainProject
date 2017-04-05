@@ -5,7 +5,6 @@ import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -62,14 +61,17 @@ public class SearchController {
     @FXML
     private TextField txtClassRangeEnd;
     @FXML
-    private ComboBox<String> cbLocationCode;
+    private TextField cbLocationCode;
     @FXML
     private TableView<ObservableList<String>> tableview;
     @FXML
     private TextField txtAppID;
 
+    @FXML
     // Handle a search - effectively a "main" function for our program
     protected void handleSearch() {
+
+        System.out.println("Handles search!");
 
         // Handle search criteria
         searchCriteria();
@@ -115,7 +117,7 @@ public class SearchController {
         product = txtProductName.getText();
         typeFrom = txtClassRangeStart.getText();
         typeTo = txtClassRangeEnd.getText();
-        origin = cbLocationCode.getValue();
+        origin = cbLocationCode.getText();
         //store search info in a new QueryBuilder object
         setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
     }

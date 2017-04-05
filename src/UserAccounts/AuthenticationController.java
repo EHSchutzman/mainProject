@@ -23,6 +23,12 @@ public class AuthenticationController extends ActionController {
     public Label errorMessage;
     public Button loginButton;
 
+    public AuthenticationController() {
+        errorMessage = null;
+        password = null;
+        username = null;
+    }
+
     @FXML
     public void loginAction(){
         String name = username.getText();
