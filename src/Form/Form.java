@@ -1,19 +1,19 @@
-//package Form;
-import java.util.Date;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 public class Form {
 
-    private int formNumber;
+    private String formID;
     //Application
     private String repID;
-    private String registry;
-    private boolean domestic; //false for imported
-    private boolean beer;     //false for wine
+    private String permitNo;
+    private String source;
+    private int type; //use type code to search it in DB, 80 - wine, 901 - beer
     private String brandName;
     //address
     private String companyName;
-    private String address1;
-    private String address2;
+    private String address;
     private String city;
     private String state;
     private String zipCode;
@@ -22,20 +22,20 @@ public class Form {
     //
     private String phoneNumber;
     private String email;
-    private String alcoholPercentage;
+    private String alcoholContent;
     //Wine only
     private String vintageYear;
     private String pHLevel;
 
     //Applicant's Certification
-    private Date appDate; // 09/22/2003
+    private LocalDate completedDate; // 09/22/2003
     private String applicantName;
 
     //TTB Use (accept/reject)
-    private boolean accepted;   //false if rejected
-    private Date approvalDate;
+    private String status;
+    private LocalDate approvalDate;
     private String agentName;
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     //Revisions
     //Wine
@@ -45,16 +45,23 @@ public class Form {
     //Beer
     private String alterBeerAlcoholContent;
 
-    //empty constructor
+    //constructor
     public Form() {
+        this.setStatus("processing");
     }
 
-    public int getFormNumber() {
-        return formNumber;
+    //generate a unique ID for the form
+    public String makeUniqueID () {
+        String uniqueID = UUID.randomUUID().toString();
+        return uniqueID;
     }
 
-    public void setFormNumber(int formNumber) {
-        this.formNumber = formNumber;
+    public String getFormID() {
+        return formID;
+    }
+
+    public void setFormID(String formID) {
+        this.formID = formID;
     }
 
     public String getRepID() {
@@ -65,28 +72,28 @@ public class Form {
         this.repID = repID;
     }
 
-    public String getRegistry() {
-        return registry;
+    public String getPermitNo() {
+        return permitNo;
     }
 
-    public void setRegistry(String registry) {
-        this.registry = registry;
+    public void setPermitNo(String permitNo) {
+        this.permitNo = permitNo;
     }
 
-    public boolean isDomestic() {
-        return domestic;
+    public String getSource() {
+        return source;
     }
 
-    public void setDomestic(boolean domestic) {
-        this.domestic = domestic;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public boolean isBeer() {
-        return beer;
+    public int getType() {
+        return type;
     }
 
-    public void setBeer(boolean beer) {
-        this.beer = beer;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getBrandName() {
@@ -105,20 +112,12 @@ public class Form {
         this.companyName = companyName;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public void setAddress2(String address2) {
-        this.address2 = address2;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCity() {
@@ -177,12 +176,12 @@ public class Form {
         this.email = email;
     }
 
-    public String getAlcoholPercentage() {
-        return alcoholPercentage;
+    public String getAlcoholContent() {
+        return alcoholContent;
     }
 
-    public void setAlcoholPercentage(String alcoholPercentage) {
-        this.alcoholPercentage = alcoholPercentage;
+    public void setAlcoholContent(String alcoholContent) {
+        this.alcoholContent = alcoholContent;
     }
 
     public String getVintageYear() {
@@ -201,12 +200,12 @@ public class Form {
         this.pHLevel = pHLevel;
     }
 
-    public Date getAppDate() {
-        return appDate;
+    public LocalDate getCompletedDate() {
+        return completedDate;
     }
 
-    public void setAppDate(Date appDate) {
-        this.appDate = appDate;
+    public void setCompletedDate(LocalDate completedDate) {
+        this.completedDate = completedDate;
     }
 
     public String getApplicantName() {
@@ -217,19 +216,19 @@ public class Form {
         this.applicantName = applicantName;
     }
 
-    public boolean isAccepted() {
-        return accepted;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Date getApprovalDate() {
+    public LocalDate getApprovalDate() {
         return approvalDate;
     }
 
-    public void setApprovalDate(Date approvalDate) {
+    public void setApprovalDate(LocalDate approvalDate) {
         this.approvalDate = approvalDate;
     }
 
@@ -241,11 +240,11 @@ public class Form {
         this.agentName = agentName;
     }
 
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
