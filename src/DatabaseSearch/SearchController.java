@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +24,9 @@ public class SearchController {
     private static String url = "Example";
     private static String user = "root";
     private static String pass = "root";
+    private static String tableName = "APPLICATIONS";
     private ResultSet rs;
+    private ResultSet apprs;
     //create QueryBuilder variable to store search info
     private QueryBuilder queryBuilder;
     private String query;
@@ -40,6 +42,8 @@ public class SearchController {
     protected String typeTo;
     //location code, also known as origin code
     protected String origin;
+    //Application ID
+    protected String appID;
 
     //VARIABLES FOR JAVAFX OBJECTS:
     @FXML
@@ -58,6 +62,8 @@ public class SearchController {
     private ComboBox<String> cbLocationCode;
     @FXML
     private TableView<ObservableList<String>> tableview;
+    @FXML
+    private TextField txtAppID;
 
     // Handle a search - effectively a "main" function for our program
     protected void handleSearch() {
@@ -99,7 +105,7 @@ public class SearchController {
 
     // Function that reads the input entered into the search page and passes it to a QueryBuilder object.
     protected void searchCriteria(){
-        //Set all variables equal to input date
+        //Set all variables equal to input data
         from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         brand = txtBrandName.getText();
@@ -108,7 +114,14 @@ public class SearchController {
         typeTo = txtClassRangeEnd.getText();
         origin = cbLocationCode.getValue();
         //store search info in a new QueryBuilder object
-        setQueryBuilder(new QueryBuilder(from, to, brand, product, typeFrom, typeTo, origin));
+        setQueryBuilder(new QueryBuilder(tableName, "*", from, to, brand, product, typeFrom, typeTo, origin));
+    }
+
+    //Function that reads (currently) an app id entered into a text box and searches for a single application
+    protected void applicationSearchCriteria(){
+        //Set all variables equal to input data
+        appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
+        setQueryBuilder(new QueryBuilder(tableName, "*", appID));
     }
 
     // Display DB data into a TableView
@@ -139,19 +152,19 @@ public class SearchController {
 
     }
 
-    // Displays individual application information when user selects an application from the TableView
+    // Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
     protected void displayApplication() {
+        // Handle search criteria
+        applicationSearchCriteria();
 
-        // Re-find our application in the DB or ResultSet???
-        /**
-         * Actually, we'll probably end up re-querying the database for a specific application
-         * (using an application ID?) and pulling more information than we originally did.
-         **/
+        // Set our query
+        setQuery(getQueryBuilder().getQuery());
 
-        // Pull the information we need from that record
+        // Query the DB
+        apprs = queryDB(getQuery());
 
-        // Display the information on a new page
-
+        // Display our new data in the TableView
+        displayData(apprs);
     }
 
     // Save a CSV of the results locally
