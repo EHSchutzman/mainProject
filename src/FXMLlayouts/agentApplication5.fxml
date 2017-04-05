@@ -10,7 +10,7 @@
     <children>
         <Label layoutX="269.0" layoutY="32.0" text="Additional" />
         <Label fx:id="errorLabel" layoutX="272.0" layoutY="55.0" prefHeight="17.0" prefWidth="56.0" />
-        <TextField fx:id="alcoholContent" editable="false" layoutX="217.0" layoutY="86.0" />
+        <TextField fx:id="alcoholContentText" editable="false" layoutX="217.0" layoutY="86.0" />
         <TextField fx:id="applicationDate" editable="false" layoutX="217.0" layoutY="126.0" />
         <TextField fx:id="applicantName" editable="false" layoutX="217.0" layoutY="165.0" />
         <TextField fx:id="vintageYear" editable="false" layoutX="217.0" layoutY="258.0" />

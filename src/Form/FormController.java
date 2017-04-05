@@ -1,8 +1,7 @@
 package Form;
 import DatabaseSearch.QueryBuilder;
-import Initialization.ActionController;
+import DatabaseSearch.TTB_database;
 import Initialization.Main;
-import DatabaseSearch.QueryBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -10,15 +9,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.sql.*;
 
 public class FormController{
-    private ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
-    Form tempForm = new Form();
     public int currentPage;
 
     private Main main;
@@ -30,9 +23,6 @@ public class FormController{
 
     @FXML
     private Button nextButton;
-
-    @FXML
-    private Button submitButton;
 
     @FXML
     private TextField repIDText;
@@ -62,19 +52,32 @@ public class FormController{
     //Address
     @FXML
     private TextField companyNameText;
+    @FXML
     private TextField address1Text;
+    @FXML
     private TextField address2Text; //make method to combine with address1Text
+    @FXML
     private TextField cityText;
+    @FXML
     private TextField stateText;
+    @FXML
     private TextField zipCodeText;
+    @FXML
     private TextField countryText;
+    @FXML
     private TextField tradenameText;
     //Mailing Address
+    @FXML
     private TextField address1MailingText;
+    @FXML
     private TextField address2MailingText; //make method to combine with address1Text
+    @FXML
     private TextField cityMailingText;
+    @FXML
     private TextField stateMailingText;
+    @FXML
     private TextField zipCodeMailingText;
+    @FXML
     private TextField countryMailingText;
 
     @FXML
@@ -84,7 +87,7 @@ public class FormController{
     private TextField emailText;
 
     @FXML
-    private TextField alcoholContent;
+    private TextField alcoholContentText;
 
     //Wine only
     @FXML
@@ -191,7 +194,7 @@ public class FormController{
         newForm.setTradename(tradenameText.getText());
         newForm.setPhoneNumber(phoneNumberText.getText());
         newForm.setEmail(emailText.getText());
-        newForm.setAlcoholContent(alcoholContent.getText());
+        newForm.setAlcoholContent(alcoholContentText.getText());
         newForm.setVintageYear(vintageYearText.getText());
         newForm.setpHLevel(pHLevelText.getText());
         newForm.setCompletedDate(completedDate.getValue());
@@ -238,81 +241,85 @@ public class FormController{
         beerRadio.setToggleGroup(typeGroup);
         wineRadio.setToggleGroup(typeGroup);
 
-        tempForm.setFormID(tempForm.makeUniqueID());
-        tempForm.setRepID(repIDText.getText());
-        tempForm.setPermitNo(permitNoText.getText());
+        main.userData.tempForm.setFormID(main.userData.tempForm.makeUniqueID());
+        System.out.println(main.userData.tempForm.getFormID());
+        main.userData.tempForm.setRepID(repIDText.getText());
+        System.out.println(main.userData.tempForm.getRepID());
+        main.userData.tempForm.setPermitNo(permitNoText.getText());
+        System.out.println(main.userData.tempForm.getPermitNo());
         //determine inputted source
         if (domesticRadio.isSelected()) {
-            tempForm.setSource("domestic");
+            main.userData.tempForm.setSource("domestic");
         } else if (importedRadio.isSelected()) {
-            tempForm.setSource("imported");
+            main.userData.tempForm.setSource("imported");
         }
         //determine inputted type
         if (beerRadio.isSelected()) {
-            tempForm.setType(901);
+            main.userData.tempForm.setType(901);
         } else if (wineRadio.isSelected()) {
-            tempForm.setType(80);
+            main.userData.tempForm.setType(80);
         }
-        tempForm.setBrandName(brandNameText.getText());
+        main.userData.tempForm.setBrandName(brandNameText.getText());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Applicant info page
     public Form createFormPage2() {
-        tempForm.setCompanyName(companyNameText.getText());
-        tempForm.setAddress1(address1Text.getText());
-        tempForm.setAddress2(address2Text.getText());
-        tempForm.setAddress(address1Text.getText() + " " + address2Text.getText());
-        tempForm.setCity(cityText.getText());
-        tempForm.setState(stateText.getText());
-        tempForm.setZipCode(zipCodeText.getText());
-        tempForm.setCountry(countryText.getText());
-        tempForm.setTradename(tradenameText.getText());
+        main.userData.tempForm.setCompanyName(companyNameText.getText());
+        main.userData.tempForm.setAddress1(address1Text.getText());
+        main.userData.tempForm.setAddress2(address2Text.getText());
+        main.userData.tempForm.setAddress(address1Text.getText() + " " + address2Text.getText());
+        main.userData.tempForm.setCity(cityText.getText());
+        main.userData.tempForm.setState(stateText.getText());
+        main.userData.tempForm.setZipCode(zipCodeText.getText());
+        main.userData.tempForm.setCountry(countryText.getText());
+        main.userData.tempForm.setTradename(tradenameText.getText());
+        System.out.println(main.userData.tempForm.getTradename());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Applicant info page (mailing address)
     public Form createFormPage3() {
-        tempForm.setAddressMailing1(address1MailingText.getText());
-        tempForm.setAddressMailing2(address2MailingText.getText());
-        tempForm.setAddressMailing(address1MailingText.getText() + " " + address2MailingText.getText());
-        tempForm.setCityMailing(cityMailingText.getText());
-        tempForm.setStateMailing(stateMailingText.getText());
-        tempForm.setZipCodeMailing(zipCodeMailingText.getText());
-        tempForm.setCountryMailing(countryMailingText.getText());
+        main.userData.tempForm.setAddressMailing1(address1MailingText.getText());
+        main.userData.tempForm.setAddressMailing2(address2MailingText.getText());
+        main.userData.tempForm.setAddressMailing(address1MailingText.getText() + " " + address2MailingText.getText());
+        main.userData.tempForm.setCityMailing(cityMailingText.getText());
+        main.userData.tempForm.setStateMailing(stateMailingText.getText());
+        main.userData.tempForm.setZipCodeMailing(zipCodeMailingText.getText());
+        main.userData.tempForm.setCountryMailing(countryMailingText.getText());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Applicant info (phone # and email)
     public Form createFormPage4() {
-        tempForm.setPhoneNumber(phoneNumberText.getText());
-        tempForm.setEmail(emailText.getText());
+        main.userData.tempForm.setPhoneNumber(phoneNumberText.getText());
+        main.userData.tempForm.setEmail(emailText.getText());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Additional label info
     public Form createFormPage5() {
-        tempForm.setAlcoholContent(alcoholContent.getText());
-        tempForm.setVintageYear(vintageYearText.getText());
-        tempForm.setpHLevel(pHLevelText.getText());
-        tempForm.setCompletedDate(completedDate.getValue());
-        tempForm.setApplicantName(applicantNameText.getText());
+        main.userData.tempForm.setAlcoholContent(alcoholContentText.getText());
+        main.userData.tempForm.setVintageYear(vintageYearText.getText());
+        main.userData.tempForm.setpHLevel(pHLevelText.getText());
+        main.userData.tempForm.setCompletedDate(completedDate.getValue());
+        main.userData.tempForm.setApplicantName(applicantNameText.getText());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Revisions
     public Form createFormPage6() {
-        tempForm.setAlterVintageDate(alterVintageDate.getText());
-        tempForm.setAlterpHLevel(pHLevelText.getText());
-        tempForm.setAlterWineAlcoholContent(alterWineAlcoholContent.getText());
-        tempForm.setAlterBeerAlcoholContent(alterBeerAlcoholContent.getText());
+        main.userData.tempForm.setAlterVintageDate(alterVintageDate.getText());
+        main.userData.tempForm.setAlterpHLevel(pHLevelText.getText());
+        main.userData.tempForm.setAlterWineAlcoholContent(alterWineAlcoholContent.getText());
+        main.userData.tempForm.setAlterBeerAlcoholContent(alterBeerAlcoholContent.getText());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Label info page AGENTS ONLY
@@ -322,9 +329,9 @@ public class FormController{
         domesticRadio=new RadioButton("domestic");
         importedRadio=new RadioButton("imported");
         //set selected
-        if(tempForm.getSource().equals("imported")) {
+        if(main.userData.tempForm.getSource().equals("imported")) {
             importedRadio.setSelected(true);
-        } else if (tempForm.getSource().equals("domestic")) {
+        } else if (main.userData.tempForm.getSource().equals("domestic")) {
             domesticRadio.setSelected(true);
         }
 
@@ -332,75 +339,75 @@ public class FormController{
         beerRadio=new RadioButton("beer");
         wineRadio=new RadioButton("wine");
         //set selected
-        if(tempForm.getType() == 901) {
+        if(main.userData.tempForm.getType() == 901) {
             beerRadio.setSelected(true);
-        } else if (tempForm.getType() == 80) {
+        } else if (main.userData.tempForm.getType() == 80) {
             wineRadio.setSelected(true);
         }
 
-        repIDText.setPromptText(tempForm.getRepID());
-        permitNoText.setPromptText(tempForm.getPermitNo());
-        brandNameText.setPromptText(tempForm.getBrandName());
+        repIDText.setPromptText(main.userData.tempForm.getRepID());
+        permitNoText.setPromptText(main.userData.tempForm.getPermitNo());
+        brandNameText.setPromptText(main.userData.tempForm.getBrandName());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Applicant info page AGENTS ONLY
     public Form createAgentFormPage2() {
-        companyNameText.setPromptText(tempForm.getCompanyName());
-        address1Text.setPromptText(tempForm.getAddress1());
-        address2Text.setPromptText(tempForm.getAddress2());
-        cityText.setPromptText(tempForm.getCity());
-        stateText.setPromptText(tempForm.getState());
-        zipCodeText.setPromptText(tempForm.getZipCode());
-        countryText.setPromptText(tempForm.getCountry());
-        tradenameText.setPromptText(tempForm.getTradename());
+        companyNameText.setPromptText(main.userData.tempForm.getCompanyName());
+        address1Text.setPromptText(main.userData.tempForm.getAddress1());
+        address2Text.setPromptText(main.userData.tempForm.getAddress2());
+        cityText.setPromptText(main.userData.tempForm.getCity());
+        stateText.setPromptText(main.userData.tempForm.getState());
+        zipCodeText.setPromptText(main.userData.tempForm.getZipCode());
+        countryText.setPromptText(main.userData.tempForm.getCountry());
+        tradenameText.setPromptText(main.userData.tempForm.getTradename());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Applicant info page (mailing address) AGENTS ONLY
     public Form createAgentFormPage3() {
-        address1MailingText.setPromptText(tempForm.getAddressMailing1());
-        address2MailingText.setPromptText(tempForm.getAddressMailing2());
-        cityMailingText.setPromptText(tempForm.getCityMailing());
-        stateMailingText.setPromptText(tempForm.getStateMailing());
-        zipCodeMailingText.setPromptText(tempForm.getZipCodeMailing());
-        countryMailingText.setPromptText(tempForm.getCountryMailing());
+        address1MailingText.setPromptText(main.userData.tempForm.getAddressMailing1());
+        address2MailingText.setPromptText(main.userData.tempForm.getAddressMailing2());
+        cityMailingText.setPromptText(main.userData.tempForm.getCityMailing());
+        stateMailingText.setPromptText(main.userData.tempForm.getStateMailing());
+        zipCodeMailingText.setPromptText(main.userData.tempForm.getZipCodeMailing());
+        countryMailingText.setPromptText(main.userData.tempForm.getCountryMailing());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Applicant info (phone # and email) AGENTS ONLY
     public Form createAgentFormPage4() {
-        phoneNumberText.setPromptText(tempForm.getPhoneNumber());
-        emailText.setPromptText(tempForm.getEmail());
+        phoneNumberText.setPromptText(main.userData.tempForm.getPhoneNumber());
+        emailText.setPromptText(main.userData.tempForm.getEmail());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     //Additional label info AGENTS ONLY
     public Form createAgentFormPage5() {
-        alcoholContent.setPromptText(tempForm.getAlcoholContent());
-        vintageYearText.setPromptText(tempForm.getVintageYear());
-        pHLevelText.setPromptText(tempForm.getpHLevel());
-        completedDate.setValue(tempForm.getCompletedDate());
-        applicantNameText.setPromptText(tempForm.getApplicantName());
+        alcoholContentText.setPromptText(main.userData.tempForm.getAlcoholContent());
+        vintageYearText.setPromptText(main.userData.tempForm.getVintageYear());
+        pHLevelText.setPromptText(main.userData.tempForm.getpHLevel());
+        completedDate.setValue(main.userData.tempForm.getCompletedDate());
+        applicantNameText.setPromptText(main.userData.tempForm.getApplicantName());
 
-        tempForm.setApprovalDate(approvalDate.getValue());
-        tempForm.setAgentName(agentNameText.getText());
-        tempForm.setExpirationDate(expirationDate.getValue());
+        main.userData.tempForm.setApprovalDate(approvalDate.getValue());
+        main.userData.tempForm.setAgentName(agentNameText.getText());
+        main.userData.tempForm.setExpirationDate(expirationDate.getValue());
 
-        return tempForm;
+        return main.userData.tempForm;
     }
 
     public void acceptForm() {
-        tempForm.setStatus("accepted");
+        main.userData.tempForm.setStatus("accepted");
         submitForm();
     }
 
     public void rejectForm() {
-        tempForm.setStatus("rejected");
+        main.userData.tempForm.setStatus("rejected");
         submitForm();
     }
 
@@ -433,25 +440,40 @@ public class FormController{
         return rs;
     }
 
-    public void submitForm(Form form) {
+    @FXML
+    public void submitForm() {
         try {
             String formID = null;
             Connection c = DBConnect();
-            QueryBuilder qb = new QueryBuilder("FORM", "FORM.FORM_ID", form.getFormID());
+            QueryBuilder qb = new QueryBuilder("FORM", "FORM.FORM_ID", main.userData.tempForm.getFormID());
+            System.out.println(qb.getQuery());
             ResultSet rs = queryDB(qb.getQuery());
-            Statement s = rs.getStatement();
             while(rs.next()) {
                 formID = rs.getString("FORM_ID");
+                System.out.println(formID);
             }
             if (formID == null || formID.isEmpty()) {
-                rs.insertRow();
+                String q = "INSERT INTO APP.FORM VALUES (" + main.userData.tempForm.getFormID() + ",'1000-10-10'," + main.userData.tempForm.getRepID() + ",'willie','facn','idk','cp','1','122','fda','123223','#df','3%','john',2,321,123,'26')";
+                Statement s = c.createStatement();
+                s.execute(q);
+                s.close();
+                c.close();
+                System.out.println("before insert Row");
             } else {
-                rs.updateRow();
+                System.out.println(main.userData.tempForm.getPermitNo());
+                String u = "UPDATE APP.FORM SET PERMIT_NO = ?";
+                PreparedStatement ps = c.prepareStatement(u);
+                //Statement s = c.createStatement();
+                ps.setString(1, "43");
+                ps.executeUpdate();
+                //ps.close();
+                //c.close();
+                System.out.println("before update Row");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("no results");
         }
-        //check if form exists if not save a new one, else update form in DB
     }
 
     @FXML
@@ -504,36 +526,33 @@ public class FormController{
                 System.out.println("1");
                 main.userData.setCurrentApplicationPage(2);
                 main.changeApplicantFormView(2);
-
+                createFormPage1();
             } else if (main.userData.getCurrentApplicationPage() == 2) {
                 System.out.println("2");
                 main.userData.setCurrentApplicationPage(3);
                 main.changeApplicantFormView(3);
-
+                createFormPage2();
             } else if (main.userData.getCurrentApplicationPage() == 3) {
+                System.out.println("3");
                 main.userData.setCurrentApplicationPage(4);
                 main.changeApplicantFormView(4);
-
+                createFormPage3();
             } else if (main.userData.getCurrentApplicationPage() == 4) {
+                System.out.println("4");
                 main.userData.setCurrentApplicationPage(5);
                 main.changeApplicantFormView(5);
-
+                createFormPage4();
             } else if (main.userData.getCurrentApplicationPage() == 5) {
+                System.out.println("5");
                 main.userData.setCurrentApplicationPage(6);
                 main.changeApplicantFormView(6);
-
+                createFormPage5();
             } else if (main.userData.getCurrentApplicationPage() == 6) {
                 main.userData.setCurrentApplicationPage(0);
+                System.out.println("6");
 
             }
         }
 
-    }
-
-    public static void main (String[] args) {
-        Form form = new Form();
-        form.setFormID(form.makeUniqueID());
-
-        FormController.submitForm(form);
     }
 }
