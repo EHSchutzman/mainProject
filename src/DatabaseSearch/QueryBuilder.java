@@ -61,8 +61,8 @@ public class QueryBuilder {
      * COLA search constructors
      **/
     // Search for specific application via ID
-    protected QueryBuilder(String tableName, String fields,
-                           String appID) {
+    public QueryBuilder(String tableName, String fields,
+                        String appID) {
         setTableName(tableName);
         setFields(fields);
         setAppID(appID);
@@ -264,7 +264,7 @@ public class QueryBuilder {
         this.originCode = originCode;
     }
 
-    protected String getQuery() {
+    public String getQuery() {
         return query;
     }
 

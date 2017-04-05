@@ -1,5 +1,6 @@
 package Form;
-
+import DatabaseSearch.QueryBuilder;
+import DatabaseSearch.TTB_database;
 import Initialization.ActionController;
 import Initialization.Main;
 import DatabaseSearch.QueryBuilder;
@@ -10,6 +11,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class FormController{
@@ -26,6 +31,9 @@ public class FormController{
 
     @FXML
     private Button nextButton;
+
+    @FXML
+    private Button submitButton;
 
     @FXML
     private TextField repIDText;
@@ -209,8 +217,8 @@ public class FormController{
         //initializes necessary radio buttons
         //Source
         //make radio buttons and group them
-        domesticRadio = new RadioButton("domestic");
-        importedRadio = new RadioButton("imported");
+        domesticRadio=new RadioButton("domestic");
+        importedRadio=new RadioButton("imported");
         //set selected
         importedRadio.setSelected(true);
         //create group for radio buttons
@@ -220,8 +228,8 @@ public class FormController{
 
         //Type
         //make radio buttons and group them
-        beerRadio = new RadioButton("beer");
-        wineRadio = new RadioButton("wine");
+        beerRadio=new RadioButton("beer");
+        wineRadio=new RadioButton("wine");
         //set selected
         beerRadio.setSelected(true);
         //create group for radio buttons
@@ -392,7 +400,7 @@ public class FormController{
 
     public void rejectForm() {
         tempForm.setStatus("rejected");
-        submitForm();
+        submitForm(tempForm);
     }
 
     public void chooseForm () {
@@ -403,84 +411,51 @@ public class FormController{
         //get a form form DB
     }
 
-    public void submitForm() {
-        QueryBuilder qb = new QueryBuilder();
-        //builds query
+    // Connect to the DB
+    protected Connection DBConnect() throws SQLException {
+        return TTB_database.connect();
+    }
+
+    // Function will query the DB
+    protected ResultSet queryDB(String query) {
+        Connection c;
+        Statement stmt;
+        ResultSet rs = null;
+        try {
+            c = DBConnect();
+            stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+        return rs;
+    }
+
+    public void submitForm(Form form) {
+        try {
+            String formID = null;
+            Connection c = DBConnect();
+            QueryBuilder qb = new QueryBuilder("FORM", "FORM.FORM_ID", form.getFormID());
+            ResultSet rs = queryDB(qb.getQuery());
+            Statement s = rs.getStatement();
+            while(rs.next()) {
+                formID = rs.getString("FORM_ID");
+            }
+            if (formID == null || formID.isEmpty()) {
+                rs.insertRow();
+            } else {
+                rs.updateRow();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         //check if form exists if not save a new one, else update form in DB
     }
 
-    @FXML
-    public void startApplication(){
-        currentPage = 0;
-        nextPage();
-    }
     //
-    @FXML
     public void nextPage() {
-
-        if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
-            if (main.userData.getCurrentApplicationPage() == 0) {
-                //System.out.println("0");
-                main.userData.setCurrentApplicationPage(1);
-                main.changeAgentFormView(1);
-            } else if (main.userData.getCurrentApplicationPage() == 1) {
-                //System.out.println("1");
-                main.userData.setCurrentApplicationPage(2);
-                main.changeAgentFormView(2);
-
-            } else if (main.userData.getCurrentApplicationPage() == 2) {
-                //System.out.println("2");
-                main.userData.setCurrentApplicationPage(3);
-                main.changeAgentFormView(3);
-
-            } else if (main.userData.getCurrentApplicationPage() == 3) {
-                main.userData.setCurrentApplicationPage(4);
-                main.changeAgentFormView(4);
-
-            } else if (main.userData.getCurrentApplicationPage() == 4) {
-                main.userData.setCurrentApplicationPage(5);
-                main.changeAgentFormView(5);
-
-            } else if (main.userData.getCurrentApplicationPage() == 5) {
-                main.userData.setCurrentApplicationPage(6);
-                main.changeAgentFormView(6);
-
-            } else if (main.userData.getCurrentApplicationPage() == 6) {
-                main.userData.setCurrentApplicationPage(0);
-
-            }
-        } else {
-            if (main.userData.getCurrentApplicationPage() == 0) {
-               
-                main.userData.setCurrentApplicationPage(1);
-                main.changeApplicantFormView(1);
-            } else if (main.userData.getCurrentApplicationPage() == 1) {
-                //System.out.println("1");
-                main.userData.setCurrentApplicationPage(2);
-                main.changeApplicantFormView(2);
-
-            } else if (main.userData.getCurrentApplicationPage() == 2) {
-                //System.out.println("2");
-                main.userData.setCurrentApplicationPage(3);
-                main.changeApplicantFormView(3);
-
-            } else if (main.userData.getCurrentApplicationPage() == 3) {
-                main.userData.setCurrentApplicationPage(4);
-                main.changeApplicantFormView(4);
-
-            } else if (main.userData.getCurrentApplicationPage() == 4) {
-                main.userData.setCurrentApplicationPage(5);
-                main.changeApplicantFormView(5);
-
-            } else if (main.userData.getCurrentApplicationPage() == 5) {
-                main.userData.setCurrentApplicationPage(6);
-                main.changeApplicantFormView(6);
-
-            } else if (main.userData.getCurrentApplicationPage() == 6) {
-                main.userData.setCurrentApplicationPage(0);
-
-            }
-        }
-
+        //next button functions
+        //save previous information into a form object
     }
 }
