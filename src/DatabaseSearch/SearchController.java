@@ -180,7 +180,8 @@ public class SearchController {
     protected boolean displayData(ResultSet rs) {
 
         try {
-            // Auto-genericized?
+            main.displaySearchResultsPage();
+            
             ObservableList<ObservableList> data = FXCollections.observableArrayList();
 
         try {

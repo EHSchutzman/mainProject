@@ -6,6 +6,7 @@ import Form.FormController;
 import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -112,7 +113,7 @@ public class Main extends Application {
     public void setDisplayToSearch() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/searchScreen.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/searchPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
@@ -120,6 +121,20 @@ public class Main extends Application {
             SearchController controller = loader.getController();
             controller.setDisplay(this);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void displaySearchResultsPage() throws Exception{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/searchResultsPage.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Search Results");
+            primaryStage.getScene().setRoot(page);
+
+            SearchController controller = loader.getController();
+            controller.setDisplay(this);
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
