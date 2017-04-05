@@ -11,5 +11,6 @@
       <TextField fx:id="password" layoutX="224.0" layoutY="173.0" promptText="Password" />
       <Button fx:id="loginButton" layoutX="278.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#loginAction" text="Log In" />
       <Label fx:id="errorLabel" layoutX="280.0" layoutY="60.0" prefHeight="17.0" prefWidth="56.0" />
+      <Button layoutX="52.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#displayCreateUserPage" text="Create User" />
    </children>
 </AnchorPane>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+    <children>
+        <Label layoutX="269.0" layoutY="32.0" text="Additional" />
+        <Label fx:id="errorLabel" layoutX="272.0" layoutY="55.0" prefHeight="17.0" prefWidth="56.0" />
+        <TextField fx:id="alcoholContentText" editable="false" layoutX="217.0" layoutY="86.0" />
+        <TextField fx:id="applicationDate" editable="false" layoutX="217.0" layoutY="126.0" />
+        <TextField fx:id="applicantName" editable="false" layoutX="217.0" layoutY="165.0" />
+        <TextField fx:id="vintageYear" editable="false" layoutX="217.0" layoutY="258.0" />
+        <TextField fx:id="phLevel" editable="false" layoutX="217.0" layoutY="295.0" />
+        <Button fx:id="approveButton" layoutX="362.0" layoutY="347.0" mnemonicParsing="false" text="Approve" />
+        <Label layoutX="255.0" layoutY="217.0" text="For Wine Only:" />
+      <Label fx:id="alcoholContentLabel" layoutX="89.0" layoutY="91.0" text="Alcohol Content" />
+      <Label fx:id="applicationDateLabel" layoutX="89.0" layoutY="131.0" text="Date of Application" />
+      <Label fx:id="applicantNameLabel" layoutX="89.0" layoutY="170.0" text="Name of Applicant" />
+      <Label fx:id="vintageYearLabel" layoutX="89.0" layoutY="263.0" text="Vintage Year" />
+      <Label fx:id="phLevelLabel" layoutX="89.0" layoutY="300.0" text="pH Level" />
+      <Button fx:id="rejectButton" layoutX="189.0" layoutY="347.0" mnemonicParsing="false" text="Reject" />
+    </children>
+</AnchorPane>

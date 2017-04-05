@@ -1,5 +1,13 @@
 package UserAccounts;
 
+import DatabaseSearch.QueryBuilder;
+import DatabaseSearch.TTB_database;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Authentication {
     private String username;
     private String password;
@@ -9,6 +17,10 @@ public class Authentication {
     private String realName;
     //list of applicaitons
 
+
+    public Authentication() {
+
+    }
 
     protected Authentication(String username, String password) {
         this.username = username;
@@ -65,26 +77,71 @@ public class Authentication {
         this.authenticationLevel = authenticationLevel;
     }
 
+    public void createUser(String userID, String email, String loginName, String password, String fullName){
+        String queryString = "Hi";
+        queryString = "Insert into USERS Values(" + userID + "," +email + "," + loginName + "," + password + ","+ fullName + ")";
+        System.out.println(queryString);
+        ResultSet rs = queryDB(queryString);
+
+    }
     /**
      * Function checks username and password against database
      *
      * @return Function returns true if the user is authentic, false if not
      */
     public Boolean authenticate() {
-        //
-        //check username against database -- username is loginname field
-        //check password against database
-        //Set up a query to User table
-        //check if both username and password are valid
-        //if they are valid, set authentication to True, return true, else nope.
-        this.isAuthentic = true;
-        //gets fields and fills them in
-        //realname is name field
-        //get authentication level
-        //get list
+        //query db for username
+        try {
 
+            QueryBuilder qb = new QueryBuilder("Users", "Users.LOGIN_NAME", "");
+            ResultSet rs = queryDB(qb.getQuery());
+            System.out.println(qb.getQuery());
+
+            while (rs.next()) {
+                String login = rs.getString("LOGIN_NAME");
+                if (login.equals(this.getUsername())) {
+                    this.isAuthentic = true;
+                }
+            }
+            if (this.isAuthentic == true) {
+                //check password
+            }
+            //
+            //check username against database -- username is loginname field
+            //check password against database
+            //Set up a query to User table
+            //check if both username and password are valid
+            //if they are valid, set authentication to True, return true, else nope.
+            this.isAuthentic = true;
+            //gets fields and fills them in
+            //realname is name field
+            //get authentication level
+            //get list
+
+            return this.isAuthentic;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return this.isAuthentic;
     }
 
+    protected Connection DBConnect() throws SQLException {
+        return TTB_database.connect();
+    }
 
+    // Function will query the DB
+    protected ResultSet queryDB(String query) {
+        Connection c;
+        Statement stmt;
+        ResultSet rs = null;
+        try {
+            c = DBConnect();
+            stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            rs = stmt.executeQuery(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            stmt = null;
+        }
+        return rs;
+    }
 }
