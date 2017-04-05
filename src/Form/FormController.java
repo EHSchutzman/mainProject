@@ -420,16 +420,16 @@ public class FormController{
 
         if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
             if (main.userData.getCurrentApplicationPage() == 0) {
-                System.out.println("0");
+                //System.out.println("0");
                 main.userData.setCurrentApplicationPage(1);
                 main.changeAgentFormView(1);
             } else if (main.userData.getCurrentApplicationPage() == 1) {
-                System.out.println("1");
+                //System.out.println("1");
                 main.userData.setCurrentApplicationPage(2);
                 main.changeAgentFormView(2);
 
             } else if (main.userData.getCurrentApplicationPage() == 2) {
-                System.out.println("2");
+                //System.out.println("2");
                 main.userData.setCurrentApplicationPage(3);
                 main.changeAgentFormView(3);
 
@@ -450,18 +450,17 @@ public class FormController{
 
             }
         } else {
-            System.out.println("Next applicant page");
             if (main.userData.getCurrentApplicationPage() == 0) {
-                System.out.println("0");
+               
                 main.userData.setCurrentApplicationPage(1);
                 main.changeApplicantFormView(1);
             } else if (main.userData.getCurrentApplicationPage() == 1) {
-                System.out.println("1");
+                //System.out.println("1");
                 main.userData.setCurrentApplicationPage(2);
                 main.changeApplicantFormView(2);
 
             } else if (main.userData.getCurrentApplicationPage() == 2) {
-                System.out.println("2");
+                //System.out.println("2");
                 main.userData.setCurrentApplicationPage(3);
                 main.changeApplicantFormView(3);
 

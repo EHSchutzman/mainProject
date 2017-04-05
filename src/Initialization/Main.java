@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public Data userData = new Data(new User("test", "test test", 3));
+    public Data userData = new Data(new User("test", "test test", 0));
     private Stage primaryStage;
     private AnchorPane rootLayout;
 
