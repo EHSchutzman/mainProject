@@ -202,6 +202,22 @@ public class Main extends Application {
         }
     }
 
+    public void displayCreateUser(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/createUser.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Create User Page");
+            primaryStage.getScene().setRoot(page);
+
+            AuthenticationController controller = loader.getController();
+            controller.setDisplay(this);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         try {
             launch(args);
