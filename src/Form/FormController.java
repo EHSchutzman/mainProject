@@ -1,16 +1,12 @@
 package Form;
-
-import Initialization.ActionController;
-import Initialization.Main;
 import DatabaseSearch.QueryBuilder;
+import Initialization.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class FormController{
     private ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
