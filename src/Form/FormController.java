@@ -1,6 +1,8 @@
 package Form;
-import DatabaseSearch.QueryBuilder;
+
 import Initialization.ActionController;
+import Initialization.Main;
+import DatabaseSearch.QueryBuilder;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -10,9 +12,17 @@ import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 
-public class FormController extends ActionController {
+public class FormController{
     private ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
     Form tempForm = new Form();
+    public int currentPage;
+
+    private Main main;
+
+    public void setDisplay(Main main) {
+        this.main = main;
+    }
+
 
     @FXML
     private Button nextButton;
@@ -201,8 +211,8 @@ public class FormController extends ActionController {
         //initializes necessary radio buttons
         //Source
         //make radio buttons and group them
-        domesticRadio=new RadioButton("domestic");
-        importedRadio=new RadioButton("imported");
+        domesticRadio = new RadioButton("domestic");
+        importedRadio = new RadioButton("imported");
         //set selected
         importedRadio.setSelected(true);
         //create group for radio buttons
@@ -212,8 +222,8 @@ public class FormController extends ActionController {
 
         //Type
         //make radio buttons and group them
-        beerRadio=new RadioButton("beer");
-        wineRadio=new RadioButton("wine");
+        beerRadio = new RadioButton("beer");
+        wineRadio = new RadioButton("wine");
         //set selected
         beerRadio.setSelected(true);
         //create group for radio buttons
@@ -302,20 +312,20 @@ public class FormController extends ActionController {
     public Form createAgentFormPage1() {
         //initializes necessary radio buttons
         //Source
-        domesticRadio=new RadioButton("domestic");
-        importedRadio=new RadioButton("imported");
+        domesticRadio = new RadioButton("domestic");
+        importedRadio = new RadioButton("imported");
         //set selected
-        if(tempForm.getSource().equals("imported")) {
+        if (tempForm.getSource().equals("imported")) {
             importedRadio.setSelected(true);
         } else if (tempForm.getSource().equals("domestic")) {
             domesticRadio.setSelected(true);
         }
 
         //Type
-        beerRadio=new RadioButton("beer");
-        wineRadio=new RadioButton("wine");
+        beerRadio = new RadioButton("beer");
+        wineRadio = new RadioButton("wine");
         //set selected
-        if(tempForm.getType() == 901) {
+        if (tempForm.getType() == 901) {
             beerRadio.setSelected(true);
         } else if (tempForm.getType() == 80) {
             wineRadio.setSelected(true);
@@ -373,17 +383,8 @@ public class FormController extends ActionController {
         return tempForm;
     }
 
-    //Revisions AGENTS ONLY
-    public Form createAgentFormPage6() {
-        alterVintageDate.setPromptText(tempForm.getAlterVintageDate());
-        pHLevelText.setPromptText(tempForm.getAlterpHLevel());
-        alterWineAlcoholContent.setPromptText(tempForm.getAlterWineAlcoholContent());
-        alterBeerAlcoholContent.setPromptText(tempForm.getAlterBeerAlcoholContent());
 
-        return tempForm;
-    }
-
-    public void chooseForm () {
+    public void chooseForm() {
         //select a form from the list of forms that need to be processed
     }
 
@@ -397,9 +398,80 @@ public class FormController extends ActionController {
         //check if form exists if not save a new one, else update form in DB
     }
 
+    @FXML
+    public void startApplication(){
+        currentPage = 0;
+        nextPage();
+    }
     //
+    @FXML
     public void nextPage() {
-        //next button functions
-        //save previous information into a form object
+        if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
+            agentNextPage();
+        } else {
+            applicantNextPage();
+        }
+
+    }
+
+    public void agentNextPage() {
+        System.out.println("currentPage is " + currentPage);
+        if (currentPage == 0) {
+            currentPage++;
+            //display page1
+        } else if (currentPage == 1) {
+            currentPage++;
+            //display page2
+        } else if (currentPage == 2) {
+            currentPage++;
+            //display page3
+        } else if (currentPage == 3) {
+            currentPage++;
+            //display page3
+        } else if (currentPage == 4) {
+            currentPage++;
+            //display page4
+        } else if (currentPage == 5) {
+
+            currentPage = 0;
+            submitForm();
+            //display page 5
+        }
+    }
+
+    public void applicantNextPage() {
+        System.out.println("currentPage is " + currentPage);
+        if (currentPage == 0) {
+            System.out.println("0");
+            currentPage++;
+            main.changeApplicantFormView(1);
+        } else if (currentPage == 1) {
+            System.out.println("1");
+            currentPage++;
+            main.changeApplicantFormView(2);
+
+        } else if (currentPage == 2) {
+            System.out.println("2");
+            currentPage++;
+            main.changeApplicantFormView(3);
+
+        } else if (currentPage == 3) {
+            currentPage++;
+            main.changeApplicantFormView(4);
+
+        } else if (currentPage == 4) {
+            currentPage++;
+            main.changeApplicantFormView(5);
+
+        } else if (currentPage == 5) {
+            currentPage++;
+            main.changeApplicantFormView(6);
+
+        } else if (currentPage == 6) {
+            System.out.println("in here");
+            currentPage = 0;
+            //main.changeApplicantFormView(currentPage);
+
+        }
     }
 }

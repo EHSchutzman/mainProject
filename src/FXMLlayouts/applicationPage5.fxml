@@ -16,7 +16,7 @@
       <TextField fx:id="applicantName" layoutX="217.0" layoutY="165.0" promptText="Name of Applicant" />
       <TextField fx:id="vintageYear" layoutX="217.0" layoutY="258.0" promptText="Vintage Year" />
       <TextField fx:id="phLevel" layoutX="217.0" layoutY="295.0" promptText="PH Level" />
-      <Button fx:id="submitButton" layoutX="271.0" layoutY="347.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="submitButton" layoutX="271.0" layoutY="347.0" mnemonicParsing="false" onMouseClicked="#submitForm" text="Submit" />
       <Label layoutX="255.0" layoutY="217.0" text="For Wine Only:" />
    </children>
 </AnchorPane>

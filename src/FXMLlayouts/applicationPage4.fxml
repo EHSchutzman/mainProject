@@ -11,6 +11,6 @@
       <Label fx:id="applicantLabel" layoutX="248.0" layoutY="51.0" prefHeight="17.0" prefWidth="105.0" text="Applicant" />
       <TextField fx:id="phoneNum" layoutX="217.0" layoutY="106.0" promptText="Phone Number" />
       <TextField fx:id="email" layoutX="217.0" layoutY="173.0" promptText="Email" />
-      <Button fx:id="nextButton" layoutX="271.0" layoutY="257.0" mnemonicParsing="false" text="Next" />
+      <Button fx:id="nextButton" layoutX="271.0" layoutY="257.0" mnemonicParsing="false" onMouseClicked="#nextPage" text="Next" />
    </children>
 </AnchorPane>

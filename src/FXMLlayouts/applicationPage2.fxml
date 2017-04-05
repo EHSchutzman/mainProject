@@ -14,7 +14,7 @@
       <TextField fx:id="state" layoutX="349.0" layoutY="180.0" prefHeight="27.0" prefWidth="140.0" promptText="State" />
       <TextField fx:id="postalCode" layoutX="218.0" layoutY="215.0" prefHeight="27.0" prefWidth="121.0" promptText="Postal Code" />
       <TextField fx:id="tradeName" layoutX="217.0" layoutY="291.0" prefHeight="27.0" prefWidth="201.0" promptText="Approved DBA / TradeName" />
-      <Button fx:id="nextButton" layoutX="278.0" layoutY="344.0" mnemonicParsing="false" text="Next" />
+      <Button fx:id="nextButton" layoutX="278.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#nextPage" text="Next" />
       <Label fx:id="errorLabel" layoutX="277.0" layoutY="50.0" prefHeight="17.0" prefWidth="47.0" />
       <TextField fx:id="country" layoutX="217.0" layoutY="252.0" promptText="Country" />
    </children>
