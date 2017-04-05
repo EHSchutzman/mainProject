@@ -15,6 +15,12 @@ public class AuthenticationController {
     TextField password;
     Label errorMessage;
 
+    public AuthenticationController() {
+        errorMessage = null;
+        password = null;
+        username = null;
+    }
+
     @FXML
     public void loginAction(){
         String name = username.getText();
