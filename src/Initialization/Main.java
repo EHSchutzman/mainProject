@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private Pane rootLayout;
+    private AnchorPane rootLayout;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -22,18 +22,6 @@ public class Main extends Application {
         initRootLayout();
     }
 
-    public void setDisplayToLogin() throws  Exception {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("loginPage.fxml"));
-            Pane page = loader.load();
-            primaryStage.setTitle("login");
-            primaryStage.getScene().setRoot(page);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void initRootLayout() {
         try {
@@ -57,73 +45,74 @@ public class Main extends Application {
 
 
         } catch (IOException e) {
-            System.out.println("asdasdsad");
+            e.printStackTrace();
         }
     }
 
-    public void mainPage(){
-        try{
+    public void setDisplayToMain() {
+        System.out.println("PWEON");
+
+        try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("mainPage.fxml"));
-            AnchorPane mainPageOverview = loader.load();
+            loader.setLocation(getClass().getResource("mainPage.fxml"));
 
-//            rootLayout.setCenter(mainPageOverview);
-            ActionController controller = loader.getController();
-            controller.setDisplay(this);
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Main Page");
+            primaryStage.getScene().setRoot(page);
 
-
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+    public void setDisplayToLogin() throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("loginPage.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Login Page");
+            primaryStage.getScene().setRoot(page);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
-    public void setDisplayToApply() throws Exception{
+    public void setDisplayToApply() throws Exception {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("FormController.fxml"));
-            AnchorPane page = loader.load();
-
-            // Replace KioskOverview with userUI3.
-            primaryStage.setTitle("login");
+            loader.setLocation(getClass().getResource("formPage.fxml"));
+            Pane page = loader.load();
+            primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
-/*
-            Scene scene = new Scene(page);
-            primaryStage.setScene(scene);
-            primaryStage.setFullScreen(true);
-            primaryStage.show();
-*/
 
-            // Give controller access to Main App.
-//            SearchController controller = loader.getController();
-//            controller.setKioskApp( this);
-//            controller.setFaulknerHospitalMap(this.faulknerHospitalMap);
-////            controller.setBuilding(this.hospitalBuilding);
-//            controller.displayResult(searchText);
-            Parent root = FXMLLoader.load(getClass().getResource("FormController.fxml"));
-            primaryStage.getScene().setRoot(root);
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
 
     }
-    public void setDisplayToSearch() throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("SearchController.fxml"));
-        primaryStage.getScene().setRoot(root);
-    }
-    public void setDisplayToMain() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("mainPage.fxml"));
-        primaryStage.getScene().setRoot(root);
+
+    public void setDisplayToSearch() throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("searchPage.fxml"));
+            Pane page = loader.load();
+            primaryStage.setTitle("Search");
+            primaryStage.getScene().setRoot(page);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public static void main(String[] args){
-        try{
+    public static void main(String[] args) {
+        try {
             launch(args);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }

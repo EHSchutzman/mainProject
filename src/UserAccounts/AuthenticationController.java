@@ -2,8 +2,14 @@ package UserAccounts;
 
 import Initialization.ActionController;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 
 import java.awt.*;
+import java.awt.Label;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
 
 public class AuthenticationController extends ActionController {
     Authentication isAuthentic;
@@ -12,9 +18,10 @@ public class AuthenticationController extends ActionController {
 
 
     @FXML
-    TextField username;
-    TextField password;
-    Label errorMessage;
+    public TextField username;
+    public TextField password;
+    public Label errorMessage;
+    public Button loginButton;
 
     @FXML
     public void loginAction(){

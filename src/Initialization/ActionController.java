@@ -25,6 +25,16 @@ public class ActionController {
         }
     }
 
+    public void displayMainPage() {
+        try {
+            System.out.println("TESTSTST");
+            main.initRootLayout();
+        } catch (Exception e) {
+            return;
+        }
+    }
+
+
     public void searchAction() {
         try {
             main.setDisplayToSearch();
@@ -42,17 +52,10 @@ public class ActionController {
         }
     }
 
-    public void displayMainPage() {
-        try {
-            main.setDisplayToMain();
-        } catch (Exception e) {
-            return;
-        }
-    }
+
 
     public void setDisplay(Main main){
         this.main = main;
-
     }
 
 }
