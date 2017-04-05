@@ -5,7 +5,7 @@ public class Authentication {
     private String password;
     private Boolean isValid;
     private Boolean isAuthentic;
-    private int authenticationLevel;
+    private int authenticationLevel = 0;
     private String realName;
     //list of applicaitons
 
