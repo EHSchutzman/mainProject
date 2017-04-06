@@ -89,10 +89,11 @@ public class AuthenticationController {
             //@TODO If user is authenticated return to proper screen
             if(isAuthentic.getFoundUser().getAuthenticationLevel() == 1){
                 System.out.println("user has authentication lvl 1");
-                //set display to applicant main page
+                main.setDisplayToApplicantMain();
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 2){
                 System.out.println("user has authentication lvl 2");
+                main.setDisplayToAgentMain();
                 //set display to agent main page
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 3){
@@ -101,6 +102,7 @@ public class AuthenticationController {
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 0){
                 System.out.println("This user has authentication level 0");
+                main.setDisplayToDefaultMain();
 
             }
 

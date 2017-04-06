@@ -9,14 +9,6 @@ import javafx.scene.control.Label;
 
 public class ActionController {
     private Main main;
-    public Data userData = new Data(null);
-
-    //Initialize other controllers
-    public SearchController betterSearchController = new SearchController();
-    public FormController formController = new FormController();
-    public User defaultUser = new User();
-    protected User loggedInUser = null;
-
 
     @FXML
     public Label currentUserLabel;
@@ -65,12 +57,16 @@ public class ActionController {
 
     @FXML
     public void logoutAction(){
-        //remove current user data, replace with null user
-        //display main page
+       main.userData.setUserInformation(new User());
+      displayMainPage();
     }
 
     @FXML
     public void displayReviseApplication(){
         main.setDisplayToReviewApplicaiton();
+    }
+    @FXML
+    public void displayApplicantApplicationPage(){
+        main.setDisplayToApplicantApply();
     }
 }

@@ -39,7 +39,7 @@ public class Main extends Application {
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
+            Scene scene = new Scene(rootLayout, 2000, 1000);
             primaryStage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -231,13 +231,14 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("/FXMLLayouts/agentMainPage.fxml"));
 
             AnchorPane page = loader.load();
-            primaryStage.setTitle("Main Page");
+            primaryStage.setTitle("Agent Main Page");
             primaryStage.getScene().setRoot(page);
 
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
             controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -252,7 +253,7 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("/FXMLLayouts/applicantMainPage.fxml"));
 
             AnchorPane page = loader.load();
-            primaryStage.setTitle("Main Page");
+            primaryStage.setTitle("Applicant Page");
             primaryStage.getScene().setRoot(page);
 
 
@@ -293,5 +294,23 @@ public class Main extends Application {
         }
     }
 
+    public void setDisplayToApplicantApply() {
 
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/applicationPage0.fxml"));
+
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Applicant Application Page");
+            primaryStage.getScene().setRoot(page);
+
+
+            FormController controller = loader.getController();
+            controller.setDisplay(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
