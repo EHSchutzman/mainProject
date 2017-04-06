@@ -339,7 +339,6 @@ public class FormController{
         }
         /*
             TODO create a function that will take a rs row and fill it to a form because writing that out 5 times would be dumb
-
         */
 
         //select a form from the list of forms that need to be processed

@@ -224,11 +224,11 @@ public class SearchController {
 
                 //FINALLY ADDED TO TableView
                 resultsTable.setItems(dataList);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Error building data!");
-                }
-                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error building data!");
+            }
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error displaying data.");

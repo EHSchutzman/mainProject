@@ -9,7 +9,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class UserTest {
 
-    User user = new User("root", "wong", 9);
+    //User user = new User("root", "wong", 9);
+    User user = new User();
 
     @Test
     public void getUsername() {
