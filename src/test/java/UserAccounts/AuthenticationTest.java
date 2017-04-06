@@ -1,84 +1,84 @@
 package UserAccounts;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Chad on 4/4/2017.
  */
-class AuthenticationTest {
+public class AuthenticationTest {
 
     Authentication auth = new Authentication("root", "admin");
 
     @Test
-    void getRealName() {
+    public void getRealName() {
         assertEquals(null, auth.getRealName());
     }
 
     @Test
-    void setRealName() {
+    public void setRealName() {
         auth.setRealName("Jenny");
         assertEquals("Jenny", auth.getRealName());
     }
 
     @Test
-    void getUsername() {
+    public void getUsername() {
         assertEquals("root", auth.getUsername());
     }
 
     @Test
-    void setUsername() {
+    public void setUsername() {
         auth.setUsername("wwong");
         assertEquals("wwong", auth.getUsername());
     }
 
     @Test
-    void getPassword() {
+    public void getPassword() {
         assertEquals("admin", auth.getPassword());
     }
 
     @Test
-    void setPassword() {
+    public void setPassword() {
         auth.setPassword("ballerstatus");
         assertEquals("ballerstatus", auth.getPassword());
     }
 
     @Test
-    void getValid() {
+    public void getValid() {
         assertEquals(false, auth.getValid());
     }
 
     @Test
-    void setValid() {
+    public void setValid() {
         auth.setValid(true);
         assertEquals(true, auth.getValid());
     }
 
     @Test
-    void getAuthentic() {
+    public void getAuthentic() {
         assertEquals(false, auth.getAuthentic());
     }
 
     @Test
-    void setAuthentic() {
+    public void setAuthentic() {
         auth.setAuthentic(true);
         assertEquals(true, auth.getAuthentic());
     }
 
     @Test
-    void getAuthenticationLevel() {
+    public void getAuthenticationLevel() {
         assertEquals(0, auth.getAuthenticationLevel());
     }
 
     @Test
-    void setAuthenticationLevel() {
+    public void setAuthenticationLevel() {
         auth.setAuthenticationLevel(4);
         assertEquals(4, auth.getAuthenticationLevel());
     }
 
     @Test
-    void authenticate() {
+    public void authenticate() {
         assertEquals(true, auth.authenticate());
     }
 

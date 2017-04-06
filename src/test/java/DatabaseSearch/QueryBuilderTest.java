@@ -1,13 +1,13 @@
 package DatabaseSearch;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Chad on 4/3/2017.
  */
-class QueryBuilderTest {
+public class QueryBuilderTest {
 
     QueryBuilder individualAppQuery = new QueryBuilder("APPLICATION", "*", "1");
     QueryBuilder searchAppQuery = new QueryBuilder("APPLICATION", "*", "01/01/2000", "01/01/2017",
@@ -20,17 +20,17 @@ class QueryBuilderTest {
     static String uSQL = "SELECT * FROM APP.USERS WHERE LOGIN_NAME='testUser' AND PASSWORD='password'";
 
     @Test
-    void getIndividualAppQueryTest() {
+    public void getIndividualAppQueryTest() {
         assertEquals(iaSQL, individualAppQuery.getQuery());
     }
 
     @Test
-    void getSearchAppQueryTest() {
+    public void getSearchAppQueryTest() {
         assertEquals(saSQL, searchAppQuery.getQuery());
     }
 
     @Test
-    void getUserQueryTest() {
+    public void getUserQueryTest() {
         assertEquals(uSQL, userQuery.getQuery());
     }
 

@@ -1,45 +1,45 @@
 package UserAccounts;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Chad on 4/4/2017.
  */
-class UserTest {
+public class UserTest {
 
     User user = new User("root", "wong", 9);
 
     @Test
-    void getUsername() {
+    public void getUsername() {
         assertEquals("root", user.getUsername());
     }
 
     @Test
-    void setUsername() {
+    public void setUsername() {
         user.setUsername("wwong");
         assertEquals("wwong", user.getUsername());
     }
 
     @Test
-    void getRealName() {
+    public void getRealName() {
         assertEquals("wong", user.getRealName());
     }
 
     @Test
-    void setRealName() {
+    public void setRealName() {
         user.setRealName("wilson");
         assertEquals("wilson", user.getRealName());
     }
 
     @Test
-    void getAuthenticationLevel() {
+    public void getAuthenticationLevel() {
         assertEquals(9, user.getAuthenticationLevel());
     }
 
     @Test
-    void setAuthenticationLevel() {
+    public void setAuthenticationLevel() {
         user.setAuthenticationLevel(4);
         assertEquals(4, user.getAuthenticationLevel());
     }

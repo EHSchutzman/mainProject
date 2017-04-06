@@ -1,15 +1,14 @@
 package UserAccounts;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static org.junit.Assert.assertTrue;
 /**
  * Created by Chad on 4/4/2017.
  */
-class AuthenticationControllerTest {
+public class AuthenticationControllerTest {
     @Test
-    void loginAction() {
+    public void loginAction() {
         assertTrue(true);
     }
 

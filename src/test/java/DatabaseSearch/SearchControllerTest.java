@@ -1,53 +1,53 @@
 package DatabaseSearch;
 
-import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by Leo on 4/4/2017.
  */
-class SearchControllerTest {
+public class SearchControllerTest {
     SearchController sc = new SearchController();
     ResultSet rs;
 
     @Test
-    void DBConnect() {
+    public void DBConnect() {
     }
 
     @Test
-    void queryDB() {
+    public void queryDB() {
     }
 
     @Test
-    void searchCriteriaSuccess() {
+    public void searchCriteriaSuccess() {
         assertEquals(true, sc.searchCriteria());
     }
 
     @Test
-    void applicationSearchCriteriaSuccess() {
+    public void applicationSearchCriteriaSuccess() {
         assertEquals(true, sc.applicationSearchCriteria());
     }
 
     @Test
-    void displayData() {
+    public void displayData() {
         assertEquals(true, sc.displayData(rs));
     }
 
     @Test
-    void saveCSVSuccess() {
+    public void saveCSVSuccess() {
         assertEquals(true, sc.saveCSV());
     }
 
     @Test
-    void getQueryBuilder() {
+    public void getQueryBuilder() {
         assertEquals(null, sc.getQueryBuilder());
     }
 
     @Test
-    void getQuery() {
+    public void getQuery() {
         assertEquals("", sc.getQuery());
     }
 
