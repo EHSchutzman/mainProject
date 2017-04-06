@@ -47,14 +47,6 @@ public class Form {
     private String agentName;
     private LocalDate expirationDate;
 
-    //Revisions
-    //Wine
-    private String alterVintageDate;
-    private String alterpHLevel;
-    private String alterWineAlcoholContent;
-    //Beer
-    private String alterBeerAlcoholContent;
-
     //constructor
     public Form() {
         this.setStatus("processing");
@@ -64,6 +56,7 @@ public class Form {
     public String makeUniqueID () {
         String uniqueID = UUID.randomUUID().toString();
         return uniqueID;
+        //fuck all of the above and just generate a random number and check with DB
     }
 
     public String getFormID() {
@@ -82,7 +75,9 @@ public class Form {
         this.repID = repID;
     }
 
-    public String getPermitNo() { return permitNo; }
+    public String getPermitNo() {
+        return permitNo;
+    }
 
     public void setPermitNo(String permitNo) {
         this.permitNo = permitNo;
@@ -326,37 +321,5 @@ public class Form {
 
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
-    }
-
-    public String getAlterVintageDate() {
-        return alterVintageDate;
-    }
-
-    public void setAlterVintageDate(String alterVintageDate) {
-        this.alterVintageDate = alterVintageDate;
-    }
-
-    public String getAlterpHLevel() {
-        return alterpHLevel;
-    }
-
-    public void setAlterpHLevel(String alterpHLevel) {
-        this.alterpHLevel = alterpHLevel;
-    }
-
-    public String getAlterWineAlcoholContent() {
-        return alterWineAlcoholContent;
-    }
-
-    public void setAlterWineAlcoholContent(String alterWineAlcoholContent) {
-        this.alterWineAlcoholContent = alterWineAlcoholContent;
-    }
-
-    public String getAlterBeerAlcoholContent() {
-        return alterBeerAlcoholContent;
-    }
-
-    public void setAlterBeerAlcoholContent(String alterBeerAlcoholContent) {
-        this.alterBeerAlcoholContent = alterBeerAlcoholContent;
     }
 }
