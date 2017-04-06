@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
+    <children>
+        <TableView fx:id="resultsTable" layoutX="21.0" layoutY="47.0" prefHeight="339.0" prefWidth="558.0">
+            <columns>
+                <TableColumn fx:id="1" prefWidth="70.0" text="Form ID" />
+                <TableColumn fx:id="2" prefWidth="70.0" text="Permit No." />
+                <TableColumn fx:id="3" prefWidth="70.0" text="Serial No." />
+                <TableColumn fx:id="4" prefWidth="70.0" text="Completed Date" />
+                <TableColumn fx:id="5" prefWidth="70.0" text="Fanciful Name." />
+                <TableColumn fx:id="6" prefWidth="70.0" text="Brand Name" />
+                <TableColumn fx:id="7" prefWidth="70.0" text="Origin" />
+                <TableColumn fx:id="8" prefWidth="70.0" text="Type ID" />
+            </columns>
+        </TableView>
+        <Label fx:id="pageLabel" layoutX="253.0" layoutY="14.0" text="Search Results" />
+      <Button fx:id="gen_csv" layoutX="469.0" layoutY="9.0" mnemonicParsing="false" text="Generate CSV" />
+    </children>
+</AnchorPane>
