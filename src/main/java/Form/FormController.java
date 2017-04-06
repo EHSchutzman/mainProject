@@ -129,94 +129,6 @@ public class FormController{
     @FXML
     private TextField alterBeerAlcoholContent;
 
-    //public FormController () {}
-    /*
-    //might need to go in main
-    //initializes all the radio buttons
-    public void start() {
-        //Source
-        //make radio buttons and group them
-        domesticRadio=new RadioButton("domestic");
-        importedRadio=new RadioButton("imported");
-        //set selected
-        importedRadio.setSelected(true);
-        //create group for radio buttons
-        sourceGroup = new ToggleGroup();
-        domesticRadio.setToggleGroup(sourceGroup);
-        importedRadio.setToggleGroup(sourceGroup);
-
-        //Type
-        //make radio buttons and group them
-        beerRadio=new RadioButton("beer");
-        wineRadio=new RadioButton("wine");
-        //set selected
-        beerRadio.setSelected(true);
-        //create group for radio buttons
-        typeGroup = new ToggleGroup();
-        beerRadio.setToggleGroup(typeGroup);
-        wineRadio.setToggleGroup(typeGroup);
-
-        //Status
-        //make radio buttons and group them
-        acceptRadio=new RadioButton("accept");
-        rejectRadio=new RadioButton("reject");
-        //set selected
-        //rejectRadio.setSelected(true);
-        //create group for radio buttons
-        statusGroup = new ToggleGroup();
-        acceptRadio.setToggleGroup(statusGroup);
-        rejectRadio.setToggleGroup(statusGroup);
-    }*/
-    /*
-    public Form createForm() {
-        Form newForm = new Form();
-        //Set values of the application
-        newForm.setFormID(newForm.makeUniqueID());
-        newForm.setRepID(repIDText.getText());
-        newForm.setPermitNo(permitNoText.getText());
-        //determine inputted source
-        if (domesticRadio.isSelected()) {
-            newForm.setSource("domestic");
-        } else if (importedRadio.isSelected()) {
-            newForm.setSource("imported");
-        }
-        //determine inputted type
-        if (beerRadio.isSelected()) {
-            newForm.setType(901);
-        } else if (wineRadio.isSelected()) {
-            newForm.setType(80);
-        }
-        newForm.setBrandName(brandNameText.getText());
-        newForm.setCompanyName(companyNameText.getText());
-        newForm.setAddress(address1Text.getText() + " " + address2Text.getText());
-        newForm.setCity(cityText.getText());
-        newForm.setState(stateText.getText());
-        newForm.setZipCode(zipCodeText.getText());
-        newForm.setCountry(countryText.getText());
-        newForm.setTradename(tradenameText.getText());
-        newForm.setPhoneNumber(phoneNumberText.getText());
-        newForm.setEmail(emailText.getText());
-        newForm.setAlcoholContent(alcoholContentText.getText());
-        newForm.setVintageYear(vintageYearText.getText());
-        newForm.setpHLevel(pHLevelText.getText());
-        newForm.setCompletedDate(completedDate.getValue());
-        newForm.setApplicantName(applicantNameText.getText());
-        //determine inputted status of the
-        if (acceptRadio.isSelected()) {
-            newForm.setStatus("accepted");
-        } else if (rejectRadio.isSelected()) {
-            newForm.setStatus("rejected");
-        }
-        newForm.setApprovalDate(approvalDate.getValue());
-        newForm.setAgentName(agentNameText.getText());
-        newForm.setExpirationDate(expirationDate.getValue());
-        newForm.setAlterVintageDate(alterVintageDate.getText());
-        newForm.setAlterpHLevel(pHLevelText.getText());
-        newForm.setAlterWineAlcoholContent(alterWineAlcoholContent.getText());
-        newForm.setAlterBeerAlcoholContent(alterBeerAlcoholContent.getText());
-
-        return newForm;
-    }*/
 
     //Label info page
     public Form createFormPage1() {
@@ -415,6 +327,21 @@ public class FormController{
 
     //TODO On review next application clicked query database and provide the agent with he first application
     public void chooseForm () {
+        String query = "";
+        query = "SELECT * FROM FORM WHERE FORM.ASSIGNED_TO = FALSE ";
+
+        try{
+            Connection c = DBConnect();
+            Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = s.executeQuery(query);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        /*
+            TODO create a function that will take a rs row and fill it to a form because writing that out 5 times would be dumb
+
+        */
+
         //select a form from the list of forms that need to be processed
         //assign agent to form
         //review form
