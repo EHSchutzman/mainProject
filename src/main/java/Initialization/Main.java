@@ -62,7 +62,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/mainPage.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/defaultUserMainPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -104,7 +104,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/applicationPage0.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/applicantApplicationPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
@@ -142,67 +142,6 @@ public class Main extends Application {
             SearchController controller = loader.getController();
             controller.setDisplay(this);
         } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void changeApplicantFormView(int i){
-        String fxmlFile = "/FXMLLayouts/applicationPage0.fxml";
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            switch (i){
-                case 1: fxmlFile = "/FXMLLayouts/applicationPage1.fxml";
-                    break;
-                case 2: fxmlFile = "/FXMLLayouts/applicationPage2.fxml";
-                    break;
-                case 3: fxmlFile = "/FXMLLayouts/applicationPage3.fxml";
-                    break;
-                case 4: fxmlFile = "/FXMLLayouts/applicationPage4.fxml";
-                    break;
-                case 5: fxmlFile = "/FXMLLayouts/applicationPage5.fxml";
-                    break;
-                case 6: fxmlFile = "/FXMLLayouts/applicationPage6.fxml";
-                    break;
-            }
-            loader.setLocation(getClass().getResource(fxmlFile));
-            AnchorPane pane = loader.load();
-
-            primaryStage.setTitle("Search");
-            primaryStage.getScene().setRoot(pane);
-
-            FormController controller = loader.getController();
-            controller.setDisplay(this);
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-    public void changeAgentFormView(int i){
-        String fxmlFile = "/FXMLLayouts/applicationPage0.fxml";
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            switch (i){
-                case 1: fxmlFile = "/FXMLLayouts/agentApplication1.fxml";
-                    break;
-                case 2: fxmlFile = "/FXMLLayouts/agentApplication2.fxml";
-                    break;
-                case 3: fxmlFile = "/FXMLLayouts/agentApplication3.fxml";
-                    break;
-                case 4: fxmlFile = "/FXMLLayouts/agentApplication4.fxml";
-                    break;
-                case 5: fxmlFile = "/FXMLLayouts/agentApplication5.fxml";
-                    break;
-            }
-            loader.setLocation(getClass().getResource(fxmlFile));
-            AnchorPane pane = loader.load();
-
-            primaryStage.setTitle("Search");
-            primaryStage.getScene().setRoot(pane);
-
-            FormController controller = loader.getController();
-            controller.setDisplay(this);
-
-        }catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -266,6 +205,26 @@ public class Main extends Application {
         }
 
     }
+    public void setDisplayToMain() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/mainPage.fxml"));
+
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Main Page");
+            primaryStage.getScene().setRoot(page);
+
+
+            ActionController controller = loader.getController();
+            controller.setDisplay(this);
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public void setDisplayToReviewApplicaiton() {
 
@@ -284,6 +243,25 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+    public void setDisplayToAgentReview(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/newAgentApplication.fxml"));
+
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Main Page");
+            primaryStage.getScene().setRoot(page);
+
+
+            FormController controller = loader.getController();
+            controller.setDisplay(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
     public static void main(String[] args) {

@@ -25,7 +25,7 @@ public class ActionController {
 
     public void displayMainPage() {
         try {
-            main.setDisplayToDefaultMain();
+            main.setDisplayToMain();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class ActionController {
     @FXML
     public void logoutAction(){
        main.userData.setUserInformation(new User());
-      displayMainPage();
+      main.setDisplayToMain();
     }
 
     @FXML

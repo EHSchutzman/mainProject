@@ -8,7 +8,6 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.ActionController">
    <children>
       <Button fx:id="searchButton" layoutX="220.0" layoutY="106.0" mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Search COLA Database" />
-      <Button fx:id="submissionButton" layoutX="215.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#displayApplicationPage" text="Submit Label Application" />
       <Button fx:id="logInButton" layoutX="272.0" layoutY="273.0" mnemonicParsing="false" onMouseClicked="#displayLogin" text="Log In" />
        <Label fx:id="currentUserLabel" layoutX="483.0" layoutY="29.0" />
        <Label layoutX="382.0" layoutY="29.0" prefHeight="17.0" prefWidth="84.0" text="Logged in as:" />

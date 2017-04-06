@@ -341,10 +341,7 @@ public class FormController{
             TODO create a function that will take a rs row and fill it to a form because writing that out 5 times would be dumb
         */
 
-        //select a form from the list of forms that need to be processed
-        //assign agent to form
-        //review form
-        //resubmit form
+        main.setDisplayToAgentReview();
 
         //display the form
     }
@@ -420,91 +417,29 @@ public class FormController{
 
     @FXML
     public void startApplication(){
-        currentPage = 0;
-        nextPage();
-    }
-    //
-    @FXML
-    public void nextPage() {
-
-        if (main.userData.getUserInformation().getAuthenticationLevel() > 1) {
-            if (main.userData.getCurrentApplicationPage() == 0) {
-                System.out.println("0");
-                main.userData.setCurrentApplicationPage(1);
-                main.changeAgentFormView(1);
-            } else if (main.userData.getCurrentApplicationPage() == 1) {
-                System.out.println("1");
-                main.userData.setCurrentApplicationPage(2);
-                main.changeAgentFormView(2);
-
-            } else if (main.userData.getCurrentApplicationPage() == 2) {
-                System.out.println("2");
-                main.userData.setCurrentApplicationPage(3);
-                main.changeAgentFormView(3);
-
-            } else if (main.userData.getCurrentApplicationPage() == 3) {
-                main.userData.setCurrentApplicationPage(4);
-                main.changeAgentFormView(4);
-
-            } else if (main.userData.getCurrentApplicationPage() == 4) {
-                main.userData.setCurrentApplicationPage(5);
-                main.changeAgentFormView(5);
-
-            } else if (main.userData.getCurrentApplicationPage() == 5) {
-                main.userData.setCurrentApplicationPage(6);
-                main.changeAgentFormView(6);
-
-            } else if (main.userData.getCurrentApplicationPage() == 6) {
-                main.userData.setCurrentApplicationPage(0);
-
-            }
-        } else {
-            System.out.println("Next applicant page");
-            if (main.userData.getCurrentApplicationPage() == 0) {
-                System.out.println("0");
-                main.userData.setCurrentApplicationPage(1);
-                main.changeApplicantFormView(1);
-            } else if (main.userData.getCurrentApplicationPage() == 1) {
-                System.out.println("1");
-                main.userData.setCurrentApplicationPage(2);
-                main.changeApplicantFormView(2);
-                createFormPage1();
-            } else if (main.userData.getCurrentApplicationPage() == 2) {
-                System.out.println("2");
-                main.userData.setCurrentApplicationPage(3);
-                main.changeApplicantFormView(3);
-                createFormPage2();
-            } else if (main.userData.getCurrentApplicationPage() == 3) {
-                System.out.println("3");
-                main.userData.setCurrentApplicationPage(4);
-                main.changeApplicantFormView(4);
-                createFormPage3();
-            } else if (main.userData.getCurrentApplicationPage() == 4) {
-                System.out.println("4");
-                main.userData.setCurrentApplicationPage(5);
-                main.changeApplicantFormView(5);
-                createFormPage4();
-            } else if (main.userData.getCurrentApplicationPage() == 5) {
-                System.out.println("5");
-                main.userData.setCurrentApplicationPage(6);
-                main.changeApplicantFormView(6);
-                createFormPage5();
-            } else if (main.userData.getCurrentApplicationPage() == 6) {
-                main.userData.setCurrentApplicationPage(0);
-                System.out.println("6");
-
-            }
+        try{
+            main.setDisplayToApply();
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
     }
-
 
     @FXML
     public void returnToMainPage(){
         try{
-            main.setDisplayToDefaultMain();
+            if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
+                main.setDisplayToApplicantMain();
+            }
+            else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+                main.setDisplayToAgentMain();
+            }
+            else{
+                main.setDisplayToDefaultMain();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 }
