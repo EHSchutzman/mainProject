@@ -32,7 +32,6 @@ import java.time.format.DateTimeFormatter;
 public class SearchController {
 
     private Main main;
-    private Data data = new Data();
     // Database information
     private static String url = "Example";
     private static String user = "root";
@@ -94,19 +93,19 @@ public class SearchController {
         setQuery(getQueryBuilder().getQuery());
 
         // Query the DB
-        data.setSearchResults(queryDB(getQuery()));
+        main.userData.setSearchResults(queryDB(getQuery()));
 
         try {
-            ResultSetMetaData rsmd = data.getSearchResults().getMetaData();
+            ResultSetMetaData rsmd = main.userData.getSearchResults().getMetaData();
             int columnsNumber = rsmd.getColumnCount();
 
 // Iterate through the data in the result set and display it.
 
-            while (data.getSearchResults().next()) {
+            while (main.userData.getSearchResults().next()) {
 //Print one row
                 for (int i = 1; i <= columnsNumber; i++) {
 
-                    System.out.print(data.getSearchResults().getString(i) + " "); //Print one element of a row
+                    System.out.print(main.userData.getSearchResults().getString(i) + " "); //Print one element of a row
 
                 }
 
@@ -118,7 +117,7 @@ public class SearchController {
         }
 
         // Display our new data in the TableView
-        displayData(data.getSearchResults());
+        displayData(main.userData.getSearchResults());
 
     }
 
@@ -182,7 +181,7 @@ public class SearchController {
     // Display DB data into a TableView
     protected boolean displayData(ResultSet rs) {
 
-        ResultSet dataa = data.getSearchResults();
+        ResultSet dataSearchResults = main.userData.getSearchResults();
 
         try {
             main.displaySearchResultsPage();
@@ -209,19 +208,19 @@ public class SearchController {
             try {
 
                 ObservableList<ObservableList> dataList = FXCollections.observableArrayList();
-                while (dataa.next()) {
-                    String formID = dataa.getString("FORM_ID");
-                    String permitNo = dataa.getString("PERMIT_NO");
-                    String serialNo = dataa.getString("SERIAL_NUMBER");
-                    String completedDate = dataa.getString("COMPLETED_DATE");
-                    String fancifulName = dataa.getString("FANCIFUL_NAME");
-                    String brandName = dataa.getString("BRAND_NAME");
-                    String origin = dataa.getString("ORIGIN");
-                    String type = dataa.getString("TYPE_ID");
+                while (dataSearchResults.next()) {
+                    String formID = dataSearchResults.getString("FORM_ID");
+                    String permitNo = dataSearchResults.getString("PERMIT_NO");
+                    String serialNo = dataSearchResults.getString("SERIAL_NUMBER");
+                    String completedDate = dataSearchResults.getString("COMPLETED_DATE");
+                    String fancifulName = dataSearchResults.getString("FANCIFUL_NAME");
+                    String brandName = dataSearchResults.getString("BRAND_NAME");
+                    String origin = dataSearchResults.getString("ORIGIN");
+                    String type = dataSearchResults.getString("TYPE_ID");
 
                     ObservableList<String> row = FXCollections.observableArrayList();
-                    for(int i=1 ; i<=dataa.getMetaData().getColumnCount(); i++){
-                        row.add(dataa.getString(i));
+                    for(int i=1 ; i<=dataSearchResults.getMetaData().getColumnCount(); i++){
+                        row.add(dataSearchResults.getString(i));
                     }
                     dataList.add(row);
 
@@ -282,10 +281,10 @@ public class SearchController {
         // Initialize file
         PrintWriter csvWriter = new PrintWriter(new File("TTB_Search_Results.csv"));
 
-        ResultSet dataa = data.getSearchResults();
+        ResultSet searchResults = main.userData.getSearchResults();
 
         // Determine CSV size and headers
-        ResultSetMetaData meta = dataa.getMetaData();
+        ResultSetMetaData meta = searchResults.getMetaData();
         int numberOfColumns = meta.getColumnCount();
         System.out.println(numberOfColumns);
         String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
@@ -297,10 +296,10 @@ public class SearchController {
         csvWriter.println(dataHeaders);
 
         // Print data to CSV
-        while (dataa.next()) {
-            String row = "\"" + dataa.getString(1).replaceAll("\"", "\\\"") + "\"";
+        while (searchResults.next()) {
+            String row = "\"" + searchResults.getString(1).replaceAll("\"", "\\\"") + "\"";
             for (int i = 2; i < numberOfColumns + 1; i++) {
-                row += ",\"" + dataa.getString(i).replaceAll("\"", "\\\"") + "\"";
+                row += ",\"" + searchResults.getString(i).replaceAll("\"", "\\\"") + "\"";
             }
             csvWriter.println(row);
         }
