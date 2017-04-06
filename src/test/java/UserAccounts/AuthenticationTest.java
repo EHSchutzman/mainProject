@@ -9,7 +9,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class AuthenticationTest {
 
-    Authentication auth = new Authentication("root", "admin");
+    //Authentication auth = new Authentication("root", "admin");
+    Authentication auth = new Authentication();
 
     @Test
     public void getRealName() {
