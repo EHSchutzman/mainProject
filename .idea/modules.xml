@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alcohol Label Project.iml" filepath="$PROJECT_DIR$/.idea/modules/Alcohol Label Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alcohol Label Project.iml" filepath="$PROJECT_DIR$/.idea/modules/Alcohol Label Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_main.iml" group="Alcohol Label Project" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_main.iml" group="Alcohol Label Project" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_test.iml" group="Alcohol Label Project" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Alcohol_Label_Project_test.iml" group="Alcohol Label Project" />
     </modules>
   </component>

@@ -81,11 +81,14 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/FXMLLayouts/loginPage.fxml"));
             AnchorPane page = loader.load();
+
             primaryStage.setTitle("Login Page");
             primaryStage.getScene().setRoot(page);
 
+
             AuthenticationController controller = loader.getController();
             controller.setDisplay(this);
+
 
 
         } catch (IOException e) {

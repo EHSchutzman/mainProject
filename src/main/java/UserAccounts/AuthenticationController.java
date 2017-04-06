@@ -2,6 +2,8 @@ package UserAccounts;
 
 
 import Initialization.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import DatabaseSearch.*;
@@ -21,6 +23,7 @@ public class AuthenticationController {
     Authentication isAuthentic = new Authentication();
     User user;
 
+    ObservableList<String> menuOptions = FXCollections.observableArrayList("Agent", "User", "Applicant");
 
     private Main main;
     @FXML
@@ -33,6 +36,11 @@ public class AuthenticationController {
     public TextField email;
     public TextField loginName;
     public TextField fullName;
+    public TextField phoneNumber;
+    @FXML
+    public ChoiceBox<String> userType;
+
+
 
     public AuthenticationController() {
         errorMessage = null;
@@ -41,11 +49,18 @@ public class AuthenticationController {
     }
     @FXML
     public void displayCreateUserPage(){
+
         try{
             main.displayCreateUser();
+//            userType.getItems().removeAll();
+//            userType.getItems().addAll("User", "Agent", "Applicant");
+//            userType.getSelectionModel().select("Option B");
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
+
     }
     @FXML
     public void returnToMain(){
@@ -63,7 +78,13 @@ public class AuthenticationController {
         String loginNameText = loginName.getText();
         String passwordText = password.getText();
         String fullNameText = fullName.getText();
-        isAuthentic.createUser(userIDText, emailText, loginNameText, passwordText, fullNameText);
+        String phoneNum = phoneNumber.getText();
+        isAuthentic.createUser(userIDText, fullNameText, loginNameText, passwordText, emailText, phoneNum );
+        try {
+            main.setDisplayToLogin();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
