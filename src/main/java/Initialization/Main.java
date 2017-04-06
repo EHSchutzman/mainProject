@@ -20,7 +20,7 @@ import java.sql.SQLDataException;
 
 public class Main extends Application {
 
-    public Data userData = new Data(new User("test", "test test", 0));
+    public Data userData = new Data(new User());
     private Stage primaryStage;
     private AnchorPane rootLayout;
 

@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import DatabaseSearch.*;
+
 import java.awt.*;
 import java.awt.Label;
 import java.io.IOException;
@@ -41,37 +42,38 @@ public class AuthenticationController {
     public ChoiceBox<String> userType;
 
 
-
     public AuthenticationController() {
         errorMessage = null;
         password = null;
         username = null;
     }
-    @FXML
-    public void displayCreateUserPage(){
 
-        try{
+    @FXML
+    public void displayCreateUserPage() {
+
+        try {
             main.displayCreateUser();
 //            userType.getItems().removeAll();
 //            userType.getItems().addAll("User", "Agent", "Applicant");
 //            userType.getSelectionModel().select("Option B");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
     }
+
     @FXML
-    public void returnToMain(){
-        try{
+    public void returnToMain() {
+        try {
             main.setDisplayToMain();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @FXML
-    public void createUserAction(){
+    public void createUserAction() {
 
         String userIDText = userID.getText();
         String emailText = email.getText();
@@ -79,43 +81,51 @@ public class AuthenticationController {
         String passwordText = password.getText();
         String fullNameText = fullName.getText();
         String phoneNum = phoneNumber.getText();
-        isAuthentic.createUser(userIDText, fullNameText, loginNameText, passwordText, emailText, phoneNum );
+        isAuthentic.createUser(userIDText, fullNameText, loginNameText, passwordText, emailText, phoneNum);
         try {
             main.setDisplayToLogin();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    public void loginAction(){
+    public void loginAction() {
         String name = username.getText();
         String pass = password.getText();
-        Boolean foundUser = false;
 
 
-//        isAuthentic = new Authentication(name,pass);
-//        if(isAuthentic.authenticate()) {
-//            //make a user
-//            user = new User(isAuthentic.getUsername(), isAuthentic.getRealName(), isAuthentic.getAuthenticationLevel());
-//
-//        }
-//        else{
-//            //reset fields and wait
-//            //@TODO make extra checks for if name exists, and just that password is wrong
-//            password.setText(null);
-//            username.setText(null);
-//
-//            errorMessage.setText("Incorrect username or password, please try again! 8^)");
-//            //
-//        }
-        main.userData.setUserInformation(user);
-        main.setDisplayToMain();
+        isAuthentic.setUsername(name);
+        isAuthentic.setPassword(pass);
+        isAuthentic.authenticate();
+
+        if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
+            //@TODO If user is authenticated return to screen, if user isnt found then return error.
+            if(isAuthentic.getFoundUser().getAuthenticationLevel() == 1){
+                System.out.println("user has authentication lvl 1");
+                //set display to applicant main page
+            }
+            else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 2){
+                System.out.println("user has authentication lvl 2");
+                //set display to agent main page
+            }
+            else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 3){
+                System.out.println("user has authentication lvl 3");
+                //set display to super agent page
+            }
+
+        } else{
+            System.out.println("user has authentication lvl 0");
+            //set display to main page
+        }
+
+//        main.userData.setUserInformation(user);
+//        main.setDisplayToMain();
     }
-    public void setDisplay(Main main){
+
+    public void setDisplay(Main main) {
         this.main = main;
     }
-
 
 
 }

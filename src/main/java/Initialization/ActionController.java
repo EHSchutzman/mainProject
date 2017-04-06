@@ -12,7 +12,7 @@ public class ActionController {
     //Initialize other controllers
     public SearchController betterSearchController = new SearchController();
     public FormController formController = new FormController();
-    public User defaultUser = new User("Default", "Default User", 0);
+    public User defaultUser = new User();
     protected User loggedInUser = null;
 
 
