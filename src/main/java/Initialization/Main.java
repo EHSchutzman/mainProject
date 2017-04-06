@@ -58,7 +58,7 @@ public class Main extends Application {
         }
     }
 
-    public void setDisplayToMain() {
+    public void setDisplayToDefaultMain() {
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -182,17 +182,15 @@ public class Main extends Application {
         try{
             FXMLLoader loader = new FXMLLoader();
             switch (i){
-                case 1: fxmlFile = "/FXMLLayouts/agentApplication0.fxml";
+                case 1: fxmlFile = "/FXMLLayouts/agentApplication1.fxml";
                     break;
-                case 2: fxmlFile = "/FXMLLayouts/agentApplication1.fxml";
+                case 2: fxmlFile = "/FXMLLayouts/agentApplication2.fxml";
                     break;
-                case 3: fxmlFile = "/FXMLLayouts/agentApplication2.fxml";
+                case 3: fxmlFile = "/FXMLLayouts/agentApplication3.fxml";
                     break;
-                case 4: fxmlFile = "/FXMLLayouts/agentApplication3.fxml";
+                case 4: fxmlFile = "/FXMLLayouts/agentApplication4.fxml";
                     break;
-                case 5: fxmlFile = "/FXMLLayouts/agentApplication4.fxml";
-                    break;
-                case 6: fxmlFile = "/FXMLLayouts/agentApplication5.fxml";
+                case 5: fxmlFile = "/FXMLLayouts/agentApplication5.fxml";
                     break;
             }
             loader.setLocation(getClass().getResource(fxmlFile));
@@ -224,6 +222,68 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setDisplayToAgentMain() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/agentMainPage.fxml"));
+
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Main Page");
+            primaryStage.getScene().setRoot(page);
+
+
+            ActionController controller = loader.getController();
+            controller.setDisplay(this);
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setDisplayToApplicantMain() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/applicantMainPage.fxml"));
+
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Main Page");
+            primaryStage.getScene().setRoot(page);
+
+
+            ActionController controller = loader.getController();
+            controller.setDisplay(this);
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setDisplayToReviewApplicaiton() {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/FXMLLayouts/agentApplication0.fxml"));
+
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Main Page");
+            primaryStage.getScene().setRoot(page);
+
+
+            FormController controller = loader.getController();
+            controller.setDisplay(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     public static void main(String[] args) {
         try {

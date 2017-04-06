@@ -6,12 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import DatabaseSearch.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -57,7 +51,7 @@ public class AuthenticationController {
     @FXML
     public void returnToMain() {
         try {
-            main.setDisplayToMain();
+            main.setDisplayToDefaultMain();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,9 +83,10 @@ public class AuthenticationController {
         isAuthentic.setUsername(name);
         isAuthentic.setPassword(pass);
         isAuthentic.authenticate();
+        main.userData.setUserInformation(isAuthentic.getFoundUser());
 
         if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
-            //@TODO If user is authenticated return to screen, if user isnt found then return error.
+            //@TODO If user is authenticated return to proper screen
             if(isAuthentic.getFoundUser().getAuthenticationLevel() == 1){
                 System.out.println("user has authentication lvl 1");
                 //set display to applicant main page
@@ -102,7 +97,7 @@ public class AuthenticationController {
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 3){
                 System.out.println("user has authentication lvl 3");
-                //set display to super agent page
+                main.setDisplayToAgentMain();
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 0){
                 System.out.println("This user has authentication level 0");
@@ -118,8 +113,6 @@ public class AuthenticationController {
         }
 
 
-        main.userData.setUserInformation(isAuthentic.getFoundUser());
-        main.setDisplayToMain();
     }
 
     public void clearFields(){

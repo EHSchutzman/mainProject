@@ -3,21 +3,14 @@ package DatabaseSearch;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-import Initialization.Data;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
-import javafx.util.Callback;
 
 import Initialization.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -329,7 +322,7 @@ public class SearchController {
     @FXML
     public void returnToMainPage(){
         try{
-            main.setDisplayToMain();
+            main.setDisplayToDefaultMain();
         }catch (Exception e){
             e.printStackTrace();
         }

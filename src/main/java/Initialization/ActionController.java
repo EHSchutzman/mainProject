@@ -33,7 +33,7 @@ public class ActionController {
 
     public void displayMainPage() {
         try {
-            main.setDisplayToMain();
+            main.setDisplayToDefaultMain();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,4 +69,8 @@ public class ActionController {
         //display main page
     }
 
+    @FXML
+    public void displayReviseApplication(){
+        main.setDisplayToReviewApplicaiton();
+    }
 }

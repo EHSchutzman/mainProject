@@ -413,8 +413,14 @@ public class FormController{
         submitForm();
     }
 
+    //TODO On review next application clicked query database and provide the agent with he first application
     public void chooseForm () {
         //select a form from the list of forms that need to be processed
+        //assign agent to form
+        //review form
+        //resubmit form
+
+        //display the form
     }
 
     public void retrieveForm(String formID) {
@@ -455,7 +461,9 @@ public class FormController{
                 System.out.println(formID);
             }
             if (formID == null || formID.isEmpty()) {
-                String q = "INSERT INTO APP.FORM VALUES (" + main.userData.tempForm.getFormID() + ",'1000-10-10'," + main.userData.tempForm.getRepID() + ",'willie','facn','idk','cp','1','122','fda','123223','#df','3%','john',2,321,123,'26')";
+                String q = "INSERT INTO APP.FORM VALUES (" + main.userData.tempForm.getFormID()
+                        + ",'1000-10-10'," + main.userData.tempForm.getRepID() +
+                        ",'willie','facn','idk','cp','1','122','fda','123223','#df','3%','john',2,321,123,'26')";
                 Statement s = c.createStatement();
                 s.execute(q);
                 s.close();
@@ -477,7 +485,7 @@ public class FormController{
             System.out.println("no results");
         }
         try {
-            main.setDisplayToMain();
+            main.setDisplayToDefaultMain();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -563,10 +571,12 @@ public class FormController{
         }
 
     }
+
+
     @FXML
     public void returnToMainPage(){
         try{
-            main.setDisplayToMain();
+            main.setDisplayToDefaultMain();
         }catch (Exception e){
             e.printStackTrace();
         }

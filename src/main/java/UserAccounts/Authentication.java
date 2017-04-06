@@ -19,7 +19,8 @@ public class Authentication {
     //list of applicaitons
 
 
-    public Authentication(String username, String password, Boolean isValid, Boolean isAuthentic, int authenticationLevel, String realName) {
+    public Authentication(String username, String password, Boolean isValid, Boolean isAuthentic,
+                          int authenticationLevel, String realName) {
         this.username = username;
         this.password = password;
         this.isValid = isValid;
@@ -86,7 +87,8 @@ public class Authentication {
 
     public void createUser(String userID, String fullName, String username, String password, String email, String phone) {
         String queryString;
-        queryString = "Insert into USERS Values(" + userID + ",\'" + email + "\',\'" + username + "\',\'" + password + "\',\'" + fullName + "\',\'" + phone + "\', 0)";
+        queryString = "Insert into USERS Values(" + userID + ",\'" + email + "\',\'" + username + "\',\'" + password +
+                "\',\'" + fullName + "\',\'" + phone + "\', 0)";
         try {
             Connection c = DBConnect();
             Statement s = c.createStatement();
@@ -126,7 +128,6 @@ public class Authentication {
                 System.out.println("No user found");
                 this.foundUser = new User();
 
-
             }else {
                 rs.beforeFirst();
                 while (rs.next()) {
@@ -155,19 +156,4 @@ public class Authentication {
         return TTB_database.connect();
     }
 
-    // Function will query the DB
-    protected ResultSet queryDB(String query) {
-        Connection c;
-        Statement stmt;
-        ResultSet rs = null;
-        try {
-            c = DBConnect();
-            stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = stmt.executeQuery(query);
-        } catch (Exception e) {
-            e.printStackTrace();
-            stmt = null;
-        }
-        return rs;
-    }
 }
