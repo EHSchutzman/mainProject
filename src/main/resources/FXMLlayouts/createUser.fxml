@@ -7,14 +7,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserAccounts.AuthenticationController">
     <children>
-        <TextField fx:id="phoneNumber" layoutX="223.0" layoutY="244.0" promptText="Phone Number" />
         <TextField fx:id="userID" layoutX="223.0" layoutY="47.0" promptText="User ID" />
         <TextField fx:id="email" layoutX="225.0" layoutY="92.0" promptText="Email" />
+
+        <TextField fx:id="loginName" layoutX="225.0" layoutY="135.0" promptText="Login Name" />
+        <TextField fx:id="password" layoutX="225.0" layoutY="173.0" promptText="Password" />
+        <TextField fx:id="fullName" layoutX="225.0" layoutY="210.0" promptText="Full Name" />
+
+        <TextField fx:id="phoneNumber" layoutX="223.0" layoutY="244.0" promptText="Phone Number" />
+
         <Button fx:id="loginButton" layoutX="270.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#createUserAction" text="Create" />
-      <TextField fx:id="loginName" layoutX="225.0" layoutY="135.0" promptText="Login Name" />
-      <TextField fx:id="password" layoutX="225.0" layoutY="173.0" promptText="Password" />
-      <TextField fx:id="fullName" layoutX="225.0" layoutY="210.0" promptText="Full Name" />
       <Button fx:id="returnToMain" layoutX="26.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main" />
-      <ChoiceBox id="userType" fx:id="userType" layoutX="225.0" layoutY="278.0" prefWidth="150.0"  />
+      <ChoiceBox id="userType" fx:id="userType" layoutX="225.0" layoutY="278.0" prefWidth="150.0" />
     </children>
 </AnchorPane>

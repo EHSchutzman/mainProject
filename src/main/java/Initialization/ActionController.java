@@ -3,6 +3,8 @@ package Initialization;
 import DatabaseSearch.SearchController;
 import Form.FormController;
 import UserAccounts.User;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 
 public class ActionController {
@@ -14,6 +16,11 @@ public class ActionController {
     public FormController formController = new FormController();
     public User defaultUser = new User();
     protected User loggedInUser = null;
+
+
+    @FXML
+    public Label currentUserLabel;
+
 
 
     public void displayLogin() {
@@ -54,6 +61,12 @@ public class ActionController {
 
     public void setDisplay(Main main) {
         this.main = main;
+    }
+
+    @FXML
+    public void logoutAction(){
+        //remove current user data, replace with null user
+        //display main page
     }
 
 }

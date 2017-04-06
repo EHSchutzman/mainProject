@@ -50,6 +50,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
+            controller.currentUserLabel.setText("Not Logged In");
 
 
         } catch (IOException e) {
@@ -67,8 +68,10 @@ public class Main extends Application {
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
 
+
             ActionController controller = loader.getController();
             controller.setDisplay(this);
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
 
         } catch (IOException e) {
             e.printStackTrace();

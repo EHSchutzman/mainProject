@@ -7,9 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import DatabaseSearch.*;
-
-import java.awt.*;
-import java.awt.Label;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,7 +27,6 @@ public class AuthenticationController {
     @FXML
     public TextField username;
     public TextField password;
-    public Label errorMessage;
     public Button loginButton;
     @FXML
     public TextField userID;
@@ -41,13 +37,8 @@ public class AuthenticationController {
     @FXML
     public ChoiceBox<String> userType;
 
-
-    public AuthenticationController() {
-        errorMessage = null;
-        password = null;
-        username = null;
-    }
-
+    @FXML
+    public Label errorLabel;
     @FXML
     public void displayCreateUserPage() {
 
@@ -113,16 +104,28 @@ public class AuthenticationController {
                 System.out.println("user has authentication lvl 3");
                 //set display to super agent page
             }
+            else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 0){
+                System.out.println("This user has authentication level 0");
+
+            }
 
         } else{
-            System.out.println("user has authentication lvl 0");
-            //set display to main page
+            System.out.println("user not found");
+            errorLabel.setText("Invalid Username / Password, Please try again");
+            clearFields();
+            return;
+
         }
 
-//        main.userData.setUserInformation(user);
-//        main.setDisplayToMain();
+
+        main.userData.setUserInformation(isAuthentic.getFoundUser());
+        main.setDisplayToMain();
     }
 
+    public void clearFields(){
+        username.clear();
+        password.clear();
+    }
     public void setDisplay(Main main) {
         this.main = main;
     }
