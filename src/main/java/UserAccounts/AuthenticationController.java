@@ -2,7 +2,6 @@ package UserAccounts;
 
 
 import Initialization.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import DatabaseSearch.*;

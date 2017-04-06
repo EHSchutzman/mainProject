@@ -1,0 +1,16 @@
+
+language: java
+
+# Speeds up the build time
+sudo: false
+
+# Java JDK versions
+jdk:
+  - oraclejdk8
+
+#before_cache:
+#  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+#cache:
+#  directories:
+#    - $HOME/.gradle/caches/
+#    - $HOME/.gradle/wrapper/
