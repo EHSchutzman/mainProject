@@ -226,6 +226,16 @@ public class FormController{
         return main.userData.tempForm;
     }
 
+    //Revisions
+    public Form createFormPage6() {
+        main.userData.tempForm.setAlterVintageDate(alterVintageDate.getText());
+        main.userData.tempForm.setAlterpHLevel(pHLevelText.getText());
+        main.userData.tempForm.setAlterWineAlcoholContent(alterWineAlcoholContent.getText());
+        main.userData.tempForm.setAlterBeerAlcoholContent(alterBeerAlcoholContent.getText());
+
+        return main.userData.tempForm;
+    }
+
     //Label info page AGENTS ONLY
     public Form createAgentFormPage1() {
         //initializes necessary radio buttons
