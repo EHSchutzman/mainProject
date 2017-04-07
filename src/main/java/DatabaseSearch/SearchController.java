@@ -30,7 +30,7 @@ public class SearchController {
     private static String url = "Example";
     private static String user = "root";
     private static String pass = "root";
-    private static String tableName = "FORM";
+    private static String tableName = "";
     private ResultSet apprs;
     private ResultSet rs;
     //create QueryBuilder variable to store search info
@@ -140,7 +140,7 @@ public class SearchController {
             //store search info in a new QueryBuilder object
 //            setQueryBuilder(new QueryBuilder(tableName, "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
 //                    from, to, brand, product, typeFrom, typeTo, origin)); //For iteration 1 data stored in beverages table
-            setQueryBuilder(new QueryBuilder("BEVERAGES", "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
+            setQueryBuilder(new QueryBuilder("BEVERAGE", "TTB_ID,PERMIT_NUMBER,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
                     from, to, brand, product, typeFrom, typeTo, origin));
             return true;
         } catch (Exception e) {
@@ -180,7 +180,7 @@ public class SearchController {
                 while (searchResults.next()) {
                     row  = new AppRecord();
                     String formID = searchResults.getString("TTB_ID");
-                    String permitNo = searchResults.getString("PERMIT_NO");
+                    String permitNo = searchResults.getString("PERMIT_NUMBER");
                     String serialNo = searchResults.getString("SERIAL_NUMBER");
                     String completedDate = searchResults.getString("COMPLETED_DATE");
                     String fancifulName = searchResults.getString("FANCIFUL_NAME");

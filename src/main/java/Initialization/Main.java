@@ -2,6 +2,7 @@ package Initialization;
 
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
+import DatabaseSearch.TTB_database;
 import Form.Form;
 import Form.FormController;
 import UserAccounts.AuthenticationController;
@@ -18,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLDataException;
 
 public class Main extends Application {
@@ -280,7 +282,8 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         try {
-            launch(args);
+           launch(args);
+//            Connection c = TTB_database.connect();
         } catch (Exception e) {
 
         }

@@ -1,8 +1,8 @@
 package DatabaseSearch;
 
-import org.junit.Test;
+//import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Chad on 4/3/2017.
@@ -19,19 +19,19 @@ public class QueryBuilderTest {
             " AND BRAND_NAME='Coldsnap' AND PRODUCT_NAME='Super Freeze' AND TYPE BETWEEN 000 AND 999 AND ORIGIN_CODE='MA'";
     static String uSQL = "SELECT * FROM APP.USERS WHERE LOGIN_NAME='testUser' AND PASSWORD='password'";
 
-    @Test
-    public void getIndividualAppQueryTest() {
-        assertEquals(iaSQL, individualAppQuery.getQuery());
-    }
-
-    @Test
-    public void getSearchAppQueryTest() {
-        assertEquals(saSQL, searchAppQuery.getQuery());
-    }
-
-    @Test
-    public void getUserQueryTest() {
-        assertEquals(uSQL, userQuery.getQuery());
-    }
+//    @Test
+//    public void getIndividualAppQueryTest() {
+//        assertEquals(iaSQL, individualAppQuery.getQuery());
+//    }
+//
+//    @Test
+//    public void getSearchAppQueryTest() {
+//        assertEquals(saSQL, searchAppQuery.getQuery());
+//    }
+//
+//    @Test
+//    public void getUserQueryTest() {
+//        assertEquals(uSQL, userQuery.getQuery());
+//    }
 
 }
