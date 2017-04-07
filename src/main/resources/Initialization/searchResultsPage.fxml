@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -7,39 +12,39 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
     <children>
-        <TableView fx:id="resultsTable" layoutX="21.0" layoutY="47.0" prefHeight="339.0" prefWidth="558.0">
+        <TableView fx:id="resultsTable" layoutX="17.0" layoutY="65.0" prefHeight="421.0" prefWidth="967.0">
             <columns>
-                <TableColumn fx:id="formIDCol" prefWidth="70.0" text="Form ID">
+                <TableColumn fx:id="formIDCol" prefWidth="120.0" text="Form ID">
                     <cellValueFactory><PropertyValueFactory property="formID" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="permitNoCol" prefWidth="70.0" text="Permit No.">
+                <TableColumn fx:id="permitNoCol" prefWidth="120.0" text="Permit No.">
                     <cellValueFactory><PropertyValueFactory property="permitNo" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="serialNoCol" prefWidth="70.0" text="Serial No.">
+                <TableColumn fx:id="serialNoCol" prefWidth="120.0" text="Serial No.">
                     <cellValueFactory><PropertyValueFactory property="serialNo" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="completedDateCol" prefWidth="70.0" text="Completed Date">
+                <TableColumn fx:id="completedDateCol" prefWidth="140.0" text="Completed Date">
                     <cellValueFactory><PropertyValueFactory property="completedDate" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="fancifulNameCol" prefWidth="70.0" text="Fanciful Name.">
+                <TableColumn fx:id="fancifulNameCol" prefWidth="120.0" text="Fanciful Name.">
                     <cellValueFactory><PropertyValueFactory property="fancifulName" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="brandNameCol" prefWidth="70.0" text="Brand Name">
+                <TableColumn fx:id="brandNameCol" prefWidth="120.0" text="Brand Name">
                     <cellValueFactory><PropertyValueFactory property="brandName" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="originCol" prefWidth="70.0" text="Origin">
+                <TableColumn fx:id="originCol" prefWidth="105.0" text="Origin">
                     <cellValueFactory><PropertyValueFactory property="originCode" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="typeIDCol" prefWidth="70.0" text="Type ID">
+                <TableColumn fx:id="typeIDCol" prefWidth="120.0" text="Type ID">
                     <cellValueFactory><PropertyValueFactory property="typeID" />
                     </cellValueFactory>
                 </TableColumn>
@@ -54,8 +59,17 @@
                 <fx:reference source="formID" />
             </sortOrder>-->
         </TableView>
-        <Label fx:id="pageLabel" layoutX="253.0" layoutY="14.0" text="Search Results" />
-        <Button fx:id="gen_csv" layoutX="469.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#saveCSV" text="Generate CSV" />
-      <Button fx:id="returnButton" layoutX="21.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Return To Main" />
+        <Label fx:id="pageLabel" layoutX="386.0" layoutY="13.0" text="Search Results">
+         <font>
+            <Font size="36.0" />
+         </font></Label>
+        <Button fx:id="gen_csv" layoutX="850.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#saveCSV" text="Generate CSV">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="returnButton" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Return To Main">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
     </children>
 </AnchorPane>
