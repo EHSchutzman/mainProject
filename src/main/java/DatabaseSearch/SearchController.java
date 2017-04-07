@@ -173,7 +173,7 @@ public class SearchController {
 
     // Display DB data into a TableView
     protected boolean displayData(ResultSet rs) {
-
+        
         ResultSet dataSearchResults = main.userData.getSearchResults();
 
         try {
