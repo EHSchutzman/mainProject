@@ -52,7 +52,6 @@ public class Main extends Application {
             controller.setDisplay(this);
             controller.currentUserLabel.setText("Not Logged In");
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -262,7 +261,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-
     }
     public static void main(String[] args) {
         try {
@@ -276,7 +274,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/applicationPage0.fxml"));
+            loader.setLocation(getClass().getResource("/FXMLLayouts/applicantApplicationPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Application Page");
