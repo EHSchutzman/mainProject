@@ -1,11 +1,13 @@
 package Initialization;
 
+import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
 import Form.Form;
 import Form.FormController;
 import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -130,7 +132,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    public void displaySearchResultsPage() throws Exception{
+    public void displaySearchResultsPage(ObservableList<AppRecord> list) throws Exception{
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/FXMLLayouts/searchResultsPage.fxml"));
@@ -138,8 +140,13 @@ public class Main extends Application {
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
 
+
             SearchController controller = loader.getController();
             controller.setDisplay(this);
+
+            controller.resultsTable.setItems(list);
+
+
         } catch (IOException e){
             e.printStackTrace();
         }

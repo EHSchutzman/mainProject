@@ -69,7 +69,7 @@ public class SearchController {
     @FXML
     private TextField cbLocationCode;
     @FXML
-    private TableView<AppRecord> resultsTable;
+    public TableView<AppRecord> resultsTable;
     @FXML
     private TextField txtAppID;
 
@@ -92,28 +92,17 @@ public class SearchController {
         queryDB(getQuery());
 
         try {
-            ResultSetMetaData rsmd = crs.getMetaData();
+            ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
 
 // Iterate through the data in the result set and display it.
 
-            while (crs.next()) {
-//Print one row
-                for (int i = 1; i <= columnsNumber; i++) {
-
-                    System.out.print(crs.getString(i) + " "); //Print one element of a row
-
-                }
-
-                System.out.println();//Move to the next line to print the next row.
-
-            }
         } catch(SQLException e){
             e.printStackTrace();
         }
 
         // Display our new data in the TableView
-        displayData(crs);
+        displayData(rs);
 
     }
 
@@ -128,11 +117,9 @@ public class SearchController {
         Statement stmt;
         try {
             c = DBConnect();
-            stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            stmt = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             rs = stmt.executeQuery(query);
-            crs = new CachedRowSetImpl();
             System.out.println("Here");
-            crs.populate(rs);
         } catch (Exception e) {
             System.out.println("HERE");
             e.printStackTrace();
@@ -178,13 +165,13 @@ public class SearchController {
     }
 
     // Display DB data into a TableView
-    protected boolean displayData(CachedRowSet crs) {
+    protected boolean displayData(ResultSet rs) {
 
-        CachedRowSet searchResults = crs;
+        ResultSet searchResults = rs;
 
         try {
 
-            main.displaySearchResultsPage();
+
             try {
 
                 ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
@@ -218,9 +205,8 @@ public class SearchController {
                 System.out.println("Data "+ dataList);
 
                 //FINALLY ADDED TO TableView
-                resultsTable = new TableView<>();
-                resultsTable.setItems(dataList);
-                resultsTable.getColumns().setAll();
+
+                main.displaySearchResultsPage(dataList);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error building data!");
@@ -321,7 +307,18 @@ public class SearchController {
     @FXML
     public void returnToMainPage(){
         try{
-            main.setDisplayToDefaultMain();
+            if(main.userData.getUserInformation().getAuthenticationLevel() == 0) {
+                main.setDisplayToDefaultMain();
+            }
+            else if (main.userData.getUserInformation().getAuthenticationLevel() == 1){
+                main.setDisplayToApplicantMain();
+            }
+            else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+                main.setDisplayToAgentMain();
+            }
+            else{
+                main.setDisplayToMain();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

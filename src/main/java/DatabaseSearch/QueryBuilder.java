@@ -6,6 +6,7 @@ package DatabaseSearch;
 public class QueryBuilder {
 
     // QUERY
+    private StringBuilder options = new StringBuilder();
     private StringBuilder stringBuilder = new StringBuilder();
     private String tableName;
     private String fields;      // in SQL-compatible format
@@ -108,62 +109,66 @@ public class QueryBuilder {
         stringBuilder.append("SELECT ").append(getFields()).append(" FROM APP.").append(getTableName());
 
         // Maybe check that no strings are empty before appending where?
-        stringBuilder.append(" WHERE");
+        options.append(" WHERE");
 
         boolean firstCond = true;
 
         // REPLACE WITH ACTUAL DB FIELD NAMES
         if (getAppID() != null && !getAppID().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" TTB_ID='").append(getAppID()).append("'");;
+                options.append(" AND").append(" TTB_ID='").append(getAppID()).append("'");;
             } else {
-                stringBuilder.append(" TTB_ID='").append(getAppID()).append("'");
+                options.append(" TTB_ID='").append(getAppID()).append("'");
                 firstCond = false;
             }
         }
         if (getFromDate() != null && !getFromDate().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" COMPLETED_DATE BETWEEN '").append(getFromDate());
-                stringBuilder.append("' AND '").append(getToDate()).append("'");
+                options.append(" AND").append(" COMPLETED_DATE BETWEEN '").append(getFromDate());
+                options.append("' AND '").append(getToDate()).append("'");
             } else {
-                stringBuilder.append(" COMPLETED_DATE BETWEEN '").append(getFromDate());
-                stringBuilder.append("' AND '").append(getToDate()).append("'");
+                options.append(" COMPLETED_DATE BETWEEN '").append(getFromDate());
+                options.append("' AND '").append(getToDate()).append("'");
                 firstCond = false;
             }
         }
         if (getBrandName() != null && !getBrandName().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" BRAND_NAME='").append(getBrandName()).append("'");
+                options.append(" AND").append(" BRAND_NAME='").append(getBrandName()).append("'");
             } else {
-                stringBuilder.append(" BRAND_NAME='").append(getBrandName()).append("'");
+                options.append(" BRAND_NAME='").append(getBrandName()).append("'");
                 firstCond = false;
             }
         }
         if (getProductName() != null && !getProductName().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" FANCIFUL_NAME='").append(getProductName()).append("'");
+                options.append(" AND").append(" FANCIFUL_NAME='").append(getProductName()).append("'");
             } else {
-                stringBuilder.append(" FANCIFUL_NAME='").append(getProductName()).append("'");
+                options.append(" FANCIFUL_NAME='").append(getProductName()).append("'");
                 firstCond = false;
             }
         }
         if (getTypeFrom() != null && !getTypeFrom().isEmpty() && getTypeTo() != null && !getTypeTo().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" TYPE_ID BETWEEN ").append(getTypeFrom());
-                stringBuilder.append(" AND ").append(getTypeTo());
+                options.append(" AND").append(" TYPE_ID BETWEEN ").append(getTypeFrom());
+                options.append(" AND ").append(getTypeTo());
             } else {
-                stringBuilder.append(" TYPE_ID BETWEEN ").append(getTypeFrom());
-                stringBuilder.append(" AND ").append(getTypeTo());
+                options.append(" TYPE_ID BETWEEN ").append(getTypeFrom());
+                options.append(" AND ").append(getTypeTo());
                 firstCond = false;
             }
         }
         if (getOriginCode() != null && !getOriginCode().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" ORIGIN_CODE=(SELECT ORIGIN_CODE FROM APP.ORIGIN WHERE DESCRIPTION='").append(getOriginCode()).append("')");
+                options.append(" AND").append(" ORIGIN_CODE=(SELECT ORIGIN_CODE FROM APP.ORIGIN WHERE DESCRIPTION='").append(getOriginCode()).append("')");
             } else {
-                stringBuilder.append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
+                options.append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
                 firstCond = false;
             }
+        }
+
+        if(!options.toString().equals(" WHERE")){
+            stringBuilder.append(options);
         }
     }
 
