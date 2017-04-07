@@ -3,7 +3,6 @@ package DatabaseSearch;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-import com.sun.rowset.CachedRowSetImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
@@ -27,7 +26,6 @@ import java.time.format.DateTimeFormatter;
 public class SearchController {
 
     private Main main = new Main();
-    CachedRowSetImpl crs;
     // Database information
     private static String url = "Example";
     private static String user = "root";
@@ -140,7 +138,9 @@ public class SearchController {
             typeTo = txtClassRangeEnd.getText();
             origin = cbLocationCode.getText();
             //store search info in a new QueryBuilder object
-            setQueryBuilder(new QueryBuilder(tableName, "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
+//            setQueryBuilder(new QueryBuilder(tableName, "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
+//                    from, to, brand, product, typeFrom, typeTo, origin)); //For iteration 1 data stored in beverages table
+            setQueryBuilder(new QueryBuilder("BEVERAGES", "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
                     from, to, brand, product, typeFrom, typeTo, origin));
             return true;
         } catch (Exception e) {
@@ -257,12 +257,12 @@ public class SearchController {
         // Initialize file
         PrintWriter csvWriter = new PrintWriter(new File("TTB_Search_Results.csv"));
 
-        while(crs.previous());
+        while(rs.previous());
 
-        CachedRowSet searchResults = crs;
+        ResultSet searchResults = rs;
 
         // Determine CSV size and headers
-        ResultSetMetaData meta = crs.getMetaData();
+        ResultSetMetaData meta = rs.getMetaData();
         int numberOfColumns = meta.getColumnCount();
         System.out.println(numberOfColumns);
         String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
