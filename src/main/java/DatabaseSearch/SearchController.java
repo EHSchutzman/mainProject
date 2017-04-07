@@ -69,7 +69,7 @@ public class SearchController {
     @FXML
     private TextField cbLocationCode;
     @FXML
-    private TableView<ObservableList> resultsTable;
+    private TableView<AppRecord> resultsTable;
     @FXML
     private TextField txtAppID;
 
@@ -184,11 +184,14 @@ public class SearchController {
 
         try {
 
+            main.displaySearchResultsPage();
             try {
 
-                ObservableList<ObservableList> dataList = FXCollections.observableArrayList();
+                ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
                 while(searchResults.previous());
+                AppRecord row;
                 while (searchResults.next()) {
+                    row  = new AppRecord();
                     String formID = searchResults.getString("TTB_ID");
                     String permitNo = searchResults.getString("PERMIT_NO");
                     String serialNo = searchResults.getString("SERIAL_NUMBER");
@@ -198,10 +201,15 @@ public class SearchController {
                     String origin = searchResults.getString("ORIGIN_CODE");
                     String type = searchResults.getString("TYPE_ID");
 
-                    ObservableList<String> row = FXCollections.observableArrayList();
-                    for(int i=1 ; i<=searchResults.getMetaData().getColumnCount(); i++){
-                        row.add(searchResults.getString(i));
-                    }
+                    row.setTypeID(formID);
+                    row.setPermitNo(permitNo);
+                    row.setSerialNo(serialNo);
+                    row.setCompletedDate(completedDate);
+                    row.setFancifulName(fancifulName);
+                    row.setBrandName(brandName);
+                    row.setOriginCode(origin);
+                    row.setTypeID(type);
+
                     dataList.add(row);
 
                     System.out.println("Data "+ dataList);
@@ -210,9 +218,9 @@ public class SearchController {
                 System.out.println("Data "+ dataList);
 
                 //FINALLY ADDED TO TableView
-                main.displaySearchResultsPage();
                 resultsTable = new TableView<>();
                 resultsTable.setItems(dataList);
+                resultsTable.getColumns().setAll();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error building data!");
@@ -263,10 +271,12 @@ public class SearchController {
         // Initialize file
         PrintWriter csvWriter = new PrintWriter(new File("TTB_Search_Results.csv"));
 
+        while(crs.previous());
+
         CachedRowSet searchResults = crs;
 
         // Determine CSV size and headers
-        ResultSetMetaData meta = searchResults.getMetaData();
+        ResultSetMetaData meta = crs.getMetaData();
         int numberOfColumns = meta.getColumnCount();
         System.out.println(numberOfColumns);
         String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
