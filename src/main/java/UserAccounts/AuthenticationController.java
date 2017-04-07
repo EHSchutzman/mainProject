@@ -51,7 +51,8 @@ public class AuthenticationController {
     @FXML
     public void returnToMain() {
         try {
-            main.setDisplayToDefaultMain();
+
+            main.setDisplayToMain();
         } catch (Exception e) {
             e.printStackTrace();
         }
