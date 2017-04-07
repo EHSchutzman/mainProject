@@ -115,9 +115,9 @@ public class QueryBuilder {
         // REPLACE WITH ACTUAL DB FIELD NAMES
         if (getAppID() != null && !getAppID().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" TTB_ID='").append(getAppID()).append("'");;
+                stringBuilder.append(" AND").append(" FORM_ID='").append(getAppID()).append("'");;
             } else {
-                stringBuilder.append(" TTB_ID='").append(getAppID()).append("'");
+                stringBuilder.append(" FORM_ID='").append(getAppID()).append("'");
                 firstCond = false;
             }
         }
@@ -159,9 +159,9 @@ public class QueryBuilder {
         }
         if (getOriginCode() != null && !getOriginCode().isEmpty()) {
             if (!firstCond) {
-                stringBuilder.append(" AND").append(" ORIGIN_CODE=(SELECT ORIGIN_CODE FROM APP.ORIGIN WHERE DESCRIPTION='").append(getOriginCode()).append("')");
+                stringBuilder.append(" AND").append(" ORIGIN=(SELECT ORIGIN_CODE FROM APP.ORIGIN WHERE DESCRIPTION='").append(getOriginCode()).append("')");
             } else {
-                stringBuilder.append(" ORIGIN_CODE='").append(getOriginCode()).append("'");
+                stringBuilder.append(" ORIGIN='").append(getOriginCode()).append("'");
                 firstCond = false;
             }
         }

@@ -7,61 +7,22 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.collections.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.collections.FXCollections?>
-<?import DatabaseSearch.AppRecord?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
     <children>
         <TableView fx:id="resultsTable" layoutX="21.0" layoutY="47.0" prefHeight="339.0" prefWidth="558.0">
             <columns>
-                <TableColumn fx:id="formID" prefWidth="70.0" text="Form ID" >
-                    <cellValueFactory><PropertyValueFactory property="formID" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="permitNo" prefWidth="70.0" text="Permit No." >
-                    <cellValueFactory><PropertyValueFactory property="permitNo" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="serialNo" prefWidth="70.0" text="Serial No." >
-                    <cellValueFactory><PropertyValueFactory property="serialNo" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="4" prefWidth="70.0" text="Completed Date" >
-                    <cellValueFactory><PropertyValueFactory property="completedDate" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="5" prefWidth="70.0" text="Fanciful Name." >
-                    <cellValueFactory><PropertyValueFactory property="fancifulName" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="6" prefWidth="70.0" text="Brand Name" >
-                    <cellValueFactory><PropertyValueFactory property="brandName" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="7" prefWidth="70.0" text="Origin" >
-                    <cellValueFactory><PropertyValueFactory property="originCode" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="8" prefWidth="70.0" text="Type ID" >
-                    <cellValueFactory><PropertyValueFactory property="typeID" />
-                    </cellValueFactory>
-                </TableColumn>
+                <TableColumn fx:id="1" prefWidth="70.0" text="Form ID" />
+                <TableColumn fx:id="2" prefWidth="70.0" text="Permit No." />
+                <TableColumn fx:id="3" prefWidth="70.0" text="Serial No." />
+                <TableColumn fx:id="4" prefWidth="70.0" text="Completed Date" />
+                <TableColumn fx:id="5" prefWidth="70.0" text="Fanciful Name." />
+                <TableColumn fx:id="6" prefWidth="70.0" text="Brand Name" />
+                <TableColumn fx:id="7" prefWidth="70.0" text="Origin" />
+                <TableColumn fx:id="8" prefWidth="70.0" text="Type ID" />
             </columns>
-
-            <!--<items>
-                <FXCollections fx:factory="observableArrayList">
-                    <AppRecord formID="1" permitNo="1" serialNo="1" completedDate="04/05/1997" fancifulName="Adams"
-                    brandName="Sam" originCode="26" typeID="1" />
-                </FXCollections>
-            </items>-->
-            <sortOrder>
-                <fx:reference source="formID"/>
-            </sortOrder>
         </TableView>
         <Label fx:id="pageLabel" layoutX="253.0" layoutY="14.0" text="Search Results" />
-      <Button fx:id="gen_csv" layoutX="469.0" layoutY="9.0" mnemonicParsing="false" text="Generate CSV" onMouseClicked="#saveCSV"/>
+      <Button fx:id="gen_csv" layoutX="469.0" layoutY="9.0" mnemonicParsing="false" text="Generate CSV" />
     </children>
 </AnchorPane>

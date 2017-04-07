@@ -3,7 +3,6 @@ package DatabaseSearch;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
-import com.sun.rowset.CachedRowSetImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
@@ -13,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-import javax.sql.rowset.CachedRowSet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -26,15 +24,14 @@ import java.time.format.DateTimeFormatter;
  */
 public class SearchController {
 
-    private Main main = new Main();
-    CachedRowSetImpl crs;
+    private Main main;
     // Database information
     private static String url = "Example";
     private static String user = "root";
     private static String pass = "root";
     private static String tableName = "FORM";
-    private ResultSet apprs;
     private ResultSet rs;
+    private ResultSet apprs;
     //create QueryBuilder variable to store search info
     private QueryBuilder queryBuilder;
     private String query;
@@ -69,14 +66,14 @@ public class SearchController {
     @FXML
     private TextField cbLocationCode;
     @FXML
-    private TableView<AppRecord> resultsTable;
+    private TableView<ObservableList> resultsTable = new TableView<>();
     @FXML
     private TextField txtAppID;
 
 
     @FXML
     // Handle a search - effectively a "main" function for our program
-    protected void handleSearch() throws SQLException {
+    protected void handleSearch() {
 
         System.out.println("Handles search!");
 
@@ -89,19 +86,19 @@ public class SearchController {
         setQuery(getQueryBuilder().getQuery());
 
         // Query the DB
-        queryDB(getQuery());
+        main.userData.setSearchResults(queryDB(getQuery()));
 
         try {
-            ResultSetMetaData rsmd = crs.getMetaData();
+            ResultSetMetaData rsmd = main.userData.getSearchResults().getMetaData();
             int columnsNumber = rsmd.getColumnCount();
 
 // Iterate through the data in the result set and display it.
 
-            while (crs.next()) {
+            while (main.userData.getSearchResults().next()) {
 //Print one row
                 for (int i = 1; i <= columnsNumber; i++) {
 
-                    System.out.print(crs.getString(i) + " "); //Print one element of a row
+                    System.out.print(main.userData.getSearchResults().getString(i) + " "); //Print one element of a row
 
                 }
 
@@ -113,7 +110,7 @@ public class SearchController {
         }
 
         // Display our new data in the TableView
-        displayData(crs);
+        displayData(main.userData.getSearchResults());
 
     }
 
@@ -126,15 +123,12 @@ public class SearchController {
     protected ResultSet queryDB(String query) {
         Connection c;
         Statement stmt;
+        ResultSet rs = null;
         try {
             c = DBConnect();
             stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             rs = stmt.executeQuery(query);
-            crs = new CachedRowSetImpl();
-            System.out.println("Here");
-            crs.populate(rs);
         } catch (Exception e) {
-            System.out.println("HERE");
             e.printStackTrace();
             stmt = null;
         }
@@ -153,7 +147,7 @@ public class SearchController {
             typeTo = txtClassRangeEnd.getText();
             origin = cbLocationCode.getText();
             //store search info in a new QueryBuilder object
-            setQueryBuilder(new QueryBuilder(tableName, "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
+            setQueryBuilder(new QueryBuilder(tableName, "FORM_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN,TYPE_ID",
                     from, to, brand, product, typeFrom, typeTo, origin));
             return true;
         } catch (Exception e) {
@@ -178,38 +172,49 @@ public class SearchController {
     }
 
     // Display DB data into a TableView
-    protected boolean displayData(CachedRowSet crs) {
+    protected boolean displayData(ResultSet rs) {
 
-        CachedRowSet searchResults = crs;
+        ResultSet dataSearchResults = main.userData.getSearchResults();
 
         try {
-
             main.displaySearchResultsPage();
+
+            /*try {
+                ResultSetMetaData rsmd = data.getSearchResults().getMetaData();
+                int columnsNumber = rsmd.getColumnCount();
+// Iterate through the data in the result set and display it.
+
+                while (data.getSearchResults().next()) {
+                    System.out.println("hiiiii");
+//Print one row
+                    for (int i = 1; i <= columnsNumber; i++) {
+                        System.out.print(data.getSearchResults().getString(i) + " "); //Print one element of a row
+                    }
+
+                    System.out.println();//Move to the next line to print the next row.
+
+                }
+            } catch(SQLException e){
+                e.printStackTrace();
+            }*/
+
             try {
 
-                ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
-                while(searchResults.previous());
-                AppRecord row;
-                while (searchResults.next()) {
-                    row  = new AppRecord();
-                    String formID = searchResults.getString("TTB_ID");
-                    String permitNo = searchResults.getString("PERMIT_NO");
-                    String serialNo = searchResults.getString("SERIAL_NUMBER");
-                    String completedDate = searchResults.getString("COMPLETED_DATE");
-                    String fancifulName = searchResults.getString("FANCIFUL_NAME");
-                    String brandName = searchResults.getString("BRAND_NAME");
-                    String origin = searchResults.getString("ORIGIN_CODE");
-                    String type = searchResults.getString("TYPE_ID");
+                ObservableList<ObservableList> dataList = FXCollections.observableArrayList();
+                while (dataSearchResults.next()) {
+                    String formID = dataSearchResults.getString("FORM_ID");
+                    String permitNo = dataSearchResults.getString("PERMIT_NO");
+                    String serialNo = dataSearchResults.getString("SERIAL_NUMBER");
+                    String completedDate = dataSearchResults.getString("COMPLETED_DATE");
+                    String fancifulName = dataSearchResults.getString("FANCIFUL_NAME");
+                    String brandName = dataSearchResults.getString("BRAND_NAME");
+                    String origin = dataSearchResults.getString("ORIGIN");
+                    String type = dataSearchResults.getString("TYPE_ID");
 
-                    row.setTypeID(formID);
-                    row.setPermitNo(permitNo);
-                    row.setSerialNo(serialNo);
-                    row.setCompletedDate(completedDate);
-                    row.setFancifulName(fancifulName);
-                    row.setBrandName(brandName);
-                    row.setOriginCode(origin);
-                    row.setTypeID(type);
-
+                    ObservableList<String> row = FXCollections.observableArrayList();
+                    for(int i=1 ; i<=dataSearchResults.getMetaData().getColumnCount(); i++){
+                        row.add(dataSearchResults.getString(i));
+                    }
                     dataList.add(row);
 
                     System.out.println("Data "+ dataList);
@@ -218,9 +223,7 @@ public class SearchController {
                 System.out.println("Data "+ dataList);
 
                 //FINALLY ADDED TO TableView
-                resultsTable = new TableView<>();
                 resultsTable.setItems(dataList);
-                resultsTable.getColumns().setAll();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error building data!");
@@ -246,7 +249,7 @@ public class SearchController {
         apprs = queryDB(getQuery());
 
         // Display our new data in the TableView
-        //displayData(apprs);
+        displayData(apprs);
     }
 
     // Save a CSV of the results locally
@@ -271,12 +274,10 @@ public class SearchController {
         // Initialize file
         PrintWriter csvWriter = new PrintWriter(new File("TTB_Search_Results.csv"));
 
-        while(crs.previous());
-
-        CachedRowSet searchResults = crs;
+        ResultSet searchResults = main.userData.getSearchResults();
 
         // Determine CSV size and headers
-        ResultSetMetaData meta = crs.getMetaData();
+        ResultSetMetaData meta = searchResults.getMetaData();
         int numberOfColumns = meta.getColumnCount();
         System.out.println(numberOfColumns);
         String dataHeaders = "\"" + meta.getColumnName(1) + "\"";

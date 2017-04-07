@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+   <children>
+      <TextField fx:id="repIDText" layoutX="217.0" layoutY="69.0" promptText="Rep. ID No." AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="216.0" />
+      <TextField fx:id="permitNoText" layoutX="217.0" layoutY="109.0" promptText="Permit No." />
+      <TextField fx:id="brandNameText" layoutX="217.0" layoutY="228.0" promptText="Brand Name" />
+      <Button fx:id="next" layoutX="271.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#nextPage" text="Next" />
+      <Label fx:id="errorLabel" layoutX="278.0" layoutY="29.0" />
+      <RadioButton fx:id="importedRadio" layoutX="217.0" layoutY="150.0" mnemonicParsing="false" text="Imported" />
+      <RadioButton fx:id="domesticRadio" layoutX="343.0" layoutY="150.0" mnemonicParsing="false" text="Domestic" />
+      <RadioButton fx:id="beerRadio" layoutX="217.0" layoutY="191.0" mnemonicParsing="false" text="Beer" />
+      <RadioButton fx:id="wineRadio" layoutX="343.0" layoutY="191.0" mnemonicParsing="false" text="Wine" />
+      <Label fx:id="sourceProductLabel" layoutX="84.0" layoutY="151.0" text="Source Product" />
+      <Label fx:id="typeOfProductLabel" layoutX="84.0" layoutY="192.0" text="Type of Product" />
+   </children>
+</AnchorPane>

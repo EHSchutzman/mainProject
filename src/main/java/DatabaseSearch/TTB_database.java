@@ -25,7 +25,7 @@ public class TTB_database {
 
         try {
             // substitute your database name for myDB
-            connection = DriverManager.getConnection("jdbc:derby:mainProject/Database/appDB;create=true");
+            connection = DriverManager.getConnection("jdbc:derby:Database/appDB;create=true");
             /*Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery("select APP.ORIGIN.ORIGIN_CODE, APP.ORIGIN.DESCRIPTION from APP.ORIGIN where ORIGIN_CODE = '0' OR ORIGIN_CODE = '11'");
 

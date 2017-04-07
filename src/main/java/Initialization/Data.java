@@ -21,8 +21,6 @@ public class Data {
 
     public void setSearchResults(ResultSet rs){
         this.rs = rs;
-        System.out.println(this.rs);
-        System.out.println(rs);
     }
 
     public ResultSet getSearchResults(){
