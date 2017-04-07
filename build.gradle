@@ -14,7 +14,7 @@ sourceCompatibility = 1.8
 task makeJar(type: Jar) {
 
     manifest {
-        attributes 'Main-Class': 'Initialization.Main'
+        attributes 'Main-Class' : 'Initialization.Main'
     }
     baseName = project.name + '-all'
 
@@ -23,8 +23,17 @@ task makeJar(type: Jar) {
     with jar
 
 }
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Beta Faulkner Kiosk',
+                'Implementation-Version': 1.0,
+                'Main-Class': 'Initialization.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 
-
+}
 repositories {
     mavenCentral()
 }
@@ -34,4 +43,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile 'org.apache.derby:derby:10.11.1.1', 'org.apache.commons:commons-lang3:3.5'
     testCompile group: 'junit', name: 'junit', version: '4.4'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
 }

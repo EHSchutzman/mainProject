@@ -21,8 +21,13 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLDataException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main extends Application {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
 
     public Data userData = new Data(new User());
     private Stage primaryStage;
@@ -39,7 +44,8 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/mainPage.fxml"));
+            loader.setLocation(getClass().getResource("mainPage.fxml"));
+
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.
@@ -56,8 +62,8 @@ public class Main extends Application {
             controller.setDisplay(this);
             controller.currentUserLabel.setText("Not Logged In");
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.debug(e.getStackTrace().toString());
         }
     }
 
@@ -65,7 +71,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/defaultUserMainPage.fxml"));
+            loader.setLocation(getClass().getResource("defaultUserMainPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -85,7 +91,7 @@ public class Main extends Application {
     public void setDisplayToLogin() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/loginPage.fxml"));
+            loader.setLocation(getClass().getResource("loginPage.fxml"));
             AnchorPane page = loader.load();
 
             primaryStage.setTitle("Login Page");
@@ -107,7 +113,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/applicantApplicationPage.fxml"));
+            loader.setLocation(getClass().getResource("applicantApplicationPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
@@ -123,7 +129,7 @@ public class Main extends Application {
     public void setDisplayToSearch() throws Exception {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/searchPage.fxml"));
+            loader.setLocation(getClass().getResource("searchPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
@@ -137,7 +143,7 @@ public class Main extends Application {
     public void displaySearchResultsPage(ObservableList<AppRecord> list) throws Exception{
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/searchResultsPage.fxml"));
+            loader.setLocation(getClass().getResource("searchResultsPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
@@ -157,7 +163,7 @@ public class Main extends Application {
     public void displayCreateUser(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/createUser.fxml"));
+            loader.setLocation(getClass().getResource("createUser.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Create User Page");
             primaryStage.getScene().setRoot(page);
@@ -175,7 +181,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/agentMainPage.fxml"));
+            loader.setLocation(getClass().getResource("agentMainPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Agent Main Page");
@@ -197,7 +203,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/applicantMainPage.fxml"));
+            loader.setLocation(getClass().getResource("applicantMainPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Page");
@@ -217,7 +223,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/mainPage.fxml"));
+            loader.setLocation(getClass().getResource("mainPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -238,7 +244,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/agentApplication0.fxml"));
+            loader.setLocation(getClass().getResource("agentApplication0.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -256,7 +262,7 @@ public class Main extends Application {
     public void setDisplayToAgentReview(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/newAgentApplication.fxml"));
+            loader.setLocation(getClass().getResource("newAgentApplication.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -282,6 +288,7 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         try {
+
            launch(args);
 //            Connection c = TTB_database.connect();
         } catch (Exception e) {
@@ -293,7 +300,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/FXMLLayouts/applicantApplicationPage.fxml"));
+            loader.setLocation(getClass().getResource("applicantApplicationPage.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Application Page");

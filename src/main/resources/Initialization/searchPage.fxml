@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
+    <children>
+        <Button fx:id="searchButton" layoutX="310.0" layoutY="232.0" mnemonicParsing="false" onMouseClicked="#handleSearch" prefHeight="31.0" prefWidth="187.0" text="Search" />
+        <Label fx:id="colaLabel" layoutX="212.0" layoutY="14.0" prefHeight="43.0" prefWidth="177.0" text="COLA Registry">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="83.0" layoutY="78.0" text="Date Completed:" />
+        <DatePicker fx:id="dpDateRangeStart" layoutX="83.0" layoutY="99.0" promptText="From" />
+        <DatePicker fx:id="dpDateRangeEnd" layoutX="310.0" layoutY="99.0" promptText="To" />
+        <Label fx:id="errorLabel" layoutX="273.0" layoutY="78.0" prefHeight="17.0" prefWidth="54.0" />
+        <TextField fx:id="txtBrandName" layoutX="83.0" layoutY="141.0" promptText="Brand Name" />
+        <TextField fx:id="txtProductName" layoutX="310.0" layoutY="141.0" promptText="Product Name" />
+        <TextField fx:id="txtClassRangeStart" layoutX="83.0" layoutY="185.0" promptText="From Product Class / Type" />
+        <TextField fx:id="txtClassRangeEnd" layoutX="310.0" layoutY="186.0" promptText="To Product Class / Type" />
+        <TextField fx:id="cbLocationCode" layoutX="83.0" layoutY="232.0" promptText="State" />
+      <Button fx:id="mainPageButton" layoutX="83.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Main page" />
+    </children>
+</AnchorPane>
