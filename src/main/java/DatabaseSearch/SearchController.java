@@ -184,25 +184,6 @@ public class SearchController {
 
         try {
 
-            /*try {
-                ResultSetMetaData rsmd = data.getSearchResults().getMetaData();
-                int columnsNumber = rsmd.getColumnCount();
-// Iterate through the data in the result set and display it.
-
-                while (data.getSearchResults().next()) {
-                    System.out.println("hiiiii");
-//Print one row
-                    for (int i = 1; i <= columnsNumber; i++) {
-                        System.out.print(data.getSearchResults().getString(i) + " "); //Print one element of a row
-                    }
-
-                    System.out.println();//Move to the next line to print the next row.
-
-                }
-            } catch(SQLException e){
-                e.printStackTrace();
-            }*/
-
             try {
 
                 ObservableList<ObservableList> dataList = FXCollections.observableArrayList();

@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.concurrent.BlockingDeque;
 
 public class FormController{
     public int currentPage;
@@ -21,113 +23,135 @@ public class FormController{
     }
 
     @FXML
-    private Button mainPageButton;
+    public Button mainPageButton;
 
     @FXML
-    private Button nextButton;
+    public Button nextButton;
 
     @FXML
-    private TextField repIDText;
+    public TextField repIDNoText;
+    @FXML
+    public TextField basicPermitText;
+
+
 
     @FXML
-    private TextField permitNoText;
+    public TextField permitNoText;
 
     //RadioButtons to choose domestic or imported
     @FXML
-    private ToggleGroup sourceGroup;
+    public ToggleGroup sourceGroup;
     @FXML
-    private RadioButton domesticRadio;
+    public RadioButton domesticRadio;
     @FXML
-    private RadioButton importedRadio;
+    public RadioButton importedRadio;
 
     //RadioButtons to choose beer or wine
     @FXML
-    private ToggleGroup typeGroup;
+    public ToggleGroup typeGroup;
     @FXML
-    private RadioButton beerRadio; //use this to translate to int 901
+    public RadioButton beerRadio; //use this to translate to int 901
     @FXML
-    private RadioButton wineRadio; //use this to translate to int 80
+    public RadioButton wineRadio; //use this to translate to int 80
 
     @FXML
-    private TextField brandNameText;
+    public TextField brandNameText;
 
     //Address
     @FXML
-    private TextField companyNameText;
+    public TextField companyNameText;
     @FXML
-    private TextField address1Text;
+    public TextField address1Text;
     @FXML
-    private TextField address2Text; //make method to combine with address1Text
+    public TextField address2Text; //make method to combine with address1Text
     @FXML
-    private TextField cityText;
+    public TextField cityText;
     @FXML
-    private TextField stateText;
+    public TextField stateText;
     @FXML
-    private TextField zipCodeText;
+    public TextField zipCodeText;
     @FXML
-    private TextField countryText;
+    public TextField countryText;
     @FXML
-    private TextField tradenameText;
+    public TextField tradenameText;
     //Mailing Address
     @FXML
-    private TextField address1MailingText;
+    public TextField address1MailingText;
     @FXML
-    private TextField address2MailingText; //make method to combine with address1Text
+    public TextField address2MailingText; //make method to combine with address1Text
     @FXML
-    private TextField cityMailingText;
+    public TextField cityMailingText;
     @FXML
-    private TextField stateMailingText;
+    public TextField stateMailingText;
     @FXML
-    private TextField zipCodeMailingText;
+    public TextField zipCodeMailingText;
     @FXML
-    private TextField countryMailingText;
+    public TextField countryMailingText;
 
     @FXML
-    private TextField phoneNumberText;
+    public TextField phoneNumberText;
 
     @FXML
-    private TextField emailText;
+    public TextField emailText;
 
     @FXML
-    private TextField alcoholContentText;
+    public TextField alcoholContentText;
 
     //Wine only
     @FXML
-    private TextField vintageYearText;
+    public TextField vintageYearText;
     @FXML
-    private TextField pHLevelText;
+    public TextField pHLevelText;
 
     //Applicant's Certification
     @FXML
-    private DatePicker completedDate;
+    public DatePicker completedDate;
     @FXML
-    private TextField applicantNameText;
+    public TextField applicantNameText = new TextField();
 
     //TTB Use (accept/reject)
     //RadioButtons to accept or reject application
     @FXML
-    private Button acceptButton;
+    public Button acceptButton;
     @FXML
-    private Button rejectButton;
+    public Button rejectButton;
     //
     @FXML
-    private DatePicker approvalDate;
+    public DatePicker approvalDate;
     @FXML
-    private TextField agentNameText;
+    public TextField agentNameText;
     @FXML
-    private DatePicker expirationDate;
+    public DatePicker expirationDate;
 
     //Revisions
     //Wine
     @FXML
-    private TextField alterVintageDate;
+    public TextField alterVintageDate;
     @FXML
-    private TextField alterpHLevel;
+    public TextField alterpHLevel;
     @FXML
-    private TextField alterWineAlcoholContent;
+    public TextField alterWineAlcoholContent;
     //Beer
     @FXML
-    private TextField alterBeerAlcoholContent;
+    public TextField alterBeerAlcoholContent;
+
+    @FXML
+    public TextField applicantAddress1;
+    public TextField applicantAddress2;
+    public TextField applicantCity;
+    public TextField applicantState;
+    public TextField applicantPostalCode;
+    public TextField applicantCountry;
+    public TextField mailingName;
+    public TextField mailingAddress1;
+    public TextField mailingAddress2;
+    public TextField mailingCity;
+    public TextField mailingState;
+    public TextField mailingPostalCode;
+    public TextField mailingCountry;
+    public TextField applicationDate;
+    public TextField authorizedAgent;
+    public TextField alcoholContent;
 
 
     //Label info page
@@ -157,7 +181,7 @@ public class FormController{
 
         main.userData.tempForm.setFormID(main.userData.tempForm.makeUniqueID());
         System.out.println(main.userData.tempForm.getFormID());
-        main.userData.tempForm.setRepID(repIDText.getText());
+        main.userData.tempForm.setRepID(repIDNoText.getText());
         System.out.println(main.userData.tempForm.getRepID());
         main.userData.tempForm.setPermitNo(permitNoText.getText());
         System.out.println(main.userData.tempForm.getPermitNo());
@@ -226,15 +250,7 @@ public class FormController{
         return main.userData.tempForm;
     }
 
-    //Revisions
-    public Form createFormPage6() {
-        main.userData.tempForm.setAlterVintageDate(alterVintageDate.getText());
-        main.userData.tempForm.setAlterpHLevel(pHLevelText.getText());
-        main.userData.tempForm.setAlterWineAlcoholContent(alterWineAlcoholContent.getText());
-        main.userData.tempForm.setAlterBeerAlcoholContent(alterBeerAlcoholContent.getText());
 
-        return main.userData.tempForm;
-    }
 
     //Label info page AGENTS ONLY
     public Form createAgentFormPage1() {
@@ -259,7 +275,7 @@ public class FormController{
             wineRadio.setSelected(true);
         }
 
-        repIDText.setPromptText(main.userData.tempForm.getRepID());
+        repIDNoText.setPromptText(main.userData.tempForm.getRepID());
         permitNoText.setPromptText(main.userData.tempForm.getPermitNo());
         brandNameText.setPromptText(main.userData.tempForm.getBrandName());
 
@@ -315,32 +331,49 @@ public class FormController{
         return main.userData.tempForm;
     }
 
-    public void acceptForm() {
-        main.userData.tempForm.setStatus("accepted");
-        submitForm();
-    }
-
-    public void rejectForm() {
-        main.userData.tempForm.setStatus("rejected");
-        submitForm();
-    }
 
     //TODO On review next application clicked query database and provide the agent with he first application
     public void chooseForm () {
+        Form review = new Form();
         String query = "";
-        query = "SELECT * FROM FORM WHERE FORM.ASSIGNED_TO = FALSE ";
+        query = "SELECT * FROM APP.FORM WHERE FORM.ASSIGNED_TO = 0  AND FORM.STATUS = \'Pending\'";
 
         try{
             Connection c = DBConnect();
             Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = s.executeQuery(query);
-        }catch (SQLException e){
+
+            while(rs.next()) {
+                String TTB_ID = rs.getString("TTB_ID");
+                Date date = rs.getDate("completed_date");
+                int repID = rs.getInt("rep_ID");
+                String brandName = rs.getString("brand_name");
+                String fancifulName = rs.getString("fanciful_name");
+                String source = rs.getString("source");
+                String companyName = rs.getString("company_name");
+                String permitNO = rs.getString("permit_no");
+                String tradeName = rs.getString("tradename");
+                String phoneNumber = rs.getString("phone_number");
+                String email = rs.getString("email");
+                String alcoholContent = rs.getString("alcohol_content");
+                String applicantName = rs.getString("applicant_name");
+                int typeID = rs.getInt("type_id");
+                String status = rs.getString("status");
+                LocalDate completedDate = date.toLocalDate();
+                String repIDString = Integer.toString(repID);
+                review = new Form(TTB_ID, completedDate, repIDString, brandName, fancifulName, source,
+                        companyName, permitNO, tradeName, phoneNumber, email, alcoholContent, applicantName,
+                        typeID, status);
+
+                main.userData.getUserInformation().setForm(review);
+
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
         /*
             TODO create a function that will take a rs row and fill it to a form because writing that out 5 times would be dumb
         */
-
         main.setDisplayToAgentReview();
 
         //display the form
@@ -371,48 +404,53 @@ public class FormController{
         return rs;
     }
 
+    public void createFormFromApp(){
+        Form form = new Form();
+
+        form.setApplicantName(applicantNameText.getText());
+        form.setPhoneNumber(phoneNumberText.getText());
+        form.setEmail(emailText.getText());
+        form.setAddress(applicantAddress1.getText() + applicantAddress2.getText()); //finalize address stuff
+        Double formID = Math.floor(Math.random());
+        form.setFormID(formID.toString());
+        form.setSource("Imported"); //TODO change to take input from buttons
+        Date date = new Date(04102017);
+        form.setCompletedDate(date.toLocalDate()); //TODO make this be today
+        form.setRepID(repIDNoText.getText());
+        form.setBrandName(brandNameText.getText());
+        form.setFancifullName(tradenameText.getText());//TODO make form have fanciful name option
+        form.setPermitNo(basicPermitText.getText());
+        form.setCompanyName(brandNameText.getText());
+        form.setTradename(tradenameText.getText());
+        form.setPhoneNumber(phoneNumberText.getText());
+        form.setEmail(emailText.getText());
+        form.setAlcoholContent(alcoholContent.getText());
+        form.setType(1);//TODO figure out what type is and make it work
+
+        main.userData.getUserInformation().setForm(form);
+
+
+
+        return;
+    }
     @FXML
     public void submitForm() {
-        try {
-            String formID = null;
+        createFormFromApp();
+        Form form = main.userData.getUserInformation().getForm();
+        String query = "INSERT INTO APP.FORM VALUES (\'"+form.getFormID()+"\',\'"+form.getCompletedDate()+
+                "\',"+form.getRepID()+",\'"+form.getBrandName()+"\',\'"+
+                form.getFancifullName()+ "\',\'"+form.getSource()+"\',\'"+form.getCompanyName()+"\',\'"
+                +form.getPermitNo()+"\',\'serial_num\',\'" +form.getTradename()+ "\',\'"+form.getPhoneNumber()+"\',\'"
+                +form.getEmail()+"\',\'"+form.getAlcoholContent()+"\',\'"+form.getApplicantName()+ "\',"+form.getType()
+                +",0,0,\'MA\',\'Pending\',0)";
+
+        try{
             Connection c = DBConnect();
-            QueryBuilder qb = new QueryBuilder("FORM", "FORM.FORM_ID", main.userData.tempForm.getFormID());
-            System.out.println(qb.getQuery());
-            ResultSet rs = queryDB(qb.getQuery());
-            while(rs.next()) {
-                formID = rs.getString("FORM_ID");
-                System.out.println(formID);
-            }
-            if (formID == null || formID.isEmpty()) {
-                String q = "INSERT INTO APP.FORM VALUES (" + main.userData.tempForm.getFormID()
-                        + ",'1000-10-10'," + main.userData.tempForm.getRepID() +
-                        ",'willie','facn','idk','cp','1','122','fda','123223','#df','3%','john',2,321,123,'26')";
-                Statement s = c.createStatement();
-                s.execute(q);
-                s.close();
-                c.close();
-                System.out.println("before insert Row");
-            } else {
-                System.out.println(main.userData.tempForm.getPermitNo());
-                String u = "UPDATE APP.FORM SET PERMIT_NO = ?";
-                PreparedStatement ps = c.prepareStatement(u);
-                //Statement s = c.createStatement();
-                ps.setString(1, "43");
-                ps.executeUpdate();
-                //ps.close();
-                //c.close();
-                System.out.println("before update Row");
-            }
-        } catch (SQLException e) {
-            //e.printStackTrace();
-            System.out.println("no results");
-        }
-        try {
-            main.setDisplayToDefaultMain();
-        }catch (Exception e){
+            Statement s = c.createStatement();
+            s.executeUpdate(query);
+        }catch (SQLException e){
             e.printStackTrace();
         }
-        main.userData.setCurrentApplicationPage(0);
     }
 
     @FXML
@@ -423,6 +461,39 @@ public class FormController{
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void approveForm(){
+        Form review = new Form();
+        String query = "";
+        query = "UPDATE APP.FORM SET FORM.STATUS = \'Accepted\' WHERE FORM.TTB_ID = \'"
+                + main.userData.getUserInformation().getForm().getFormID() + "\'";
+
+        try {
+            Connection c = DBConnect();
+            Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            int a = s.executeUpdate(query);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        returnToMainPage();
+    }
+    @FXML
+    public void rejectForm(){
+        Form review = new Form();
+        String query = "";
+        query = "UPDATE APP.FORM SET FORM.STATUS = \'Rejected\' WHERE FORM.TTB_ID = \'"
+                + main.userData.getUserInformation().getForm().getFormID() + "\'";
+
+        try {
+            Connection c = DBConnect();
+            Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            int a = s.executeUpdate(query);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+       returnToMainPage();
     }
 
     @FXML

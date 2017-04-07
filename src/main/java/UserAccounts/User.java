@@ -1,7 +1,11 @@
 package UserAccounts;
 
+
+import Form.Form;
+
 public class User {
     private int uid;
+    private Form form;
     private String username;
     private String realName;
     private String email;
@@ -24,6 +28,7 @@ public class User {
         this.email = null;
         this.phoneNumber = null;
         this.authenticationLevel = 0;
+        this.form = new Form();
     }
 
     public String getUsername() {
@@ -50,4 +55,35 @@ public class User {
         this.authenticationLevel = authenticationLevel;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public Form getForm() {
+        return form;
+    }
+
+    public void setForm(Form form) {
+        this.form = form;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

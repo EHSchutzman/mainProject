@@ -12,5 +12,6 @@
       <Button fx:id="loginButton" layoutX="278.0" layoutY="243.0" mnemonicParsing="false" onMouseClicked="#loginAction" text="Log In" />
       <Label fx:id="errorLabel" layoutX="162.0" layoutY="60.0" prefHeight="17.0" prefWidth="318.0" />
       <Button layoutX="52.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#displayCreateUserPage" text="Create User" />
+      <Button fx:id="returnButton" layoutX="52.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main" />
    </children>
 </AnchorPane>

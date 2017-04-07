@@ -254,9 +254,18 @@ public class Main extends Application {
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
 
-
             FormController controller = loader.getController();
             controller.setDisplay(this);
+
+
+            controller.applicantNameText.setText(this.userData.getUserInformation().getForm().getApplicantName());
+            controller.repIDNoText.setText(this.userData.getUserInformation().getForm().getRepID());
+            controller.brandNameText.setText(this.userData.getUserInformation().getForm().getBrandName());
+//            controller.permitNoText.setText(this.userData.getUserInformation().getForm().getPermitNo());
+            controller.tradenameText.setText(this.userData.getUserInformation().getForm().getTradename());
+            controller.phoneNumberText.setText(this.userData.getUserInformation().getForm().getPhoneNumber());
+            controller.emailText.setText(this.userData.getUserInformation().getForm().getEmail());
+//            controller.permitNoText.setText(this.userData.getUserInformation().getForm().getPermitNo());
 
         } catch (IOException e) {
             e.printStackTrace();
