@@ -72,7 +72,7 @@ public class QueryBuilder {
         query.concat("select " + fields + " from " + tablename);
         // Put options into query string
         if(!options.isEmpty() && options != null) {
-           query.concat(options + ";");
+           query.concat(" where " + options + ";");
         } else {
             query.concat(";");
         }
