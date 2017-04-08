@@ -105,6 +105,37 @@ public class DBManager {
     }
 
     /**
+     * Updates a user into the database
+     * @param user - user object to update
+     * @return returns true if update is successful, false otherwise
+     */
+    public boolean updateUser(User user) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ArrayList<String> fields = new ArrayList<>();
+        fields.add("user_id = "+"'" + user.getUid() + "'");
+        fields.add("authentication = "+"" + user.getAuthenticationLevel() + "");
+        fields.add("username ="+"'" + user.getUsername() + "'");
+        fields.add("password = "+"'" + user.getPassword() + "'");
+        fields.add("email = "+"'" + user.getEmail() + "'");
+        fields.add("phone_no = "+"'" + user.getPhoneNumber() + "'");
+        fields.add("first_name = "+"'" + user.getFirstName() + "'");
+        fields.add("middle_inital = "+"'" + user.getMiddleInitial() + "'");
+        fields.add("last_name = "+"'" + user.getLastName() + "'");
+        String updateString = queryBuilder.createUpdateStatement("USER", fields, ("user_id = "+user.getUid()));
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(updateString);
+            stmt.close();
+            connection.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Updates a form in the database
      * @param form - form to update
      * @return returns true if the update is successful, false otherwise
