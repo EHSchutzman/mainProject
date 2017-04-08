@@ -51,7 +51,7 @@ public class QueryBuilder {
         }
         // Put options into query string
         if(!options.isEmpty() && options != null) {
-           query.concat(options + ";");
+           query.concat(" where " + options + ";");
         } else {
             query.concat(";");
         }
