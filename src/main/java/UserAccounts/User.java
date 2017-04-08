@@ -22,7 +22,7 @@ public class User {
     }
 
     public User() {
-        this.uid = 0;
+        this.uid = -1;
         this.username = null;
         this.realName = null;
         this.email = null;

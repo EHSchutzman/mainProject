@@ -34,7 +34,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="mainPageButton" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Main page">
+      <Button fx:id="mainPageButton" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main">
          <font>
             <Font size="18.0" />
          </font></Button>

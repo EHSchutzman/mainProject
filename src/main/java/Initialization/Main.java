@@ -1,5 +1,6 @@
 package Initialization;
 
+import AgentWorkflow.WorkflowController;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
 import DatabaseSearch.TTB_database;
@@ -49,7 +50,7 @@ public class Main extends Application {
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout, 2000, 1000);
+            Scene scene = new Scene(rootLayout, 1000, 500);
             primaryStage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -154,6 +155,45 @@ public class Main extends Application {
 
             controller.resultsTable.setItems(list);
 
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void displayWorkflowResultsPage(ObservableList<AppRecord> list) throws Exception{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("workflowResultsPage.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Workflow Results");
+            primaryStage.getScene().setRoot(page);
+
+
+            WorkflowController controller = loader.getController();
+            controller.setDisplay(this);
+
+            controller.resultsTable.setItems(list);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void displayWorkflowApplication(Form application) throws Exception{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("workflowApplication.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Workflow Results");
+            primaryStage.getScene().setRoot(page);
+
+
+            WorkflowController controller = loader.getController();
+            controller.setDisplay(this);
+
+            //@TODO: Display application details on page
+            //controller.resultsTable.setItems(list);
 
         } catch (IOException e){
             e.printStackTrace();
@@ -292,7 +332,7 @@ public class Main extends Application {
            launch(args);
 //            Connection c = TTB_database.connect();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -315,4 +355,5 @@ public class Main extends Application {
         }
 
     }
+
 }
