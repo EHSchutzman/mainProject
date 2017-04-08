@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class DBManager {
 
+    //INSERT FUNCTIONS:
     /**
      * Persists a user into the database
      * @param user - user to persist
@@ -62,7 +63,10 @@ public class DBManager {
         fields.add("\'" + form.getBrandName() + "\'");
         fields.add("\'" + form.getFancifulName() + "\'");
         fields.add("" + form.getAlcoholContent() + "");
-        fields.add("\'" + form.getApplicantAddress() + "\'");
+        fields.add("\'" + form.getApplicantCity() + "\'");
+        fields.add("\'" + form.getApplicantZip() + "\'");
+        fields.add("\'" + form.getApplicantState() + "\'");
+        fields.add("\'" + form.getApplicantCountry() + "\'");
         fields.add("\'" + form.getMailingAddress() + "\'");
         fields.add("\'" + form.getFormula() + "\'");
         fields.add("\'" + form.getPhoneNo() + "\'");
@@ -71,7 +75,6 @@ public class DBManager {
         fields.add("\'" + form.getLabelImage() + "\'");
         fields.add("\'" + form.getSubmitDate() + "\'");
         fields.add("\'" + form.getSignature() + "\'");
-        fields.add("\'" + form.getApplicantName() + "\'");
         fields.add("\'" + form.getStatus() + "\'");
         fields.add("\'" + form.getAgentID() + "\'");
         fields.add("\'" + form.getApplicantID() + "\'");
@@ -104,6 +107,10 @@ public class DBManager {
         }
     }
 
+    //SELECT FUNCTIONS:
+
+
+    //UPDATE FUNCTIONS:
     /**
      * Updates a user into the database
      * @param user - user object to update
@@ -153,7 +160,10 @@ public class DBManager {
         fields.add("brand_name=" + "\'" + form.getBrandName() + "\'");
         fields.add("fanciful_name=" + "\'" + form.getFancifulName() + "\'");
         fields.add("alcohol_content=" + form.getAlcoholContent());
-        fields.add("applicant_address=" + "\'" + form.getApplicantAddress() + "\'");
+        fields.add("applicant_city=" + "\'" + form.getApplicantCity() + "\'");
+        fields.add("applicant_zip=" + "\'" + form.getApplicantZip() + "\'");
+        fields.add("applicant_state=" + "\'" + form.getApplicantState() + "\'");
+        fields.add("applicant_country=" + "\'" + form.getApplicantCountry() + "\'");
         fields.add("mailing_address=" + "\'" + form.getMailingAddress() + "\'");
         fields.add("formula=" + "\'" + form.getFormula() + "\'");
         fields.add("phone_no=" + "\'" + form.getPhoneNo() + "\'");
@@ -162,7 +172,6 @@ public class DBManager {
         fields.add("label_image=" + "\'" + form.getLabelImage() + "\'");
         fields.add("submit_date=" + "\'" + form.getSubmitDate() + "\'");
         fields.add("signature=" + "\'" + form.getSignature() + "\'");
-        fields.add("applicant_name=" + "\'" + form.getApplicantName() + "\'");
         fields.add("status=" + "\'" + form.getStatus() + "\'");
         fields.add("agent_id=" + "\'" + form.getAgentID() + "\'");
         fields.add("applicant_id=" + "\'" + form.getApplicantID() + "\'");
