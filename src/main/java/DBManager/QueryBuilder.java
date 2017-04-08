@@ -1,4 +1,4 @@
-package DatabaseSearch;
+package DBManager;
 
 import java.util.ArrayList;
 
