@@ -1,6 +1,5 @@
 package DBManager;
 
-import DatabaseSearch.TTB_database;
 import UserAccounts.User;
 import Form.Form;
 
@@ -54,8 +53,8 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
         ArrayList<String> wine = new ArrayList<>();
-        fields.add("'" + form.getTTBID() + "'");
-        fields.add("'" + form.getREPID() + "'");
+        fields.add("'" + form.getTtbID() + "'");
+        fields.add("'" + form.getRepID() + "'");
         fields.add("'" + form.getPermitNo() + "'");
         fields.add("'" + form.getSource() + "'");
         fields.add("'" + form.getSerialNo() + "'");
@@ -104,4 +103,62 @@ public class DBManager {
             return false;
         }
     }
+
+    /**
+     * Updates a form in the database
+     * @param form - form to update
+     * @return returns true if the update is successful, false otherwise
+     */
+    public boolean updateForm(Form form) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String options = "ttbID='" + form.getTtbID() + "'";
+        ArrayList<String> fields = new ArrayList<>();
+        ArrayList<String> wine = new ArrayList<>();
+        fields.add("repID=" + "'" + form.getRepID() + "'");
+        fields.add("permitNo=" + "'" + form.getPermitNo() + "'");
+        fields.add("source=" + "'" + form.getSource() + "'");
+        fields.add("serialNo=" + "'" + form.getSerialNo() + "'");
+        fields.add("alcoholType=" + "'" + form.getAlcoholType() + "'");
+        fields.add("brandName=" + "'" + form.getBrandName() + "'");
+        fields.add("fancifulName=" + "'" + form.getFancifulName() + "'");
+        fields.add("alcoholContent=" + "" + form.getAlcoholContent() + "");
+        fields.add("applicantAddress=" + "'" + form.getApplicantAddress() + "'");
+        fields.add("mailingAddress=" + "'" + form.getMailingAddress() + "'");
+        fields.add("formula=" + "'" + form.getFormula() + "'");
+        fields.add("phoneNo=" + "'" + form.getPhoneNo() + "'");
+        fields.add("email=" + "'" + form.getEmail() + "'");
+        fields.add("labelText=" + "'" + form.getLabelText() + "'");
+        fields.add("labelImage=" + "'" + form.getLabelImage() + "'");
+        fields.add("submitDate=" + "'" + form.getSubmitDate() + "'");
+        fields.add("signature=" + "'" + form.getSignature() + "'");
+        fields.add("applicantName=" + "'" + form.getApplicantName() + "'");
+        fields.add("status=" + "'" + form.getStatus() + "'");
+        fields.add("agentID=" + "'" + form.getAgentID() + "'");
+        fields.add("applicantID=" + "'" + form.getApplicantID() + "'");
+        fields.add("approvedDate=" + "'" + form.getApprovedDate() + "'");
+        fields.add("expirationDate=" + "'" + form.getExpirationDate() + "'");
+        if(form.getAlcoholType().equals("Wine")) {
+            wine.add("vintageYear=" + "'" + form.getVintageYear() + "'");
+            wine.add("phLevel=" + "'" + form.getPhLevel() + "'");
+            wine.add("grapeVarietals=" + "'" + form.getGrapeVarietals() + "'");
+            wine.add("wineAppelation=" + "'" + form.getWineAppelation() + "'");
+        }
+        String queryString = queryBuilder.createUpdateStatement("FORM", fields, options);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(queryString);
+            if(!wine.isEmpty()) {
+                String wineString = queryBuilder.createUpdateStatement("WINEONLY", wine, "ttbID='" + form.getTtbID() + "'");
+                stmt.executeUpdate(wineString);
+            }
+            stmt.close();
+            connection.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
