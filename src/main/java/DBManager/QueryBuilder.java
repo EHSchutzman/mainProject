@@ -78,4 +78,11 @@ public class QueryBuilder {
         }
         return query;
     }
+
+    protected String createLikeStatement(String tablename, String fields, String options) {
+        String query = "select " + fields + " from " + tablename;
+        query.concat(" where ");
+        // loop through options
+        // optionP1 + " LIKE %" + optionP2 + "%"
+    }
 }
