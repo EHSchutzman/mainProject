@@ -119,10 +119,14 @@ public class DBManager {
     public ObservableList<AppRecord> findLables(ArrayList<String> filters) {
     }
 
+
+
     public ObservableList<AppRecord> findForms(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
         ResultSet rs = null;
         String query = "";
+
+        //I think that appending these tables is going to get rid of the beer applications but ????
         if (user.getAuthenticationLevel() == 1) {
             query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.TTB_ID = WINEONLY.TTB_ID"));
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
@@ -218,7 +222,17 @@ public class DBManager {
         }
     }
 
-    public Form findSingleForm(String ttb_id, ArrayList<String> fields){}
+    public Form findSingleForm(String ttb_id, ArrayList<String> fields){
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ResultSet rs = null;
+        Form form;
+        String view = "";
+        String query = "";
+
+        //Need a block to make one string out of list
+
+        query = queryBuilder.createSelectStatement("FORM", view, "");
+    }
 
 
     //UPDATE FUNCTIONS:
