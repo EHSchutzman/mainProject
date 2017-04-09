@@ -236,6 +236,10 @@ public class Form {
         return grapeVarietals;
     }
 
+    public String getWineAppelation() {
+        return wineAppelation;
+    }
+
     public ArrayList<Boolean> getApplicationType() {
         return applicationType;
     }
