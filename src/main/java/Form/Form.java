@@ -2,7 +2,7 @@ package Form;
 import java.time.LocalDate;
 import java.util.UUID;
 public class Form {
-    private String formID;
+    private String TTBID;
     //Application
     private String repID;
     private String permitNo;
@@ -65,11 +65,13 @@ public class Form {
         this.applicantName = applicantName;
         this.status = status;
     }
+
     //generate a unique ID for the form
     public String makeUniqueID () {
         String uniqueID = UUID.randomUUID().toString();
         return uniqueID;
     }
+
     public String getFormID() {
         return formID;
     }
@@ -273,5 +275,9 @@ public class Form {
 
     public void setFancifullName(String fancifullName) {
         this.fancifullName = fancifullName;
+    }
+
+    public String getTTBID() {
+        return TTBID;
     }
 }
