@@ -100,7 +100,7 @@ public class DBManager {
             stmt.executeUpdate(queryString);
             if (!wine.isEmpty()) {
                 ArrayList<String> wineonly = new ArrayList<>();
-                wineonly.add(form.getTTBID());
+                wineonly.add(form.getTtbID());
                 wineonly.addAll(wine);
                 String wineString = queryBuilder.createInsertStatement("WINEONLY", wineonly);
                 stmt.executeUpdate(wineString);
@@ -116,7 +116,11 @@ public class DBManager {
 
     //SELECT FUNCTIONS:
 
-    public ObservableList<AppRecord> findLables(ArrayList<String> filters) {
+    public ResultSet findLabels(ArrayList<String> filters) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String fields = "";
+        String options = "";
+        queryBuilder.createSelectStatement("FORM", fields, options);
     }
 
 
@@ -125,11 +129,12 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ResultSet rs = null;
         String query = "";
-        if (user.getAuthenticationLevel() == 1) {
-            if()
-            query = queryBuilder.createSelectStatement("FORM", "*", ("applicant_id=" + user.getUid()));
-        } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
-            query = queryBuilder.createSelectStatement("FORM", "*", ("agent_id= '" + user.getUid()));
+
+        //I think that appending these tables is going to get rid of the beer applications but ????
+        if (user.getAuthentication() == 1) {
+            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.TTB_ID = WINEONLY.TTB_ID"));
+        } else if (user.getAuthentication() == 2 || user.getAuthentication() == 3) {
+            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
         }
         try {
             Connection connection = TTB_database.connect();
@@ -173,6 +178,17 @@ public class DBManager {
                 String approved_date = rs.getString("APPROVED_DATE");
                 String expiration_date = rs.getString("EXPIRATION_DATE");
 
+                if(alcohol_type.equals("Wine")){
+                    String vintage_year = rs.getString("VINTAGE_YEAR");
+                    String ph_level = rs.getString("PH_LEVEL");
+                    String grape_varietals = rs.getString("GRAPE_VARIETALS");
+                    String wine_appellation = rs.getString("WINE_APPELLATION");
+                    row.setVintageYear(vintage_year);
+                    row.setPHLevel(ph_level);
+                    row.setGrapeVarietals(grape_varietals);
+                    row.setWineAppellation(wine_appellation);
+                }
+
                 row.setTTBID(ttb_id);
                 row.setRepID(rep_id);
                 row.setPermitNo(permit_no);
@@ -210,16 +226,61 @@ public class DBManager {
         }
     }
 
-    public Form findSingleForm(String ttb_id, ArrayList<String> fields){
+    public Form findSingleForm(String ttbID, ArrayList<String> fields){
         QueryBuilder queryBuilder = new QueryBuilder();
-        ResultSet rs = null;
-        Form form;
-        String view = "";
-        String query = "";
-
-        //Need a block to make one string out of list
-
-        query = queryBuilder.createSelectStatement("FORM", view, "");
+        String query = queryBuilder.createSelectStatement("FORM", "*", "ttb_id=" + ttbID);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            Form form = null;
+            while(rs.next()) {
+                String ttb_id = rs.getString("ttb_id");
+                String rep_id = rs.getString("rep_id");
+                String permit_no = rs.getString("permit_no");
+                String source = rs.getString("source");
+                String serial_no = rs.getString("serial_no");
+                String alcohol_type = rs.getString("alcohol_type");
+                String brand_name = rs.getString("brand_name");
+                String fanciful_name = rs.getString("fanciful_name");
+                double alcohol_content = rs.getDouble("alcohol_content");
+                String applicant_city = rs.getString("applicant_city");
+                String applicant_state = rs.getString("applicant_state");
+                String applicant_zip = rs.getString("applicant_zip");
+                String applicant_country = rs.getString("applicant_country");
+                String mailing_address = rs.getString("mailing_address");
+                String formula = rs.getString("formula");
+                String phone_no = rs.getString("phone_no");
+                String email = rs.getString("email");
+                String label_text = rs.getString("label_text");
+                String label_image = rs.getString("label_image");
+                Date submit_date = rs.getDate("submit_date");
+                String signature = rs.getString("signature");
+                String status = rs.getString("status");
+                String agent_id = rs.getString("agent_id");
+                String applicant_id = rs.getString("applicant_id");
+                Date approved_date = rs.getDate("approved_date");
+                Date expiration_date = rs.getDate("expiration_date");
+                String vintage_year = null;
+                int ph_level = -1;
+                String grape_varietals = null;
+                String wine_appelation = null;
+                if(alcohol_type.equals("Wine")) {
+                    vintage_year = rs.getString("vintage_year");
+                    ph_level = rs.getInt("ph_level");
+                    grape_varietals = rs.getString("grape_varietals");
+                    wine_appelation = rs.getString("wine_appelation");
+                }
+                form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name,
+                        alcohol_content, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address,
+                        formula, phone_no, email, label_text, label_image, submit_date, signature, status, agent_id,
+                        applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation);
+            }
+            return form;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
