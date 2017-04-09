@@ -125,12 +125,11 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ResultSet rs = null;
         String query = "";
-
-        //I think that appending these tables is going to get rid of the beer applications but ????
         if (user.getAuthenticationLevel() == 1) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.TTB_ID = WINEONLY.TTB_ID"));
+            if()
+            query = queryBuilder.createSelectStatement("FORM", "*", ("applicant_id=" + user.getUid()));
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
+            query = queryBuilder.createSelectStatement("FORM", "*", ("agent_id= '" + user.getUid()));
         }
         try {
             Connection connection = TTB_database.connect();
@@ -173,17 +172,6 @@ public class DBManager {
                 String applicant_id = rs.getString("APPLICANT_ID");
                 String approved_date = rs.getString("APPROVED_DATE");
                 String expiration_date = rs.getString("EXPIRATION_DATE");
-
-                if(alcohol_type.equals("Wine")){
-                    String vintage_year = rs.getString("VINTAGE_YEAR");
-                    String ph_level = rs.getString("PH_LEVEL");
-                    String grape_varietals = rs.getString("GRAPE_VARIETALS");
-                    String wine_appellation = rs.getString("WINE_APPELLATION");
-                    row.setVintageYear(vintage_year);
-                    row.setPHLevel(ph_level);
-                    row.setGrapeVarietals(grape_varietals);
-                    row.setWineAppellation(wine_appellation);
-                }
 
                 row.setTTBID(ttb_id);
                 row.setRepID(rep_id);
