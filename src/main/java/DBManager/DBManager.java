@@ -29,11 +29,11 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
         fields.add("\'" + user.getUid() + "\'");
-        fields.add("" + user.getAuthenticationLevel() + "");
+        fields.add("" + user.getAuthentication() + "");
         fields.add("\'" + user.getUsername() + "\'");
         fields.add("\'" + user.getPassword() + "\'");
         fields.add("\'" + user.getEmail() + "\'");
-        fields.add("\'" + user.getPhoneNumber() + "\'");
+        fields.add("\'" + user.getPhoneNo() + "\'");
         fields.add("\'" + user.getFirstName() + "\'");
         fields.add("\'" + user.getMiddleInitial() + "\'");
         fields.add("\'" + user.getLastName() + "\'");
@@ -245,11 +245,11 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
         fields.add("user_id = "+"\'" + user.getUid() + "\'");
-        fields.add("authentication = "+ user.getAuthenticationLevel());
+        fields.add("authentication = "+ user.getAuthentication());
         fields.add("username ="+"\'" + user.getUsername() + "\'");
         fields.add("password = "+"\'" + user.getPassword() + "\'");
         fields.add("email = "+"\'" + user.getEmail() + "\'");
-        fields.add("phone_no = "+"\'" + user.getPhoneNumber() + "\'");
+        fields.add("phone_no = "+"\'" + user.getPhoneNo() + "\'");
         fields.add("first_name = "+"\'" + user.getFirstName() + "\'");
         fields.add("middle_inital = "+"\'" + user.getMiddleInitial() + "\'");
         fields.add("last_name = "+"\'" + user.getLastName() + "\'");
