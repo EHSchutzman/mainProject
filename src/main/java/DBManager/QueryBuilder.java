@@ -1,5 +1,7 @@
 package DBManager;
 
+import sun.util.resources.cldr.ar.CalendarData_ar_YE;
+
 import java.util.ArrayList;
 
 /**
@@ -79,10 +81,15 @@ public class QueryBuilder {
         return query;
     }
 
-    protected String createLikeStatement(String tablename, String fields, String options) {
+    protected String createLikeStatement(String tablename, String fields, ArrayList<ArrayList<String>> options) {
         String query = "select " + fields + " from " + tablename;
-        query.concat(" where ");
-        // loop through options
-        // optionP1 + " LIKE %" + optionP2 + "%"
+        if(!options.isEmpty() && options != null) {
+            query.concat(" where ");
+            for(int i = 0; i < options.size(); i++) {
+                query.concat(options.get(i).get(0) + " like %" + options.get(i).get(1) + "%");
+            }
+            query.concat(";");
+        }
+        return query;
     }
 }

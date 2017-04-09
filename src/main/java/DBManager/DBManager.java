@@ -6,10 +6,8 @@ import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.plaf.nimbus.State;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -116,13 +114,20 @@ public class DBManager {
 
     //SELECT FUNCTIONS:
 
-    public ResultSet findLabels(ArrayList<String> filters) {
+    public ResultSet findLabels(ArrayList<ArrayList<String>> filters) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "";
-        String options = "";
-        queryBuilder.createSelectStatement("FORM", fields, options);
+        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, origin, alcohol_type";
+        String query = queryBuilder.createLikeStatement("FORM", fields, filters);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-
 
 
     public ObservableList<AppRecord> findForms(User user) {
