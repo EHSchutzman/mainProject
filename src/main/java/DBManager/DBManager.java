@@ -242,10 +242,40 @@ public class DBManager {
     public Form findSingleForm(String ttbID, ArrayList<String> fields){
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = queryBuilder.createSelectStatement("FORM", "*", "ttb_id=" + ttbID);
+        String query2 = queryBuilder.createSelectStatement("TYPEOFAPPLICATION", "*", "ttb_id=" + ttbID);
+
+
         try {
             Connection connection = TTB_database.connect();
+            Statement stmt2 = connection.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(query2);
+            ArrayList<Boolean> appType = new ArrayList<Boolean>();
+            appType.add(false);
+            appType.add(false);
+            appType.add(false);
+            appType.add(false);
+            ArrayList<String> typeText = new ArrayList<String>();
+
+            while(rs2.next()){
+                if (rs2.getString("option_no").equals("0")){
+                    appType.add(0, true);
+                } else if (rs2.getString("option_no").equals("1")){
+                    appType.add(1, true);
+                } else if (rs2.getString("option_no").equals("2")){
+                    appType.add(2, true);
+                } else if (rs2.getString("option_no").equals("3")){
+                    appType.add(3, true);
+                }
+
+                if (!rs2.getString("option").isEmpty()){
+                    typeText.add(rs2.getString("option"));
+                }
+            }
+
+            stmt2.close();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+
             Form form = null;
             while(rs.next()) {
                 String ttb_id = rs.getString("ttb_id");
@@ -287,7 +317,7 @@ public class DBManager {
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name,
                         alcohol_content, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address,
                         formula, phone_no, email, label_text, label_image, submit_date, signature, status, agent_id,
-                        applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation);
+                        applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation, appType, typeText);
             }
             return form;
         } catch (SQLException e) {
