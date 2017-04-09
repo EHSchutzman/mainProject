@@ -180,13 +180,18 @@ public class Main extends Application {
         }
     }
 
+    // Currently attempting to open in a new page
     public void displayWorkflowApplication(Form application) throws Exception{
         try {
+            Stage stage = new Stage();
+            stage.setTitle("Workflow Results");
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("workflowApplication.fxml"));
             AnchorPane page = loader.load();
-            primaryStage.setTitle("Workflow Results");
-            primaryStage.getScene().setRoot(page);
+            //stage.setTitle("Workflow Results");
+            stage.getScene().setRoot(page);
+            stage.show();
 
 
             WorkflowController controller = loader.getController();

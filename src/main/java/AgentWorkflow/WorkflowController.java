@@ -2,13 +2,13 @@ package AgentWorkflow;
 
 import DatabaseSearch.AppRecord;
 import Initialization.Main;
+import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-
 import java.sql.ResultSet;
 
 /**
@@ -18,13 +18,22 @@ public class WorkflowController {
 
     private Main main = new Main();
     private ResultSet rs;
+    private Form application = new Form();
 
+    // ----- FXML for Workflow results page -----
     @FXML
     private Button closeButton;
 
-    // Holds 10 batch-pulled assignments for the Agent
     @FXML
-    public TableView<AppRecord> resultsTable;
+    public TableView<AppRecord> resultsTable; // Holds 10 batch-pulled assignments for the Agent
+
+
+    // ----- FXML for Workflow application page -----
+
+
+
+    public WorkflowController() {
+    }
 
 
     @FXML
@@ -91,6 +100,7 @@ public class WorkflowController {
 
         //@TODO: Display application in new window with accept/reject options
         // Query for individual application
+        // Fill Form object with query information
         // Pass form to new window
         //main.displayWorkflowApplication(form);
 
