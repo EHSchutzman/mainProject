@@ -114,15 +114,33 @@ public class DBManager {
 
     //SELECT FUNCTIONS:
 
-    public ResultSet findLabels(ArrayList<ArrayList<String>> filters) {
+    public ObservableList<ObservableList<String>> findLabels(ArrayList<ArrayList<String>> filters) {
         QueryBuilder queryBuilder = new QueryBuilder();
         String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, origin_code, alcohol_type";
         String query = queryBuilder.createLikeStatement("FORM", fields, filters);
+        ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            return rs;
+            while(rs.next()) {
+                String ttbID = rs.getString("ttb_id");
+                String permitNo = rs.getString("permit_no");
+                String serialNo = rs.getString("serial_no");
+                String approvedDate = rs.getDate("approved_date").toString();
+                String fancifulName = rs.getString("fanciful_name");
+                String brandName = rs.getString("brand_name");
+                String originCode = rs.getString("origin_code");
+                String alcoholType = rs.getString("alcohol_type");
+                ObservableList<String> observableList = FXCollections.observableArrayList();
+                observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName,
+                        originCode, alcoholType);
+                ol.add(observableList);
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+            return ol;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -130,32 +148,22 @@ public class DBManager {
     }
 
 
-    public ObservableList<AppRecord> findForms(User user) {
+    public ObservableList<ObservableList<String>> findForms(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        ResultSet rs = null;
         String query = "";
-
+        ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         //I think that appending these tables is going to get rid of the beer applications but ????
         if (user.getAuthentication() == 1) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.TTB_ID = WINEONLY.TTB_ID"));
+            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
         } else if (user.getAuthentication() == 2 || user.getAuthentication() == 3) {
             query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
         }
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
-            rs = stmt.executeQuery(query);
-            stmt.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
-            while (rs.previous()) ;
-            AppRecord row;
-            while (rs.next()) {
-                row = new AppRecord();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                ObservableList<String> dataList = FXCollections.observableArrayList();
                 String ttb_id = rs.getString("TTB_ID");
                 String rep_id = rs.getString("REP_ID");
                 String permit_no = rs.getString("PERMIT_NO");
@@ -182,53 +190,53 @@ public class DBManager {
                 String applicant_id = rs.getString("APPLICANT_ID");
                 String approved_date = rs.getString("APPROVED_DATE");
                 String expiration_date = rs.getString("EXPIRATION_DATE");
-
-                if(alcohol_type.equals("Wine")){
+                /*if(alcohol_type.equals("Wine")){
                     String vintage_year = rs.getString("VINTAGE_YEAR");
                     String ph_level = rs.getString("PH_LEVEL");
                     String grape_varietals = rs.getString("GRAPE_VARIETALS");
                     String wine_appellation = rs.getString("WINE_APPELLATION");
-                    row.setVintageYear(vintage_year);
-                    row.setPHLevel(ph_level);
-                    row.setGrapeVarietals(grape_varietals);
-                    row.setWineAppellation(wine_appellation);
-                }
+                    dataList.add(vintage_year);
+                    dataList.add(ph_level);
+                    dataList.add(grape_varietals);
+                    dataList.add(wine_appellation);
+                }*/
+                dataList.add(ttb_id);
+                dataList.add(rep_id);
+                dataList.add(permit_no);
+                dataList.add(source);
+                dataList.add(serial_no);
+                dataList.add(alcohol_type);
+                dataList.add(brand_name);
+                dataList.add(fanciful_name);
+                dataList.add(alcohol_content);
+                dataList.add(applicant_city);
+                dataList.add(applicant_zip);
+                dataList.add(applicant_state);
+                dataList.add(applicant_country);
+                dataList.add(mailing_address);
+                dataList.add(formula);
+                dataList.add(phone_no);
+                dataList.add(email);
+                dataList.add(label_text);
+                dataList.add(label_image);
+                dataList.add(submit_date);
+                dataList.add(signature);
+                dataList.add(status);
+                dataList.add(agent_id);
+                dataList.add(applicant_id);
+                dataList.add(approved_date);
+                dataList.add(expiration_date);
 
-                row.setTTBID(ttb_id);
-                row.setRepID(rep_id);
-                row.setPermitNo(permit_no);
-                row.setSource(source);
-                row.setSerialNo(serial_no);
-                row.setAlcoholType(alcohol_type);
-                row.setBrandName(brand_name);
-                row.setFancifulName(fanciful_name);
-                row.setAlcoholContent(alcohol_content);
-                row.setApplicantCity(applicant_city);
-                row.setApplicantZip(applicant_zip);
-                row.setApplicantState(applicant_state);
-                row.setApplicantCountry(applicant_country);
-                row.setMailingAddress(mailing_address);
-                row.setFormula(formula);
-                row.setPhoneNo(phone_no);
-                row.setEmail(email);
-                row.setLsbelText(label_text);
-                row.setLabelImage(label_image);
-                row.setSubmitDate(submit_date);
-                row.setSignature(signature);
-                row.setStatus(status);
-                row.setAgentID(agent_id);
-                row.setApplicantID(applicant_id);
-                row.setApprovedDate(approved_date);
-                row.setExpirationDate(expiration_date);
-
-                dataList.add(row);
-                return dataList;
+                ol.add(dataList);
             }
-        } catch (Exception e) {
+            rs.close();
+            stmt.close();
+            connection.close();
+            return ol;
+        } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error building data!");
-            return null;
         }
+        return null;
     }
 
     public Form findSingleForm(String ttbID, ArrayList<String> fields){
