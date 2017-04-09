@@ -116,7 +116,7 @@ public class DBManager {
 
     public ResultSet findLabels(ArrayList<ArrayList<String>> filters) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, origin, alcohol_type";
+        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, origin_code, alcohol_type";
         String query = queryBuilder.createLikeStatement("FORM", fields, filters);
         try {
             Connection connection = TTB_database.connect();
