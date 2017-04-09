@@ -1,9 +1,13 @@
 package DBManager;
 
+import DatabaseSearch.AppRecord;
 import UserAccounts.User;
 import Form.Form;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -14,8 +18,10 @@ import java.util.ArrayList;
 public class DBManager {
 
     //INSERT FUNCTIONS:
+
     /**
      * Persists a user into the database
+     *
      * @param user - user to persist
      * @return returns true if persist is successful, false otherwise
      */
@@ -47,6 +53,7 @@ public class DBManager {
 
     /**
      * Persists a form into the database
+     *
      * @param form - form to persist
      * @return returns true if persist is successful, false otherwise
      */
@@ -80,7 +87,7 @@ public class DBManager {
         fields.add("\'" + form.getApplicantID() + "\'");
         fields.add("\'" + form.getApprovedDate() + "\'");
         fields.add("\'" + form.getExpirationDate() + "\'");
-        if(form.getAlcoholType().equals("Wine")) {
+        if (form.getAlcoholType().equals("Wine")) {
             wine.add("\'" + form.getVintageYear() + "\'");
             wine.add("\'" + form.getPhLevel() + "\'");
             wine.add("\'" + form.getGrapeVarietals() + "\'");
@@ -91,7 +98,7 @@ public class DBManager {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(queryString);
-            if(!wine.isEmpty()) {
+            if (!wine.isEmpty()) {
                 ArrayList<String> wineonly = new ArrayList<>();
                 wineonly.add(form.getTTBID());
                 wineonly.addAll(wine);
@@ -108,6 +115,110 @@ public class DBManager {
     }
 
     //SELECT FUNCTIONS:
+
+    public ObservableList<AppRecord> findLables(ArrayList<String> filters) {
+    }
+
+    public ObservableList<AppRecord> findForms(User user) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ResultSet rs = null;
+        String query = "";
+        if (user.getAuthenticationLevel() == 1) {
+            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.TTB_ID = WINEONLY.TTB_ID"));
+        } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
+            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
+        }
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
+            while (rs.previous()) ;
+            AppRecord row;
+            while (rs.next()) {
+                row = new AppRecord();
+                String ttb_id = rs.getString("TTB_ID");
+                String rep_id = rs.getString("REP_ID");
+                String permit_no = rs.getString("PERMIT_NO");
+                String source = rs.getString("SOURCE");
+                String serial_no = rs.getString("SERIAL_NO");
+                String alcohol_type = rs.getString("ALCOHOL_TYPE");
+                String brand_name = rs.getString("BRAND_NAME");
+                String fanciful_name = rs.getString("FANCIFUL_NAME");
+                String alcohol_content = rs.getString("ALCOHOL_CONTENT");
+                String applicant_city = rs.getString("APPLICANT_CITY");
+                String applicant_zip = rs.getString("APPLICANT_ZIP");
+                String applicant_state = rs.getString("APPLICANT_STATE");
+                String applicant_country = rs.getString("APPLICANT_COUNTRY");
+                String mailing_address = rs.getString("MAILING_ADDRESS");
+                String formula = rs.getString("FORMULA");
+                String phone_no = rs.getString("PHONE_NO");
+                String email = rs.getString("EMAIL");
+                String label_text = rs.getString("LABEL_TEXT");
+                String label_image = rs.getString("LABEL_IMAGE");
+                String submit_date = rs.getString("SUBMIT_DATE");
+                String signature = rs.getString("SIGNATURE");
+                String status = rs.getString("STATUS");
+                String agent_id = rs.getString("AGENT_ID");
+                String applicant_id = rs.getString("APPLICANT_ID");
+                String approved_date = rs.getString("APPROVED_DATE");
+                String expiration_date = rs.getString("EXPIRATION_DATE");
+
+                if(alcohol_type.equals("Wine")){
+                    String vintage_year = rs.getString("VINTAGE_YEAR");
+                    String ph_level = rs.getString("PH_LEVEL");
+                    String grape_varietals = rs.getString("GRAPE_VARIETALS");
+                    String wine_appellation = rs.getString("WINE_APPELLATION");
+                    row.setVintageYear(vintage_year);
+                    row.setPHLevel(ph_level);
+                    row.setGrapeVarietals(grape_varietals);
+                    row.setWineAppellation(wine_appellation);
+                }
+
+                row.setTTBID(ttb_id);
+                row.setRepID(rep_id);
+                row.setPermitNo(permit_no);
+                row.setSource(source);
+                row.setSerialNo(serial_no);
+                row.setAlcoholType(alcohol_type);
+                row.setBrandName(brand_name);
+                row.setFancifulName(fanciful_name);
+                row.setAlcoholContent(alcohol_content);
+                row.setApplicantCity(applicant_city);
+                row.setApplicantZip(applicant_zip);
+                row.setApplicantState(applicant_state);
+                row.setApplicantCountry(applicant_country);
+                row.setMailingAddress(mailing_address);
+                row.setFormula(formula);
+                row.setPhoneNo(phone_no);
+                row.setEmail(email);
+                row.setLsbelText(label_text);
+                row.setLabelImage(label_image);
+                row.setSubmitDate(submit_date);
+                row.setSignature(signature);
+                row.setStatus(status);
+                row.setAgentID(agent_id);
+                row.setApplicantID(applicant_id);
+                row.setApprovedDate(approved_date);
+                row.setExpirationDate(expiration_date);
+
+                dataList.add(row);
+                return dataList;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error building data!");
+            return null;
+        }
+    }
+
+    public Form findSingleForm(String ttb_id, ArrayList<String> fields){}
 
 
     //UPDATE FUNCTIONS:
@@ -200,5 +311,4 @@ public class DBManager {
             return false;
         }
     }
-
 }
