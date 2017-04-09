@@ -287,6 +287,7 @@ public class DBManager {
                 String brand_name = rs.getString("brand_name");
                 String fanciful_name = rs.getString("fanciful_name");
                 double alcohol_content = rs.getDouble("alcohol_content");
+                String applicant_street = rs.getString("applicant_street");
                 String applicant_city = rs.getString("applicant_city");
                 String applicant_state = rs.getString("applicant_state");
                 String applicant_zip = rs.getString("applicant_zip");
@@ -316,7 +317,7 @@ public class DBManager {
                     wine_appelation = rs.getString("wine_appelation");
                 }
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name,
-                        alcohol_content, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address,
+                        alcohol_content, applicant_street, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address,
                         formula, phone_no, email, label_text, label_image, submit_date, signature, status, agent_id,
                         applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation, appType, typeText, approval_comments);
             }

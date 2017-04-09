@@ -17,6 +17,7 @@ public class Form {
     private String fancifulName;
     private double alcoholContent;
 
+    private String applicantStreet;
     private String applicantCity;
     private String applicantState;
     private String applicantZip;
@@ -47,33 +48,6 @@ public class Form {
     ArrayList<Boolean> applicationType;
     ArrayList<String> typeText;
 
-    /*private int type; //use type code to search it in DB, 80 - wine, 901 - beer
-
-    //address
-    private String companyName;
-    private String address;
-    private String address1;
-    private String address2;
-    private String city;
-    private String state;
-    private String zipCode;
-    private String country;
-    private String tradename;
-    //mailing address
-    private String addressMailing;
-    private String addressMailing1;
-    private String addressMailing2;
-    private String cityMailing;
-    private String stateMailing;
-    private String zipCodeMailing;
-    private String countryMailing;
-    //Applicant's Certification
-    private String applicantName;
-    private String signature;
-
-    //TTB Use (accept/reject)
-    private String agentName;*/
-
     //constructor
     public Form() {}
 
@@ -84,7 +58,7 @@ public class Form {
     }
 
     public Form(String ttbID, String repID, String permitNo, String source, String serialNo, String alcoholType,
-                String brandName, String fancifulName, double alcoholContent, String applicantCity, String applicantState,
+                String brandName, String fancifulName, double alcoholContent, String applicantStreet, String applicantCity, String applicantState,
                 String applicantZip, String applicantCountry, String mailingAddress, String formula, String phoneNo,
                 String email, String labelText, String labelImage, Date submitDate, String signature, String status,
                 String agentID, String applicantID, Date approvedDate, Date expirationDate, String vintageYear,
@@ -98,6 +72,7 @@ public class Form {
         this.brandName = brandName;
         this.fancifulName = fancifulName;
         this.alcoholContent = alcoholContent;
+        this.applicantStreet = applicantStreet;
         this.applicantCity = applicantCity;
         this.applicantState = applicantState;
         this.applicantZip = applicantZip;
