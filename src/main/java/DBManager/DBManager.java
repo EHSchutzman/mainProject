@@ -304,6 +304,7 @@ public class DBManager {
                 String applicant_id = rs.getString("applicant_id");
                 Date approved_date = rs.getDate("approved_date");
                 Date expiration_date = rs.getDate("expiration_date");
+                String approval_comments = rs.getString("approval_comments");
                 String vintage_year = null;
                 int ph_level = -1;
                 String grape_varietals = null;
@@ -317,7 +318,7 @@ public class DBManager {
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name,
                         alcohol_content, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address,
                         formula, phone_no, email, label_text, label_image, submit_date, signature, status, agent_id,
-                        applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation, appType, typeText);
+                        applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation, appType, typeText, approval_comments);
             }
             return form;
         } catch (SQLException e) {

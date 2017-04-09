@@ -35,6 +35,7 @@ public class Form {
     private String applicantID;
     private Date approvedDate;
     private Date expirationDate;
+    private String approvalComments;
 
     // wines only
     private String vintageYear;
@@ -85,7 +86,7 @@ public class Form {
                 String applicantZip, String applicantCountry, String mailingAddress, String formula, String phoneNo,
                 String email, String labelText, String labelImage, Date submitDate, String signature, String status,
                 String agentID, String applicantID, Date approvedDate, Date expirationDate, String vintageYear,
-                int phLevel, String grapeVarietals, String wineAppelation, ArrayList<Boolean> applicationType, ArrayList<String> typeText) {
+                int phLevel, String grapeVarietals, String wineAppelation, ArrayList<Boolean> applicationType, ArrayList<String> typeText, String approvalComments) {
         this.ttbID = ttbID;
         this.repID = repID;
         this.permitNo = permitNo;
@@ -118,6 +119,7 @@ public class Form {
         this.wineAppelation = wineAppelation;
         this.applicationType = applicationType;
         this.typeText = typeText;
+        this.approvalComments = approvalComments;
     }
 
     public String getTtbID() {
