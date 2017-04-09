@@ -1,6 +1,9 @@
 package Form;
 
+import com.sun.xml.internal.fastinfoset.algorithm.BooleanEncodingAlgorithm;
+
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Form {
@@ -38,6 +41,10 @@ public class Form {
     private int phLevel;
     private String grapeVarietals;
     private String wineAppelation;
+
+    //application type
+    ArrayList<Boolean> applicationType;
+    ArrayList<String> typeText;
 
     /*private int type; //use type code to search it in DB, 80 - wine, 901 - beer
 
@@ -78,7 +85,7 @@ public class Form {
                 String applicantZip, String applicantCountry, String mailingAddress, String formula, String phoneNo,
                 String email, String labelText, String labelImage, Date submitDate, String signature, String status,
                 String agentID, String applicantID, Date approvedDate, Date expirationDate, String vintageYear,
-                int phLevel, String grapeVarietals, String wineAppelation) {
+                int phLevel, String grapeVarietals, String wineAppelation, ArrayList<Boolean> applicationType, ArrayList<String> typeText) {
         this.ttbID = ttbID;
         this.repID = repID;
         this.permitNo = permitNo;
@@ -91,7 +98,7 @@ public class Form {
         this.applicantCity = applicantCity;
         this.applicantState = applicantState;
         this.applicantZip = applicantZip;
-        this. applicantCountry = applicantCountry;
+        this.applicantCountry = applicantCountry;
         this.mailingAddress = mailingAddress;
         this.formula = formula;
         this.phoneNo = phoneNo;
@@ -109,6 +116,8 @@ public class Form {
         this.phLevel = phLevel;
         this.grapeVarietals = grapeVarietals;
         this.wineAppelation = wineAppelation;
+        this.applicationType = applicationType;
+        this.typeText = typeText;
     }
 
     public String getTtbID() {
@@ -227,7 +236,11 @@ public class Form {
         return grapeVarietals;
     }
 
-    public String getWineAppelation() {
-        return wineAppelation;
+    public ArrayList<Boolean> getApplicationType() {
+        return applicationType;
+    }
+
+    public ArrayList<String> getTypeText() {
+        return typeText;
     }
 }
