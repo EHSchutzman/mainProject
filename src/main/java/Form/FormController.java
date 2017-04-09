@@ -57,6 +57,9 @@ public class FormController{
     @FXML
     public TextField brandNameText;
 
+    @FXML
+    public TextField fancifulNameText;
+
     //Address
     @FXML
     public TextField companyNameText;
@@ -73,7 +76,7 @@ public class FormController{
     @FXML
     public TextField countryText;
     @FXML
-    public TextField tradenameText;
+    public TextField tradeNameText;
     //Mailing Address
     @FXML
     public TextField address1MailingText;
@@ -123,18 +126,6 @@ public class FormController{
     @FXML
     public DatePicker expirationDate;
 
-    //Revisions
-    //Wine
-    @FXML
-    public TextField alterVintageDate;
-    @FXML
-    public TextField alterpHLevel;
-    @FXML
-    public TextField alterWineAlcoholContent;
-    //Beer
-    @FXML
-    public TextField alterBeerAlcoholContent;
-
     @FXML
     public TextField applicantAddress1;
     public TextField applicantAddress2;
@@ -179,8 +170,8 @@ public class FormController{
         beerRadio.setToggleGroup(typeGroup);
         wineRadio.setToggleGroup(typeGroup);
 
-        main.userData.tempForm.setFormID(main.userData.tempForm.makeUniqueID());
-        System.out.println(main.userData.tempForm.getFormID());
+        main.userData.tempForm.setTtbID(main.userData.tempForm.makeUniqueID());
+        System.out.println(main.userData.tempForm.getTtbID());
         main.userData.tempForm.setRepID(repIDNoText.getText());
         System.out.println(main.userData.tempForm.getRepID());
         main.userData.tempForm.setPermitNo(permitNoText.getText());
@@ -193,9 +184,9 @@ public class FormController{
         }
         //determine inputted type
         if (beerRadio.isSelected()) {
-            main.userData.tempForm.setType(901);
+            main.userData.tempForm.setAlcoholType(901);
         } else if (wineRadio.isSelected()) {
-            main.userData.tempForm.setType(80);
+            main.userData.tempForm.setAlcoholContent(80);
         }
         main.userData.tempForm.setBrandName(brandNameText.getText());
 
@@ -212,8 +203,8 @@ public class FormController{
         main.userData.tempForm.setState(stateText.getText());
         main.userData.tempForm.setZipCode(zipCodeText.getText());
         main.userData.tempForm.setCountry(countryText.getText());
-        main.userData.tempForm.setTradename(tradenameText.getText());
-        System.out.println(main.userData.tempForm.getTradename());
+        main.userData.tempForm.setTradeName(tradeNameText.getText());
+        System.out.println(main.userData.tempForm.getTradeName());
 
         return main.userData.tempForm;
     }
@@ -241,10 +232,10 @@ public class FormController{
 
     //Additional label info
     public Form createFormPage5() {
-        main.userData.tempForm.setAlcoholContent(alcoholContentText.getText());
+        main.userData.tempForm.setAlcoholContent(Double.parseDouble(alcoholContentText.getText()));
         main.userData.tempForm.setVintageYear(vintageYearText.getText());
-        main.userData.tempForm.setpHLevel(pHLevelText.getText());
-        main.userData.tempForm.setCompletedDate(completedDate.getValue());
+        main.userData.tempForm.setpHLevel(Double.parseDouble(pHLevelText.getText()));
+        main.userData.tempForm.setSubmitDate(completedDate.getValue());
         main.userData.tempForm.setApplicantName(applicantNameText.getText());
 
         return main.userData.tempForm;
@@ -269,9 +260,9 @@ public class FormController{
         beerRadio=new RadioButton("beer");
         wineRadio=new RadioButton("wine");
         //set selected
-        if(main.userData.tempForm.getType() == 901) {
+        if(main.userData.tempForm.getAlcoholType() == 901) {
             beerRadio.setSelected(true);
-        } else if (main.userData.tempForm.getType() == 80) {
+        } else if (main.userData.tempForm.getAlcoholType() == 80) {
             wineRadio.setSelected(true);
         }
 
@@ -291,7 +282,7 @@ public class FormController{
         stateText.setPromptText(main.userData.tempForm.getState());
         zipCodeText.setPromptText(main.userData.tempForm.getZipCode());
         countryText.setPromptText(main.userData.tempForm.getCountry());
-        tradenameText.setPromptText(main.userData.tempForm.getTradename());
+        tradeNameText.setPromptText(main.userData.tempForm.getTradeName());
 
         return main.userData.tempForm;
     }
@@ -318,13 +309,13 @@ public class FormController{
 
     //Additional label info AGENTS ONLY
     public Form createAgentFormPage5() {
-        alcoholContentText.setPromptText(main.userData.tempForm.getAlcoholContent());
+        alcoholContentText.setPromptText(String.valueOf(main.userData.tempForm.getAlcoholContent()));
         vintageYearText.setPromptText(main.userData.tempForm.getVintageYear());
-        pHLevelText.setPromptText(main.userData.tempForm.getpHLevel());
-        completedDate.setValue(main.userData.tempForm.getCompletedDate());
+        pHLevelText.setPromptText(String.valueOf(main.userData.tempForm.getpHLevel()));
+        completedDate.setValue(main.userData.tempForm.getSubmitDate());
         applicantNameText.setPromptText(main.userData.tempForm.getApplicantName());
 
-        main.userData.tempForm.setApprovalDate(approvalDate.getValue());
+        main.userData.tempForm.setApprovedDate(approvalDate.getValue());
         main.userData.tempForm.setAgentName(agentNameText.getText());
         main.userData.tempForm.setExpirationDate(expirationDate.getValue());
 
@@ -379,7 +370,7 @@ public class FormController{
         //display the form
     }
 
-    public void retrieveForm(String formID) {
+    public void retrieveForm(String ttbID) {
         //get a form form DB
     }
 
@@ -411,21 +402,23 @@ public class FormController{
         form.setPhoneNumber(phoneNumberText.getText());
         form.setEmail(emailText.getText());
         form.setAddress(applicantAddress1.getText() + applicantAddress2.getText()); //finalize address stuff
-        Double formID = Math.floor(Math.random());
-        form.setFormID(formID.toString());
+        Double ttbID = Math.floor(Math.random());
+        form.setTtbID(ttbID.toString());
+        // TODO copy button code and put below
         form.setSource("Imported"); //TODO change to take input from buttons
         Date date = new Date(04102017);
-        form.setCompletedDate(date.toLocalDate()); //TODO make this be today
+        form.setSubmitDate(date.toLocalDate()); //TODO make this be today
         form.setRepID(repIDNoText.getText());
         form.setBrandName(brandNameText.getText());
-        form.setFancifullName(tradenameText.getText());//TODO make form have fanciful name option
+        form.setTradeName(tradeNameText.getText());
+        form.setFancifulName(fancifulNameText.getText());
         form.setPermitNo(basicPermitText.getText());
         form.setCompanyName(brandNameText.getText());
-        form.setTradename(tradenameText.getText());
+        form.setTradeName(tradeNameText.getText());
         form.setPhoneNumber(phoneNumberText.getText());
         form.setEmail(emailText.getText());
-        form.setAlcoholContent(alcoholContent.getText());
-        form.setType(1);//TODO figure out what type is and make it work
+        form.setAlcoholContent(Double.parseDouble(alcoholContent.getText()));
+        form.setAlcoholType(1);//TODO figure out what type is and make it work
 
         main.userData.getUserInformation().setForm(form);
 
@@ -437,11 +430,11 @@ public class FormController{
     public void submitForm() {
         createFormFromApp();
         Form form = main.userData.getUserInformation().getForm();
-        String query = "INSERT INTO APP.FORM VALUES (\'"+form.getFormID()+"\',\'"+form.getCompletedDate()+
+        String query = "INSERT INTO APP.FORM VALUES (\'"+form.getTtbID()+"\',\'"+form.getSubmitDate()+
                 "\',"+form.getRepID()+",\'"+form.getBrandName()+"\',\'"+
-                form.getFancifullName()+ "\',\'"+form.getSource()+"\',\'"+form.getCompanyName()+"\',\'"
-                +form.getPermitNo()+"\',\'serial_num\',\'" +form.getTradename()+ "\',\'"+form.getPhoneNumber()+"\',\'"
-                +form.getEmail()+"\',\'"+form.getAlcoholContent()+"\',\'"+form.getApplicantName()+ "\',"+form.getType()
+                form.getFancifulName()+ "\',\'"+form.getSource()+"\',\'"+form.getCompanyName()+"\',\'"
+                +form.getPermitNo()+"\',\'serial_num\',\'" +form.getTradeName()+ "\',\'"+form.getPhoneNumber()+"\',\'"
+                +form.getEmail()+"\',\'"+form.getAlcoholContent()+"\',\'"+form.getApplicantName()+ "\',"+form.getAlcoholType()
                 +",0,0,\'MA\',\'Pending\',0)";
 
         try{
@@ -468,7 +461,7 @@ public class FormController{
         Form review = new Form();
         String query = "";
         query = "UPDATE APP.FORM SET FORM.STATUS = \'Accepted\' WHERE FORM.TTB_ID = \'"
-                + main.userData.getUserInformation().getForm().getFormID() + "\'";
+                + main.userData.getUserInformation().getForm().getTtbID() + "\'";
 
         try {
             Connection c = DBConnect();
@@ -484,7 +477,7 @@ public class FormController{
         Form review = new Form();
         String query = "";
         query = "UPDATE APP.FORM SET FORM.STATUS = \'Rejected\' WHERE FORM.TTB_ID = \'"
-                + main.userData.getUserInformation().getForm().getFormID() + "\'";
+                + main.userData.getUserInformation().getForm().getTtbID() + "\'";
 
         try {
             Connection c = DBConnect();

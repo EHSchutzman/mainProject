@@ -69,6 +69,8 @@ public class Form {
     private String countryMailing;
     //Applicant's Certification
     private String applicantName;
+    private String signature;
+
     //TTB Use (accept/reject)
     private String agentName;*/
 
