@@ -7,46 +7,52 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Form {
+    // Label Info
     private String ttbID;
     private String repID;           // x textfield
     private String permitNo;        // x textfield
-    private String source;          // x radio buttons
     private String serialNo;        // x textfield
+    private String source;          // x radio buttons
     private String alcoholType;     // x radio buttons
     private String brandName;       // x textfield
     private String fancifulName;    // x textfield
-    private double alcoholContent;  // x textfield
+    private double alcoholContent;  // x textfield v
+    private String formula;         // x
+    private String labelImage;      //
+    private String labelText;       // x
+    // Wines only
+    private String vintageYear;     // x
+    private int phLevel;            // x
+    private String grapeVarietals;  // x
+    private String wineAppelation;  // x
+    // Application type
+    ArrayList<Boolean> applicationType;// x check boxes
+    ArrayList<String> typeText;        // x textfields corresponding to their check boxes
 
+    // Applicant info
+    // Addresses
     private String applicantStreet; // x two textfields
     private String applicantCity;   // x
     private String applicantState;  // x
     private String applicantZip;    // x
     private String applicantCountry;// x
     private String mailingAddress;  // x has checkbox to see if it should be the same as regular address
-
-    private String formula;         // x
+    //
+    private String signature;       // x
     private String phoneNo;         // x
     private String email;           // x
-    private String labelText;       // x
-    private String labelImage;      //
+
+    // Application info
     private Date submitDate;        // x
-    private String signature;       // x
-    private String status;          //
+    private String status;          // x
     private String agentID;         //
     private String applicantID;     //
-    private Date approvedDate;      //
-    private Date expirationDate;    //
-    private String approvalComments;//
+    private Date approvedDate;      // x
+    private Date expirationDate;    // x
+    private String approvalComments;// x
 
-    // wines only
-    private String vintageYear;     // x
-    private int phLevel;            // x
-    private String grapeVarietals;  // x
-    private String wineAppelation;  // x
 
-    //application type
-    ArrayList<Boolean> applicationType;//check boxes
-    ArrayList<String> typeText;        //textfields corresponding to their check boxes
+
 
     //constructor
     public Form() {}

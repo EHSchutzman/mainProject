@@ -6,6 +6,7 @@ import com.sun.tools.javac.comp.Check;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javax.xml.soap.Text;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -120,6 +121,10 @@ public class FormController{
     public TextField vintageYearText;
     @FXML
     public TextField pHLevelText;
+    @FXML
+    public TextField grapeVarietalsText;
+    @FXML
+    public TextField wineAppelationText;
 
     //Applicant's Certification
     @FXML
@@ -143,47 +148,53 @@ public class FormController{
     public DatePicker expirationDate;
     @FXML
     public TextArea commentText;
+    @FXML
+    public Label statusLabel; //TODO add to UI and ApplicantForm
 
+    public void createApplicantForm(){
+        Form form = new Form();
 
-    //Label info page
-    public Form createFormPage1() {
-        //initializes necessary radio buttons
-        //Source
-        //make radio buttons and group them
+        statusLabel.setText(main.userData.tempForm.getStatus());
+
+        // TODO make a random number generator
+        main.userData.tempForm.setTtbID(main.userData.tempForm.makeUniqueID());
+        main.userData.tempForm.setRepID(repIDNoText.getText());
+        main.userData.tempForm.setPermitNo(permitNoText.getText());
+        main.userData.tempForm.setSerialNo(serialNoText.getText());
+
+        // Initializes radio buttons
+        // Source
+        // Make radio buttons and group them
         domesticRadio = new RadioButton("Domestic");
         importedRadio = new RadioButton("Imported");
-        //set selected
+        // Set selected
         importedRadio.setSelected(true);
-        //create group for radio buttons
+        // Create group for radio buttons
         sourceGroup = new ToggleGroup();
         domesticRadio.setToggleGroup(sourceGroup);
         importedRadio.setToggleGroup(sourceGroup);
 
-        //Type
-        //make radio buttons and group them
+        // Alcohol Type
+        // Make radio buttons and group them
         beerRadio = new RadioButton("Beer");
         wineRadio = new RadioButton("Wine");
         spiritsRadio = new RadioButton("Distilled Spirit");
-        //set selected
+        // Set selected
         beerRadio.setSelected(true);
-        //create group for radio buttons
+        // Create group for radio buttons
         typeGroup = new ToggleGroup();
         beerRadio.setToggleGroup(typeGroup);
         wineRadio.setToggleGroup(typeGroup);
         spiritsRadio.setToggleGroup(typeGroup);
 
-        //initialize checkboxes
-        //Type of Application Check Boxes and their corresponding TextFields
+        // Initialize checkboxes
+        // Type of Application Check Boxes and their corresponding TextFields
         labelApprovalCBox = new CheckBox("Certificate of Label Approval");
         labelExemptionCBox = new CheckBox("Certificate of Exemption from Label Approval");
         distinctBottleCBox = new CheckBox("Distinctive Liquor Bottle Approval");
         resubmissionCBox = new CheckBox("Resubmission After Rejection");
 
-        main.userData.tempForm.setTtbID(main.userData.tempForm.makeUniqueID());
-        main.userData.tempForm.setRepID(repIDNoText.getText());
-        main.userData.tempForm.setPermitNo(permitNoText.getText());
-
-        //determine inputted source
+        // Determine inputted source
         if (domesticRadio.isSelected()) {
             main.userData.tempForm.setSource("Domestic");
         } else if (importedRadio.isSelected()) {
@@ -197,8 +208,9 @@ public class FormController{
         } else if (spiritsRadio.isSelected()) {
             main.userData.tempForm.setAlcoholType("Distilled Spirit");
         }
-        //determine which checkboxes were selected
-        //make a temporary array to store the boolean values set them to the Form object, same with string array
+
+        // Determine which checkboxes were selected
+        // Make a temporary array to store the boolean values set them to the Form object, same with string array
         ArrayList<Boolean> tempBoolArray = main.userData.tempForm.getApplicationType();
         ArrayList<String> tempStrArray = main.userData.tempForm.getTypeText();
         if (labelApprovalCBox.isSelected()) {//choice 0
@@ -217,24 +229,22 @@ public class FormController{
         main.userData.tempForm.setTypeText(tempStrArray);
 
         main.userData.tempForm.setBrandName(brandNameText.getText());
+        main.userData.tempForm.setFancifulName(fancifulNameText.getText());
+        main.userData.tempForm.setAlcoholContent(Double.parseDouble(alcoholContentText.getText()));
         main.userData.tempForm.setFormula(formulaText.getText());
+        main.userData.tempForm.setLabelText(containerText.getText());
+        // Wines only
+        main.userData.tempForm.setVintageYear(vintageYearText.getText());
+        main.userData.tempForm.setPhLevel(Integer.parseInt(pHLevelText.getText()));
+        main.userData.tempForm.setGrapeVarietals(grapeVarietalsText.getText());
+        main.userData.tempForm.setWineAppelation(wineAppelationText.getText());
 
-        return main.userData.tempForm;
-    }
-
-    //Applicant info page
-    public Form createFormPage2() {
         main.userData.tempForm.setApplicantStreet(street1Text.getText() + " " + street2Text.getText());
         main.userData.tempForm.setApplicantCity(cityText.getText());
         main.userData.tempForm.setApplicantState(stateText.getText());
         main.userData.tempForm.setApplicantZip(zipCodeText.getText());
         main.userData.tempForm.setApplicantCountry(countryText.getText());
 
-        return main.userData.tempForm;
-    }
-
-    //Applicant info page (mailing address)
-    public Form createFormPage3() {
         if (mailingCBox.isSelected()) {
             main.userData.tempForm.setMailingAddress(main.userData.tempForm.getApplicantStreet() + " " +
                     main.userData.tempForm.getApplicantCity() + " " + main.userData.tempForm.getApplicantState() +
@@ -243,38 +253,24 @@ public class FormController{
             main.userData.tempForm.setMailingAddress(mailingAddressText.getText());
         }
 
-        return main.userData.tempForm;
-    }
-
-    //Applicant info (phone # and email)
-    public Form createFormPage4() {
+        main.userData.tempForm.setSignature(signatureText.getText());
         main.userData.tempForm.setPhoneNo(phoneNumberText.getText());
         main.userData.tempForm.setEmail(emailText.getText());
 
-        return main.userData.tempForm;
-    }
-
-    //Additional label info
-    public Form createFormPage5() {
-        main.userData.tempForm.setLabelText(containerText.getText());
-        main.userData.tempForm.setAlcoholContent(Double.parseDouble(alcoholContentText.getText()));
-        main.userData.tempForm.setVintageYear(vintageYearText.getText());
-        main.userData.tempForm.setPhLevel(Integer.parseInt(pHLevelText.getText()));
         //TODO convert LocalDate to Date and viceversa when necessary
         main.userData.tempForm.setSubmitDate(completedDate.getValue());
-        main.userData.tempForm.setApplicantID(applicantNameText.getText());
-        main.userData.tempForm.setSerialNo(serialNoText.getText());
-        main.userData.tempForm.setSignature(signatureText.getText());
+        //TODO reference actual applicant name below, if need be
+        //main.userData.tempForm.setApplicantID(applicantNameText.getText());
 
-        return main.userData.tempForm;
+        /*
+        There was previously a setForm function here for the User class
+        or Main class but it appears that it does not exist anymore
+        */
     }
 
-
-
-    //Label info page AGENTS ONLY
-    public Form createAgentFormPage1() {
-        //initializes necessary radio buttons
-        //Source
+    public void createAgentForm(){
+        // Initializes necessary radio buttons
+        // Source
         domesticRadio=new RadioButton("Domestic");
         importedRadio=new RadioButton("Imported");
         //set selected
@@ -284,7 +280,7 @@ public class FormController{
             domesticRadio.setSelected(true);
         }
 
-        //Type
+        // Alcohol Type
         beerRadio=new RadioButton("Beer");
         wineRadio=new RadioButton("Wine");
         spiritsRadio=new RadioButton("Distilled Spirit");
@@ -297,8 +293,8 @@ public class FormController{
             spiritsRadio.setSelected(true);
         }
 
-        //initialize checkboxes
-        //Type of Application Check Boxes and their corresponding TextFields
+        // Initialize checkboxes
+        // Type of Application Check Boxes and their corresponding TextFields
         labelApprovalCBox = new CheckBox("Certificate of Label Approval");
         labelExemptionCBox = new CheckBox("Certificate of Exemption from Label Approval");
         distinctBottleCBox = new CheckBox("Distinctive Liquor Bottle Approval");
@@ -321,97 +317,47 @@ public class FormController{
 
         repIDNoText.setPromptText(main.userData.tempForm.getRepID());
         permitNoText.setPromptText(main.userData.tempForm.getPermitNo());
+        serialNoText.setPromptText(main.userData.tempForm.getSerialNo());
         brandNameText.setPromptText(main.userData.tempForm.getBrandName());
+        fancifulNameText.setPromptText(main.userData.tempForm.getFancifulName());
+        alcoholContentText.setPromptText(String.valueOf(main.userData.tempForm.getAlcoholContent()));
+        formulaText.setPromptText(main.userData.tempForm.getFormula());
+        containerText.setPromptText(main.userData.tempForm.getLabelText());
+        // Wines only
+        vintageYearText.setPromptText(main.userData.tempForm.getVintageYear());
+        pHLevelText.setPromptText(String.valueOf(main.userData.tempForm.getPhLevel()));
+        grapeVarietalsText.setPromptText(main.userData.tempForm.getGrapeVarietals());
+        wineAppelationText.setPromptText(main.userData.tempForm.getWineAppelation());
 
-        return main.userData.tempForm;
-    }
-
-    //Applicant info page AGENTS ONLY
-    public Form createAgentFormPage2() {
+        //TODO maybe seperate street1Text and street2Text because it might be too long
         street1Text.setPromptText(main.userData.tempForm.getApplicantStreet());
         cityText.setPromptText(main.userData.tempForm.getApplicantCity());
         stateText.setPromptText(main.userData.tempForm.getApplicantState());
         zipCodeText.setPromptText(main.userData.tempForm.getApplicantZip());
         countryText.setPromptText(main.userData.tempForm.getApplicantCountry());
 
-        return main.userData.tempForm;
-    }
-
-    //Applicant info page (mailing address) AGENTS ONLY
-    public Form createAgentFormPage3() {
         mailingAddressText.setPromptText(main.userData.tempForm.getMailingAddress());
 
-        return main.userData.tempForm;
-    }
-
-    //Applicant info (phone # and email) AGENTS ONLY
-    public Form createAgentFormPage4() {
+        signatureText.setPromptText(main.userData.tempForm.getSignature());
         phoneNumberText.setPromptText(main.userData.tempForm.getPhoneNo());
         emailText.setPromptText(main.userData.tempForm.getEmail());
 
-        return main.userData.tempForm;
-    }
-
-    //Additional label info AGENTS ONLY
-    public Form createAgentFormPage5() {
-        alcoholContentText.setPromptText(String.valueOf(main.userData.tempForm.getAlcoholContent()));
-        vintageYearText.setPromptText(main.userData.tempForm.getVintageYear());
-        pHLevelText.setPromptText(String.valueOf(main.userData.tempForm.getPhLevel()));
         completedDate.setValue(main.userData.tempForm.getSubmitDate());
 
+        //Agent Headers
         main.userData.tempForm.setApprovedDate(approvalDate.getValue());
         //TODO reference agent name if needed
         main.userData.tempForm.setAgentName(agentNameText.getText());
         main.userData.tempForm.setExpirationDate(expirationDate.getValue());
         main.userData.tempForm.setApprovalComments(commentText.getText());
 
-        return main.userData.tempForm;
-    }
-
-
-    //TODO use DBManager functions to display agent review page
-    public void chooseForm () {
-        Form review = new Form();
-
-        main.setDisplayToAgentReview();
-
-        //display the form
-    }
-
-    public void createApplicantForm(){
-        Form form = new Form();
-
         /*
-        form.setApplicantName(applicantNameText.getText());
-        form.setPhoneNumber(phoneNumberText.getText());
-        form.setEmail(emailText.getText());
-        form.setAddress(applicantAddress1.getText() + applicantAddress2.getText()); //finalize address stuff
-        Double ttbID = Math.floor(Math.random());
-        form.setTtbID(ttbID.toString());
-        // TODO copy button code and put below
-        form.setSource("Imported"); //TODO change to take input from buttons
-        Date date = new Date(04102017);
-        form.setSubmitDate(date.toLocalDate()); //TODO make this be today
-        form.setRepID(repIDNoText.getText());
-        form.setBrandName(brandNameText.getText());
-        form.setTradeName(tradeNameText.getText());
-        form.setFancifulName(fancifulNameText.getText());
-        form.setPermitNo(basicPermitText.getText());
-        form.setCompanyName(brandNameText.getText());
-        form.setTradeName(tradeNameText.getText());
-        form.setPhoneNumber(phoneNumberText.getText());
-        form.setEmail(emailText.getText());
-        form.setAlcoholContent(Double.parseDouble(alcoholContent.getText()));
-        form.setAlcoholType(1);//TODO figure out what type is and make it work
-
-        main.userData.getUserInformation().setForm(form);
+        There was previously a setForm function here for the User class
+        or Main class but it appears that it does not exist anymore
         */
     }
 
-    public void createAgentForm(){
-        main.userData.getUserInformation().setForm(form);
-    }
-
+    // Probably outdated method
     @FXML
     public void startApplication(){
         try{
@@ -419,7 +365,16 @@ public class FormController{
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
 
+    //TODO use DBManager functions to display agent review page from list
+    //TODO make a function for applicant to choose form from list
+    public void chooseForm () {
+        Form review = new Form();
+
+        main.setDisplayToAgentReview();
+
+        //display the form
     }
 
     @FXML
