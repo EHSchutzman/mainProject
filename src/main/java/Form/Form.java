@@ -8,45 +8,45 @@ import java.util.UUID;
 
 public class Form {
     private String ttbID;
-    private String repID;
-    private String permitNo;
-    private String source;
-    private String serialNo;
-    private String alcoholType;
-    private String brandName;
-    private String fancifulName;
-    private double alcoholContent;
+    private String repID;           // x textfield
+    private String permitNo;        // x textfield
+    private String source;          // x radio buttons
+    private String serialNo;        // x textfield
+    private String alcoholType;     // x radio buttons
+    private String brandName;       // x textfield
+    private String fancifulName;    // x textfield
+    private double alcoholContent;  // x textfield
 
-    private String applicantStreet;
-    private String applicantCity;
-    private String applicantState;
-    private String applicantZip;
-    private String applicantCountry;
-    private String mailingAddress;
+    private String applicantStreet; // x two textfields
+    private String applicantCity;   // x
+    private String applicantState;  // x
+    private String applicantZip;    // x
+    private String applicantCountry;// x
+    private String mailingAddress;  // x has checkbox to see if it should be the same as regular address
 
-    private String formula;
-    private String phoneNo;
-    private String email;
-    private String labelText;
-    private String labelImage;
-    private Date submitDate;
-    private String signature;
-    private String status;
-    private String agentID;
-    private String applicantID;
-    private Date approvedDate;
-    private Date expirationDate;
-    private String approvalComments;
+    private String formula;         // x
+    private String phoneNo;         // x
+    private String email;           // x
+    private String labelText;       // x
+    private String labelImage;      //
+    private Date submitDate;        // x
+    private String signature;       // x
+    private String status;          //
+    private String agentID;         //
+    private String applicantID;     //
+    private Date approvedDate;      //
+    private Date expirationDate;    //
+    private String approvalComments;//
 
     // wines only
-    private String vintageYear;
-    private int phLevel;
-    private String grapeVarietals;
-    private String wineAppelation;
+    private String vintageYear;     // x
+    private int phLevel;            // x
+    private String grapeVarietals;  // x
+    private String wineAppelation;  // x
 
     //application type
-    ArrayList<Boolean> applicationType;
-    ArrayList<String> typeText;
+    ArrayList<Boolean> applicationType;//check boxes
+    ArrayList<String> typeText;        //textfields corresponding to their check boxes
 
     //constructor
     public Form() {}
@@ -135,6 +135,10 @@ public class Form {
         return alcoholContent;
     }
 
+    public String getApplicantStreet() {
+        return applicantStreet;
+    }
+
     public String getApplicantCity() {
         return applicantCity;
     }
@@ -199,6 +203,10 @@ public class Form {
         return approvedDate;
     }
 
+    public String getApprovalComments() {
+        return approvalComments;
+    }
+
     public Date getExpirationDate() {
         return expirationDate;
     }
@@ -225,5 +233,141 @@ public class Form {
 
     public ArrayList<String> getTypeText() {
         return typeText;
+    }
+
+    public void setTtbID(String ttbID) {
+        this.ttbID = ttbID;
+    }
+
+    public void setRepID(String repID) {
+        this.repID = repID;
+    }
+
+    public void setPermitNo(String permitNo) {
+        this.permitNo = permitNo;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
+    }
+
+    public void setAlcoholType(String alcoholType) {
+        this.alcoholType = alcoholType;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public void setFancifulName(String fancifulName) {
+        this.fancifulName = fancifulName;
+    }
+
+    public void setAlcoholContent(double alcoholContent) {
+        this.alcoholContent = alcoholContent;
+    }
+
+    public void setApplicantStreet(String applicantStreet) {
+        this.applicantStreet = applicantStreet;
+    }
+
+    public void setApplicantCity(String applicantCity) {
+        this.applicantCity = applicantCity;
+    }
+
+    public void setApplicantState(String applicantState) {
+        this.applicantState = applicantState;
+    }
+
+    public void setApplicantZip(String applicantZip) {
+        this.applicantZip = applicantZip;
+    }
+
+    public void setApplicantCountry(String applicantCountry) {
+        this.applicantCountry = applicantCountry;
+    }
+
+    public void setMailingAddress(String mailingAddress) {
+        this.mailingAddress = mailingAddress;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLabelText(String labelText) {
+        this.labelText = labelText;
+    }
+
+    public void setLabelImage(String labelImage) {
+        this.labelImage = labelImage;
+    }
+
+    public void setSubmitDate(Date submitDate) {
+        this.submitDate = submitDate;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setAgentID(String agentID) {
+        this.agentID = agentID;
+    }
+
+    public void setApplicantID(String applicantID) {
+        this.applicantID = applicantID;
+    }
+
+    public void setApprovedDate(Date approvedDate) {
+        this.approvedDate = approvedDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setApprovalComments(String approvalComments) {
+        this.approvalComments = approvalComments;
+    }
+
+    public void setVintageYear(String vintageYear) {
+        this.vintageYear = vintageYear;
+    }
+
+    public void setPhLevel(int phLevel) {
+        this.phLevel = phLevel;
+    }
+
+    public void setGrapeVarietals(String grapeVarietals) {
+        this.grapeVarietals = grapeVarietals;
+    }
+
+    public void setWineAppelation(String wineAppelation) {
+        this.wineAppelation = wineAppelation;
+    }
+
+    public void setApplicationType(ArrayList<Boolean> applicationType) {
+        this.applicationType = applicationType;
+    }
+
+    public void setTypeText(ArrayList<String> typeText) {
+        this.typeText = typeText;
     }
 }
