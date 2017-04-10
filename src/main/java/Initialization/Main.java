@@ -289,8 +289,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         try {
 
-           launch(args);
-//            Connection c = TTB_database.connect();
+//           launch(args);
+            Connection c = TTB_database.connect();
         } catch (Exception e) {
 
         }
