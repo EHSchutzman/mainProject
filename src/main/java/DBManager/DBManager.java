@@ -1,12 +1,12 @@
 package DBManager;
 
-import DatabaseSearch.AppRecord;
-import UserAccounts.User;
 import Form.Form;
+import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.plaf.nimbus.State;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class DBManager {
         fields.add("\'" + user.getFirstName() + "\'");
         fields.add("\'" + user.getMiddleInitial() + "\'");
         fields.add("\'" + user.getLastName() + "\'");
-        String queryString = queryBuilder.createInsertStatement("USER", fields);
+        String queryString = queryBuilder.createInsertStatement("USERS", fields);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -68,6 +68,7 @@ public class DBManager {
         fields.add("\'" + form.getBrandName() + "\'");
         fields.add("\'" + form.getFancifulName() + "\'");
         fields.add("" + form.getAlcoholContent() + "");
+        fields.add("\'" + form.getApplicantStreet() + "\'");
         fields.add("\'" + form.getApplicantCity() + "\'");
         fields.add("\'" + form.getApplicantZip() + "\'");
         fields.add("\'" + form.getApplicantState() + "\'");
@@ -85,13 +86,14 @@ public class DBManager {
         fields.add("\'" + form.getApplicantID() + "\'");
         fields.add("\'" + form.getApprovedDate() + "\'");
         fields.add("\'" + form.getExpirationDate() + "\'");
+        fields.add("\'" + form.getApprovalComments() + "\'");
         if (form.getAlcoholType().equals("Wine")) {
             wine.add("\'" + form.getVintageYear() + "\'");
             wine.add("\'" + form.getPhLevel() + "\'");
             wine.add("\'" + form.getGrapeVarietals() + "\'");
             wine.add("\'" + form.getWineAppelation() + "\'");
         }
-        String queryString = queryBuilder.createInsertStatement("USER", fields);
+        String queryString = queryBuilder.createInsertStatement("FORMS", fields);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -116,8 +118,8 @@ public class DBManager {
 
     public ObservableList<ObservableList<String>> findLabels(ArrayList<ArrayList<String>> filters) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, origin_code, alcohol_type";
-        String query = queryBuilder.createLikeStatement("FORM", fields, filters);
+        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, alcohol_type";
+        String query = queryBuilder.createLikeStatement("FORMS", fields, filters);
         ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         try {
             Connection connection = TTB_database.connect();
@@ -130,11 +132,9 @@ public class DBManager {
                 String approvedDate = rs.getDate("approved_date").toString();
                 String fancifulName = rs.getString("fanciful_name");
                 String brandName = rs.getString("brand_name");
-                String originCode = rs.getString("origin_code");
                 String alcoholType = rs.getString("alcohol_type");
                 ObservableList<String> observableList = FXCollections.observableArrayList();
-                observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName,
-                        originCode, alcoholType);
+                observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
                 ol.add(observableList);
             }
             rs.close();
@@ -154,9 +154,9 @@ public class DBManager {
         ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         //I think that appending these tables is going to get rid of the beer applications but ????
         if (user.getAuthentication() == 1) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
+            query = queryBuilder.createSelectStatement("FORMS, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORMS.ttb_id = WINEONLY.ttb_id"));
         } else if (user.getAuthentication() == 2 || user.getAuthentication() == 3) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
+            query = queryBuilder.createSelectStatement("FORMS, WINEONLY", "*", ("agent_id= '" + user.getUid()));
         }
         try {
             Connection connection = TTB_database.connect();
@@ -241,7 +241,7 @@ public class DBManager {
 
     public Form findSingleForm(String ttbID, ArrayList<String> fields){
         QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.createSelectStatement("FORM", "*", "ttb_id=" + ttbID);
+        String query = queryBuilder.createSelectStatement("FORMS", "*", "ttb_id=" + ttbID);
         String query2 = queryBuilder.createSelectStatement("TYPEOFAPPLICATION", "*", "ttb_id=" + ttbID);
 
 
@@ -346,7 +346,7 @@ public class DBManager {
         fields.add("first_name = "+"\'" + user.getFirstName() + "\'");
         fields.add("middle_inital = "+"\'" + user.getMiddleInitial() + "\'");
         fields.add("last_name = "+"\'" + user.getLastName() + "\'");
-        String updateString = queryBuilder.createUpdateStatement("USER", fields, ("user_id = \'"+user.getUid() + "\'"));
+        String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'"+user.getUid() + "\'"));
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -401,7 +401,7 @@ public class DBManager {
             wine.add("grape_varietals=" + "\'" + form.getGrapeVarietals() + "\'");
             wine.add("wine_appelation=" + "\'" + form.getWineAppelation() + "\'");
         }
-        String queryString = queryBuilder.createUpdateStatement("FORM", fields, options);
+        String queryString = queryBuilder.createUpdateStatement("FORMS", fields, options);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -416,6 +416,39 @@ public class DBManager {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    // Generate CSV file
+    public void generateCSV(ResultSet rs) {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("labels.txt");
+            writer.append("TTB ID");
+            writer.append("Permit No.");
+            writer.append("Serial No.");
+            writer.append("Submitted Date");
+            writer.append("Fanciful Name");
+            writer.append("Brand Name");
+            writer.append("Alcohol Type");
+            try {
+                while (rs.next()) {
+                    writer.append(rs.getString("ttb_id"));
+                    writer.append(rs.getString("permit_no"));
+                    writer.append(rs.getString("serial_no"));
+                    writer.append(rs.getDate("submit_date").toString());
+                    writer.append(rs.getString("fanciful_name"));
+                    writer.append(rs.getString("brand_name"));
+                    writer.append(rs.getString("alcohol_type"));
+                    writer.append("\n");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
