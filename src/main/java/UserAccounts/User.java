@@ -9,9 +9,9 @@ public class User {
     private String lastName;
     private String email;
     private String phoneNo;
-    private int authentication;
+    private int authenticationLevel;
 
-    public User(int uid, String username, String password, String firstName, String middleInitial, String lastName, String email, String phoneNo, int authentication) {
+    public User(int uid, String username, String password, String firstName, String middleInitial, String lastName, String email, String phoneNo, int authenticationLevel) {
         this.uid = uid;
         this.username = username;
         this.password = password;
@@ -20,7 +20,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.phoneNo = phoneNo;
-        this.authentication = authentication;
+        this.authenticationLevel = authenticationLevel;
     }
 
     public User() {
@@ -32,7 +32,7 @@ public class User {
         this.lastName = null;
         this.email = null;
         this.phoneNo = null;
-        this.authentication = 0;
+        this.authenticationLevel = 0;
     }
 
     public int getUid() {
@@ -67,7 +67,7 @@ public class User {
         return phoneNo;
     }
 
-    public int getAuthentication() {
-        return authentication;
+    public int getAuthenticationLevel() {
+        return authenticationLevel;
     }
 }

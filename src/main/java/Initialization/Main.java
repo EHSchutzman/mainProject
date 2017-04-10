@@ -317,14 +317,14 @@ public class Main extends Application {
             controller.setDisplay(this);
 
 
-            controller.applicantNameText.setText(this.userData.getUserInformation().getForm().getApplicantName());
-            controller.repIDNoText.setText(this.userData.getUserInformation().getForm().getRepID());
-            controller.brandNameText.setText(this.userData.getUserInformation().getForm().getBrandName());
-//            controller.permitNoText.setText(this.userData.getUserInformation().getForm().getPermitNo());
-            controller.tradenameText.setText(this.userData.getUserInformation().getForm().getTradename());
-            controller.phoneNumberText.setText(this.userData.getUserInformation().getForm().getPhoneNumber());
-            controller.emailText.setText(this.userData.getUserInformation().getForm().getEmail());
-//            controller.permitNoText.setText(this.userData.getUserInformation().getForm().getPermitNo());
+            controller.applicantNameText.setText(this.userData.getForm().getApplicantName());
+            controller.repIDNoText.setText(this.userData.getForm().getRepID());
+            controller.brandNameText.setText(this.userData.getForm().getBrandName());
+//            controller.permitNoText.setText(this.userData.getForm().getPermitNo());
+            controller.tradenameText.setText(this.userData.getForm().getTradename());
+            controller.phoneNumberText.setText(this.userData.getForm().getPhoneNumber());
+            controller.emailText.setText(this.userData.getForm().getEmail());
+//            controller.permitNoText.setText(this.userData.getForm().getPermitNo());
 
         } catch (IOException e) {
             e.printStackTrace();

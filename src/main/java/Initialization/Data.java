@@ -11,7 +11,7 @@ public class Data {
     private int currentApplicationPage = 0;
     private ResultSet rs;
     public ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
-    public Form tempForm = new Form();
+    public Form form = new Form();
 
     public Data(User userInformation) {
         this.userInformation = userInformation;
@@ -43,5 +43,29 @@ public class Data {
 
     public void setUserInformation(User userInformation) {
         this.userInformation = userInformation;
+    }
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    public ArrayList<Form> getListOfForms() {
+        return this.listOfForms;
+    }
+
+    public void setListOfForms(ArrayList<Form> listOfForms) {
+        this.listOfForms = listOfForms;
+    }
+
+    public Form getForm() {
+        return form;
+    }
+
+    public void setForm(Form form) {
+        this.form = form;
     }
 }

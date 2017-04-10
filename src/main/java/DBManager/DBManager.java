@@ -1,12 +1,10 @@
 package DBManager;
 
-import DatabaseSearch.AppRecord;
 import UserAccounts.User;
 import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -27,7 +25,7 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
         fields.add("\'" + user.getUid() + "\'");
-        fields.add("" + user.getAuthentication() + "");
+        fields.add("" + user.getAuthenticationLevel() + "");
         fields.add("\'" + user.getUsername() + "\'");
         fields.add("\'" + user.getPassword() + "\'");
         fields.add("\'" + user.getEmail() + "\'");
@@ -153,9 +151,9 @@ public class DBManager {
         String query = "";
         ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         //I think that appending these tables is going to get rid of the beer applications but ????
-        if (user.getAuthentication() == 1) {
+        if (user.getAuthenticationLevel() == 1) {
             query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
-        } else if (user.getAuthentication() == 2 || user.getAuthentication() == 3) {
+        } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
             query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
         }
         try {
@@ -337,7 +335,7 @@ public class DBManager {
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
         fields.add("user_id = "+"\'" + user.getUid() + "\'");
-        fields.add("authentication = "+ user.getAuthentication());
+        fields.add("authentication = "+ user.getAuthenticationLevel());
         fields.add("username ="+"\'" + user.getUsername() + "\'");
         fields.add("password = "+"\'" + user.getPassword() + "\'");
         fields.add("email = "+"\'" + user.getEmail() + "\'");
