@@ -257,8 +257,7 @@ public class FormController{
         main.userData.tempForm.setPhoneNo(phoneNumberText.getText());
         main.userData.tempForm.setEmail(emailText.getText());
 
-        //TODO convert LocalDate to Date and viceversa when necessary
-        main.userData.tempForm.setSubmitDate(completedDate.getValue());
+        main.userData.tempForm.setSubmitDate(Date.valueOf(completedDate.getValue()));
         //TODO reference actual applicant name below, if need be
         //main.userData.tempForm.setApplicantID(applicantNameText.getText());
 
@@ -342,13 +341,13 @@ public class FormController{
         phoneNumberText.setPromptText(main.userData.tempForm.getPhoneNo());
         emailText.setPromptText(main.userData.tempForm.getEmail());
 
-        completedDate.setValue(main.userData.tempForm.getSubmitDate());
+        completedDate.setValue(main.userData.tempForm.getSubmitDate().toLocalDate());
 
         //Agent Headers
-        main.userData.tempForm.setApprovedDate(approvalDate.getValue());
+        main.userData.tempForm.setApprovedDate(Date.valueOf(approvalDate.getValue()));
         //TODO reference agent name if needed
         main.userData.tempForm.setAgentName(agentNameText.getText());
-        main.userData.tempForm.setExpirationDate(expirationDate.getValue());
+        main.userData.tempForm.setExpirationDate(Date.valueOf(expirationDate.getValue()));
         main.userData.tempForm.setApprovalComments(commentText.getText());
 
         /*
