@@ -8,48 +8,48 @@ import java.util.UUID;
 
 public class Form {
     // Label Info
-    private String ttbID;
-    private String repID;           // x textfield
-    private String permitNo;        // x textfield
-    private String serialNo;        // x textfield
+    private String ttb_id;
+    private String rep_id;           // x textfield
+    private String permit_no;        // x textfield
+    private String serial_no;        // x textfield
     private String source;          // x radio buttons
-    private String alcoholType;     // x radio buttons
-    private String brandName;       // x textfield
-    private String fancifulName;    // x textfield
-    private double alcoholContent;  // x textfield v
+    private String alcohol_type;     // x radio buttons
+    private String brand_name;       // x textfield
+    private String fanciful_name;    // x textfield
+    private double alcohol_content;  // x textfield v
     private String formula;         // x
-    private String labelImage;      //
-    private String labelText;       // x
+    private String label_image;      //
+    private String label_text;       // x
     // Wines only
-    private String vintageYear;     // x
-    private int phLevel;            // x
-    private String grapeVarietals;  // x
-    private String wineAppelation;  // x
+    private String vintage_year;     // x
+    private int pH_level;            // x
+    private String grape_varietals;  // x
+    private String wine_appellation;  // x
     // Application type
-    ArrayList<Boolean> applicationType;// x check boxes
-    ArrayList<String> typeText;        // x textfields corresponding to their check boxes
+    ArrayList<Boolean> application_type;// x check boxes
+    ArrayList<String> application_type_text;        // x textfields corresponding to their check boxes
 
     // Applicant info
     // Addresses
-    private String applicantStreet; // x two textfields
-    private String applicantCity;   // x
-    private String applicantState;  // x
-    private String applicantZip;    // x
-    private String applicantCountry;// x
-    private String mailingAddress;  // x has checkbox to see if it should be the same as regular address
+    private String applicant_street; // x two textfields
+    private String applicant_city;   // x
+    private String applicant_state;  // x
+    private String applicant_zip;    // x
+    private String applicant_country;// x
+    private String mailing_address;  // x has checkbox to see if it should be the same as regular address
     //
     private String signature;       // x
-    private String phoneNo;         // x
+    private String phone_no;         // x
     private String email;           // x
 
     // Application info
-    private Date submitDate;        // x
+    private Date submit_date;        // x
     private String status;          // x
-    private String agentID;         //
-    private String applicantID;     //
-    private Date approvedDate;      // x
-    private Date expirationDate;    // x
-    private String approvalComments;// x
+    private String agent_id;         //
+    private String applicant_id;     //
+    private Date approved_date;      // x
+    private Date expiration_date;    // x
+    private String approval_comments;// x
 
 
 
@@ -63,130 +63,130 @@ public class Form {
         return uniqueID;
     }
 
-    public Form(String ttbID, String repID, String permitNo, String source, String serialNo, String alcoholType,
-                String brandName, String fancifulName, double alcoholContent, String applicantStreet, String applicantCity, String applicantState,
-                String applicantZip, String applicantCountry, String mailingAddress, String formula, String phoneNo,
-                String email, String labelText, String labelImage, Date submitDate, String signature, String status,
-                String agentID, String applicantID, Date approvedDate, Date expirationDate, String vintageYear,
-                int phLevel, String grapeVarietals, String wineAppelation, ArrayList<Boolean> applicationType, ArrayList<String> typeText, String approvalComments) {
-        this.ttbID = ttbID;
-        this.repID = repID;
-        this.permitNo = permitNo;
+    public Form(String ttb_id, String rep_id, String permit_no, String source, String serial_no, String alcohol_type,
+                String brand_name, String fanciful_name, double alcohol_content, String applicant_street, String applicant_city, String applicant_state,
+                String applicant_zip, String applicant_country, String mailing_address, String formula, String phone_no,
+                String email, String label_text, String label_image, Date submit_date, String signature, String status,
+                String agent_id, String applicant_id, Date approved_date, Date expiration_date, String vintage_year,
+                int pH_level, String grape_varietals, String wine_appellation, ArrayList<Boolean> application_type, ArrayList<String> application_type_text, String approval_comments) {
+        this.ttb_id = ttb_id;
+        this.rep_id = rep_id;
+        this.permit_no = permit_no;
         this.source = source;
-        this.serialNo = serialNo;
-        this.alcoholType = alcoholType;
-        this.brandName = brandName;
-        this.fancifulName = fancifulName;
-        this.alcoholContent = alcoholContent;
-        this.applicantStreet = applicantStreet;
-        this.applicantCity = applicantCity;
-        this.applicantState = applicantState;
-        this.applicantZip = applicantZip;
-        this.applicantCountry = applicantCountry;
-        this.mailingAddress = mailingAddress;
+        this.serial_no = serial_no;
+        this.alcohol_type = alcohol_type;
+        this.brand_name = brand_name;
+        this.fanciful_name = fanciful_name;
+        this.alcohol_content = alcohol_content;
+        this.applicant_street = applicant_street;
+        this.applicant_city = applicant_city;
+        this.applicant_state = applicant_state;
+        this.applicant_zip = applicant_zip;
+        this.applicant_country = applicant_country;
+        this.mailing_address = mailing_address;
         this.formula = formula;
-        this.phoneNo = phoneNo;
+        this.phone_no = phone_no;
         this.email = email;
-        this.labelText = labelText;
-        this.labelImage = labelImage;
-        this.submitDate = submitDate;
+        this.label_text = label_text;
+        this.label_image = label_image;
+        this.submit_date = submit_date;
         this.signature = signature;
         this.status = status;
-        this.agentID = agentID;
-        this.applicantID = applicantID;
-        this.approvedDate = approvedDate;
-        this.expirationDate = expirationDate;
-        this.vintageYear = vintageYear;
-        this.phLevel = phLevel;
-        this.grapeVarietals = grapeVarietals;
-        this.wineAppelation = wineAppelation;
-        this.applicationType = applicationType;
-        this.typeText = typeText;
-        this.approvalComments = approvalComments;
+        this.agent_id = agent_id;
+        this.applicant_id = applicant_id;
+        this.approved_date = approved_date;
+        this.expiration_date = expiration_date;
+        this.vintage_year = vintage_year;
+        this.pH_level = pH_level;
+        this.grape_varietals = grape_varietals;
+        this.wine_appellation = wine_appellation;
+        this.application_type = application_type;
+        this.application_type_text = application_type_text;
+        this.approval_comments = approval_comments;
     }
 
-    public String getTtbID() {
-        return ttbID;
+    public String getttb_id() {
+        return ttb_id;
     }
 
-    public String getRepID() {
-        return repID;
+    public String getrep_id() {
+        return rep_id;
     }
 
-    public String getPermitNo() {
-        return permitNo;
+    public String getpermit_no() {
+        return permit_no;
     }
 
     public String getSource() {
         return source;
     }
 
-    public String getSerialNo() {
-        return serialNo;
+    public String getserial_no() {
+        return serial_no;
     }
 
-    public String getAlcoholType() {
-        return alcoholType;
+    public String getalcohol_type() {
+        return alcohol_type;
     }
 
-    public String getBrandName() {
-        return brandName;
+    public String getbrand_name() {
+        return brand_name;
     }
 
-    public String getFancifulName() {
-        return fancifulName;
+    public String getfanciful_name() {
+        return fanciful_name;
     }
 
-    public double getAlcoholContent() {
-        return alcoholContent;
+    public double getalcohol_content() {
+        return alcohol_content;
     }
 
-    public String getApplicantStreet() {
-        return applicantStreet;
+    public String getapplicant_street() {
+        return applicant_street;
     }
 
-    public String getApplicantCity() {
-        return applicantCity;
+    public String getapplicant_city() {
+        return applicant_city;
     }
 
-    public String getApplicantState() {
-        return applicantState;
+    public String getapplicant_state() {
+        return applicant_state;
     }
 
-    public String getApplicantZip() {
-        return applicantZip;
+    public String getapplicant_zip() {
+        return applicant_zip;
     }
 
-    public String getApplicantCountry() {
-        return applicantCountry;
+    public String getapplicant_country() {
+        return applicant_country;
     }
 
-    public String getMailingAddress() {
-        return mailingAddress;
+    public String getmailing_address() {
+        return mailing_address;
     }
 
     public String getFormula() {
         return formula;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public String getphone_no() {
+        return phone_no;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getLabelText() {
-        return labelText;
+    public String getlabel_text() {
+        return label_text;
     }
 
-    public String getLabelImage() {
-        return labelImage;
+    public String getlabel_image() {
+        return label_image;
     }
 
-    public Date getSubmitDate() {
-        return submitDate;
+    public Date getsubmit_date() {
+        return submit_date;
     }
 
     public String getSignature() {
@@ -197,132 +197,132 @@ public class Form {
         return status;
     }
 
-    public String getAgentID() {
-        return agentID;
+    public String getagent_id() {
+        return agent_id;
     }
 
-    public String getApplicantID() {
-        return applicantID;
+    public String getapplicant_id() {
+        return applicant_id;
     }
 
-    public Date getApprovedDate() {
-        return approvedDate;
+    public Date getapproved_date() {
+        return approved_date;
     }
 
-    public String getApprovalComments() {
-        return approvalComments;
+    public String getapproval_comments() {
+        return approval_comments;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Date getexpiration_date() {
+        return expiration_date;
     }
 
-    public String getVintageYear() {
-        return vintageYear;
+    public String getvintage_year() {
+        return vintage_year;
     }
 
-    public int getPhLevel() {
-        return phLevel;
+    public int getpH_level() {
+        return pH_level;
     }
 
-    public String getGrapeVarietals() {
-        return grapeVarietals;
+    public String getgrape_varietals() {
+        return grape_varietals;
     }
 
-    public String getWineAppelation() {
-        return wineAppelation;
+    public String getwine_appellation() {
+        return wine_appellation;
     }
 
-    public ArrayList<Boolean> getApplicationType() {
-        return applicationType;
+    public ArrayList<Boolean> getapplication_type() {
+        return application_type;
     }
 
-    public ArrayList<String> getTypeText() {
-        return typeText;
+    public ArrayList<String> getapplication_type_text() {
+        return application_type_text;
     }
 
-    public void setTtbID(String ttbID) {
-        this.ttbID = ttbID;
+    public void setttb_id(String ttb_id) {
+        this.ttb_id = ttb_id;
     }
 
-    public void setRepID(String repID) {
-        this.repID = repID;
+    public void setrep_id(String rep_id) {
+        this.rep_id = rep_id;
     }
 
-    public void setPermitNo(String permitNo) {
-        this.permitNo = permitNo;
+    public void setpermit_no(String permit_no) {
+        this.permit_no = permit_no;
     }
 
     public void setSource(String source) {
         this.source = source;
     }
 
-    public void setSerialNo(String serialNo) {
-        this.serialNo = serialNo;
+    public void setserial_no(String serial_no) {
+        this.serial_no = serial_no;
     }
 
-    public void setAlcoholType(String alcoholType) {
-        this.alcoholType = alcoholType;
+    public void setalcohol_type(String alcohol_type) {
+        this.alcohol_type = alcohol_type;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setbrand_name(String brand_name) {
+        this.brand_name = brand_name;
     }
 
-    public void setFancifulName(String fancifulName) {
-        this.fancifulName = fancifulName;
+    public void setfanciful_name(String fanciful_name) {
+        this.fanciful_name = fanciful_name;
     }
 
-    public void setAlcoholContent(double alcoholContent) {
-        this.alcoholContent = alcoholContent;
+    public void setalcohol_content(double alcohol_content) {
+        this.alcohol_content = alcohol_content;
     }
 
-    public void setApplicantStreet(String applicantStreet) {
-        this.applicantStreet = applicantStreet;
+    public void setapplicant_street(String applicant_street) {
+        this.applicant_street = applicant_street;
     }
 
-    public void setApplicantCity(String applicantCity) {
-        this.applicantCity = applicantCity;
+    public void setapplicant_city(String applicant_city) {
+        this.applicant_city = applicant_city;
     }
 
-    public void setApplicantState(String applicantState) {
-        this.applicantState = applicantState;
+    public void setapplicant_state(String applicant_state) {
+        this.applicant_state = applicant_state;
     }
 
-    public void setApplicantZip(String applicantZip) {
-        this.applicantZip = applicantZip;
+    public void setapplicant_zip(String applicant_zip) {
+        this.applicant_zip = applicant_zip;
     }
 
-    public void setApplicantCountry(String applicantCountry) {
-        this.applicantCountry = applicantCountry;
+    public void setapplicant_country(String applicant_country) {
+        this.applicant_country = applicant_country;
     }
 
-    public void setMailingAddress(String mailingAddress) {
-        this.mailingAddress = mailingAddress;
+    public void setmailing_address(String mailing_address) {
+        this.mailing_address = mailing_address;
     }
 
     public void setFormula(String formula) {
         this.formula = formula;
     }
 
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+    public void setphone_no(String phone_no) {
+        this.phone_no = phone_no;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setLabelText(String labelText) {
-        this.labelText = labelText;
+    public void setlabel_text(String label_text) {
+        this.label_text = label_text;
     }
 
-    public void setLabelImage(String labelImage) {
-        this.labelImage = labelImage;
+    public void setlabel_image(String label_image) {
+        this.label_image = label_image;
     }
 
-    public void setSubmitDate(Date submitDate) {
-        this.submitDate = submitDate;
+    public void setsubmit_date(Date submit_date) {
+        this.submit_date = submit_date;
     }
 
     public void setSignature(String signature) {
@@ -333,47 +333,47 @@ public class Form {
         this.status = status;
     }
 
-    public void setAgentID(String agentID) {
-        this.agentID = agentID;
+    public void setagent_id(String agent_id) {
+        this.agent_id = agent_id;
     }
 
-    public void setApplicantID(String applicantID) {
-        this.applicantID = applicantID;
+    public void setapplicant_id(String applicant_id) {
+        this.applicant_id = applicant_id;
     }
 
-    public void setApprovedDate(Date approvedDate) {
-        this.approvedDate = approvedDate;
+    public void setapproved_date(Date approved_date) {
+        this.approved_date = approved_date;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setexpiration_date(Date expiration_date) {
+        this.expiration_date = expiration_date;
     }
 
-    public void setApprovalComments(String approvalComments) {
-        this.approvalComments = approvalComments;
+    public void setapproval_comments(String approval_comments) {
+        this.approval_comments = approval_comments;
     }
 
-    public void setVintageYear(String vintageYear) {
-        this.vintageYear = vintageYear;
+    public void setvintage_year(String vintage_year) {
+        this.vintage_year = vintage_year;
     }
 
-    public void setPhLevel(int phLevel) {
-        this.phLevel = phLevel;
+    public void setpH_level(int pH_level) {
+        this.pH_level = pH_level;
     }
 
-    public void setGrapeVarietals(String grapeVarietals) {
-        this.grapeVarietals = grapeVarietals;
+    public void setgrape_varietals(String grape_varietals) {
+        this.grape_varietals = grape_varietals;
     }
 
-    public void setWineAppelation(String wineAppelation) {
-        this.wineAppelation = wineAppelation;
+    public void setwine_appellation(String wine_appellation) {
+        this.wine_appellation = wine_appellation;
     }
 
-    public void setApplicationType(ArrayList<Boolean> applicationType) {
-        this.applicationType = applicationType;
+    public void setapplication_type(ArrayList<Boolean> application_type) {
+        this.application_type = application_type;
     }
 
-    public void setTypeText(ArrayList<String> typeText) {
-        this.typeText = typeText;
+    public void setapplication_type_text(ArrayList<String> application_type_text) {
+        this.application_type_text = application_type_text;
     }
 }
