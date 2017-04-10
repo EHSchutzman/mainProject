@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AgentWorkflow.WorkflowController">
+   <children>
+      <Label layoutX="435.0" layoutY="26.0" text="Applications" AnchorPane.topAnchor="26.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="applicationsTable" layoutX="26.0" layoutY="79.0" prefHeight="395.0" prefWidth="949.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="79.0">
+        <columns>
+          <TableColumn prefWidth="250.0" text="Name" />
+          <TableColumn prefWidth="250.0" text="ID No." />
+            <TableColumn prefWidth="250.0" text="Status" />
+            <TableColumn prefWidth="200.0" text="Date" />
+        </columns>
+      </TableView>
+      <Button fx:id="backButton" onMouseClicked="#returnToMainPage" layoutX="26.0" layoutY="24.0" mnemonicParsing="false" text="Back" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="24.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label fx:id="errorLabel" layoutX="463.0" layoutY="118.0" prefHeight="17.0" prefWidth="101.0" />
+   </children>
+</AnchorPane>
