@@ -145,10 +145,10 @@ public class FormController{
         statusLabel.setText(main.userData.tempForm.getStatus());
 
         // TODO make a random number generator
-        main.userData.tempForm.setTtbID(main.userData.tempForm.makeUniqueID());
-        main.userData.tempForm.setRepID(rep_idText.getText());
-        main.userData.tempForm.setPermitNo(permit_noText.getText());
-        main.userData.tempForm.setSerialNo(serial_noText.getText());
+        main.userData.tempForm.setttb_id(main.userData.tempForm.makeUniqueID());
+        main.userData.tempForm.setrep_id(rep_idText.getText());
+        main.userData.tempForm.setpermit_no(permit_noText.getText());
+        main.userData.tempForm.setserial_no(serial_noText.getText());
 
         /*
         // Initializes radio buttons
@@ -185,7 +185,7 @@ public class FormController{
 
         // Initialize Alcohol Type ChoiceBox, get and set value
         alcohol_typeChoice = new ChoiceBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        main.userData.tempForm.setAlcoholType((String)alcohol_typeChoice.getValue());
+        main.userData.tempForm.setalcohol_type((String)alcohol_typeChoice.getValue());
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
@@ -203,18 +203,18 @@ public class FormController{
         }
         //determine inputted type
         if (beerRadio.isSelected()) {
-            main.userData.tempForm.setAlcoholType("Beer");
+            main.userData.tempForm.setalcohol_type("Beer");
         } else if (wineRadio.isSelected()) {
-            main.userData.tempForm.setAlcoholType("Wine");
+            main.userData.tempForm.setalcohol_type("Wine");
         } else if (spiritsRadio.isSelected()) {
-            main.userData.tempForm.setAlcoholType("Distilled Spirit");
+            main.userData.tempForm.setalcohol_type("Distilled Spirit");
         }
         */
 
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
-        ArrayList<Boolean> tempBoolArray = main.userData.tempForm.getApplicationType();
-        ArrayList<String> tempStrArray = main.userData.tempForm.getTypeText();
+        ArrayList<Boolean> tempBoolArray = main.userData.tempForm.getapplication_type();
+        ArrayList<String> tempStrArray = main.userData.tempForm.getapplication_type_text();
         if (labelApprovalCBox.isSelected()) {//choice 0
             tempBoolArray.set(0, true);
         } else if (labelExemptionCBox.isSelected()) {
@@ -227,39 +227,39 @@ public class FormController{
             tempStrArray.set(3, resubmissionTTBIDText.getText());
             tempBoolArray.set(3, true);
         }
-        main.userData.tempForm.setApplicationType(tempBoolArray);
-        main.userData.tempForm.setTypeText(tempStrArray);
+        main.userData.tempForm.setapplication_type(tempBoolArray);
+        main.userData.tempForm.setapplication_type_text(tempStrArray);
 
-        main.userData.tempForm.setBrandName(brand_nameText.getText());
-        main.userData.tempForm.setFancifulName(fanciful_nameText.getText());
-        main.userData.tempForm.setAlcoholContent(Double.parseDouble(alcohol_contentText.getText()));
+        main.userData.tempForm.setbrand_name(brand_nameText.getText());
+        main.userData.tempForm.setfanciful_name(fanciful_nameText.getText());
+        main.userData.tempForm.setalcohol_content(Double.parseDouble(alcohol_contentText.getText()));
         main.userData.tempForm.setFormula(formulaText.getText());
-        main.userData.tempForm.setLabelText(label_textText.getText());
+        main.userData.tempForm.setlabel_text(label_textText.getText());
         // Wines only
-        main.userData.tempForm.setVintageYear(vintage_yearText.getText());
-        main.userData.tempForm.setPhLevel(Integer.parseInt(pH_levelText.getText()));
-        main.userData.tempForm.setGrapeVarietals(grape_varietalsText.getText());
-        main.userData.tempForm.setWineAppelation(wine_appellationText.getText());
+        main.userData.tempForm.setvintage_year(vintage_yearText.getText());
+        main.userData.tempForm.setpH_level(Integer.parseInt(pH_levelText.getText()));
+        main.userData.tempForm.setgrape_varietals(grape_varietalsText.getText());
+        main.userData.tempForm.setwine_appellation(wine_appellationText.getText());
 
-        main.userData.tempForm.setApplicantStreet(street1Text.getText() + " " + street2Text.getText());
-        main.userData.tempForm.setApplicantCity(applicant_cityText.getText());
-        main.userData.tempForm.setApplicantState(applicant_stateText.getText());
-        main.userData.tempForm.setApplicantZip(applicant_zipText.getText());
-        main.userData.tempForm.setApplicantCountry(applicant_countryText.getText());
+        main.userData.tempForm.setapplicant_street(street1Text.getText() + " " + street2Text.getText());
+        main.userData.tempForm.setapplicant_city(applicant_cityText.getText());
+        main.userData.tempForm.setapplicant_state(applicant_stateText.getText());
+        main.userData.tempForm.setapplicant_zip(applicant_zipText.getText());
+        main.userData.tempForm.setapplicant_country(applicant_countryText.getText());
 
         if (mailing_addressCBox.isSelected()) {
-            main.userData.tempForm.setMailingAddress(main.userData.tempForm.getApplicantStreet() + " " +
-                    main.userData.tempForm.getApplicantCity() + " " + main.userData.tempForm.getApplicantState() +
-                    main.userData.tempForm.getApplicantZip() + " " + main.userData.tempForm.getApplicantCountry());
+            main.userData.tempForm.setmailing_address(main.userData.tempForm.getapplicant_street() + " " +
+                    main.userData.tempForm.getapplicant_city() + " " + main.userData.tempForm.getapplicant_state() +
+                    main.userData.tempForm.getapplicant_zip() + " " + main.userData.tempForm.getapplicant_country());
         } else {
-            main.userData.tempForm.setMailingAddress(mailing_addressText.getText());
+            main.userData.tempForm.setmailing_address(mailing_addressText.getText());
         }
 
         main.userData.tempForm.setSignature(signatureText.getText());
-        main.userData.tempForm.setPhoneNo(phone_noText.getText());
+        main.userData.tempForm.setphone_no(phone_noText.getText());
         main.userData.tempForm.setEmail(emailText.getText());
 
-        main.userData.tempForm.setSubmitDate(Date.valueOf(submit_date.getValue()));
+        main.userData.tempForm.setsubmit_date(Date.valueOf(submit_date.getValue()));
         //TODO reference actual applicant name below, if need be
         //main.userData.tempForm.setApplicantID(applicant_nameText.getText());
 
@@ -297,22 +297,22 @@ public class FormController{
         wineRadio=new RadioButton("Wine");
         spiritsRadio=new RadioButton("Distilled Spirit");
         //set selected
-        if(main.userData.tempForm.getAlcoholType().equals("Beer")) {
+        if(main.userData.tempForm.getalcohol_type()().equals("Beer")) {
             beerRadio.setSelected(true);
-        } else if (main.userData.tempForm.getAlcoholType().equals("Wine")) {
+        } else if (main.userData.tempForm.getalcohol_type()().equals("Wine")) {
             wineRadio.setSelected(true);
-        } else if (main.userData.tempForm.getAlcoholType().equals("Distilled Spirit")) {
+        } else if (main.userData.tempForm.getalcohol_type()().equals("Distilled Spirit")) {
             spiritsRadio.setSelected(true);
         }
         */
 
         // Get Alcohol Type info and set it to display for the Agent
         alcohol_typeChoice = new ChoiceBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if(main.userData.tempForm.getAlcoholType().equals("Beer")) {
+        if(main.userData.tempForm.getalcohol_type().equals("Beer")) {
             alcohol_typeChoice.getSelectionModel().select(1);
-        } else if (main.userData.tempForm.getAlcoholType().equals("Wine")) {
+        } else if (main.userData.tempForm.getalcohol_type().equals("Wine")) {
             alcohol_typeChoice.getSelectionModel().select(2);
-        } else if (main.userData.tempForm.getAlcoholType().equals("Distilled Spirit")) {
+        } else if (main.userData.tempForm.getalcohol_type().equals("Distilled Spirit")) {
             alcohol_typeChoice.getSelectionModel().select(3);
         }
 
@@ -323,8 +323,8 @@ public class FormController{
         distinctBottleCBox = new CheckBox("Distinctive Liquor Bottle Approval");
         resubmissionCBox = new CheckBox("Resubmission After Rejection");
 
-        ArrayList<Boolean> tempBoolArray = main.userData.tempForm.getApplicationType();
-        ArrayList<String> tempStrArray = main.userData.tempForm.getTypeText();
+        ArrayList<Boolean> tempBoolArray = main.userData.tempForm.getapplication_type();
+        ArrayList<String> tempStrArray = main.userData.tempForm.getapplication_type_text();
         if (tempBoolArray.get(0) == true) {//choice 0
             labelApprovalCBox.setSelected(true);
         } else if (tempBoolArray.get(1) == true) {
@@ -338,41 +338,41 @@ public class FormController{
             resubmissionCBox.setSelected(true);
         }
 
-        rep_idText.setPromptText(main.userData.tempForm.getRepID());
-        permit_noText.setPromptText(main.userData.tempForm.getPermitNo());
-        serial_noText.setPromptText(main.userData.tempForm.getSerialNo());
-        brand_nameText.setPromptText(main.userData.tempForm.getBrandName());
-        fanciful_nameText.setPromptText(main.userData.tempForm.getFancifulName());
-        alcohol_contentText.setPromptText(String.valueOf(main.userData.tempForm.getAlcoholContent()));
+        rep_idText.setPromptText(main.userData.tempForm.getrep_id());
+        permit_noText.setPromptText(main.userData.tempForm.getpermit_no());
+        serial_noText.setPromptText(main.userData.tempForm.getserial_no());
+        brand_nameText.setPromptText(main.userData.tempForm.getbrand_name());
+        fanciful_nameText.setPromptText(main.userData.tempForm.getfanciful_name());
+        alcohol_contentText.setPromptText(String.valueOf(main.userData.tempForm.getalcohol_content()));
         formulaText.setPromptText(main.userData.tempForm.getFormula());
-        label_textText.setPromptText(main.userData.tempForm.getLabelText());
+        label_textText.setPromptText(main.userData.tempForm.getlabel_text());
         // Wines only
-        vintage_yearText.setPromptText(main.userData.tempForm.getVintageYear());
-        pH_levelText.setPromptText(String.valueOf(main.userData.tempForm.getPhLevel()));
-        grape_varietalsText.setPromptText(main.userData.tempForm.getGrapeVarietals());
-        wine_appellationText.setPromptText(main.userData.tempForm.getWineAppelation());
+        vintage_yearText.setPromptText(main.userData.tempForm.getvintage_year());
+        pH_levelText.setPromptText(String.valueOf(main.userData.tempForm.getpH_level()));
+        grape_varietalsText.setPromptText(main.userData.tempForm.getgrape_varietals());
+        wine_appellationText.setPromptText(main.userData.tempForm.getwine_appellation());
 
         //TODO maybe seperate street1Text and street2Text because it might be too long
-        street1Text.setPromptText(main.userData.tempForm.getApplicantStreet());
-        applicant_cityText.setPromptText(main.userData.tempForm.getApplicantCity());
-        applicant_stateText.setPromptText(main.userData.tempForm.getApplicantState());
-        applicant_zipText.setPromptText(main.userData.tempForm.getApplicantZip());
-        applicant_countryText.setPromptText(main.userData.tempForm.getApplicantCountry());
+        street1Text.setPromptText(main.userData.tempForm.getapplicant_street());
+        applicant_cityText.setPromptText(main.userData.tempForm.getapplicant_city());
+        applicant_stateText.setPromptText(main.userData.tempForm.getapplicant_state());
+        applicant_zipText.setPromptText(main.userData.tempForm.getapplicant_zip());
+        applicant_countryText.setPromptText(main.userData.tempForm.getapplicant_country());
 
-        mailing_addressText.setPromptText(main.userData.tempForm.getMailingAddress());
+        mailing_addressText.setPromptText(main.userData.tempForm.getmailing_address());
 
         signatureText.setPromptText(main.userData.tempForm.getSignature());
-        phone_noText.setPromptText(main.userData.tempForm.getPhoneNo());
+        phone_noText.setPromptText(main.userData.tempForm.getphone_no());
         emailText.setPromptText(main.userData.tempForm.getEmail());
 
-        submit_date.setValue(main.userData.tempForm.getSubmitDate().toLocalDate());
+        submit_date.setValue(main.userData.tempForm.getsubmit_date().toLocalDate());
 
         //Agent Headers
-        main.userData.tempForm.setApprovedDate(Date.valueOf(approved_date.getValue()));
+        main.userData.tempForm.setapproved_date(Date.valueOf(approved_date.getValue()));
         //TODO reference agent name if needed
         main.userData.tempForm.setAgentName(agent_nameText.getText());
         main.userData.tempForm.setexpiration_date(Date.valueOf(expiration_date.getValue()));
-        main.userData.tempForm.setApprovalComments(approval_commentsText.getText());
+        main.userData.tempForm.setapproval_comments(approval_commentsText.getText());
 
         /*
         There was previously a setForm function here for the User class
