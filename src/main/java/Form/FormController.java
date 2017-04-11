@@ -2,7 +2,6 @@ package Form;
 import DatabaseSearch.QueryBuilder;
 import DatabaseSearch.TTB_database;
 import Initialization.Main;
-import com.sun.tools.javac.comp.Check;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -373,5 +372,6 @@ public class FormController{
             e.printStackTrace();
         }
     }
+
 
 }

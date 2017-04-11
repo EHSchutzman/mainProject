@@ -122,8 +122,8 @@ public class WorkflowController {
         Date expiration = new Date(expirationDate);
 
         application.setStatus("Accepted");
-        application.setApprovedDate(accepted);
-        application.setExpirationDate(expiration);
+        application.setapproved_date(accepted);
+        application.setexpiration_date(expiration);
         //application.setAgentID();
 
         // UPDATE query using DB Manager to change status field to 'Accepted'
