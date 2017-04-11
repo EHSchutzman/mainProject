@@ -1,16 +1,11 @@
 package Form;
-import DatabaseSearch.QueryBuilder;
-import DatabaseSearch.TTB_database;
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import javax.xml.soap.Text;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.concurrent.BlockingDeque;
 
 // TODO checkboxes and their corresponding lists from Form object and choiceboxes may be the source of errors
 public class FormController{
@@ -265,7 +260,7 @@ public class FormController{
         brand_name_text.setPromptText(main.userData.form.getbrand_name());
         fanciful_name_text.setPromptText(main.userData.form.getfanciful_name());
         alcohol_content_text.setPromptText(String.valueOf(main.userData.form.getalcohol_content()));
-        formula_text.setPromptText(main.userData.form.getFormula());
+        formula_text.setPromptText(main.userData.form.getformula());
         label_text.setPromptText(main.userData.form.getlabel_text());
         // Wines only
         vintage_year_text.setPromptText(main.userData.form.getvintage_year());

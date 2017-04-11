@@ -1,6 +1,5 @@
 package Form;
 
-import com.sun.xml.internal.fastinfoset.algorithm.BooleanEncodingAlgorithm;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -165,7 +164,7 @@ public class Form {
         return mailing_address;
     }
 
-    public String getFormula() {
+    public String getformula() {
         return formula;
     }
 
