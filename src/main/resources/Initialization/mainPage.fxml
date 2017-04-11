@@ -9,6 +9,10 @@
 <?import javafx.scene.control.Label?>
 
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.ActionController">
+   <stylesheets>
+      <String fx:value="style.css">
+      </String>
+   </stylesheets>
    <children>
       <Button fx:id="searchButton" layoutX="396.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Database Search">
          <font>

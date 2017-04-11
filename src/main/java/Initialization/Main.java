@@ -38,6 +38,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+//        rootLayout.getStylesheets().add(getClass().getResource("style.css").toString());
         initRootLayout();
     }
 
@@ -339,7 +340,7 @@ public class Main extends Application {
         try {
 
            launch(args);
-//            Connection c = TTB_database.connect();
+//            Connection c = DBManager.TTB_database.connect();
         } catch (Exception e) {
             e.printStackTrace();
         }

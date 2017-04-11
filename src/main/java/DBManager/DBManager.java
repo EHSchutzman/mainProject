@@ -8,7 +8,13 @@ import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import java.io.FileWriter;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -77,7 +83,7 @@ public class DBManager {
         fields.add("\'" + form.getapplicant_state() + "\'");
         fields.add("\'" + form.getapplicant_country() + "\'");
         fields.add("\'" + form.getmailing_address() + "\'");
-        fields.add("\'" + form.getFormula() + "\'");
+        fields.add("\'" + form.getformula() + "\'");
         fields.add("\'" + form.getphone_no() + "\'");
         fields.add("\'" + form.getEmail() + "\'");
         fields.add("\'" + form.getlabel_text() + "\'");
@@ -245,64 +251,58 @@ public class DBManager {
     }
 
     public Form findSingleForm(String ttbID, ArrayList<String> fields) {
-//        QueryBuilder queryBuilder = new QueryBuilder();
-//        String query = queryBuilder.createSelectStatement("FORM", "*", "ttb_id=" + ttbID);
-//        try {
-//            Connection connection = TTB_database.connect();
-//            Statement stmt = connection.createStatement();
-//            ResultSet rs = stmt.executeQuery(query);
-//            Form form = null;
-//            while(rs.next()) {
-//                String ttb_id = rs.getString("ttb_id");
-//                String rep_id = rs.getString("rep_id");
-//                String permit_no = rs.getString("permit_no");
-//                String source = rs.getString("source");
-//                String serial_no = rs.getString("serial_no");
-//                String alcohol_type = rs.getString("alcohol_type");
-//                String brand_name = rs.getString("brand_name");
-//                String fanciful_name = rs.getString("fanciful_name");
-//                double alcohol_content = rs.getDouble("alcohol_content");
-//                String applicant_city = rs.getString("applicant_city");
-//                String applicant_state = rs.getString("applicant_state");
-//                String applicant_zip = rs.getString("applicant_zip");
-//                String applicant_country = rs.getString("applicant_country");
-//                String mailing_address = rs.getString("mailing_address");
-//                String formula = rs.getString("formula");
-//                String phone_no = rs.getString("phone_no");
-//                String email = rs.getString("email");
-//                String label_text = rs.getString("label_text");
-//                String label_image = rs.getString("label_image");
-//                Date submit_date = rs.getDate("submit_date");
-//                String signature = rs.getString("signature");
-//                String status = rs.getString("status");
-//                String agent_id = rs.getString("agent_id");
-//                String applicant_id = rs.getString("applicant_id");
-//                Date approved_date = rs.getDate("approved_date");
-//                Date expiration_date = rs.getDate("expiration_date");
-//                String vintage_year = null;
-//                int ph_level = -1;
-//                String grape_varietals = null;
-//                String wine_appelation = null;
-//                if(alcohol_type.equals("Wine")) {
-//                    vintage_year = rs.getString("vintage_year");
-//                    ph_level = rs.getInt("ph_level");
-//                    grape_varietals = rs.getString("grape_varietals");
-//                    wine_appelation = rs.getString("wine_appelation");
-//                }
-//                form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name,
-//                        alcohol_content, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address,
-//                        formula, phone_no, email, label_text, label_image, submit_date, signature, status, agent_id,
-//                        applicant_id, approved_date, expiration_date, vintage_year, ph_level, grape_varietals, wine_appelation);
-//            }
-//            return form;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-        return new Form();
-
-    }
+         QueryBuilder queryBuilder = new QueryBuilder();
+         String query = queryBuilder.createSelectStatement("FORM", "*", "ttb_id=" + ttbID);
+         try {
+             Connection connection = TTB_database.connect();
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query);
+             Form form = null;
+             while(rs.next()) {
+                 String ttb_id = rs.getString("ttb_id");
+                 String rep_id = rs.getString("rep_id");
+                 String permit_no = rs.getString("permit_no");
+                 String source = rs.getString("source");
+                 String serial_no = rs.getString("serial_no");
+                 String alcohol_type = rs.getString("alcohol_type");
+                 String brand_name = rs.getString("brand_name");
+                 String fanciful_name = rs.getString("fanciful_name");
+                 double alcohol_content = rs.getDouble("alcohol_content");
+                 String applicant_city = rs.getString("applicant_city");
+                 String applicant_state = rs.getString("applicant_state");
+                 String applicant_zip = rs.getString("applicant_zip");
+                 String applicant_country = rs.getString("applicant_country");
+                 String mailing_address = rs.getString("mailing_address");
+                 String formula = rs.getString("formula");
+                 String phone_no = rs.getString("phone_no");
+                 String email = rs.getString("email");
+                 String label_text = rs.getString("label_text");
+                 String label_image = rs.getString("label_image");
+                 Date submit_date = rs.getDate("submit_date");
+                 String signature = rs.getString("signature");
+                 String status = rs.getString("status");
+                 String agent_id = rs.getString("agent_id");
+                 String applicant_id = rs.getString("applicant_id");
+                 Date approved_date = rs.getDate("approved_date");
+                 Date expiration_date = rs.getDate("expiration_date");
+                 String vintage_year = null;
+                 int ph_level = -1;
+                 String grape_varietals = null;
+                 String wine_appelation = null;
+                 if(alcohol_type.equals("Wine")) {
+                     vintage_year = rs.getString("vintage_year");
+                     ph_level = rs.getInt("ph_level");
+                     grape_varietals = rs.getString("grape_varietals");
+                     wine_appelation = rs.getString("wine_appelation");
+                 }
+                 form = new Form();
+             }
+             return form;
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+         return null;
+     }
 
     //UPDATE FUNCTIONS:
     /**
@@ -359,7 +359,7 @@ public class DBManager {
         fields.add("applicant_state=" + "\'" + form.getapplicant_state() + "\'");
         fields.add("applicant_country=" + "\'" + form.getapplicant_country() + "\'");
         fields.add("mailing_address=" + "\'" + form.getmailing_address() + "\'");
-        fields.add("formula=" + "\'" + form.getFormula() + "\'");
+        fields.add("formula=" + "\'" + form.getformula() + "\'");
         fields.add("phone_no=" + "\'" + form.getphone_no() + "\'");
         fields.add("email=" + "\'" + form.getEmail() + "\'");
         fields.add("label_text=" + "\'" + form.getlabel_text() + "\'");
@@ -394,36 +394,80 @@ public class DBManager {
             return false;
         }
     }
-
-    // Generate CSV file
-    public void generateCSV(ResultSet rs) {
-        FileWriter writer = null;
+  
+    public User findUser(String options) {
+        System.out.println(options);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
         try {
-            writer = new FileWriter("labels.txt");
-            writer.append("TTB ID");
-            writer.append("Permit No.");
-            writer.append("Serial No.");
-            writer.append("Submitted Date");
-            writer.append("Fanciful Name");
-            writer.append("Brand Name");
-            writer.append("Alcohol Type");
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            User user = new User();
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                int authentication = rs.getInt("authentication");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                user = new User(Integer.parseInt(user_id), username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public void generateCSV(ResultSet rs) {
+        try {
+            File file = new File("labels.csv");
+            PrintWriter printWriter = new PrintWriter(file.getAbsolutePath());
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("TTB ID");
+            stringBuilder.append(',');
+            stringBuilder.append("Permit No.");
+            stringBuilder.append(',');
+            stringBuilder.append("Serial No.");
+            stringBuilder.append(',');
+            stringBuilder.append("Submitted Date");
+            stringBuilder.append(',');
+            stringBuilder.append("Fanciful Name");
+            stringBuilder.append(',');
+            stringBuilder.append("Brand Name");
+            stringBuilder.append(',');
+            stringBuilder.append("Alcohol Type");
+            stringBuilder.append('\n');
             try {
-                while (rs.next()) {
-                    writer.append(rs.getString("ttb_id"));
-                    writer.append(rs.getString("permit_no"));
-                    writer.append(rs.getString("serial_no"));
-                    writer.append(rs.getDate("submit_date").toString());
-                    writer.append(rs.getString("fanciful_name"));
-                    writer.append(rs.getString("brand_name"));
-                    writer.append(rs.getString("alcohol_type"));
-                    writer.append("\n");
+                while(rs.next()) {
+                    stringBuilder.append(rs.getString("ttb_id"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("permit_no"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("serial_no"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getDate("submit_date").toString());
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("fanciful_name"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("brand_name"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("alcohol_type"));
+                    stringBuilder.append('\n');
                 }
+                printWriter.write(stringBuilder.toString());
+                printWriter.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
