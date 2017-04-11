@@ -295,6 +295,7 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
 
+
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
