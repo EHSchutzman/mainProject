@@ -1,18 +1,16 @@
 package AgentWorkflow;
 
-import DatabaseSearch.AppRecord;
-import Initialization.Main;
-import Form.Form;
 import DBManager.DBManager;
-import javafx.collections.FXCollections;
+import Form.Form;
+import Initialization.Main;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import java.sql.ResultSet;
+
 import java.sql.Date;
-import java.util.Calendar;
+import java.sql.ResultSet;
 
 /**
  * Created by Chad on 4/8/2017.
@@ -46,7 +44,7 @@ public class WorkflowController {
         //@TODO: Get 10 batch assignments from the DB Manager
             // Query for batch
             // Display batch in table
-        //main.displayWorkflowResultsPage(dataList);
+        //resultsTable.setItems(resultsList);
         /*
         try {
 
@@ -98,6 +96,13 @@ public class WorkflowController {
 
 
 */
+    }
+
+    public void displayResults(ObservableList<ObservableList<String>> resultsList) {
+
+        // Display batch in table
+        //resultsTable.setItems(resultsList);
+
     }
 
     @FXML
@@ -160,7 +165,6 @@ public class WorkflowController {
             // Update our resultset???
         resultsTable.refresh();
 
-
     }
 
     @FXML
@@ -173,6 +177,12 @@ public class WorkflowController {
     }
 
     public void setDisplay(Main main) {
+        this.displayResults();  // Display TableView Results
+        this.main = main;
+    }
+
+    public void setDisplay(Main main, ObservableList<ObservableList<String>> resultsList) {
+        this.displayResults(resultsList);  // Display TableView Results
         this.main = main;
     }
 
