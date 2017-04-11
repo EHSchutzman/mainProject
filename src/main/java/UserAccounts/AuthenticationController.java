@@ -29,7 +29,7 @@ public class AuthenticationController {
     public TextField fullName;
     public TextField phoneNumber;
     @FXML
-    public ChoiceBox<String> userType;
+    public ComboBox<String> userType;
 
     @FXML
     public Label errorLabel;

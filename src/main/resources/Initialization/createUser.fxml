@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserAccounts.AuthenticationController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserAccounts.AuthenticationController">
     <children>
-        <TextField fx:id="userID" layoutX="223.0" layoutY="47.0" promptText="User ID" />
-        <TextField fx:id="email" layoutX="225.0" layoutY="92.0" promptText="Email" />
 
-        <TextField fx:id="loginName" layoutX="225.0" layoutY="135.0" promptText="Login Name" />
-        <TextField fx:id="password" layoutX="225.0" layoutY="173.0" promptText="Password" />
-        <TextField fx:id="fullName" layoutX="225.0" layoutY="210.0" promptText="Full Name" />
+        <TextField fx:id="loginName" layoutX="257.0" layoutY="132.0" promptText="Login Name">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+        <TextField fx:id="password" layoutX="521.0" layoutY="132.0" promptText="Password">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+        <TextField fx:id="fullName" layoutX="257.0" layoutY="185.0" promptText="Full Name">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+        <TextField fx:id="userID" layoutX="521.0" layoutY="185.0" promptText="User ID">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+        <TextField fx:id="email" layoutX="257.0" layoutY="238.0" promptText="Email">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
 
-        <TextField fx:id="phoneNumber" layoutX="223.0" layoutY="244.0" promptText="Phone Number" />
+        <TextField fx:id="phoneNumber" layoutX="521.0" layoutY="238.0" promptText="Phone Number">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <ComboBox id="userType" fx:id="userType" layoutX="400.0" layoutY="291.0" prefWidth="200.0" />
 
-        <Button fx:id="loginButton" layoutX="270.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#createUserAction" text="Create" />
-      <Button fx:id="returnToMain" layoutX="26.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main" />
-      <ChoiceBox id="userType" fx:id="userType" layoutX="225.0" layoutY="278.0" prefWidth="150.0" />
+        <Button fx:id="loginButton" layoutX="423.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#createUserAction" text="Create User">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button fx:id="returnToMain" layoutX="24.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label layoutX="368.0" layoutY="63.0" text="Create New User">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" layoutX="667.0" layoutY="664.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -95,3 +96,4 @@
       <ComboBox fx:id="alcohol_type_combobox" layoutX="635.0" layoutY="508.0" prefHeight="27.0" prefWidth="243.0" promptText="Choose Alcohol Type" />
    </children>
 </AnchorPane>
+
