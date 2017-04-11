@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AgentWorkflow.WorkflowController">
    <children>
       <Label layoutX="435.0" layoutY="25.0" text="Applications" AnchorPane.topAnchor="25.0">
@@ -16,10 +13,26 @@
       </Label>
       <TableView fx:id="resultsTable" layoutX="22.0" layoutY="76.0" prefHeight="396.0" prefWidth="950.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="76.0">
         <columns>
-          <TableColumn prefWidth="250.0" text="Name" />
-          <TableColumn prefWidth="250.0" text="ID No." />
-            <TableColumn prefWidth="250.0" text="Date" />
-            <TableColumn prefWidth="200.0" text="Status" />
+            <TableColumn fx:id="IDNoCol" prefWidth="250.0" text="ID No.">
+                <cellValueFactory>
+                    <PropertyValueFactory property="IDNo"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="nameCol" prefWidth="250.0" text="Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="name"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="dateCol" prefWidth="250.0" text="Date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="date"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="statusCol" prefWidth="200.0" text="Status">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status"/>
+                </cellValueFactory>
+            </TableColumn>
         </columns>
       </TableView>
       <Button fx:id="backButton" layoutX="22.0" layoutY="23.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Back" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="23.0">

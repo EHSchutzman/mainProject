@@ -1,11 +1,9 @@
 package UserAccounts;
 
 import DBManager.DBManager;
-import DatabaseSearch.QueryBuilder;
 import DatabaseSearch.TTB_database;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -89,7 +87,7 @@ public class Authentication {
 
     public void createUser(String userID, String fullName, String username, String password, String email, String phone) {
         String queryString;
-        queryString = "Insert into USERS Values(" + userID + ",\'" + email + "\',\'" + username + "\',\'" + password +
+        queryString = "Insert into APP.USERS Values(" + userID + ",\'" + email + "\',\'" + username + "\',\'" + password +
                 "\',\'" + fullName + "\',\'" + phone + "\', 0)";
         try {
             Connection c = DBConnect();

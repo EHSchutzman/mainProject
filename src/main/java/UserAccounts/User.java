@@ -32,7 +32,7 @@ public class User {
         this.lastName = null;
         this.email = null;
         this.phoneNo = null;
-        this.authenticationLevel = 0;
+        this.authenticationLevel = -1;
     }
 
     public int getUid() {

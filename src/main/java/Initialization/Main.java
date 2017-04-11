@@ -1,9 +1,9 @@
 package Initialization;
 
+import AgentWorkflow.AgentRecord;
 import AgentWorkflow.WorkflowController;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
-import DatabaseSearch.TTB_database;
 import Form.Form;
 import Form.FormController;
 import UserAccounts.AuthenticationController;
@@ -11,20 +11,14 @@ import UserAccounts.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLDataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 public class Main extends Application {
 
@@ -167,7 +161,7 @@ public class Main extends Application {
     public void displayWorkflowResultsPage() throws Exception{
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("workflowResultsPage.fxml"));
+            loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Workflow Results");
             primaryStage.getScene().setRoot(page);
@@ -176,7 +170,12 @@ public class Main extends Application {
             WorkflowController controller = loader.getController();
             controller.setDisplay(this);
 
-            //controller.resultsTable.setItems(list);
+            ObservableList<AgentRecord> one = FXCollections.observableArrayList();
+            one.add(new AgentRecord("Hey", "What's", "Up", "Hello"));
+            one.add(new AgentRecord("Saw", "Yo", "Pretty", "Ass"));
+            one.add(new AgentRecord("Soon'", "As", "You", "Came"));
+
+            controller.resultsTable.setItems(one);
 
         } catch (IOException e){
             e.printStackTrace();
@@ -190,7 +189,7 @@ public class Main extends Application {
             stage.setTitle("Workflow Results");
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("workflowApplication.fxml"));
+            loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
             AnchorPane page = loader.load();
             //stage.setTitle("Workflow Results");
             stage.getScene().setRoot(page);

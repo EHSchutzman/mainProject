@@ -3,15 +3,17 @@ package AgentWorkflow;
 import DBManager.DBManager;
 import Form.Form;
 import Initialization.Main;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.sql.Date;
-import java.sql.ResultSet;
 
 /**
  * Created by Chad on 4/8/2017.
@@ -19,7 +21,7 @@ import java.sql.ResultSet;
 public class WorkflowController {
 
     private Main main = new Main();
-    private ObservableList<ObservableList<String>> resultsList = FXCollections.observableArrayList();
+    private ObservableList<AgentRecord> resultsList = FXCollections.observableArrayList();
     private Form application = new Form();
     public DBManager db = new DBManager();
 
@@ -28,7 +30,7 @@ public class WorkflowController {
     private Button closeButton;
 
     @FXML
-    public TableView<ObservableList<String>> resultsTable; // Holds 10 batch-pulled assignments for the Agent
+    public TableView<AgentRecord> resultsTable; // Holds 10 batch-pulled assignments for the Agent
 
     // ----- FXML for Workflow application page -----
 
@@ -44,66 +46,37 @@ public class WorkflowController {
         //@TODO: Get 10 batch assignments from the DB Manager
             // Query for batch
             // Display batch in table
-        //resultsTable.setItems(resultsList);
-        /*
-        try {
 
+        // This block monitors the user's interaction with the tableview,
+        //  determining when they select a row
+        resultsTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+                //Check whether item is selected and set value of selected item to Label
+                if (resultsTable.getSelectionModel().getSelectedItem() != null) {
+                    TableView.TableViewSelectionModel selectionModel = resultsTable.getSelectionModel();
+                    ObservableList selectedCells = selectionModel.getSelectedCells();
+                    TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+                    Object val = tablePosition.getTableColumn().getCellData(newValue);
+                    System.out.println("Selected Value" + val);
 
-            try {
-
-                ObservableList<ObservableList<String>> appList = FXCollections.observableArrayList();
-                while(searchResults.previous());
-                while (searchResults.next()) {
-                    ObservableList<String>  = new FXCollections.observableArrayLisr();
-                    String formID = searchResults.getString("TTB_ID");
-                    String permitNo = searchResults.getString("PERMIT_NUMBER");
-                    String serialNo = searchResults.getString("SERIAL_NUMBER");
-                    String completedDate = searchResults.getString("COMPLETED_DATE");
-                    String fancifulName = searchResults.getString("FANCIFUL_NAME");
-                    String brandName = searchResults.getString("BRAND_NAME");
-                    String origin = searchResults.getString("ORIGIN_CODE");
-                    String type = searchResults.getString("TYPE_ID");
-
-                    row.setTypeID(formID);
-                    row.setPermitNo(permitNo);
-                    row.setSerialNo(serialNo);
-                    row.setCompletedDate(completedDate);
-                    row.setFancifulName(fancifulName);
-                    row.setBrandName(brandName);
-                    row.setOriginCode(origin);
-                    row.setTypeID(type);
-
-                    dataList.add(row);
-
-                    System.out.println("Data "+ dataList);
-
+                    // Open selected form in new window here!!!
                 }
-                System.out.println("Data "+ dataList);
-
-                //FINALLY ADDED TO TableView
-                main.displayWorkflowResults(dataList);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Error building data!");
             }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error displaying data.");
-            return false;
-        }
+        });
 
 
-*/
+        //setDisplay(this.main, resultsList);
+
     }
 
-    public void displayResults(ObservableList<ObservableList<String>> rl) {
-
+    public void displayResults(ObservableList<AgentRecord> rl) {
+        System.out.println("hi");
         // Display batch in table
         //resultsTable.setItems(rl);
 
     }
+
 
     @FXML
     public void displayApplication() {
@@ -183,7 +156,7 @@ public class WorkflowController {
         this.main = main;
     }
 
-    public void setDisplay(Main main, ObservableList<ObservableList<String>> rl) {
+    public void setDisplay(Main main, ObservableList<AgentRecord> rl) {
         this.displayResults(rl);  // Display TableView Results
         this.main = main;
     }
