@@ -210,7 +210,9 @@ public class FormController{
 
         main.userData.form.setsubmit_date(Date.valueOf(submit_date.getValue()));
         //TODO reference actual applicant name below, if need be
+
         //main.userData.tempForm.setApplicantID(applicant_nameText.getText());
+
 
         /*
         There was previously a setForm function here for the User class
@@ -219,7 +221,9 @@ public class FormController{
         return form;
     }
 
+
     public void createAgentForm(){
+
         // Get Source info and set it to display for the Agent
         source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
         if(main.userData.form.getSource().equals("Imported")) {
@@ -292,7 +296,7 @@ public class FormController{
         //Agent Headers
         main.userData.form.setapproved_date(Date.valueOf(approved_date.getValue()));
         //TODO reference agent name if needed
-        //main.userData.tempForm.setAgentName(agent_nameText.getText());
+
         main.userData.form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
         main.userData.form.setapproval_comments(approval_comments_text.getText());
 
@@ -346,6 +350,7 @@ public class FormController{
                 main.setDisplayToApplicantMain();
             }
             else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+
                 main.setDisplayToAgentMain();
             }
             else{
@@ -360,10 +365,10 @@ public class FormController{
     @FXML
     public void Back(){
         try{
-            if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
+            if(main.userData.getUserInformation().getAuthentication() == 1) {
                 main.setDisplayToApplicantMain();
             }
-            else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+            else if(main.userData.getUserInformation().getAuthentication() >= 2){
                 main.setDisplayToAgentMain();
             }
             else{
