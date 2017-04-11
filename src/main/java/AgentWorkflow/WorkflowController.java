@@ -3,6 +3,7 @@ package AgentWorkflow;
 import DBManager.DBManager;
 import Form.Form;
 import Initialization.Main;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +19,7 @@ import java.sql.ResultSet;
 public class WorkflowController {
 
     private Main main = new Main();
-    private ResultSet rs;
+    private ObservableList<ObservableList<String>> resultsList = FXCollections.observableArrayList();
     private Form application = new Form();
     public DBManager db = new DBManager();
 
@@ -28,7 +29,6 @@ public class WorkflowController {
 
     @FXML
     public TableView<ObservableList<String>> resultsTable; // Holds 10 batch-pulled assignments for the Agent
-
 
     // ----- FXML for Workflow application page -----
 
@@ -98,10 +98,10 @@ public class WorkflowController {
 */
     }
 
-    public void displayResults(ObservableList<ObservableList<String>> resultsList) {
+    public void displayResults(ObservableList<ObservableList<String>> rl) {
 
         // Display batch in table
-        //resultsTable.setItems(resultsList);
+        //resultsTable.setItems(rl);
 
     }
 
@@ -113,6 +113,7 @@ public class WorkflowController {
         // Fill Form object with query information
         // Pass form to new window
         //main.displayWorkflowApplication(form);
+        //createAgentForm(form);
 
     }
 
@@ -163,7 +164,8 @@ public class WorkflowController {
 
         //@TODO: Refresh the TableView's contents
             // Update our resultset???
-        resultsTable.refresh();
+        setDisplay(this.main, resultsList);
+        //resultsTable.refresh();
 
     }
 
@@ -181,8 +183,8 @@ public class WorkflowController {
         this.main = main;
     }
 
-    public void setDisplay(Main main, ObservableList<ObservableList<String>> resultsList) {
-        this.displayResults(resultsList);  // Display TableView Results
+    public void setDisplay(Main main, ObservableList<ObservableList<String>> rl) {
+        this.displayResults(rl);  // Display TableView Results
         this.main = main;
     }
 
