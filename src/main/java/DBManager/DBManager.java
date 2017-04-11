@@ -8,8 +8,10 @@ import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.FileWriter;
 import java.sql.*;
 import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * Created by Leo on 4/8/2017.
