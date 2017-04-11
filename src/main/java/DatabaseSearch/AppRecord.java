@@ -15,12 +15,13 @@ public class AppRecord {
     private final SimpleStringProperty brandName = new SimpleStringProperty("");
     private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
+    private final SimpleStringProperty status = new SimpleStringProperty("");
 
     public AppRecord() {
-        this("", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String originCode, String typeID) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String originCode, String typeID, String status) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
@@ -29,6 +30,7 @@ public class AppRecord {
         setBrandName(brandName);
         setOriginCode(originCode);
         setTypeID(typeID);
+        setStatus(status);
     }
 
     public String getFormID() {
@@ -125,5 +127,17 @@ public class AppRecord {
 
     public void setTypeID(String typeID) {
         this.typeID.set(typeID);
+    }
+
+    public String getStatus() {
+        return status.get();
+    }
+
+    public SimpleStringProperty statusProperty() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status.set(status);
     }
 }

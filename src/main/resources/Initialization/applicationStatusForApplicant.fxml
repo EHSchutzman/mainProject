@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-
-
-<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ApplicationsForAgent">
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Form.FormController">
     <children>
         <Label layoutX="434.0" layoutY="113.0" text="Applications" AnchorPane.topAnchor="75.0">
             <font>
@@ -24,7 +20,8 @@
                 <TableColumn prefWidth="200.0" text="Status" />
             </columns>
         </TableView>
-        <Button fx:id="logoutButton" layoutX="71.0" layoutY="62.0" mnemonicParsing="false" text="Back" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="50.0">
+        <Button fx:id="backButton" layoutX="71.0" layoutY="62.0" mnemonicParsing="false" text="Back"
+                AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="50.0">
             <font>
                 <Font size="18.0" />
             </font>

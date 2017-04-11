@@ -1,23 +1,16 @@
 package DBManager;
 
 
-import UserAccounts.User;
-
 import Form.Form;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-
-import java.io.FileWriter;
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.io.IOException;
 
 /**
  * Created by Leo on 4/8/2017.
@@ -322,7 +315,7 @@ public class DBManager {
         fields.add("first_name = "+"\'" + user.getFirstName() + "\'");
         fields.add("middle_inital = "+"\'" + user.getMiddleInitial() + "\'");
         fields.add("last_name = "+"\'" + user.getLastName() + "\'");
-        String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'"+user.getUid() + "\'"));
+        String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'" + user.getUid() + "\'"));
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -394,7 +387,7 @@ public class DBManager {
             return false;
         }
     }
-  
+
     public User findUser(String options) {
         System.out.println(options);
         QueryBuilder queryBuilder = new QueryBuilder();

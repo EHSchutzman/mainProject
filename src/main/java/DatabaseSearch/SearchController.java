@@ -1,18 +1,13 @@
 package DatabaseSearch;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-
+import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-
-import Initialization.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import javax.sql.rowset.CachedRowSet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -303,13 +298,11 @@ public class SearchController {
     @FXML
     public void returnToMain(){
         try{
-            if(main.userData.getUserInformation().getAuthentication() == 0) {
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 0) {
                 main.setDisplayToDefaultMain();
-            }
-            else if (main.userData.getUserInformation().getAuthentication() == 1){
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 main.setDisplayToApplicantMain();
-            }
-            else if (main.userData.getUserInformation().getAuthentication() >= 2){
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2) {
                 main.setDisplayToAgentMain();
             }
             else{

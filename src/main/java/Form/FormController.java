@@ -1,10 +1,11 @@
 package Form;
+
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.sql.*;
+import java.sql.Date;
 import java.util.ArrayList;
 
 // TODO checkboxes and their corresponding lists from Form object and choiceboxes may be the source of errors
@@ -132,7 +133,7 @@ public class FormController{
     @FXML
     public Label statusLabel; //TODO add to UI
 
-    public void createApplicantForm(){
+    public void createApplicantForm() {
 
         statusLabel.setText(main.userData.form.getStatus());
 

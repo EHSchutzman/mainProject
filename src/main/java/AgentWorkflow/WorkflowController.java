@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Chad on 4/8/2017.
@@ -60,7 +61,19 @@ public class WorkflowController {
                     Object val = tablePosition.getTableColumn().getCellData(newValue);
                     System.out.println("Selected Value" + val);
 
-                    // Open selected form in new window here!!!
+                    AgentRecord viewRecord = resultsTable.getSelectionModel().getSelectedItem();
+
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
+
+                    //
+                    try {
+                        Form viewForm = db.findSingleForm(viewRecord.getIDNo(), fieldList);
+                        // Open selected form in new window
+                        main.displayWorkflowApplication(viewForm);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
