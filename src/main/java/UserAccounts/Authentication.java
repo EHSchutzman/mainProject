@@ -140,7 +140,7 @@ public class Authentication {
 
                 }
                 if (username != null) { //this means we found a user
-                    this.foundUser = new User(uid, username, realName, email, phoneNum, authenticationLevel);
+//                    this.foundUser = new User(uid, username, realName, email, phoneNum, authenticationLevel);
                 }
 
             }

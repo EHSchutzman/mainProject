@@ -81,7 +81,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -235,7 +235,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
 
         } catch (IOException e) {
@@ -257,7 +257,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -277,7 +277,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -316,7 +316,7 @@ public class Main extends Application {
             FormController controller = loader.getController();
             controller.setDisplay(this);
 
-
+/*
             controller.applicantNameText.setText(this.userData.getForm().getApplicantName());
             controller.repIDNoText.setText(this.userData.getForm().getRepID());
             controller.brandNameText.setText(this.userData.getForm().getBrandName());
@@ -325,7 +325,7 @@ public class Main extends Application {
             controller.phoneNumberText.setText(this.userData.getForm().getPhoneNumber());
             controller.emailText.setText(this.userData.getForm().getEmail());
 //            controller.permitNoText.setText(this.userData.getForm().getPermitNo());
-
+*/
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -334,8 +334,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         try {
 
-//           launch(args);
-            Connection c = TTB_database.connect();
+           launch(args);
+//            Connection c = TTB_database.connect();
         } catch (Exception e) {
             e.printStackTrace();
         }
