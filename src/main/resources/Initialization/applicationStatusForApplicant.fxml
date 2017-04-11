@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ApplicationsForAgent">
+    <children>
+        <Label layoutX="434.0" layoutY="113.0" text="Applications" AnchorPane.topAnchor="75.0">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <TableView fx:id="applicationsTable" layoutX="100.0" layoutY="176.0" prefHeight="250.0" prefWidth="800.0" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="150.0">
+            <columns>
+                <TableColumn prefWidth="200.0" text="Name" />
+                <TableColumn prefWidth="200.0" text="ID No." />
+                <TableColumn prefWidth="200.0" text="Date" />
+                <TableColumn prefWidth="200.0" text="Status" />
+            </columns>
+        </TableView>
+        <Button fx:id="logoutButton" layoutX="71.0" layoutY="62.0" mnemonicParsing="false" text="Back" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="50.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="logoutButton" layoutX="883.0" layoutY="62.0" mnemonicParsing="false" text="Logout" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="50.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Label fx:id="errorLabel" layoutX="463.0" layoutY="118.0" prefHeight="17.0" prefWidth="101.0" />
+    </children>
+</AnchorPane>

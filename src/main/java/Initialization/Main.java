@@ -9,6 +9,7 @@ import Form.FormController;
 import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -114,7 +115,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("applicantApplicationPage.fxml"));
+            loader.setLocation(getClass().getResource("iter2application.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
@@ -215,6 +216,8 @@ public class Main extends Application {
 
             AuthenticationController controller = loader.getController();
             controller.setDisplay(this);
+            controller.userType.setItems(FXCollections.observableArrayList("Default User", "Applicant", "Agent", "Super Agent"));
+            controller.userType.setPromptText("Select Type of User");
 
 
         } catch (IOException e) {
@@ -289,7 +292,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("agentApplication0.fxml"));
+            loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -307,7 +310,7 @@ public class Main extends Application {
     public void setDisplayToAgentReview(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("newAgentApplication.fxml"));
+            loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
@@ -345,7 +348,7 @@ public class Main extends Application {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("applicantApplicationPage.fxml"));
+            loader.setLocation(getClass().getResource("iter2application.fxml"));
 
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Application Page");
@@ -354,6 +357,12 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Distilled Spirits",
+                    "Malt Beverage", "Wine"));
+            controller.alcohol_type_combobox.setPromptText("Please Select Alcohol Type");
+
+            controller.source_combobox.setItems(FXCollections.observableArrayList("Domestic","Imported"));
+            controller.source_combobox.setPromptText("Please Select Alcohol Source");
 
         } catch (IOException e) {
             e.printStackTrace();
