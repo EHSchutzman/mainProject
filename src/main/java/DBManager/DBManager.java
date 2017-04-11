@@ -5,6 +5,9 @@ import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -411,5 +414,50 @@ public class DBManager {
             e.printStackTrace();
         }
         return null;
+    }
+    public void generateCSV(ResultSet rs) {
+        try {
+            File file = new File("labels.csv");
+            PrintWriter printWriter = new PrintWriter(file.getAbsolutePath());
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("TTB ID");
+            stringBuilder.append(',');
+            stringBuilder.append("Permit No.");
+            stringBuilder.append(',');
+            stringBuilder.append("Serial No.");
+            stringBuilder.append(',');
+            stringBuilder.append("Submitted Date");
+            stringBuilder.append(',');
+            stringBuilder.append("Fanciful Name");
+            stringBuilder.append(',');
+            stringBuilder.append("Brand Name");
+            stringBuilder.append(',');
+            stringBuilder.append("Alcohol Type");
+            stringBuilder.append('\n');
+            try {
+                while(rs.next()) {
+                    stringBuilder.append(rs.getString("ttb_id"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("permit_no"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("serial_no"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getDate("submit_date").toString());
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("fanciful_name"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("brand_name"));
+                    stringBuilder.append(',');
+                    stringBuilder.append(rs.getString("alcohol_type"));
+                    stringBuilder.append('\n');
+                }
+                printWriter.write(stringBuilder.toString());
+                printWriter.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
