@@ -1,5 +1,6 @@
 package Initialization;
 
+import AgentWorkflow.WorkflowController;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
 import DatabaseSearch.TTB_database;
@@ -49,7 +50,7 @@ public class Main extends Application {
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout, 2000, 1000);
+            Scene scene = new Scene(rootLayout, 1000, 500);
             primaryStage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -80,7 +81,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -160,6 +161,50 @@ public class Main extends Application {
         }
     }
 
+    public void displayWorkflowResultsPage(ObservableList<AppRecord> list) throws Exception{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("workflowResultsPage.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Workflow Results");
+            primaryStage.getScene().setRoot(page);
+
+
+            WorkflowController controller = loader.getController();
+            controller.setDisplay(this);
+
+            controller.resultsTable.setItems(list);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    // Currently attempting to open in a new page
+    public void displayWorkflowApplication(Form application) throws Exception{
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Workflow Results");
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("workflowApplication.fxml"));
+            AnchorPane page = loader.load();
+            //stage.setTitle("Workflow Results");
+            stage.getScene().setRoot(page);
+            stage.show();
+
+
+            WorkflowController controller = loader.getController();
+            controller.setDisplay(this);
+
+            //@TODO: Display application details on page
+            //controller.resultsTable.setItems(list);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void displayCreateUser(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -190,7 +235,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
 
         } catch (IOException e) {
@@ -212,7 +257,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -232,7 +277,7 @@ public class Main extends Application {
 
             ActionController controller = loader.getController();
             controller.setDisplay(this);
-            controller.currentUserLabel.setText(this.userData.getUserInformation().getRealName());
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -271,16 +316,16 @@ public class Main extends Application {
             FormController controller = loader.getController();
             controller.setDisplay(this);
 
-
-            controller.applicantNameText.setText(this.userData.getUserInformation().getForm().getApplicantName());
-            controller.repIDNoText.setText(this.userData.getUserInformation().getForm().getRepID());
-            controller.brandNameText.setText(this.userData.getUserInformation().getForm().getBrandName());
-//            controller.permitNoText.setText(this.userData.getUserInformation().getForm().getPermitNo());
-            controller.tradenameText.setText(this.userData.getUserInformation().getForm().getTradename());
-            controller.phoneNumberText.setText(this.userData.getUserInformation().getForm().getPhoneNumber());
-            controller.emailText.setText(this.userData.getUserInformation().getForm().getEmail());
-//            controller.permitNoText.setText(this.userData.getUserInformation().getForm().getPermitNo());
-
+/*
+            controller.applicantNameText.setText(this.userData.getForm().getApplicantName());
+            controller.repIDNoText.setText(this.userData.getForm().getRepID());
+            controller.brandNameText.setText(this.userData.getForm().getBrandName());
+//            controller.permitNoText.setText(this.userData.getForm().getPermitNo());
+            controller.tradenameText.setText(this.userData.getForm().getTradename());
+            controller.phoneNumberText.setText(this.userData.getForm().getPhoneNumber());
+            controller.emailText.setText(this.userData.getForm().getEmail());
+//            controller.permitNoText.setText(this.userData.getForm().getPermitNo());
+*/
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -289,10 +334,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         try {
 
-//           launch(args);
-            Connection c = TTB_database.connect();
+           launch(args);
+//            Connection c = TTB_database.connect();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -315,4 +360,5 @@ public class Main extends Application {
         }
 
     }
+
 }

@@ -4,6 +4,8 @@ package DatabaseSearch;
 
 //import static org.junit.Assert.assertEquals;
 
+import org.junit.Test;
+
 /**
  * Created by Chad on 4/3/2017.
  */

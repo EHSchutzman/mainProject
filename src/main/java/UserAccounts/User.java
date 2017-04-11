@@ -1,89 +1,73 @@
 package UserAccounts;
 
-
-import Form.Form;
-
 public class User {
     private int uid;
-    private Form form;
     private String username;
-    private String realName;
+    private String password;
+    private String firstName;
+    private String middleInitial;
+    private String lastName;
     private String email;
-    private String phoneNumber;
+    private String phoneNo;
     private int authenticationLevel;
 
-    public User(int uid, String username, String realName, String email, String phoneNumber, int authenticationLevel) {
+    public User(int uid, String username, String password, String firstName, String middleInitial, String lastName, String email, String phoneNo, int authenticationLevel) {
         this.uid = uid;
         this.username = username;
-        this.realName = realName;
+        this.password = password;
+        this.firstName = firstName;
+        this.middleInitial = middleInitial;
+        this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phoneNo = phoneNo;
         this.authenticationLevel = authenticationLevel;
     }
 
     public User() {
-        this.uid = 0;
+        this.uid = -1;
         this.username = null;
-        this.realName = null;
+        this.password = null;
+        this.firstName = null;
+        this.middleInitial = null;
+        this.lastName = null;
         this.email = null;
-        this.phoneNumber = null;
+        this.phoneNo = null;
         this.authenticationLevel = 0;
-        this.form = new Form();
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
-    public int getAuthenticationLevel() {
-        return authenticationLevel;
-    }
-
-    public void setAuthenticationLevel(int authenticationLevel) {
-        this.authenticationLevel = authenticationLevel;
     }
 
     public int getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public String getUsername() {
+        return username;
     }
 
-    public Form getForm() {
-        return form;
+    public String getPassword() {
+        return password;
     }
 
-    public void setForm(Form form) {
-        this.form = form;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getPhoneNo() {
+        return phoneNo;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public int getAuthenticationLevel() {
+        return authenticationLevel;
     }
 }

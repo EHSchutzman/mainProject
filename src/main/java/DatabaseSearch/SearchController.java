@@ -27,10 +27,6 @@ public class SearchController {
 
     private Main main = new Main();
     // Database information
-    private static String url = "Example";
-    private static String user = "root";
-    private static String pass = "root";
-    private static String tableName = "";
     private ResultSet apprs;
     private ResultSet rs;
     //create QueryBuilder variable to store search info
@@ -104,6 +100,7 @@ public class SearchController {
 
     }
 
+    //@TODO: Let the DB manager handle connection and querying
     // Connect to the DB
     protected Connection DBConnect() throws SQLException {
         return TTB_database.connect();
@@ -155,7 +152,7 @@ public class SearchController {
         try {
             //Set all variables equal to input data
             appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
-            setQueryBuilder(new QueryBuilder(tableName, "*", appID));
+            setQueryBuilder(new QueryBuilder("BEVERAGE", "*", appID));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +167,6 @@ public class SearchController {
         ResultSet searchResults = rs;
 
         try {
-
 
             try {
 
@@ -305,7 +301,7 @@ public class SearchController {
         this.main = main;
     }
     @FXML
-    public void returnToMainPage(){
+    public void returnToMain(){
         try{
             if(main.userData.getUserInformation().getAuthenticationLevel() == 0) {
                 main.setDisplayToDefaultMain();

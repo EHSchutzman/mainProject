@@ -74,15 +74,15 @@
         <TextField fx:id="authorizedAgent" editable="false" layoutX="688.0" layoutY="575.0" promptText="Authorized Agent" />
         <TextField fx:id="vintageYear" editable="false" layoutX="695.0" layoutY="682.0" promptText="Vintage Year" />
         <TextField fx:id="phLevel" editable="false" layoutX="696.0" layoutY="732.0" promptText="pH Level" />
-        <Button fx:id="rejectButton" layoutX="806.0" layoutY="886.0" mnemonicParsing="false" onMouseClicked="#acceptApplication" prefWidth="120.0" text="Reject" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="806.0">
+        <Button fx:id="rejectButton" layoutX="755.0" layoutY="899.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Reject" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="800.0">
          <font>
             <Font size="18.0" />
          </font></Button>
-        <Button fx:id="acceptButton" layoutX="651.0" layoutY="886.0" mnemonicParsing="false" onMouseClicked="#rejectApplication" prefWidth="120.0" text="Accept" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="651.0">
+        <Button fx:id="acceptButton" layoutX="582.0" layoutY="898.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Accept" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="625.0">
          <font>
             <Font size="18.0" />
          </font></Button>
-      <Button fx:id="closeButton" layoutX="22.0" layoutY="20.0" mnemonicParsing="false" text="Close" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="20.0" onMouseClicked="#closeApplication">
+      <Button fx:id="closeButton" layoutX="84.0" layoutY="73.0" mnemonicParsing="false" text="Close" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="50.0">
          <font>
             <Font size="18.0" />
          </font>
