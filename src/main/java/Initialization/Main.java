@@ -162,7 +162,8 @@ public class Main extends Application {
         }
     }
 
-    public void displayWorkflowResultsPage(ObservableList<AppRecord> list) throws Exception{
+    //public void displayWorkflowResultsPage(ObservableList<ObservableList<String>> list) throws Exception{
+    public void displayWorkflowResultsPage() throws Exception{
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("workflowResultsPage.fxml"));
@@ -174,7 +175,7 @@ public class Main extends Application {
             WorkflowController controller = loader.getController();
             controller.setDisplay(this);
 
-            controller.resultsTable.setItems(list);
+            //controller.resultsTable.setItems(list);
 
         } catch (IOException e){
             e.printStackTrace();
@@ -288,7 +289,7 @@ public class Main extends Application {
 
     }
 
-    public void setDisplayToReviewApplicaiton() {
+    /*public void setDisplayToReviewApplicaiton() {
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -306,7 +307,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-    }
+    }*/
     public void setDisplayToAgentReview(){
         try {
             FXMLLoader loader = new FXMLLoader();

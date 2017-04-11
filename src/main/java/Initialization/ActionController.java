@@ -61,10 +61,20 @@ public class ActionController {
       main.setDisplayToMain();
     }
 
+    //@FXML
+    //public void displayReviseApplication(){
+    //    main.setDisplayToReviewApplicaiton();
+    //}
+
     @FXML
-    public void displayReviseApplication(){
-        main.setDisplayToReviewApplicaiton();
+    public void displayReviewApplication(){
+        try{
+            main.displayWorkflowResultsPage();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
     @FXML
     public void displayApplicantApplicationPage(){
         main.setDisplayToApplicantApply();

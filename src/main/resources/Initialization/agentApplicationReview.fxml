@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AgentWorkflow.WorkflowController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" layoutX="667.0" layoutY="664.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Label layoutX="544.0" layoutY="30.0" text="Label Application Review">
@@ -51,7 +51,7 @@
         <TextField fx:id="alcohol_content_text" editable="false" layoutX="1122.0" layoutY="319.0" promptText="Alcohol Content" />
         <TextField fx:id="vintage_year_text" editable="false" layoutX="1127.0" layoutY="413.0" promptText="Vintage Year" />
         <TextField fx:id="ph_level_text" editable="false" layoutX="1128.0" layoutY="448.0" promptText="pH Level" />
-        <Button fx:id="reject_button" layoutX="957.0" layoutY="898.0" mnemonicParsing="false" onMouseClicked="#submitForm" text="Reject">
+        <Button fx:id="reject_button" layoutX="957.0" layoutY="898.0" mnemonicParsing="false" onMouseClicked="#rejectApplication" text="Reject">
             <font>
                 <Font size="18.0" />
             </font></Button>
@@ -87,7 +87,7 @@
             <Font size="14.0" />
          </font>
       </TextArea>
-      <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false" text="Accept">
+      <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false" onMouseClicked="#acceptApplication" text="Accept">
          <font>
             <Font size="18.0" />
          </font>
