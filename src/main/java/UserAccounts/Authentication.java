@@ -1,6 +1,5 @@
 package UserAccounts;
 
-import DBManager.DBManager;
 import DatabaseSearch.QueryBuilder;
 import DatabaseSearch.TTB_database;
 
@@ -10,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Authentication {
-    DBManager manager = new DBManager();
     private String username;
     private String password;
     private Boolean isValid;
@@ -120,8 +118,37 @@ public class Authentication {
         String realName = null;
         int authenticationLevel = 0;
 
+        query = "SELECT * FROM USERS WHERE USERS.USERNAME = " + "\'"+this.username+"\'";
+        System.out.println(query);
+        try {
+            Connection c = DBConnect();
+            Statement s = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = s.executeQuery(query);
+            if(!rs.next()){
+                System.out.println("No user found");
+                this.foundUser = new User();
 
-        this.foundUser = manager.findUser("username = \'" + this.getUsername()+"\'");
+            }else {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    uid = rs.getInt(1);
+                    realName = rs.getString(2);
+                    username = rs.getString(3);
+                    email = rs.getString(5);
+                    phoneNum = rs.getString(6);
+                    authenticationLevel = rs.getInt(7);
+
+                }
+                if (username != null) { //this means we found a user
+//                    this.foundUser = new User(uid, username, realName, email, phoneNum, authenticationLevel);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         return true;
     }
 

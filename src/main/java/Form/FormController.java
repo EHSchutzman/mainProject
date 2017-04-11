@@ -1,11 +1,17 @@
 package Form;
+import DatabaseSearch.QueryBuilder;
+import DatabaseSearch.TTB_database;
 import Initialization.Main;
+import com.sun.tools.javac.comp.Check;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import javax.xml.soap.Text;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.BlockingDeque;
 
 // TODO checkboxes and their corresponding lists from Form object and choiceboxes may be the source of errors
 public class FormController{
@@ -266,15 +272,14 @@ public class FormController{
             option_4_checkbox.setSelected(true);
         }
 
-        rep_id_text.setPromptText(main.userData.form.getrep_id());
-        permit_no_text.setPromptText(main.userData.form.getpermit_no());
-        serial_no_text.setPromptText(main.userData.form.getserial_no());
-        brand_name_text.setPromptText(main.userData.form.getbrand_name());
-        fanciful_name_text.setPromptText(main.userData.form.getfanciful_name());
-        alcohol_content_text.setPromptText(String.valueOf(main.userData.form.getalcohol_content()));
-        formula_text.setPromptText(main.userData.form.getformula());
-        label_text.setPromptText(main.userData.form.getlabel_text());
-
+        rep_id_text.setPromptText(form.getrep_id());
+        permit_no_text.setPromptText(form.getpermit_no());
+        serial_no_text.setPromptText(form.getserial_no());
+        brand_name_text.setPromptText(form.getbrand_name());
+        fanciful_name_text.setPromptText(form.getfanciful_name());
+        alcohol_content_text.setPromptText(String.valueOf(form.getalcohol_content()));
+        formula_text.setPromptText(form.getFormula());
+        label_text.setPromptText(form.getlabel_text());
         // Wines only
         vintage_year_text.setPromptText(form.getvintage_year());
         pH_level_text.setPromptText(String.valueOf(form.getpH_level()));

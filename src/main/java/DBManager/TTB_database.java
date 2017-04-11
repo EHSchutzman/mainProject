@@ -32,7 +32,29 @@ public class TTB_database {
 
         try {
             // substitute your database name for myDB
-            connection = DriverManager.getConnection("jdbc:derby:../Database/Database/appDB;create=true");
+            connection = DriverManager.getConnection("jdbc:derby:appDB;create=true");
+            String makeFormTable = "CREATE TABLE FORM " + "(" +
+                    "TTB_ID varchar(255) PRIMARY KEY NOT NULL, " +
+                    "REP_ID varchar(255), "
+                    + "PERMIT_NO varchar(255) DEFAULT '' NOT NULL, "
+                    + "SOURCE varchar(8) DEFAULT '' NOT NULL," +
+                    "SERIAL_NO varchar(255) DEFAULT '' NOT NULL," +
+                    "ALCOHOL_TYPE varchar(255) DEFAULT '' NOT NULL," +
+                    "BRAND_NAME varchar(255) DEFAULT '' NOT NULL," +
+                    "FANCIFUL_NAME varchar(255)," +
+                    "ALCOHOL_CONTENT float(52) DEFAULT 0 NOT NULL, " +
+                    "APPLICANT_ADDRESS varchar(255) DEFAULT '' NOT NULL, "+
+                    "MAILING_ADDRESS varchar(255), " + "FORMULA varchar(255), " +
+                    "PHONE_NO varchar(20), " + "EMAIL varchar(255), " +
+                    "LABEL_TEXT varchar(511), " + "SUBMIT_DATE date DEFAULT '' NOT NULL, " +
+                    "SIGNATURE varchar(255) DEFAULT '' NOT NULL, "
+                    + "APPLICANT_NAME varchar(255) DEFAULT '' NOT NULL, "
+                    + "STATUS varchar(30) DEFAULT '' NOT NULL, " + "    AGENT_ID varchar(255), "
+                    + "APPLICANT_ID varchar(255) DEFAULT '' NOT NULL " + "); "
+                    + "CREATE UNIQUE INDEX FORM_APPLICANT_ID_UINDEX ON FORM (APPLICANT_ID)";
+            Statement s = connection.createStatement();
+            s.executeUpdate(makeFormTable);
+            
             return connection;
 
 
