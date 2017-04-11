@@ -12,24 +12,24 @@ public class Form {
     private String rep_id;           // x textfield
     private String permit_no;        // x textfield
     private String serial_no;        // x textfield
-    private String source;          // x radio buttons
+    private String source;           // x radio buttons
     private String alcohol_type;     // x radio buttons
     private String brand_name;       // x textfield
     private String fanciful_name;    // x textfield
-    private double alcohol_content;  // x textfield v
-    private String formula;         // x
+    private double alcohol_content;  // x textfield
+    private String formula;          // x
     private String label_image;      //
     private String label_text;       // x
     // Wines only
     private String vintage_year;     // x
     private int pH_level;            // x
     private String grape_varietals;  // x
-    private String wine_appellation;  // x
+    private String wine_appellation; // x
     // Application type
-    ArrayList<Boolean> application_type;// x check boxes
+    ArrayList<Boolean> application_type;            // x check boxes
     ArrayList<String> application_type_text;        // x textfields corresponding to their check boxes
 
-    // Applicant info
+    // Applicant Info
     // Addresses
     private String applicant_street; // x two textfields
     private String applicant_city;   // x
@@ -38,13 +38,13 @@ public class Form {
     private String applicant_country;// x
     private String mailing_address;  // x has checkbox to see if it should be the same as regular address
     //
-    private String signature;       // x
+    private String signature;        // x
     private String phone_no;         // x
-    private String email;           // x
+    private String email;            // x
 
     // Application info
     private Date submit_date;        // x
-    private String status;          // x
+    private String status;           // x
     private String agent_id;         //
     private String applicant_id;     //
     private Date approved_date;      // x

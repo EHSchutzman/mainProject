@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" layoutX="667.0" layoutY="664.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label layoutX="604.0" layoutY="30.0" text="Label Application">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="rep_id_text" editable="false" layoutX="634.0" layoutY="393.0" promptText="Rep. ID. No." />
+      <TextField fx:id="permit_no_text" editable="false" layoutX="634.0" layoutY="432.0" promptText="Basic Permit" />
+      <TextField fx:id="brand_name_text" editable="false" layoutX="1121.0" layoutY="124.0" promptText="Brand Name" />
+      <Label layoutX="690.0" layoutY="359.0" text="Product:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="212.0" layoutY="126.0" text="Applicant:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="applicant_street_1_text" editable="false" layoutX="162.0" layoutY="254.0" prefHeight="27.0" prefWidth="187.0" promptText="Address 1" />
+      <TextField fx:id="applicant_street_2_text" editable="false" layoutX="162.0" layoutY="289.0" prefHeight="27.0" prefWidth="187.0" promptText="Address 2" />
+      <TextField fx:id="applicant_city_text" editable="false" layoutX="164.0" layoutY="323.0" prefHeight="27.0" prefWidth="130.0" promptText="City" />
+      <TextField fx:id="applicant_state_text" editable="false" layoutX="318.0" layoutY="324.0" prefHeight="27.0" prefWidth="182.0" promptText="State" />
+      <TextField fx:id="applicant_zip_text" editable="false" layoutX="163.0" layoutY="358.0" prefHeight="27.0" prefWidth="143.0" promptText="Postal Code" />
+      <TextField fx:id="applicant_country_text" editable="false" layoutX="162.0" layoutY="393.0" promptText="Country" />
+      <TextField fx:id="phone_no_text" editable="false" layoutX="161.0" layoutY="187.0" promptText="Phone Number" />
+      <TextField fx:id="email_text" editable="false" layoutX="161.0" layoutY="220.0" promptText="Email" />
+      <Label layoutX="179.0" layoutY="463.0" text="Mailing Address:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="sameAsApplicantButton" disable="true" layoutX="165.0" layoutY="488.0" mnemonicParsing="false" text="Same as Applicant" />
+      <TextField fx:id="mailing_name_text" editable="false" layoutX="167.0" layoutY="513.0" promptText="Name" />
+      <TextField fx:id="mailing_street_1_text" editable="false" layoutX="167.0" layoutY="547.0" promptText="Address 1" />
+      <TextField fx:id="mailing_street_2_text" editable="false" layoutX="167.0" layoutY="581.0" promptText="Address 2" />
+      <TextField fx:id="mailing_city_text" editable="false" layoutX="167.0" layoutY="617.0" prefHeight="27.0" prefWidth="139.0" promptText="City" />
+      <TextField fx:id="mailing_zip_text" editable="false" layoutX="167.0" layoutY="652.0" promptText="Postal Code" />
+      <TextField fx:id="mailing_country_text" editable="false" layoutX="167.0" layoutY="687.0" promptText="Country" />
+      <TextField fx:id="mailing_state_text" editable="false" layoutX="343.0" layoutY="617.0" promptText="State" />
+      <Label fx:id="errorLabel" layoutX="465.0" layoutY="151.0" prefHeight="17.0" prefWidth="80.0" />
+      <Label layoutX="1143.0" layoutY="380.0" text="For Wine Only:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="alcohol_content_text" layoutX="1122.0" layoutY="319.0" promptText="Alcohol Content" />
+      <TextField fx:id="vintage_year_text" layoutX="1127.0" layoutY="413.0" promptText="Vintage Year" />
+      <TextField fx:id="ph_level_text" layoutX="1128.0" layoutY="448.0" promptText="pH Level" />
+      <Button fx:id="submit_button" layoutX="1300.0" layoutY="900.0" mnemonicParsing="false" onMouseClicked="#submitForm" text="Submit">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button fx:id="back_button" layoutX="75.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Back">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <TextField fx:id="serial_no_text" editable="false" layoutX="1121.0" layoutY="200.0" promptText="Serial Number" />
+      <TextField fx:id="fanciful_name_text" editable="false" layoutX="1121.0" layoutY="162.0" promptText="Fanciful Name (If Any)" />
+      <TextField fx:id="formula_text" layoutX="1120.0" layoutY="241.0" promptText="Formula" />
+      <TextField fx:id="grape_varietals_text" layoutX="1128.0" layoutY="481.0" promptText="Grape Varietal(s)" />
+      <TextField fx:id="wine_appellation_text" layoutX="1128.0" layoutY="521.0" promptText="Wine Appellation" />
+      <Label layoutX="674.0" layoutY="119.0" text="Type of Application:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="option_1_checkbox" disable="true" layoutX="616.0" layoutY="149.0" mnemonicParsing="false" text="Certificate of Label Approval" />
+      <CheckBox fx:id="option_2_checkbox" disable="true" layoutX="616.0" layoutY="176.0" mnemonicParsing="false" text="Certificate of Exemption from Label Approval" />
+      <CheckBox fx:id="option_3_checkbox" disable="true" layoutX="616.0" layoutY="231.0" mnemonicParsing="false" text="Distinctive Liquor Bottle Approval" />
+      <CheckBox fx:id="option_4_checkbox" disable="true" layoutX="616.0" layoutY="286.0" mnemonicParsing="false" text="Resubmission After Rejection" />
+      <TextField fx:id="option_2_text" editable="false" layoutX="635.0" layoutY="199.0" prefHeight="27.0" prefWidth="263.0" promptText="For Sale in (Fill in State Abbrv.) only" />
+      <TextField fx:id="option_3_text" editable="false" layoutX="635.0" layoutY="255.0" prefHeight="27.0" prefWidth="263.0" promptText="Total Bottle Capacity Before Closure" />
+      <TextField fx:id="option_4_text" editable="false" layoutX="635.0" layoutY="308.0" prefHeight="27.0" prefWidth="263.0" promptText="TTB ID" />
+      <TextField fx:id="label_text" editable="false" layoutX="1121.0" layoutY="280.0" prefHeight="27.0" prefWidth="194.0" promptText="Content Printed on Bottle" />
+      <TextField fx:id="signature_text" editable="false" layoutX="1050.0" layoutY="900.0" promptText="Electronic Signature" />
+      <TextField fx:id="applicant_name_text" editable="false" layoutX="161.0" layoutY="151.0" prefHeight="27.0" prefWidth="243.0" promptText="Name" />
+      <ImageView fx:id="label_image" fitHeight="250.0" fitWidth="600.0" layoutX="668.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true" />
+      <ComboBox fx:id="source_combobox" layoutX="634.0" layoutY="470.0" prefHeight="27.0" prefWidth="243.0" promptText="Choose Source of Product" />
+      <ComboBox fx:id="alcohol_type_combobox" layoutX="635.0" layoutY="508.0" prefHeight="27.0" prefWidth="243.0" promptText="Choose Alcohol Type" />
+   </children>
+</AnchorPane>
