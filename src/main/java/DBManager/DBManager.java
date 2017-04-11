@@ -1,15 +1,23 @@
 package DBManager;
 
+
 import UserAccounts.User;
+
 import Form.Form;
+import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+
+import java.io.FileWriter;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * Created by Leo on 4/8/2017.
@@ -36,7 +44,7 @@ public class DBManager {
         fields.add("\'" + user.getFirstName() + "\'");
         fields.add("\'" + user.getMiddleInitial() + "\'");
         fields.add("\'" + user.getLastName() + "\'");
-        String queryString = queryBuilder.createInsertStatement("USER", fields);
+        String queryString = queryBuilder.createInsertStatement("USERS", fields);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -69,6 +77,7 @@ public class DBManager {
         fields.add("\'" + form.getbrand_name() + "\'");
         fields.add("\'" + form.getfanciful_name() + "\'");
         fields.add("" + form.getalcohol_content() + "");
+        fields.add("\'" + form.getapplicant_street() + "\'");
         fields.add("\'" + form.getapplicant_city() + "\'");
         fields.add("\'" + form.getapplicant_zip() + "\'");
         fields.add("\'" + form.getapplicant_state() + "\'");
@@ -86,13 +95,14 @@ public class DBManager {
         fields.add("\'" + form.getapplicant_id() + "\'");
         fields.add("\'" + form.getapproved_date() + "\'");
         fields.add("\'" + form.getexpiration_date() + "\'");
+        fields.add("\'" + form.getapproval_comments() + "\'");
         if (form.getalcohol_type().equals("Wine")) {
             wine.add("\'" + form.getvintage_year() + "\'");
             wine.add("\'" + form.getpH_level() + "\'");
             wine.add("\'" + form.getgrape_varietals() + "\'");
             wine.add("\'" + form.getwine_appellation() + "\'");
         }
-        String queryString = queryBuilder.createInsertStatement("USER", fields);
+        String queryString = queryBuilder.createInsertStatement("FORMS", fields);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -117,8 +127,8 @@ public class DBManager {
 
     public ObservableList<ObservableList<String>> findLabels(ArrayList<ArrayList<String>> filters) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, origin_code, alcohol_type";
-        String query = queryBuilder.createLikeStatement("FORM", fields, filters);
+        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, alcohol_type";
+        String query = queryBuilder.createLikeStatement("FORMS", fields, filters);
         ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         try {
             Connection connection = TTB_database.connect();
@@ -131,11 +141,9 @@ public class DBManager {
                 String approvedDate = rs.getDate("approved_date").toString();
                 String fancifulName = rs.getString("fanciful_name");
                 String brandName = rs.getString("brand_name");
-                String originCode = rs.getString("origin_code");
                 String alcoholType = rs.getString("alcohol_type");
                 ObservableList<String> observableList = FXCollections.observableArrayList();
-                observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName,
-                        originCode, alcoholType);
+                observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
                 ol.add(observableList);
             }
             rs.close();
@@ -154,10 +162,12 @@ public class DBManager {
         String query = "";
         ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
         //I think that appending these tables is going to get rid of the beer applications but ????
+
         if (user.getAuthenticationLevel() == 1) {
             query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
             query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
+
         }
         try {
             Connection connection = TTB_database.connect();
@@ -312,7 +322,7 @@ public class DBManager {
         fields.add("first_name = "+"\'" + user.getFirstName() + "\'");
         fields.add("middle_inital = "+"\'" + user.getMiddleInitial() + "\'");
         fields.add("last_name = "+"\'" + user.getLastName() + "\'");
-        String updateString = queryBuilder.createUpdateStatement("USER", fields, ("user_id = \'"+user.getUid() + "\'"));
+        String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'"+user.getUid() + "\'"));
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -367,7 +377,7 @@ public class DBManager {
             wine.add("grape_varietals=" + "\'" + form.getgrape_varietals() + "\'");
             wine.add("wine_appelation=" + "\'" + form.getwine_appellation() + "\'");
         }
-        String queryString = queryBuilder.createUpdateStatement("FORM", fields, options);
+        String queryString = queryBuilder.createUpdateStatement("FORMS", fields, options);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -384,6 +394,7 @@ public class DBManager {
             return false;
         }
     }
+  
     public User findUser(String options) {
         System.out.println(options);
         QueryBuilder queryBuilder = new QueryBuilder();
@@ -461,3 +472,4 @@ public class DBManager {
         }
     }
 }
+

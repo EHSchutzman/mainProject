@@ -31,11 +31,15 @@ public class FormController{
     @FXML
     public TextField serial_no_text;
 
-    // TODO change radio buttons to choiceboxes, this includes applicant form and agent form versions (one gets values the other is set)
+    // Source and Alcohol Type ComboBoxes + their TextFields for Agent Review
     @FXML
     public ComboBox source_combobox;
     @FXML
+    public TextField source_text;
+    @FXML
     public ComboBox alcohol_type_combobox;
+    @FXML
+    public TextField alcohol_type_text;
 
     @FXML
     public TextField brand_name_text;
@@ -128,8 +132,7 @@ public class FormController{
     @FXML
     public Label statusLabel; //TODO add to UI
 
-    public Form createApplicantForm(){
-        Form form = new Form();
+    public void createApplicantForm(){
 
         statusLabel.setText(main.userData.form.getStatus());
 
@@ -204,32 +207,41 @@ public class FormController{
 
         main.userData.form.setsubmit_date(Date.valueOf(submit_date.getValue()));
         //TODO reference actual applicant name below, if need be
+
         //main.userData.tempForm.setApplicantID(applicant_nameText.getText());
+
 
         /*
         There was previously a setForm function here for the User class
         or Main class but it appears that it does not exist anymore
         */
-        return form;
     }
 
-    public void createAgentForm(){
+    // THIS FUNCTION HAS BEEN MOVED TO THE WORKFLOW CONTROLLER
+    /*
+    public void createAgentForm(Form form){
+
         // Get Source info and set it to display for the Agent
-        source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-        if(main.userData.form.getSource().equals("Imported")) {
-            source_combobox.getSelectionModel().select(2);
-        } else if (main.userData.form.getSource().equals("Domestic")) {
-            source_combobox.getSelectionModel().select(1);
+        //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
+        if(form.getSource().equals("Imported")) {
+            //source_combobox.getSelectionModel().select(2);
+            source_text.setPromptText("Imported");
+        } else if (form.getSource().equals("Domestic")) {
+            //source_combobox.getSelectionModel().select(1);
+            source_text.setPromptText("Domestic");
         }
 
         // Get Alcohol Type info and set it to display for the Agent
         alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if(main.userData.form.getalcohol_type().equals("Beer")) {
-            alcohol_type_combobox.getSelectionModel().select(1);
-        } else if (main.userData.form.getalcohol_type().equals("Wine")) {
-            alcohol_type_combobox.getSelectionModel().select(2);
-        } else if (main.userData.form.getalcohol_type().equals("Distilled Spirit")) {
-            alcohol_type_combobox.getSelectionModel().select(3);
+        if(form.getalcohol_type().equals("Beer")) {
+            //alcohol_type_combobox.getSelectionModel().select(1);
+            alcohol_content_text.setPromptText("Beer");
+        } else if (form.getalcohol_type().equals("Wine")) {
+            //alcohol_type_combobox.getSelectionModel().select(2);
+            alcohol_content_text.setPromptText("Wine");
+        } else if (form.getalcohol_type().equals("Distilled Spirit")) {
+            //alcohol_type_combobox.getSelectionModel().select(3);
+            alcohol_content_text.setPromptText("Distilled Spirit");
         }
 
         // Initialize checkboxes
@@ -239,8 +251,8 @@ public class FormController{
         option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
 
-        ArrayList<Boolean> tempBoolArray = main.userData.form.getapplication_type();
-        ArrayList<String> tempStrArray = main.userData.form.getapplication_type_text();
+        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
+        ArrayList<String> tempStrArray = form.getapplication_type_text();
         if (tempBoolArray.get(0) == true) {//choice 0
             option_1_checkbox.setSelected(true);
         } else if (tempBoolArray.get(1) == true) {
@@ -262,39 +274,36 @@ public class FormController{
         alcohol_content_text.setPromptText(String.valueOf(main.userData.form.getalcohol_content()));
         formula_text.setPromptText(main.userData.form.getformula());
         label_text.setPromptText(main.userData.form.getlabel_text());
+
         // Wines only
-        vintage_year_text.setPromptText(main.userData.form.getvintage_year());
-        pH_level_text.setPromptText(String.valueOf(main.userData.form.getpH_level()));
-        grape_varietals_text.setPromptText(main.userData.form.getgrape_varietals());
-        wine_appellation_text.setPromptText(main.userData.form.getwine_appellation());
+        vintage_year_text.setPromptText(form.getvintage_year());
+        pH_level_text.setPromptText(String.valueOf(form.getpH_level()));
+        grape_varietals_text.setPromptText(form.getgrape_varietals());
+        wine_appellation_text.setPromptText(form.getwine_appellation());
 
         //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
-        applicant_street_1_text.setPromptText(main.userData.form.getapplicant_street());
-        applicant_city_text.setPromptText(main.userData.form.getapplicant_city());
-        applicant_state_text.setPromptText(main.userData.form.getapplicant_state());
-        applicant_zip_text.setPromptText(main.userData.form.getapplicant_zip());
-        applicant_country_text.setPromptText(main.userData.form.getapplicant_country());
+        applicant_street_1_text.setPromptText(form.getapplicant_street());
+        applicant_city_text.setPromptText(form.getapplicant_city());
+        applicant_state_text.setPromptText(form.getapplicant_state());
+        applicant_zip_text.setPromptText(form.getapplicant_zip());
+        applicant_country_text.setPromptText(form.getapplicant_country());
 
-        mailing_addressText.setPromptText(main.userData.form.getmailing_address());
+        mailing_addressText.setPromptText(form.getmailing_address());
 
-        signature_text.setPromptText(main.userData.form.getSignature());
-        phone_no_text.setPromptText(main.userData.form.getphone_no());
-        email_text.setPromptText(main.userData.form.getEmail());
+        signature_text.setPromptText(form.getSignature());
+        phone_no_text.setPromptText(form.getphone_no());
+        email_text.setPromptText(form.getEmail());
 
-        submit_date.setValue(main.userData.form.getsubmit_date().toLocalDate());
+        submit_date.setValue(form.getsubmit_date().toLocalDate());
 
         //Agent Headers
-        main.userData.form.setapproved_date(Date.valueOf(approved_date.getValue()));
+        form.setapproved_date(Date.valueOf(approved_date.getValue()));
         //TODO reference agent name if needed
-        //main.userData.tempForm.setAgentName(agent_nameText.getText());
-        main.userData.form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
-        main.userData.form.setapproval_comments(approval_comments_text.getText());
 
-        /*
-        There was previously a setForm function here for the User class
-        or Main class but it appears that it does not exist anymore
-        */
+        form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
+        form.setapproval_comments(approval_comments_text.getText());
     }
+    */
 
     // Probably outdated method
     @FXML
@@ -306,8 +315,7 @@ public class FormController{
         }
     }
 
-    //TODO use DBManager functions to display agent review page from list
-    //TODO make a function for applicant to choose form from list
+    //TODO use DBManager functions for applicant to choose form from list
     public void chooseForm () {
         Form review = new Form();
 
@@ -323,23 +331,13 @@ public class FormController{
     }
 
     @FXML
-    public void approveForm(){
-        Form review = new Form();
-        returnToMainPage(); //TODO return to the list of applications
-    }
-    @FXML
-    public void rejectForm(){
-        Form review = new Form();
-        returnToMainPage(); //TODO return to the list of applications
-    }
-
-    @FXML
     public void returnToMainPage(){
         try{
             if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 main.setDisplayToApplicantMain();
             }
             else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+
                 main.setDisplayToAgentMain();
             }
             else{
@@ -355,13 +353,13 @@ public class FormController{
     public void Back(){
         try{
             if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
-                main.setDisplayToApplicantMain();
+                //set display to list of Applicant applications
             }
             else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
-                main.setDisplayToAgentMain();
+                //set display to list of applications to review
             }
             else{
-                main.setDisplayToDefaultMain();
+                //you are not supposed to be here as a guest user, return to main page
             }
         }catch (Exception e){
             e.printStackTrace();

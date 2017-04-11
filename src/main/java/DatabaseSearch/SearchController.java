@@ -303,13 +303,13 @@ public class SearchController {
     @FXML
     public void returnToMain(){
         try{
-            if(main.userData.getUserInformation().getAuthenticationLevel() == 0) {
+            if(main.userData.getUserInformation().getAuthentication() == 0) {
                 main.setDisplayToDefaultMain();
             }
-            else if (main.userData.getUserInformation().getAuthenticationLevel() == 1){
+            else if (main.userData.getUserInformation().getAuthentication() == 1){
                 main.setDisplayToApplicantMain();
             }
-            else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+            else if (main.userData.getUserInformation().getAuthentication() >= 2){
                 main.setDisplayToAgentMain();
             }
             else{

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -97,3 +96,4 @@
       <ComboBox fx:id="alcohol_type_combobox" layoutX="635.0" layoutY="508.0" prefHeight="27.0" prefWidth="243.0" promptText="Choose Alcohol Type" />
    </children>
 </AnchorPane>
+
