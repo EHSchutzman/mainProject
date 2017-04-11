@@ -2,11 +2,7 @@ package Form;
 import DatabaseSearch.TTB_database;
 import Initialization.Main;
 import javafx.fxml.FXML;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -20,6 +16,9 @@ public class FormController{
         this.main = main;
     }
 
+    @FXML
+    public ComboBox source_combobox;
+    public ComboBox alcohol_type_combobox;
     @FXML
     public Button mainPageButton;
 
