@@ -1,99 +1,85 @@
 package AgentWorkflow;
 
-import DatabaseSearch.AppRecord;
-import Initialization.Main;
+import DBManager.DBManager;
 import Form.Form;
+import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
-import java.sql.ResultSet;
+
+import java.util.ArrayList;
 
 /**
  * Created by Chad on 4/8/2017.
  */
 public class WorkflowController {
 
-    private Main main = new Main();
-    private ResultSet rs;
+    private Main main;
+    private ObservableList<AgentRecord> resultsList = FXCollections.observableArrayList();
     private Form application = new Form();
+    public DBManager db = new DBManager();
 
-    // ----- FXML for Workflow results page -----
+    // ----- FXML for Workflow results page ----- //
     @FXML
     private Button closeButton;
 
     @FXML
-    public TableView<AppRecord> resultsTable; // Holds 10 batch-pulled assignments for the Agent
-
-
-    // ----- FXML for Workflow application page -----
-
-
+    public TableView<AgentRecord> resultsTable; // Holds 10 batch-pulled assignments for the Agent
 
     public WorkflowController() {
     }
-
 
     @FXML
     public void displayResults() {
 
         //@TODO: Get 10 batch assignments from the DB Manager
+        ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
+        System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
+        olAR = db.pullFormBatch(main.userData.getUserInformation());
+        System.out.println(olAR);
+            // Query for batch
+            // Display batch in table
+        resultsTable.setItems(olAR);
 
-        /*
-        try {
+        // This block monitors the user's interaction with the tableview,
+        //  determining when they double-click a row
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AgentRecord> row = new TableRow<>();
 
+            // Open application if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AgentRecord rowData = row.getItem();
 
-            try {
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
 
-                ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
-                while(searchResults.previous());
-                AppRecord row;
-                while (searchResults.next()) {
-                    row  = new AppRecord();
-                    String formID = searchResults.getString("TTB_ID");
-                    String permitNo = searchResults.getString("PERMIT_NUMBER");
-                    String serialNo = searchResults.getString("SERIAL_NUMBER");
-                    String completedDate = searchResults.getString("COMPLETED_DATE");
-                    String fancifulName = searchResults.getString("FANCIFUL_NAME");
-                    String brandName = searchResults.getString("BRAND_NAME");
-                    String origin = searchResults.getString("ORIGIN_CODE");
-                    String type = searchResults.getString("TYPE_ID");
-
-                    row.setTypeID(formID);
-                    row.setPermitNo(permitNo);
-                    row.setSerialNo(serialNo);
-                    row.setCompletedDate(completedDate);
-                    row.setFancifulName(fancifulName);
-                    row.setBrandName(brandName);
-                    row.setOriginCode(origin);
-                    row.setTypeID(type);
-
-                    dataList.add(row);
-
-                    System.out.println("Data "+ dataList);
-
+                    // Get form form DB using selected row's ID
+                    try {
+                        Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
+                        // Open selected form in new window
+                        main.displayWorkflowApplication(viewForm);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-                System.out.println("Data "+ dataList);
+            });
+            return row;
+        });
 
-                //FINALLY ADDED TO TableView
-                main.displayWorkflowResults(dataList);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Error building data!");
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error displaying data.");
-            return false;
-        }
-
-
-*/
     }
+
+    public void displayResults(ObservableList<AgentRecord> rl) {
+        System.out.println("hi");
+        // Display batch in table
+        //resultsTable.setItems(rl);
+
+    }
+
 
     @FXML
     public void displayApplication() {
@@ -103,29 +89,8 @@ public class WorkflowController {
         // Fill Form object with query information
         // Pass form to new window
         //main.displayWorkflowApplication(form);
+        //createAgentForm(form);
 
-    }
-
-    @FXML
-    public void acceptApplication() {
-        // Most of this can probably be taken from FormController
-
-        // UPDATE query using DB Manager to change status field to 'Accepted'
-        // Agent Name field, expiration date field, and comments field
-
-        // Close application
-        this.closeApplication();
-    }
-
-    @FXML
-    public void rejectApplication() {
-        // Most of this can probably be taken from FormController
-
-        // UPDATE query using DB Manager to change status field to 'Rejected'
-        // Agent Name field, expiration date field, and comments field
-
-        // Close application
-        this.closeApplication();
     }
 
     @FXML
@@ -136,6 +101,9 @@ public class WorkflowController {
         stage.close();
 
         //@TODO: Refresh the TableView's contents
+            // Update our resultset???
+        setDisplay2(this.main, resultsList);
+        //resultsTable.refresh();
 
     }
 
@@ -150,6 +118,12 @@ public class WorkflowController {
 
     public void setDisplay(Main main) {
         this.main = main;
+        this.displayResults();  // Display TableView Results
+    }
+
+    public void setDisplay2(Main main, ObservableList<AgentRecord> rl) {
+        this.main = main;
+        this.displayResults(rl);  // Display TableView Results
     }
 
 }

@@ -13,22 +13,26 @@ public class AppRecord {
     private final SimpleStringProperty completedDate = new SimpleStringProperty("");
     private final SimpleStringProperty fancifulName = new SimpleStringProperty("");
     private final SimpleStringProperty brandName = new SimpleStringProperty("");
-    private final SimpleStringProperty originCode = new SimpleStringProperty("");
+    //private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
+    private final SimpleStringProperty status = new SimpleStringProperty("");
+    private final SimpleStringProperty applicantID = new SimpleStringProperty("");
 
     public AppRecord() {
-        this("", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String originCode, String typeID) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status, String applicantID) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
         setCompletedDate(completedDate);
         setFancifulName(fancifulName);
         setBrandName(brandName);
-        setOriginCode(originCode);
+        //setOriginCode(originCode);
         setTypeID(typeID);
+        setStatus(status);
+        setApplicantID(applicantID);
     }
 
     public String getFormID() {
@@ -103,17 +107,17 @@ public class AppRecord {
         this.brandName.set(brandName);
     }
 
-    public String getOriginCode() {
-        return originCode.get();
-    }
-
-    public SimpleStringProperty originCodeProperty() {
-        return originCode;
-    }
-
-    public void setOriginCode(String originCode) {
-        this.originCode.set(originCode);
-    }
+//    public String getOriginCode() {
+//        return originCode.get();
+//    }
+//
+//    public SimpleStringProperty originCodeProperty() {
+//        return originCode;
+//    }
+//
+//    public void setOriginCode(String originCode) {
+//        this.originCode.set(originCode);
+//    }
 
     public String getTypeID() {
         return typeID.get();
@@ -125,5 +129,29 @@ public class AppRecord {
 
     public void setTypeID(String typeID) {
         this.typeID.set(typeID);
+    }
+
+    public String getStatus() {
+        return status.get();
+    }
+
+    public SimpleStringProperty statusProperty() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status.set(status);
+    }
+
+    public String getApplicantID() {
+        return applicantID.get();
+    }
+
+    public SimpleStringProperty applicantIDProperty() {
+        return applicantID;
+    }
+
+    public void setApplicantID(String applicantID) {
+        this.applicantID.set(applicantID);
     }
 }

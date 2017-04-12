@@ -59,7 +59,50 @@ public class Form {
     //generate a unique ID for the form
     public String makeUniqueID () {
         String uniqueID = UUID.randomUUID().toString();
+        System.out.println(uniqueID.length());
         return uniqueID;
+    }
+
+    public Form(String rep_id, String permit_no, String source, String serial_no, String alcohol_type,
+                String brand_name, String fanciful_name, double alcohol_content, String applicant_street, String applicant_city, String applicant_state,
+                String applicant_zip, String applicant_country, String mailing_address, String formula, String phone_no,
+                String email, String label_text, String label_image, Date submit_date, String signature, String status,
+                String agent_id, String applicant_id, Date approved_date, Date expiration_date, String vintage_year,
+                int pH_level, String grape_varietals, String wine_appellation, ArrayList<Boolean> application_type, ArrayList<String> application_type_text, String approval_comments) {
+        this.ttb_id = makeUniqueID();
+        this.rep_id = rep_id;
+        this.permit_no = permit_no;
+        this.source = source;
+        this.serial_no = serial_no;
+        this.alcohol_type = alcohol_type;
+        this.brand_name = brand_name;
+        this.fanciful_name = fanciful_name;
+        this.alcohol_content = alcohol_content;
+        this.applicant_street = applicant_street;
+        this.applicant_city = applicant_city;
+        this.applicant_state = applicant_state;
+        this.applicant_zip = applicant_zip;
+        this.applicant_country = applicant_country;
+        this.mailing_address = mailing_address;
+        this.formula = formula;
+        this.phone_no = phone_no;
+        this.email = email;
+        this.label_text = label_text;
+        this.label_image = label_image;
+        this.submit_date = submit_date;
+        this.signature = signature;
+        this.status = status;
+        this.agent_id = agent_id;
+        this.applicant_id = applicant_id;
+        this.approved_date = approved_date;
+        this.expiration_date = expiration_date;
+        this.vintage_year = vintage_year;
+        this.pH_level = pH_level;
+        this.grape_varietals = grape_varietals;
+        this.wine_appellation = wine_appellation;
+        this.application_type = application_type;
+        this.application_type_text = application_type_text;
+        this.approval_comments = approval_comments;
     }
 
     public Form(String ttb_id, String rep_id, String permit_no, String source, String serial_no, String alcohol_type,
@@ -374,5 +417,9 @@ public class Form {
 
     public void setapplication_type_text(ArrayList<String> application_type_text) {
         this.application_type_text = application_type_text;
+    }
+
+    public String getFormula() {
+        return formula;
     }
 }

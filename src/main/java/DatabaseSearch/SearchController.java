@@ -1,23 +1,23 @@
 package DatabaseSearch;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-
+import DBManager.DBManager;
+import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableView;
-
-import Initialization.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import javax.sql.rowset.CachedRowSet;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * The SearchController will read and store data from the UI search page and pass it to the query builder in order to form an SQL query.
@@ -27,10 +27,11 @@ public class SearchController {
 
     private Main main = new Main();
     // Database information
+    public DBManager db = new DBManager();
     private ResultSet apprs;
     private ResultSet rs;
-    //create QueryBuilder variable to store search info
-    private QueryBuilder queryBuilder;
+    public ObservableList<AppRecord> aR = FXCollections.observableArrayList();
+
     private String query;
     //VARIABLES FOR SEARCH CRITERIA:
     //Date info
@@ -40,8 +41,10 @@ public class SearchController {
     protected String brand;
     protected String product; //also known as fanciful name
     //Type info
-    protected String typeFrom;
-    protected String typeTo;
+    protected boolean isMalt;
+    protected boolean isSpirit;
+    protected boolean isWine;
+
     //location code, also known as origin code
     protected String origin;
     //Application ID
@@ -53,15 +56,17 @@ public class SearchController {
     @FXML
     private DatePicker dpDateRangeEnd;
     @FXML
-    private TextField txtBrandName;
+    private TextField brand_name_text;
     @FXML
-    private TextField txtProductName;
+    private TextField product_name_text;
     @FXML
-    private TextField txtClassRangeStart;
+    private CheckBox malt_beverage_checkbox;
     @FXML
-    private TextField txtClassRangeEnd;
+    private CheckBox distilled_spirit_checkbox;
     @FXML
-    private TextField cbLocationCode;
+    private CheckBox wine_checkbox;
+    @FXML
+    private TextField state_text;
     @FXML
     public TableView<AppRecord> resultsTable;
     @FXML
@@ -75,78 +80,80 @@ public class SearchController {
         System.out.println("Handles search!");
 
         // Handle search criteria
-        searchCriteria();
-
-        System.out.println(getQueryBuilder().getQuery());
-
-        // Set our query
-        setQuery(getQueryBuilder().getQuery());
-
-        // Query the DB
-        queryDB(getQuery());
-
-        try {
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-
-// Iterate through the data in the result set and display it.
-
-        } catch(SQLException e){
-            e.printStackTrace();
-        }
+        //searchCriteria();
 
         // Display our new data in the TableView
-        displayData(rs);
+        displayData(searchCriteria());
 
-    }
-
-    //@TODO: Let the DB manager handle connection and querying
-    // Connect to the DB
-    protected Connection DBConnect() throws SQLException {
-        return TTB_database.connect();
-    }
-
-    // Function will query the DB
-    protected ResultSet queryDB(String query) {
-        Connection c;
-        Statement stmt;
-        try {
-            c = DBConnect();
-            stmt = c.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            rs = stmt.executeQuery(query);
-            System.out.println("Here");
-        } catch (Exception e) {
-            System.out.println("HERE");
-            e.printStackTrace();
-            stmt = null;
-        }
-        return rs;
     }
 
     // Function that reads the input entered into the search page and passes it to a QueryBuilder object.
-    protected boolean searchCriteria(){
+    protected ObservableList<AppRecord> searchCriteria() {
         try {
             //Set all variables equal to input data
             from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
             to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-            brand = txtBrandName.getText();
-            product = txtProductName.getText();
-            typeFrom = txtClassRangeStart.getText();
-            typeTo = txtClassRangeEnd.getText();
-            origin = cbLocationCode.getText();
-            //store search info in a new QueryBuilder object
-//            setQueryBuilder(new QueryBuilder(tableName, "TTB_ID,PERMIT_NO,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
-//                    from, to, brand, product, typeFrom, typeTo, origin)); //For iteration 1 data stored in beverages table
-            setQueryBuilder(new QueryBuilder("BEVERAGE", "TTB_ID,PERMIT_NUMBER,SERIAL_NUMBER,COMPLETED_DATE,FANCIFUL_NAME,BRAND_NAME,ORIGIN_CODE,TYPE_ID",
-                    from, to, brand, product, typeFrom, typeTo, origin));
-            return true;
+            brand = brand_name_text.getText();
+            product = product_name_text.getText();
+            isMalt = malt_beverage_checkbox.isSelected();
+            isSpirit = distilled_spirit_checkbox.isSelected();
+            isWine = wine_checkbox.isSelected();
+            origin = state_text.getText();
+
+            String params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
+
+            boolean firstCheck = false;
+
+            if (isMalt || isSpirit || isWine) {
+
+                params += " AND ALCOHOL_TYPE = ";
+            }
+            if (isWine) {
+                params += "'Wine'";
+                firstCheck = true;
+            }
+            if (isSpirit && !firstCheck) {
+                params += "'Distilled Spirit'";
+                firstCheck = true;
+            } else if (isSpirit && firstCheck) {
+                params += " OR ALCOHOL_TYPE = 'Distilled Spirit'";
+            }
+
+            if (isMalt && !firstCheck) {
+                params += "'Malted Beverages'";
+                firstCheck = true;
+            } else if (isMalt && firstCheck) {
+                params += " OR ALCOHOL_TYPE = 'Malted Beverages'";
+            }
+
+            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
+            ArrayList<String> brandArray = new ArrayList<>();
+            ArrayList<String> productArray = new ArrayList<>();
+            ArrayList<String> typeArray = new ArrayList<>();
+            ArrayList<String> originArray = new ArrayList<>();
+
+            brandArray.add("BRAND_NAME");
+            brandArray.add(brand);
+            productArray.add("FANCIFUL_NAME");
+            productArray.add(product);
+            originArray.add("SOURCE");
+            originArray.add(origin);
+
+            searchParams.add(brandArray);
+            searchParams.add(productArray);
+            searchParams.add(typeArray);
+            searchParams.add(originArray);
+
+            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            return arr;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
-            return false;
+            return null;
         }
     }
 
+    /*
     //Function that reads (currently) an app id entered into a text box and searches for a single application
     protected boolean applicationSearchCriteria(){
         try {
@@ -159,12 +166,18 @@ public class SearchController {
             System.out.println("Could not build a query from search criteria.");
             return false;
         }
-    }
+    }*/
 
     // Display DB data into a TableView
-    protected boolean displayData(ResultSet rs) {
+    protected void displayData(ObservableList<AppRecord> list) {
 
-        ResultSet searchResults = rs;
+        try {
+            main.displaySearchResultsPage(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        /*ResultSet searchResults = rs;
 
         try {
 
@@ -212,11 +225,12 @@ public class SearchController {
             e.printStackTrace();
             System.out.println("Error displaying data.");
             return false;
-        }
+        }*/
 
     }
 
-    // Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
+    //@TODO: Display application on click
+    /*// Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
     protected void displayApplication() {
         // Handle search criteria
         applicationSearchCriteria();
@@ -230,6 +244,7 @@ public class SearchController {
         // Display our new data in the TableView
         //displayData(apprs);
     }
+*/
 
     // Save a CSV of the results locally
     @FXML
@@ -281,14 +296,6 @@ public class SearchController {
 
     }
 
-    public QueryBuilder getQueryBuilder() {
-        return queryBuilder;
-    }
-
-    public void setQueryBuilder(QueryBuilder queryBuilder) {
-        this.queryBuilder = queryBuilder;
-    }
-
     public String getQuery() {
         return query;
     }
@@ -303,13 +310,11 @@ public class SearchController {
     @FXML
     public void returnToMain(){
         try{
-            if(main.userData.getUserInformation().getAuthentication() == 0) {
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 0) {
                 main.setDisplayToDefaultMain();
-            }
-            else if (main.userData.getUserInformation().getAuthentication() == 1){
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 main.setDisplayToApplicantMain();
-            }
-            else if (main.userData.getUserInformation().getAuthentication() >= 2){
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2) {
                 main.setDisplayToAgentMain();
             }
             else{

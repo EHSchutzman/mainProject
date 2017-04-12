@@ -1,13 +1,10 @@
 package UserAccounts;
 
 import DBManager.DBManager;
-import DatabaseSearch.QueryBuilder;
 import DatabaseSearch.TTB_database;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Authentication {
     DBManager manager = new DBManager();
@@ -87,21 +84,10 @@ public class Authentication {
         this.authenticationLevel = authenticationLevel;
     }
 
-    public void createUser(String userID, String fullName, String username, String password, String email, String phone) {
-        String queryString;
-        queryString = "Insert into USERS Values(" + userID + ",\'" + email + "\',\'" + username + "\',\'" + password +
-                "\',\'" + fullName + "\',\'" + phone + "\', 0)";
-        try {
-            Connection c = DBConnect();
-            Statement s = c.createStatement();
-            s.executeUpdate(queryString);
-            s.close();
-            c.close();
-            System.out.println(queryString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(queryString);
+    public void createUser(String firstName, String middleIn, String lastName, String username, String password, String email, String phone, int authenticationLevel) {
+        DBManager manager = new DBManager();
+        User user = new User(username, password, firstName, middleIn, lastName, email, phone, authenticationLevel);
+        manager.persistUser(user);
 
     }
 

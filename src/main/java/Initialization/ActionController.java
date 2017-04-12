@@ -1,7 +1,5 @@
 package Initialization;
 
-import DatabaseSearch.SearchController;
-import Form.FormController;
 import UserAccounts.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,8 +10,6 @@ public class ActionController {
 
     @FXML
     public Label currentUserLabel;
-
-
 
     public void displayLogin() {
         try {
@@ -44,7 +40,7 @@ public class ActionController {
 
     public void displayApplicationPage() {
         try {
-            main.setDisplayToApply();
+            main.setDisplayToApplicantApply();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,12 +57,35 @@ public class ActionController {
       main.setDisplayToMain();
     }
 
+    //@FXML
+    //public void displayReviseApplication(){
+    //    main.setDisplayToReviewApplicaiton();
+    //}
+
     @FXML
-    public void displayReviseApplication(){
-        main.setDisplayToReviewApplicaiton();
+    public void displayReviewApplication(){
+        try{
+            main.displayWorkflowResultsPage();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
     @FXML
     public void displayApplicantApplicationPage(){
-        main.setDisplayToApplicantApply();
+        try {
+            main.setDisplayToApplicantApply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void displayApplicantFormsPage() {
+        try {
+            main.displayApplicantFormList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
