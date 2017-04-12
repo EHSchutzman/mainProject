@@ -11,7 +11,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +18,7 @@ import java.util.ArrayList;
  */
 public class WorkflowController {
 
-    private Main main = new Main();
+    private Main main;
     private ObservableList<AgentRecord> resultsList = FXCollections.observableArrayList();
     private Form application = new Form();
     public DBManager db = new DBManager();
@@ -38,8 +37,13 @@ public class WorkflowController {
     public void displayResults() {
 
         //@TODO: Get 10 batch assignments from the DB Manager
+        ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
+        System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
+        olAR = db.pullFormBatch(main.userData.getUserInformation());
+        System.out.println(olAR);
             // Query for batch
             // Display batch in table
+        resultsTable.setItems(olAR);
 
         // This block monitors the user's interaction with the tableview,
         //  determining when they double-click a row
@@ -90,44 +94,6 @@ public class WorkflowController {
     }
 
     @FXML
-    public void acceptApplication() {
-        // Most of this can probably be taken from FormController
-
-        long currentDate = System.currentTimeMillis();
-        long expirationDate = currentDate + 157784630000L;  // Expires in 5 years
-
-        Date accepted = new Date(currentDate);
-        Date expiration = new Date(expirationDate);
-
-        application.setStatus("Accepted");
-        application.setapproved_date(accepted);
-        application.setexpiration_date(expiration);
-        //application.setAgentID();
-
-        // UPDATE query using DB Manager to change status field to 'Accepted'
-        // Agent Name field, expiration date field
-        db.updateForm(application);
-
-
-        // Close application
-        this.closeApplication();
-    }
-
-    @FXML
-    public void rejectApplication() {
-        // Most of this can probably be taken from FormController
-
-        application.setStatus("Rejected");
-
-        // UPDATE query using DB Manager to change status field to 'Rejected'
-        // Agent Name field, expiration date field
-        db.updateForm(application);
-
-        // Close application
-        this.closeApplication();
-    }
-
-    @FXML
     public void closeApplication() {
 
         // Close the window
@@ -136,7 +102,7 @@ public class WorkflowController {
 
         //@TODO: Refresh the TableView's contents
             // Update our resultset???
-        setDisplay(this.main, resultsList);
+        setDisplay2(this.main, resultsList);
         //resultsTable.refresh();
 
     }
@@ -151,13 +117,13 @@ public class WorkflowController {
     }
 
     public void setDisplay(Main main) {
-        this.displayResults();  // Display TableView Results
         this.main = main;
+        this.displayResults();  // Display TableView Results
     }
 
-    public void setDisplay(Main main, ObservableList<AgentRecord> rl) {
-        this.displayResults(rl);  // Display TableView Results
+    public void setDisplay2(Main main, ObservableList<AgentRecord> rl) {
         this.main = main;
+        this.displayResults(rl);  // Display TableView Results
     }
 
 }

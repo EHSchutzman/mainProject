@@ -1,7 +1,5 @@
 package Initialization;
 
-import DatabaseSearch.SearchController;
-import Form.FormController;
 import UserAccounts.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,8 +10,6 @@ public class ActionController {
 
     @FXML
     public Label currentUserLabel;
-
-
 
     public void displayLogin() {
         try {

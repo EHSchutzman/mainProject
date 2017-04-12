@@ -1,13 +1,13 @@
 package UserAccounts;
 
 
-import Initialization.*;
+import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 
@@ -85,6 +85,7 @@ public class AuthenticationController {
         isAuthentic.setPassword(pass);
         isAuthentic.authenticate();
         main.userData.setUserInformation(isAuthentic.getFoundUser());
+
 
         if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
             //@TODO If user is authenticated return to proper screen

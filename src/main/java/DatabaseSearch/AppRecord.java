@@ -13,22 +13,22 @@ public class AppRecord {
     private final SimpleStringProperty completedDate = new SimpleStringProperty("");
     private final SimpleStringProperty fancifulName = new SimpleStringProperty("");
     private final SimpleStringProperty brandName = new SimpleStringProperty("");
-    private final SimpleStringProperty originCode = new SimpleStringProperty("");
+    //private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
     private final SimpleStringProperty status = new SimpleStringProperty("");
 
     public AppRecord() {
-        this("", "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String originCode, String typeID, String status) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
         setCompletedDate(completedDate);
         setFancifulName(fancifulName);
         setBrandName(brandName);
-        setOriginCode(originCode);
+        //setOriginCode(originCode);
         setTypeID(typeID);
         setStatus(status);
     }
@@ -105,17 +105,17 @@ public class AppRecord {
         this.brandName.set(brandName);
     }
 
-    public String getOriginCode() {
-        return originCode.get();
-    }
-
-    public SimpleStringProperty originCodeProperty() {
-        return originCode;
-    }
-
-    public void setOriginCode(String originCode) {
-        this.originCode.set(originCode);
-    }
+//    public String getOriginCode() {
+//        return originCode.get();
+//    }
+//
+//    public SimpleStringProperty originCodeProperty() {
+//        return originCode;
+//    }
+//
+//    public void setOriginCode(String originCode) {
+//        this.originCode.set(originCode);
+//    }
 
     public String getTypeID() {
         return typeID.get();

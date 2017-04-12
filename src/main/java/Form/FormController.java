@@ -1,30 +1,45 @@
 package Form;
 
+import DBManager.DBManager;
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.util.ArrayList;
+
+//import com.sun.tools.javac.comp.Check;
 
 // TODO checkboxes and their corresponding lists from Form object and choiceboxes may be the source of errors
 public class FormController{
     public int currentPage;
 
     private Main main;
+    private Form form;
+
+    public DBManager DBManager = new DBManager();
 
     public void setDisplay(Main main) {
         this.main = main;
     }
 
+    public void setDisplay2(Main main, Form form) {
+        this.main = main;
+        this.form = form;
+        createAgentForm(form);
+    }
+
     @FXML
-    public Button mainPageButton;
+    public Button back_button;
 
     @FXML
     public Button nextButton;
 
     // Label Info
+    @FXML
+    public Label ttb_id_label;
     @FXML
     public TextField rep_id_text;
     @FXML
@@ -51,7 +66,7 @@ public class FormController{
     @FXML
     public TextField formula_text;
 
-    // TODO add label image thing (?)
+    // TODO add label image thing
     @FXML
     public TextField label_text;
 
@@ -59,7 +74,7 @@ public class FormController{
     @FXML
     public TextField vintage_year_text;
     @FXML
-    public TextField pH_level_text;
+    public TextField ph_level_text;
     @FXML
     public TextField grape_varietals_text;
     @FXML
@@ -105,6 +120,14 @@ public class FormController{
     public TextArea mailing_addressText;
 
     @FXML
+    public TextField mailing_name_text;
+    public TextField mailing_street_2_text;
+    public TextField mailing_street_1_text;
+    public TextField mailing_city_text;
+    public TextField mailing_zip_text;
+    public TextField mailing_country_text;
+    public TextField mailing_state_text;
+    @FXML
     public TextField phone_no_text;
     @FXML
     public TextField signature_text;
@@ -113,6 +136,8 @@ public class FormController{
     //@FXML
     //public TextField applicant_nameText;
 
+    @FXML
+    public TextArea address_text;
 
     //TTB Use (accept/reject)
     @FXML
@@ -120,8 +145,6 @@ public class FormController{
     @FXML
     public Button reject_button;
     //
-    @FXML
-    public DatePicker submit_date;
     @FXML
     public DatePicker approved_date;
     @FXML
@@ -132,24 +155,27 @@ public class FormController{
     public TextArea approval_comments_text;
     @FXML
     public Label statusLabel; //TODO add to UI
+    @FXML
+    public TextField submit_date;
 
-    public void createApplicantForm() {
 
-        statusLabel.setText(main.userData.form.getStatus());
+    public void createApplicantForm(Form form) {
 
-        // TODO make a random number generator
-        main.userData.form.setttb_id(main.userData.form.makeUniqueID());
-        main.userData.form.setrep_id(rep_id_text.getText());
-        main.userData.form.setpermit_no(permit_no_text.getText());
-        main.userData.form.setserial_no(serial_no_text.getText());
+        statusLabel.setText(form.getStatus());
+
+        // TODO make a random number generator and add a label to display ttbID
+        form.setttb_id(form.makeUniqueID());
+        form.setrep_id(rep_id_text.getText());
+        form.setpermit_no(permit_no_text.getText());
+        form.setserial_no(serial_no_text.getText());
 
         // Initialize Source ChoiceBox and get value
         source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-        main.userData.form.setSource((String)source_combobox.getValue());
+        form.setSource((String) source_combobox.getValue());
 
         // Initialize Alcohol Type ChoiceBox, get and set value
         alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        main.userData.form.setalcohol_type((String)alcohol_type_combobox.getValue());
+        form.setalcohol_type((String) alcohol_type_combobox.getValue());
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
@@ -160,8 +186,8 @@ public class FormController{
 
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
-        ArrayList<Boolean> tempBoolArray = main.userData.form.getapplication_type();
-        ArrayList<String> tempStrArray = main.userData.form.getapplication_type_text();
+        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
+        ArrayList<String> tempStrArray = form.getapplication_type_text();
         if (option_1_checkbox.isSelected()) {//choice 0
             tempBoolArray.set(0, true);
         } else if (option_2_checkbox.isSelected()) {
@@ -174,39 +200,38 @@ public class FormController{
             tempStrArray.set(3, option_4_text.getText());
             tempBoolArray.set(3, true);
         }
-        main.userData.form.setapplication_type(tempBoolArray);
-        main.userData.form.setapplication_type_text(tempStrArray);
+        form.setapplication_type(tempBoolArray);
+        form.setapplication_type_text(tempStrArray);
 
-        main.userData.form.setbrand_name(brand_name_text.getText());
-        main.userData.form.setfanciful_name(fanciful_name_text.getText());
-        main.userData.form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
-        main.userData.form.setFormula(formula_text.getText());
-        main.userData.form.setlabel_text(label_text.getText());
+        form.setbrand_name(brand_name_text.getText());
+        form.setfanciful_name(fanciful_name_text.getText());
+        form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
+        form.setFormula(formula_text.getText());
+        form.setlabel_text(label_text.getText());
         // Wines only
-        main.userData.form.setvintage_year(vintage_year_text.getText());
-        main.userData.form.setpH_level(Integer.parseInt(pH_level_text.getText()));
-        main.userData.form.setgrape_varietals(grape_varietals_text.getText());
-        main.userData.form.setwine_appellation(wine_appellation_text.getText());
+        form.setvintage_year(vintage_year_text.getText());
+        form.setpH_level(Integer.parseInt(ph_level_text.getText()));
+        form.setgrape_varietals(grape_varietals_text.getText());
+        form.setwine_appellation(wine_appellation_text.getText());
 
-        main.userData.form.setapplicant_street(applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
-        main.userData.form.setapplicant_city(applicant_city_text.getText());
-        main.userData.form.setapplicant_state(applicant_state_text.getText());
-        main.userData.form.setapplicant_zip(applicant_zip_text.getText());
-        main.userData.form.setapplicant_country(applicant_country_text.getText());
+        form.setapplicant_street(applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
+        form.setapplicant_city(applicant_city_text.getText());
+        form.setapplicant_state(applicant_state_text.getText());
+        form.setapplicant_zip(applicant_zip_text.getText());
+        form.setapplicant_country(applicant_country_text.getText());
 
         if (mailing_addressCBox.isSelected()) {
-            main.userData.form.setmailing_address(main.userData.form.getapplicant_street() + " " +
-                    main.userData.form.getapplicant_city() + " " + main.userData.form.getapplicant_state() +
-                    main.userData.form.getapplicant_zip() + " " + main.userData.form.getapplicant_country());
+            form.setmailing_address(form.getapplicant_street() + " " +
+                    form.getapplicant_city() + " " + form.getapplicant_state() +
+                    form.getapplicant_zip() + " " + form.getapplicant_country());
         } else {
-            main.userData.form.setmailing_address(mailing_addressText.getText());
+            form.setmailing_address(mailing_addressText.getText());
         }
 
-        main.userData.form.setSignature(signature_text.getText());
-        main.userData.form.setphone_no(phone_no_text.getText());
-        main.userData.form.setEmail(email_text.getText());
+        form.setSignature(signature_text.getText());
+        form.setphone_no(phone_no_text.getText());
+        form.setEmail(email_text.getText());
 
-        main.userData.form.setsubmit_date(Date.valueOf(submit_date.getValue()));
         //TODO reference actual applicant name below, if need be
 
         //main.userData.tempForm.setApplicantID(applicant_nameText.getText());
@@ -218,8 +243,7 @@ public class FormController{
         */
     }
 
-    // THIS FUNCTION HAS BEEN MOVED TO THE WORKFLOW CONTROLLER
-    /*
+
     public void createAgentForm(Form form){
 
         // Get Source info and set it to display for the Agent
@@ -233,7 +257,7 @@ public class FormController{
         }
 
         // Get Alcohol Type info and set it to display for the Agent
-        alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
+        //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
         if(form.getalcohol_type().equals("Beer")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
             alcohol_content_text.setPromptText("Beer");
@@ -252,6 +276,8 @@ public class FormController{
         option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
 
+        //@TODO: Whatever this shit is supposed to do
+        /*
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
         ArrayList<String> tempStrArray = form.getapplication_type_text();
         if (tempBoolArray.get(0) == true) {//choice 0
@@ -266,47 +292,49 @@ public class FormController{
             option_4_text.setPromptText(tempStrArray.get(3));
             option_4_checkbox.setSelected(true);
         }
-
-        rep_id_text.setPromptText(main.userData.form.getrep_id());
-        permit_no_text.setPromptText(main.userData.form.getpermit_no());
-        serial_no_text.setPromptText(main.userData.form.getserial_no());
-        brand_name_text.setPromptText(main.userData.form.getbrand_name());
-        fanciful_name_text.setPromptText(main.userData.form.getfanciful_name());
-        alcohol_content_text.setPromptText(String.valueOf(main.userData.form.getalcohol_content()));
-        formula_text.setPromptText(main.userData.form.getformula());
-        label_text.setPromptText(main.userData.form.getlabel_text());
-
+*/
+        rep_id_text.setText(form.getrep_id());
+        permit_no_text.setText(form.getpermit_no());
+        serial_no_text.setText(form.getserial_no());
+        brand_name_text.setText(form.getbrand_name());
+        fanciful_name_text.setText(form.getfanciful_name());
+        alcohol_content_text.setText(String.valueOf(form.getalcohol_content()));
+        formula_text.setText(form.getFormula());
+        label_text.setText(form.getlabel_text());
         // Wines only
-        vintage_year_text.setPromptText(form.getvintage_year());
-        pH_level_text.setPromptText(String.valueOf(form.getpH_level()));
-        grape_varietals_text.setPromptText(form.getgrape_varietals());
-        wine_appellation_text.setPromptText(form.getwine_appellation());
+        vintage_year_text.setText(form.getvintage_year());
+        ph_level_text.setText(String.valueOf(form.getpH_level()));
+        grape_varietals_text.setText(form.getgrape_varietals());
+        wine_appellation_text.setText(form.getwine_appellation());
 
         //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
-        applicant_street_1_text.setPromptText(form.getapplicant_street());
+        /*applicant_street_1_text.setPromptText(form.getapplicant_street());
         applicant_city_text.setPromptText(form.getapplicant_city());
         applicant_state_text.setPromptText(form.getapplicant_state());
         applicant_zip_text.setPromptText(form.getapplicant_zip());
-        applicant_country_text.setPromptText(form.getapplicant_country());
+        applicant_country_text.setPromptText(form.getapplicant_country());*/
 
-        mailing_addressText.setPromptText(form.getmailing_address());
+        address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+
+        //mailing_addressText.setPromptText(form.getmailing_address());
 
         signature_text.setPromptText(form.getSignature());
         phone_no_text.setPromptText(form.getphone_no());
         email_text.setPromptText(form.getEmail());
 
-        submit_date.setValue(form.getsubmit_date().toLocalDate());
+        //@TODO: Put on UI
+        //submit_date.setText(form.getsubmit_date().toString());
 
         //Agent Headers
-        form.setapproved_date(Date.valueOf(approved_date.getValue()));
+        //form.setapproved_date(Date.valueOf(approved_date.getValue()));
         //TODO reference agent name if needed
 
-        form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
-        form.setapproval_comments(approval_comments_text.getText());
+        //form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
+        //form.setapproval_comments(approval_comments_text.getText());
     }
-    */
 
-    // Probably outdated method
+
+    // TODO delete probably outdated method
     @FXML
     public void startApplication(){
         try{
@@ -327,8 +355,165 @@ public class FormController{
 
     @FXML
     public void submitForm() {
-        Form submit = new Form();
+
+//        String ttb_id = ttb_id_label.getText();
+
+        String rep_id = rep_id_text.getText();
+        String permit_no = permit_no_text.getText();
+        String serial_no = serial_no_text.getText();
+
+        String source = (String) source_combobox.getValue();
+
+        String alcohol_type = (String) alcohol_type_combobox.getValue();
+
+        // Determine which checkboxes were selected
+        // Make a temporary array to store the boolean values set them to the Form object, same with string array
+        ArrayList<Boolean> application_type = new ArrayList<Boolean>();
+        for (int i = 0; i < 5; i++) {
+            application_type.add(false);
+        }
+        ArrayList<String> application_type_text = new ArrayList<String>();
+        for (int i = 0; i < 5; i++) {
+            application_type_text.add("hello");
+        }
+        if (option_1_checkbox.isSelected()) {//choice 0
+            application_type.set(0, true);
+        } else if (option_2_checkbox.isSelected()) {
+            application_type_text.set(1, option_2_text.getText());
+            application_type.set(1, true);
+        } else if (option_3_checkbox.isSelected()) {
+            application_type_text.set(2, option_3_text.getText());
+            application_type.set(2, true);
+        } else if (option_4_checkbox.isSelected()) {
+            application_type_text.set(3, option_4_text.getText());
+            application_type.set(3, true);
+        }
+
+        String brand_name = brand_name_text.getText();
+        String fanciful_name = (fanciful_name_text.getText());
+        Double alcohol_content = (Double.parseDouble(alcohol_content_text.getText()));
+        String formula = (formula_text.getText());
+        String labeltext = label_text.getText();
+
+        // Wines only
+        String vintage_year = (vintage_year_text.getText());
+        int pH_level = (Integer.parseInt(ph_level_text.getText()));
+        String grape_varietals = (grape_varietals_text.getText());
+        String wine_appellation = (wine_appellation_text.getText());
+
+        String applicant_street = (applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
+        String applicant_city = (applicant_city_text.getText());
+        String applicant_state = (applicant_state_text.getText());
+        String applicant_zip = (applicant_zip_text.getText());
+        String applicant_country = (applicant_country_text.getText());
+
+        String mailing_address;
+        if (mailing_addressCBox.isSelected()) {
+            mailing_address = (applicant_street + " " +
+                    applicant_city + " " + applicant_state +
+                    applicant_zip + " " + applicant_country);
+        } else {
+            mailing_address = (mailing_name_text.getText() + mailing_street_1_text.getText()
+                    + mailing_street_2_text.getText() + mailing_city_text.getText() + mailing_zip_text.getText()
+                    + mailing_country_text.getText() + mailing_state_text.getText());
+        }
+
+        String signature = (signature_text.getText());
+        String phone_no = (phone_no_text.getText());
+        String email = (email_text.getText());
+        Date submitdate = new Date(System.currentTimeMillis());
+
+        //TODO Update image when adding image display things
+        Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
+                brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
+                applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
+                labeltext, "", submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
+                vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
+                null);
+
+        DBManager.persistForm(form);
+
         //TODO return to applicant's application list page
+    }
+
+    @FXML
+    public void submitRevisedForm() {
+        String status = statusLabel.getText();
+
+        String ttb_id = ttb_id_label.getText();
+        String rep_id = rep_id_text.getText();
+        String permit_no = permit_no_text.getText();
+        String serial_no = serial_no_text.getText();
+
+        String source = (String) source_combobox.getValue();
+
+        String alcohol_type = (String) alcohol_type_combobox.getValue();
+
+        // Determine which checkboxes were selected
+        // Make a temporary array to store the boolean values set them to the Form object, same with string array
+        ArrayList<Boolean> application_type = new ArrayList<Boolean>();
+        for (int i = 0; i < 5; i++) {
+            application_type.add(false);
+        }
+        ArrayList<String> application_type_text = new ArrayList<String>();
+        for (int i = 0; i < 5; i++) {
+            application_type_text.add("hello");
+        }
+        if (option_1_checkbox.isSelected()) {//choice 0
+            application_type.set(0, true);
+        } else if (option_2_checkbox.isSelected()) {
+            application_type_text.set(1, option_2_text.getText());
+            application_type.set(1, true);
+        } else if (option_3_checkbox.isSelected()) {
+            application_type_text.set(2, option_3_text.getText());
+            application_type.set(2, true);
+        } else if (option_4_checkbox.isSelected()) {
+            application_type_text.set(3, option_4_text.getText());
+            application_type.set(3, true);
+        }
+
+        String brand_name = brand_name_text.getText();
+        String fanciful_name = (fanciful_name_text.getText());
+        Double alcohol_content = (Double.parseDouble(alcohol_content_text.getText()));
+        String formula = (formula_text.getText());
+        String labeltext = label_text.getText();
+
+        // Wines only
+        String vintage_year = (vintage_year_text.getText());
+        int pH_level = (Integer.parseInt(ph_level_text.getText()));
+        String grape_varietals = (grape_varietals_text.getText());
+        String wine_appellation = (wine_appellation_text.getText());
+
+        String applicant_street = (applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
+        String applicant_city = (applicant_city_text.getText());
+        String applicant_state = (applicant_state_text.getText());
+        String applicant_zip = (applicant_zip_text.getText());
+        String applicant_country = (applicant_country_text.getText());
+
+        String mailing_address;
+        if (mailing_addressCBox.isSelected()) {
+            mailing_address = (applicant_street + " " +
+                    applicant_city + " " + applicant_state +
+                    applicant_zip + " " + applicant_country);
+        } else {
+            mailing_address = (mailing_addressText.getText());
+        }
+
+        String signature = (signature_text.getText());
+        String phone_no = (phone_no_text.getText());
+        String email = (email_text.getText());
+
+
+        Date date = new Date(0);
+        Date submitdate = new Date(System.currentTimeMillis());
+        Form form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type,
+                brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
+                applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
+                labeltext, "", submitdate, signature, status, "agent_id", "applicant_id", date, date,
+                vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
+                "approval_comments");
+
+        DBManager.updateForm(form);
     }
 
     @FXML
@@ -351,7 +536,7 @@ public class FormController{
 
     //TODO literally the same as returnToMainPage but to their respective lists of applications
     @FXML
-    public void Back(){
+    public void back() {
         try{
             if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 //set display to list of Applicant applications
@@ -367,5 +552,59 @@ public class FormController{
         }
     }
 
+
+    @FXML
+    public void acceptApplication() {
+        // Most of this can probably be taken from FormController
+
+        long currentDate = System.currentTimeMillis();
+        long expirationDate = currentDate + 157784630000L;  // Expires in 5 years
+
+        Date accepted = new Date(currentDate);
+        Date expiration = new Date(expirationDate);
+
+        form.setStatus("Accepted");
+        form.setapproved_date(accepted);
+        form.setexpiration_date(expiration);
+        form.setapproval_comments(approval_comments_text.getText());
+        //application.setAgentID();
+
+        // UPDATE query using DB Manager to change status field to 'Accepted'
+        // Agent Name field, expiration date field
+        DBManager.updateForm(form);
+
+
+        // Close application
+        this.closeApplication();
+    }
+
+    @FXML
+    public void rejectApplication() {
+        // Most of this can probably be taken from FormController
+
+        form.setStatus("Rejected");
+        form.setapproval_comments(approval_comments_text.getText());
+
+        // UPDATE query using DB Manager to change status field to 'Rejected'
+        // Agent Name field, expiration date field
+        DBManager.updateForm(form);
+
+        // Close application
+        this.closeApplication();
+    }
+
+    @FXML
+    public void closeApplication() {
+
+        // Close the window
+        Stage stage = (Stage) back_button.getScene().getWindow();
+        stage.close();
+
+        //@TODO: Refresh the TableView's contents
+        // Update our resultset???
+        //(this.main, resultsList);
+        //resultsTable.refresh();
+
+    }
 
 }

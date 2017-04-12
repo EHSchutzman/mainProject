@@ -1,6 +1,5 @@
 package Initialization;
 
-import AgentWorkflow.AgentRecord;
 import AgentWorkflow.WorkflowController;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
@@ -139,15 +138,20 @@ public class Main extends Application {
     }
     public void displaySearchResultsPage(ObservableList<AppRecord> list) throws Exception{
         try {
+            //System.out.println("Hiiiiii");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("searchResultsPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
 
-
             SearchController controller = loader.getController();
             controller.setDisplay(this);
+
+
+//            for(AppRecord a : list){
+//                System.out.println(a.getFormID());
+//            }
 
             controller.resultsTable.setItems(list);
 
@@ -166,17 +170,16 @@ public class Main extends Application {
             primaryStage.setTitle("Workflow Results");
             primaryStage.getScene().setRoot(page);
 
-
             WorkflowController controller = loader.getController();
             controller.setDisplay(this);
-
+/*
             ObservableList<AgentRecord> one = FXCollections.observableArrayList();
             one.add(new AgentRecord("Hey", "What's", "Up", "Hello"));
             one.add(new AgentRecord("Saw", "Yo", "Pretty", "Ass"));
             one.add(new AgentRecord("Soon'", "As", "You", "Came"));
 
             controller.resultsTable.setItems(one);
-
+*/
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -185,19 +188,32 @@ public class Main extends Application {
     // Currently attempting to open in a new page
     public void displayWorkflowApplication(Form application) throws Exception{
         try {
+
             Stage stage = new Stage();
             stage.setTitle("Workflow Results");
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            AnchorPane page = loader.load();
+            AnchorPane newWindow = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+            //stage.setFullScreen(true);
+
             //stage.setTitle("Workflow Results");
-            stage.getScene().setRoot(page);
+            //System.out.println(stage.getScene());
+            //System.out.println("go fuck yourself");
+            stage.getScene().setRoot(newWindow);
             stage.show();
 
+            FormController controller = loader.getController();
 
-            WorkflowController controller = loader.getController();
-            controller.setDisplay(this);
+            //WorkflowController controller = loader.getController();
+            controller.setDisplay2(this, application);
 
             //@TODO: Display application details on page
             //controller.resultsTable.setItems(list);
