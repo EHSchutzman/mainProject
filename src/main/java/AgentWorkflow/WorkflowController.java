@@ -3,13 +3,11 @@ package AgentWorkflow;
 import DBManager.DBManager;
 import Form.Form;
 import Initialization.Main;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TablePosition;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
@@ -26,20 +24,15 @@ public class WorkflowController {
     private Form application = new Form();
     public DBManager db = new DBManager();
 
-    // ----- FXML for Workflow results page -----
+    // ----- FXML for Workflow results page ----- //
     @FXML
     private Button closeButton;
 
     @FXML
     public TableView<AgentRecord> resultsTable; // Holds 10 batch-pulled assignments for the Agent
 
-    // ----- FXML for Workflow application page -----
-
-
-
     public WorkflowController() {
     }
-
 
     @FXML
     public void displayResults() {
@@ -49,37 +42,30 @@ public class WorkflowController {
             // Display batch in table
 
         // This block monitors the user's interaction with the tableview,
-        //  determining when they select a row
-        resultsTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                //Check whether item is selected and set value of selected item to Label
-                if (resultsTable.getSelectionModel().getSelectedItem() != null) {
-                    TableView.TableViewSelectionModel selectionModel = resultsTable.getSelectionModel();
-                    ObservableList selectedCells = selectionModel.getSelectedCells();
-                    TablePosition tablePosition = (TablePosition) selectedCells.get(0);
-                    Object val = tablePosition.getTableColumn().getCellData(newValue);
-                    System.out.println("Selected Value" + val);
+        //  determining when they double-click a row
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AgentRecord> row = new TableRow<>();
 
-                    AgentRecord viewRecord = resultsTable.getSelectionModel().getSelectedItem();
+            // Open application if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AgentRecord rowData = row.getItem();
 
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
 
-                    //
+                    // Get form form DB using selected row's ID
                     try {
-                        Form viewForm = db.findSingleForm(viewRecord.getIDNo(), fieldList);
+                        Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
                         main.displayWorkflowApplication(viewForm);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            }
+            });
+            return row;
         });
-
-
-        //setDisplay(this.main, resultsList);
 
     }
 

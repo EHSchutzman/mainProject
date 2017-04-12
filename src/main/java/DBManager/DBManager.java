@@ -157,9 +157,9 @@ public class DBManager {
         //I think that appending these tables is going to get rid of the beer applications but ????
 
         if (user.getAuthenticationLevel() == 1) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
+            query = queryBuilder.createSelectStatement("FORMS, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
+            query = queryBuilder.createSelectStatement("FORMS, WINEONLY", "*", ("agent_id= '" + user.getUid()));
 
         }
         try {
@@ -245,7 +245,7 @@ public class DBManager {
 
     public Form findSingleForm(String ttbID, ArrayList<String> fields) {
          QueryBuilder queryBuilder = new QueryBuilder();
-         String query = queryBuilder.createSelectStatement("FORM", "*", "ttb_id=" + ttbID);
+        String query = queryBuilder.createSelectStatement("APP.FORMS", "*", "ttb_id=" + ttbID);
          try {
              Connection connection = TTB_database.connect();
              Statement stmt = connection.createStatement();
