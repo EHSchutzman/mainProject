@@ -60,9 +60,9 @@
         <TextField fx:id="rep_id_text" layoutX="634.0" layoutY="393.0" promptText="Rep. ID. No." />
         <TextField fx:id="permit_no_text" layoutX="634.0" layoutY="432.0" promptText="Basic Permit" />
         <ComboBox fx:id="source_combobox" editable="true" layoutX="634.0" layoutY="470.0" prefHeight="27.0"
-                  prefWidth="243.0" promptText="Choose Source of Product"/>
+                  prefWidth="243.0"/>
         <ComboBox fx:id="alcohol_type_combobox" editable="true" layoutX="635.0" layoutY="508.0" prefHeight="27.0"
-                  prefWidth="243.0" promptText="Choose Alcohol Type"/>
+                  prefWidth="243.0"/>
         <TextField fx:id="brand_name_text" layoutX="1121.0" layoutY="124.0" promptText="Brand Name" />
         <TextField fx:id="fanciful_name_text" layoutX="1121.0" layoutY="162.0" promptText="Fanciful Name (If Any)"/>
         <TextField fx:id="serial_no_text" layoutX="1121.0" layoutY="200.0" promptText="Serial Number"/>
@@ -95,7 +95,8 @@
         <TextField fx:id="ph_level_text" layoutX="1128.0" layoutY="448.0" promptText="pH Level" />
         <TextField fx:id="grape_varietals_text" layoutX="1128.0" layoutY="481.0" promptText="Grape Varietal(s)"/>
         <TextField fx:id="wine_appellation_text" layoutX="1128.0" layoutY="521.0" promptText="Wine Appellation"/>
-        <Button fx:id="browse_button" layoutX="460.0" layoutY="829.0" mnemonicParsing="false" text="Browse for Image">
+        <Button fx:id="browse_button" layoutX="460.0" layoutY="829.0" mnemonicParsing="false"
+                onMouseClicked="#browseForFile" text="Browse for Image">
             <font>
                 <Font size="18.0"/>
             </font>

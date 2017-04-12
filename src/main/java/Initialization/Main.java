@@ -105,6 +105,28 @@ public class Main extends Application {
     }
 
 
+    public void setDisplayToReviseForm(Form form) throws Exception {
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("reviseApplication.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Form Page");
+            primaryStage.getScene().setRoot(page);
+
+            FormController controller = loader.getController();
+            controller.ReviewDisplay(this, form);
+            controller.source_combobox.setPromptText("Select Alcohol Soruce");
+            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
     public void setDisplayToApply() throws Exception {
 
         try {
@@ -116,6 +138,10 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
+            controller.source_combobox.setPromptText("Select Alcohol Soruce");
+            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,29 +187,7 @@ public class Main extends Application {
         }
     }
 
-    //public void displayWorkflowResultsPage(ObservableList<ObservableList<String>> list) throws Exception{
-    public void displayWorkflowResultsPage() throws Exception{
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Workflow Results");
-            primaryStage.getScene().setRoot(page);
 
-            WorkflowController controller = loader.getController();
-            controller.setDisplay(this);
-/*
-            ObservableList<AgentRecord> one = FXCollections.observableArrayList();
-            one.add(new AgentRecord("Hey", "What's", "Up", "Hello"));
-            one.add(new AgentRecord("Saw", "Yo", "Pretty", "Ass"));
-            one.add(new AgentRecord("Soon'", "As", "You", "Came"));
-
-            controller.resultsTable.setItems(one);
-*/
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     // Currently attempting to open in a new page
     public void displayWorkflowApplication(Form application) throws Exception{
@@ -223,7 +227,7 @@ public class Main extends Application {
         }
     }
 
-    public void displayCreateUser(){
+    public void displayCreateUser() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("createUser.fxml"));
@@ -233,9 +237,9 @@ public class Main extends Application {
 
             AuthenticationController controller = loader.getController();
             controller.setDisplay(this);
-            controller.userType.setItems(FXCollections.observableArrayList("Default User", "Applicant", "Agent", "Super Agent"));
-            controller.userType.setPromptText("Select Type of User");
+            controller.user_type_combobox.setPromptText("Select Type of User");
 
+            controller.user_type_combobox.getItems().addAll(FXCollections.observableArrayList("Default User", "Applicant", "Agent", "Super Agent"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -362,7 +366,7 @@ public class Main extends Application {
         }
     }
 
-    public void setDisplayToApplicantApply() {
+    public void setDisplayToApplicantApply() throws Exception {
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -372,20 +376,65 @@ public class Main extends Application {
             primaryStage.setTitle("Applicant Application Page");
             primaryStage.getScene().setRoot(page);
 
-
             FormController controller = loader.getController();
-            controller.setDisplay(this);
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Distilled Spirits",
-                    "Malt Beverage", "Wine"));
-            controller.alcohol_type_combobox.setPromptText("Please Select Alcohol Type");
 
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Domestic","Imported"));
-            controller.source_combobox.setPromptText("Please Select Alcohol Source");
+            controller.ApplyDisplay(this);
+            controller.source_combobox.setPromptText("Select Alcohol Soruce");
+            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    //public void displayWorkflowResultsPage(ObservableList<ObservableList<String>> list) throws Exception{
+    public void displayWorkflowResultsPage() throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Workflow Results");
+            primaryStage.getScene().setRoot(page);
+
+            WorkflowController controller = loader.getController();
+            controller.setDisplay(this);
+/*
+            ObservableList<AgentRecord> one = FXCollections.observableArrayList();
+            one.add(new AgentRecord("Hey", "What's", "Up", "Hello"));
+            one.add(new AgentRecord("Saw", "Yo", "Pretty", "Ass"));
+            one.add(new AgentRecord("Soon'", "As", "You", "Came"));
+
+            controller.resultsTable.setItems(one);
+*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayApplicantFormList() throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("applicationStatusForApplicant.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Applicant Forms");
+            primaryStage.getScene().setRoot(page);
+
+            FormController controller = loader.getController();
+            controller.ReviseDisplay(this);
+/*
+            ObservableList<AgentRecord> one = FXCollections.observableArrayList();
+            one.add(new AgentRecord("Hey", "What's", "Up", "Hello"));
+            one.add(new AgentRecord("Saw", "Yo", "Pretty", "Ass"));
+            one.add(new AgentRecord("Soon'", "As", "You", "Came"));
+
+            controller.resultsTable.setItems(one);
+*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

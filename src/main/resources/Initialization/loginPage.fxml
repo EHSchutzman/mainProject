@@ -16,7 +16,7 @@
          <font>
             <Font size="24.0" />
          </font></TextField>
-      <TextField fx:id="password" layoutX="351.0" layoutY="199.0" promptText="Password">
+       <TextField fx:id="password_text" layoutX="351.0" layoutY="199.0" promptText="Password">
          <font>
             <Font size="24.0" />
          </font></TextField>

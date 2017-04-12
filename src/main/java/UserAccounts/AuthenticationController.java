@@ -20,16 +20,19 @@ public class AuthenticationController {
     private Main main;
     @FXML
     public TextField username;
-    public TextField password;
+    public TextField password_text;
     public Button loginButton;
     @FXML
     public TextField userID;
-    public TextField email;
-    public TextField loginName;
+    public TextField email_text;
+    public TextField login_name_text;
     public TextField fullName;
-    public TextField phoneNumber;
+    public TextField phone_number_text;
+    public TextField last_name_text;
+    public TextField middle_initial_text;
+    public TextField first_name_text;
     @FXML
-    public ComboBox<String> userType;
+    public ComboBox<String> user_type_combobox;
 
     @FXML
     public Label errorLabel;
@@ -38,9 +41,9 @@ public class AuthenticationController {
 
         try {
             main.displayCreateUser();
-//            userType.getItems().removeAll();
-//            userType.getItems().addAll("User", "Agent", "Applicant");
-//            userType.getSelectionModel().select("Option B");
+//            user_type_combobox.getItems().removeAll();
+//            user_type_combobox.getItems().addAll("User", "Agent", "Applicant");
+//            user_type_combobox.getSelectionModel().select("Option B");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,13 +64,26 @@ public class AuthenticationController {
     @FXML
     public void createUserAction() {
 
-        String userIDText = userID.getText();
-        String emailText = email.getText();
-        String loginNameText = loginName.getText();
-        String passwordText = password.getText();
-        String fullNameText = fullName.getText();
-        String phoneNum = phoneNumber.getText();
-        isAuthentic.createUser(userIDText, fullNameText, loginNameText, passwordText, emailText, phoneNum);
+        String emailText = email_text.getText();
+        String loginNameText = login_name_text.getText();
+        String passwordText = password_text.getText();
+        String phoneNum = phone_number_text.getText();
+        String firstName = first_name_text.getText();
+        String middleIn = middle_initial_text.getText();
+        String lastname = last_name_text.getText();
+        String combo = user_type_combobox.getValue();
+        int authLvl;
+        if (combo.equals("Default User")) {
+            authLvl = 0;
+        } else if (combo.equals("Applicant")) {
+            authLvl = 1;
+        } else if (combo.equals("Agent")) {
+            authLvl = 2;
+        } else {
+            authLvl = 3;
+        }
+
+        isAuthentic.createUser(firstName, middleIn, lastname, loginNameText, passwordText, emailText, phoneNum, authLvl);
         try {
             main.setDisplayToLogin();
         } catch (Exception e) {
@@ -78,7 +94,7 @@ public class AuthenticationController {
     @FXML
     public void loginAction() {
         String name = username.getText();
-        String pass = password.getText();
+        String pass = password_text.getText();
 
 
         isAuthentic.setUsername(name);
@@ -121,7 +137,7 @@ public class AuthenticationController {
 
     public void clearFields(){
         username.clear();
-        password.clear();
+        password_text.clear();
     }
     public void setDisplay(Main main) {
         this.main = main;

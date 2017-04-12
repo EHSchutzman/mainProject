@@ -40,7 +40,7 @@ public class ActionController {
 
     public void displayApplicationPage() {
         try {
-            main.setDisplayToApply();
+            main.setDisplayToApplicantApply();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,6 +73,19 @@ public class ActionController {
 
     @FXML
     public void displayApplicantApplicationPage(){
-        main.setDisplayToApplicantApply();
+        try {
+            main.setDisplayToApplicantApply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void displayApplicantFormsPage() {
+        try {
+            main.displayApplicantFormList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

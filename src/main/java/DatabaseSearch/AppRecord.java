@@ -16,12 +16,13 @@ public class AppRecord {
     //private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
     private final SimpleStringProperty status = new SimpleStringProperty("");
+    private final SimpleStringProperty applicantID = new SimpleStringProperty("");
 
     public AppRecord() {
-        this("", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status, String applicantID) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
@@ -31,6 +32,7 @@ public class AppRecord {
         //setOriginCode(originCode);
         setTypeID(typeID);
         setStatus(status);
+        setApplicantID(applicantID);
     }
 
     public String getFormID() {
@@ -139,5 +141,17 @@ public class AppRecord {
 
     public void setStatus(String status) {
         this.status.set(status);
+    }
+
+    public String getApplicantID() {
+        return applicantID.get();
+    }
+
+    public SimpleStringProperty applicantIDProperty() {
+        return applicantID;
+    }
+
+    public void setApplicantID(String applicantID) {
+        this.applicantID.set(applicantID);
     }
 }

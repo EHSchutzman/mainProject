@@ -271,16 +271,16 @@ public class DBManager {
     }
 
 
-    public ObservableList<ObservableList<String>> findForms(User user) {
+    public ObservableList<AppRecord> findForms(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = "";
-        ObservableList<ObservableList<String>> ol = FXCollections.observableArrayList();
+        ObservableList<AppRecord> ol = FXCollections.observableArrayList();
         //I think that appending these tables is going to get rid of the beer applications but ????
 
         if (user.getAuthenticationLevel() == 1) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("applicant_id=" + user.getUid() + "', FORM.ttb_id = WINEONLY.ttb_id"));
+            query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("applicant_id= \'" + user.getUid() + "\'"));
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
-            query = queryBuilder.createSelectStatement("FORM, WINEONLY", "*", ("agent_id= '" + user.getUid()));
+            query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("agent_id= \'" + user.getUid() + "\'"));
 
         }
         try {
@@ -289,6 +289,7 @@ public class DBManager {
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
                 ObservableList<String> dataList = FXCollections.observableArrayList();
+                AppRecord application = new AppRecord();
                 String ttb_id = rs.getString("TTB_ID");
                 String rep_id = rs.getString("REP_ID");
                 String permit_no = rs.getString("PERMIT_NO");
@@ -325,6 +326,18 @@ public class DBManager {
                     dataList.add(grape_varietals);
                     dataList.add(wine_appellation);
                 }*/
+
+                application.setFormID(ttb_id);
+                application.setApplicantID(applicant_id);
+                application.setBrandName(brand_name);
+                application.setFancifulName(fanciful_name);
+                application.setCompletedDate(approved_date);
+                application.setSerialNo(serial_no);
+                application.setPermitNo(permit_no);
+                application.setStatus(status);
+                application.setTypeID(alcohol_type);
+
+
                 dataList.add(ttb_id);
                 dataList.add(rep_id);
                 dataList.add(permit_no);
@@ -352,7 +365,7 @@ public class DBManager {
                 dataList.add(approved_date);
                 dataList.add(expiration_date);
 
-                ol.add(dataList);
+                ol.add(application);
             }
             rs.close();
             stmt.close();

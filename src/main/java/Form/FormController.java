@@ -1,14 +1,29 @@
 package Form;
 
 import DBManager.DBManager;
+import DatabaseSearch.AppRecord;
 import Initialization.Main;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 //import com.sun.tools.javac.comp.Check;
 
@@ -20,9 +35,26 @@ public class FormController{
     private Form form;
 
     public DBManager DBManager = new DBManager();
+    public TableView<AppRecord> resultsTable;
 
     public void setDisplay(Main main) {
         this.main = main;
+    }
+
+    public void ApplyDisplay(Main main) {
+        this.main = main;
+        //createApplicantForm();
+    }
+
+    public void ReviseDisplay(Main main) {
+        this.main = main;
+        displayApplicantResults();
+    }
+
+    public void ReviewDisplay(Main main, Form form) {
+        this.main = main;
+        this.form = form;
+        createReviseForm(form);
     }
 
     public void setDisplay2(Main main, Form form) {
@@ -115,7 +147,7 @@ public class FormController{
     public TextField applicant_country_text;
     //Mailing Address
     @FXML
-    public CheckBox mailing_addressCBox;
+    public RadioButton sameAsApplicantButton;
     @FXML
     public TextArea mailing_addressText;
 
@@ -157,11 +189,14 @@ public class FormController{
     public Label statusLabel; //TODO add to UI
     @FXML
     public TextField submit_date;
+    public ImageView label_image;
 
 
-    public void createApplicantForm(Form form) {
+    public void createApplicantForm() {
 
-        statusLabel.setText(form.getStatus());
+        Form form = new Form();
+
+        //statusLabel.setText(form.getStatus());
 
         // TODO make a random number generator and add a label to display ttbID
         form.setttb_id(form.makeUniqueID());
@@ -205,12 +240,12 @@ public class FormController{
 
         form.setbrand_name(brand_name_text.getText());
         form.setfanciful_name(fanciful_name_text.getText());
-        form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
+        //form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
         form.setFormula(formula_text.getText());
         form.setlabel_text(label_text.getText());
         // Wines only
         form.setvintage_year(vintage_year_text.getText());
-        form.setpH_level(Integer.parseInt(ph_level_text.getText()));
+        //form.setpH_level(Integer.parseInt(ph_level_text.getText()));
         form.setgrape_varietals(grape_varietals_text.getText());
         form.setwine_appellation(wine_appellation_text.getText());
 
@@ -220,7 +255,7 @@ public class FormController{
         form.setapplicant_zip(applicant_zip_text.getText());
         form.setapplicant_country(applicant_country_text.getText());
 
-        if (mailing_addressCBox.isSelected()) {
+        if (sameAsApplicantButton.isSelected()) {
             form.setmailing_address(form.getapplicant_street() + " " +
                     form.getapplicant_city() + " " + form.getapplicant_state() +
                     form.getapplicant_zip() + " " + form.getapplicant_country());
@@ -245,6 +280,7 @@ public class FormController{
 
 
     public void createAgentForm(Form form){
+
 
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
@@ -322,6 +358,107 @@ public class FormController{
         phone_no_text.setPromptText(form.getphone_no());
         email_text.setPromptText(form.getEmail());
 
+        try {
+            File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
+            System.out.println("here");
+            String localURL = file.toURI().toURL().toString();
+            System.out.println("here now");
+            Image image = new Image(localURL);
+            System.out.println("here now now");
+            label_image.setImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //@TODO: Put on UI
+        //submit_date.setText(form.getsubmit_date().toString());
+
+        //Agent Headers
+        //form.setapproved_date(Date.valueOf(approved_date.getValue()));
+        //TODO reference agent name if needed
+
+        //form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
+        //form.setapproval_comments(approval_comments_text.getText());
+    }
+
+    public void createReviseForm(Form form) {
+
+        // Get Source info and set it to display for the Agent
+        //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
+        if (form.getSource().equals("Imported")) {
+            source_combobox.getSelectionModel().select(2);
+            //source_text.setPromptText("Imported");
+        } else if (form.getSource().equals("Domestic")) {
+            source_combobox.getSelectionModel().select(1);
+            //source_text.setPromptText("Domestic");
+        }
+
+        // Get Alcohol Type info and set it to display for the Agent
+        //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
+        if (form.getalcohol_type().equals("Beer")) {
+            alcohol_type_combobox.getSelectionModel().select(1);
+            //alcohol_content_text.setPromptText("Beer");
+        } else if (form.getalcohol_type().equals("Wine")) {
+            alcohol_type_combobox.getSelectionModel().select(2);
+            //alcohol_content_text.setPromptText("Wine");
+        } else if (form.getalcohol_type().equals("Distilled Spirit")) {
+            alcohol_type_combobox.getSelectionModel().select(3);
+            //alcohol_content_text.setPromptText("Distilled Spirit");
+        }
+
+        // Initialize checkboxes
+        // Type of Application Check Boxes and their corresponding TextFields
+        option_1_checkbox = new CheckBox("Certificate of Label Approval");
+        option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");
+        option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
+        option_4_checkbox = new CheckBox("Resubmission After Rejection");
+
+        //@TODO: Whatever this shit is supposed to do
+        /*
+        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
+        ArrayList<String> tempStrArray = form.getapplication_type_text();
+        if (tempBoolArray.get(0) == true) {//choice 0
+            option_1_checkbox.setSelected(true);
+        } else if (tempBoolArray.get(1) == true) {
+            option_2_text.setPromptText(tempStrArray.get(1));
+            option_2_checkbox.setSelected(true);
+        } else if (tempBoolArray.get(2) == true) {
+            option_3_text.setPromptText(tempStrArray.get(2));
+            option_3_checkbox.setSelected(true);
+        } else if (tempBoolArray.get(3) == true) {
+            option_4_text.setPromptText(tempStrArray.get(3));
+            option_4_checkbox.setSelected(true);
+        }
+*/
+        rep_id_text.setText(form.getrep_id());
+        permit_no_text.setText(form.getpermit_no());
+        serial_no_text.setText(form.getserial_no());
+        brand_name_text.setText(form.getbrand_name());
+        fanciful_name_text.setText(form.getfanciful_name());
+        alcohol_content_text.setText(String.valueOf(form.getalcohol_content()));
+        formula_text.setText(form.getFormula());
+        label_text.setText(form.getlabel_text());
+        // Wines only
+        vintage_year_text.setText(form.getvintage_year());
+        ph_level_text.setText(String.valueOf(form.getpH_level()));
+        grape_varietals_text.setText(form.getgrape_varietals());
+        wine_appellation_text.setText(form.getwine_appellation());
+
+        //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
+        /*applicant_street_1_text.setPromptText(form.getapplicant_street());
+        applicant_city_text.setPromptText(form.getapplicant_city());
+        applicant_state_text.setPromptText(form.getapplicant_state());
+        applicant_zip_text.setPromptText(form.getapplicant_zip());
+        applicant_country_text.setPromptText(form.getapplicant_country());*/
+
+        address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+
+        //mailing_addressText.setPromptText(form.getmailing_address());
+
+        signature_text.setPromptText(form.getSignature());
+        phone_no_text.setPromptText(form.getphone_no());
+        email_text.setPromptText(form.getEmail());
+
+
         //@TODO: Put on UI
         //submit_date.setText(form.getsubmit_date().toString());
 
@@ -355,7 +492,7 @@ public class FormController{
 
     @FXML
     public void submitForm() {
-
+        int pH_level;
 //        String ttb_id = ttb_id_label.getText();
 
         String rep_id = rep_id_text.getText();
@@ -397,7 +534,11 @@ public class FormController{
 
         // Wines only
         String vintage_year = (vintage_year_text.getText());
-        int pH_level = (Integer.parseInt(ph_level_text.getText()));
+        if (source.equals("Wine")) {
+            pH_level = (Integer.parseInt(ph_level_text.getText()));
+        } else {
+            pH_level = -1;
+        }
         String grape_varietals = (grape_varietals_text.getText());
         String wine_appellation = (wine_appellation_text.getText());
 
@@ -408,7 +549,7 @@ public class FormController{
         String applicant_country = (applicant_country_text.getText());
 
         String mailing_address;
-        if (mailing_addressCBox.isSelected()) {
+        if (sameAsApplicantButton.isSelected()) {
             mailing_address = (applicant_street + " " +
                     applicant_city + " " + applicant_state +
                     applicant_zip + " " + applicant_country);
@@ -423,11 +564,12 @@ public class FormController{
         String email = (email_text.getText());
         Date submitdate = new Date(System.currentTimeMillis());
 
+
         //TODO Update image when adding image display things
         Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, "", submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
+                labeltext, main.userData.form.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
@@ -438,17 +580,6 @@ public class FormController{
 
     @FXML
     public void submitRevisedForm() {
-        String status = statusLabel.getText();
-
-        String ttb_id = ttb_id_label.getText();
-        String rep_id = rep_id_text.getText();
-        String permit_no = permit_no_text.getText();
-        String serial_no = serial_no_text.getText();
-
-        String source = (String) source_combobox.getValue();
-
-        String alcohol_type = (String) alcohol_type_combobox.getValue();
-
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
         ArrayList<Boolean> application_type = new ArrayList<Boolean>();
@@ -491,7 +622,7 @@ public class FormController{
         String applicant_country = (applicant_country_text.getText());
 
         String mailing_address;
-        if (mailing_addressCBox.isSelected()) {
+        if (sameAsApplicantButton.isSelected()) {
             mailing_address = (applicant_street + " " +
                     applicant_city + " " + applicant_state +
                     applicant_zip + " " + applicant_country);
@@ -506,10 +637,10 @@ public class FormController{
 
         Date date = new Date(0);
         Date submitdate = new Date(System.currentTimeMillis());
-        Form form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type,
+        Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(),
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, "", submitdate, signature, status, "agent_id", "applicant_id", date, date,
+                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), "agent_id", "applicant_id", main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 "approval_comments");
 
@@ -607,4 +738,100 @@ public class FormController{
 
     }
 
+    @FXML
+    public void displayApplicantResults() {
+        ObservableList<AppRecord> olAR = FXCollections.observableArrayList();
+        System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
+        olAR = DBManager.findForms(main.userData.getUserInformation());
+        System.out.println(olAR);
+        // Query for batch
+        // Display batch in table
+        resultsTable.setItems(olAR);
+
+        // This block monitors the user's interaction with the tableview,
+        //  determining when they double-click a row
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AppRecord> row = new TableRow<>();
+
+            // Open application if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AppRecord rowData = row.getItem();
+
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
+
+                    // Get form form DB using selected row's ID
+                    try {
+                        Form viewForm = DBManager.findSingleForm(rowData.getFormID(), fieldList);
+                        // Open selected form in new window
+                        main.userData.setForm(viewForm);
+                        main.setDisplayToReviseForm(viewForm);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
+
+    }
+
+    @FXML
+    public void browseForFile() {
+        FileChooser fc = new FileChooser();
+        String currentDir = System.getProperty("user.dir");
+//        System.out.println(currentDir);
+
+        fc.setInitialDirectory(new File(currentDir));
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files (.jpg .png)", "*.jpg", "*.png"));
+        File selectedFile = fc.showOpenDialog(null);
+
+
+        if (selectedFile != null) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(selectedFile);
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                label_image.setImage(image);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Invalid File");
+        }
+
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+
+        String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
+        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
+        try {
+            Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        String path = getClass().getResource("images/").toExternalForm();
+//        System.out.println(path);
+        main.userData.getForm().setlabel_image(newFileName);
+        try {
+            System.out.println("here");
+            String path = (System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
+            File file = new File(path);
+            String localURL = file.toURI().toURL().toString();
+            Image image = new Image(localURL);
+            System.out.println("Now here");
+            System.out.println("down");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        //        Image image = new Image(getClass().getResource("images/" + newFileName).toExternalForm());
+
+//        label_image.setImage(image);
+
+    }
 }
