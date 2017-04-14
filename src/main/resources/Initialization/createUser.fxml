@@ -12,48 +12,44 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#597B99" height="100.0" layoutX="667.0" layoutY="664.0"
                    stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.topAnchor="0.0"/>
-        <TextField fx:id="login_name_text" layoutX="257.0" layoutY="132.0" promptText="Login Name">
+        <TextField fx:id="login_name_text" layoutX="385.0" layoutY="127.0" promptText="Login Name">
          <font>
             <Font size="18.0" />
          </font></TextField>
-        <TextField fx:id="password_text" layoutX="521.0" layoutY="132.0" promptText="Password">
+        <TextField fx:id="password_text" layoutX="385.0" layoutY="175.0" promptText="Password">
          <font>
             <Font size="18.0" />
          </font></TextField>
-        <TextField fx:id="first_name_text" layoutX="257.0" layoutY="185.0" prefHeight="35.0" prefWidth="193.0"
+        <TextField fx:id="first_name_text" layoutX="247.0" layoutY="224.0" prefHeight="35.0" prefWidth="193.0"
                    promptText="First Name">
          <font>
             <Font size="18.0" />
          </font></TextField>
-        <TextField fx:id="middle_initial_text" layoutX="476.0" layoutY="185.0" prefHeight="35.0" prefWidth="62.0"
+        <TextField fx:id="middle_initial_text" layoutX="466.0" layoutY="224.0" prefHeight="35.0" prefWidth="62.0"
                    promptText="M. I.">
             <font>
                 <Font size="18.0"/>
             </font>
         </TextField>
-        <TextField fx:id="last_name_text" layoutX="567.0" layoutY="185.0" prefHeight="35.0" prefWidth="186.0"
+        <TextField fx:id="last_name_text" layoutX="557.0" layoutY="224.0" prefHeight="35.0" prefWidth="186.0"
                    promptText="Last Name">
             <font>
                 <Font size="18.0"/>
             </font>
         </TextField>
-        <TextField fx:id="email_text" layoutX="257.0" layoutY="238.0" promptText="Email">
+        <TextField fx:id="email_text" layoutX="384.0" layoutY="277.0" promptText="Email">
          <font>
             <Font size="18.0" />
          </font></TextField>
 
-        <TextField fx:id="phone_number_text" layoutX="521.0" layoutY="238.0" promptText="Phone Number">
+        <TextField fx:id="phone_number_text" layoutX="385.0" layoutY="325.0" promptText="Phone Number">
          <font>
             <Font size="18.0" />
          </font></TextField>
-        <ComboBox id="userType" fx:id="user_type_combobox" layoutX="257.0" layoutY="291.0" prefWidth="200.0"
+        <ComboBox id="userType" fx:id="user_type_combobox" layoutX="402.0" layoutY="376.0" prefWidth="200.0"
                   promptText="User Type"/>
-        <TextField fx:id="user_id_text" layoutX="522.0" layoutY="290.0" promptText="User ID">
-         <font>
-            <Font size="18.0" />
-         </font></TextField>
 
-        <Button fx:id="create_user_button" layoutX="422.0" layoutY="352.0" mnemonicParsing="false"
+        <Button fx:id="create_user_button" layoutX="726.0" layoutY="390.0" mnemonicParsing="false"
                 onMouseClicked="#createUserAction" text="Create User">
          <font>
             <Font size="24.0" />
