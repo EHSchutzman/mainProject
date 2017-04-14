@@ -362,12 +362,23 @@ public class DBManager {
                 int ph_level = -1;
                 String grape_varietals = null;
                 String wine_appellation = null;
-                /*if(alcohol_type != null && alcohol_type.equals("Wine")) {
-                    vintage_year = rs.getString("vintage_year");
-                    ph_level = rs.getInt("ph_level");
-                    grape_varietals = rs.getString("grape_varietals");
-                    wine_appellation = rs.getString("wine_appelation");
-                }*/
+                if(alcohol_type != null && alcohol_type.equals("Wine")) {
+                    query = queryBuilder.createSelectStatement("WINEONLY", "*", "ttb_id=\'" + ttb_id + "\'");
+                    try {
+                        Statement stmt2 = connection.createStatement();
+                        ResultSet rs2 = stmt2.executeQuery(query);
+                        while(rs2.next()){
+                            vintage_year = rs2.getString("vintage_year");
+                            ph_level = rs2.getInt("ph_level");
+                            grape_varietals = rs2.getString("grape_varietals");
+                            wine_appellation = rs2.getString("wine_appellation");
+                        }
+                        rs2.close();
+                        stmt2.close();
+                    } catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                }
                 ArrayList<Boolean> application_type = new ArrayList<>();
                 ArrayList<String> application_type_text = new ArrayList<>();
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type,
@@ -377,6 +388,9 @@ public class DBManager {
                         agent_id, applicant_id, approved_date, expiration_date, vintage_year,
                         ph_level, grape_varietals, wine_appellation, application_type, application_type_text, approval_comments);
             }
+            rs.close();
+            stmt.close();
+            connection.close();
             return form;
         } catch (SQLException e) {
             e.printStackTrace();
