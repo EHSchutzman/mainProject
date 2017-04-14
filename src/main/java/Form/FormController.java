@@ -1,7 +1,7 @@
 package Form;
 
+import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
-import DatabaseSearch.AppRecord;
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +35,7 @@ public class FormController{
     private Form form;
 
     public DBManager DBManager = new DBManager();
-    public TableView<AppRecord> resultsTable;
+    public TableView<AgentRecord> resultsTable;
 
     public void setDisplay(Main main) {
         this.main = main;
@@ -740,7 +740,7 @@ public class FormController{
 
     @FXML
     public void displayApplicantResults() {
-        ObservableList<AppRecord> olAR = FXCollections.observableArrayList();
+        ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
         System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
         olAR = DBManager.findForms(main.userData.getUserInformation());
         System.out.println(olAR);
@@ -751,19 +751,19 @@ public class FormController{
         // This block monitors the user's interaction with the tableview,
         //  determining when they double-click a row
         resultsTable.setRowFactory(tv -> {
-            TableRow<AppRecord> row = new TableRow<>();
+            TableRow<AgentRecord> row = new TableRow<>();
 
             // Open application if row double-clicked
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    AppRecord rowData = row.getItem();
+                    AgentRecord rowData = row.getItem();
 
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
 
                     // Get form form DB using selected row's ID
                     try {
-                        Form viewForm = DBManager.findSingleForm(rowData.getFormID(), fieldList);
+                        Form viewForm = DBManager.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
                         main.userData.setForm(viewForm);
                         main.setDisplayToReviseForm(viewForm);
