@@ -84,11 +84,11 @@ public class Authentication {
         this.authenticationLevel = authenticationLevel;
     }
 
-    public void createUser(String firstName, String middleIn, String lastName, String username, String password, String email, String phone, int authenticationLevel) {
+    public boolean createUser(String firstName, String middleIn, String lastName, String username, String password, String email, String phone, int authenticationLevel) {
         DBManager manager = new DBManager();
         User user = new User(username, password, firstName, middleIn, lastName, email, phone, authenticationLevel);
-        manager.persistUser(user);
 
+        return manager.persistUser(user);
     }
 
     /**
@@ -106,9 +106,15 @@ public class Authentication {
         String realName = null;
         int authenticationLevel = 0;
 
+        // Query for user given username and password
+        this.foundUser = manager.findUser("username = \'" + this.getUsername() + "\'" + " AND password = \'" + this.getPassword() + "\'");
 
-        this.foundUser = manager.findUser("username = \'" + this.getUsername()+"\'");
-        return true;
+        // Validate that we have indeed found a user
+        if(getFoundUser() != null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     protected Connection DBConnect() throws SQLException {

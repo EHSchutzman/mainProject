@@ -42,10 +42,13 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println(queryString);
             stmt.executeUpdate(queryString);
             stmt.close();
             connection.close();
             return true;
+        } catch (SQLIntegrityConstraintViolationException se){
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

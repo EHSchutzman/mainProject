@@ -5,10 +5,7 @@ import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 
 public class AuthenticationController {
@@ -20,13 +17,12 @@ public class AuthenticationController {
     private Main main;
     @FXML
     public TextField username;
-    public TextField password_text;
+    public PasswordField password_text;
     public Button loginButton;
     @FXML
     public TextField userID;
     public TextField email_text;
     public TextField login_name_text;
-    public TextField fullName;
     public TextField phone_number_text;
     public TextField last_name_text;
     public TextField middle_initial_text;
@@ -47,14 +43,11 @@ public class AuthenticationController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @FXML
     public void returnToMain() {
         try {
-
             main.setDisplayToMain();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,11 +76,17 @@ public class AuthenticationController {
             authLvl = 3;
         }
 
-        isAuthentic.createUser(firstName, middleIn, lastname, loginNameText, passwordText, emailText, phoneNum, authLvl);
-        try {
-            main.setDisplayToLogin();
-        } catch (Exception e) {
-            e.printStackTrace();
+        boolean authenticUser = isAuthentic.createUser(firstName, middleIn, lastname, loginNameText, passwordText, emailText, phoneNum, authLvl);
+
+        if(authenticUser) {
+            try {
+                main.setDisplayToLogin();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {    // User already exists!
+            System.out.println("User already exists!");
+            errorLabel.setText("User already exists!");
         }
     }
 
@@ -95,16 +94,19 @@ public class AuthenticationController {
     public void loginAction() {
         String name = username.getText();
         String pass = password_text.getText();
-
+        Boolean authenticUser;
 
         isAuthentic.setUsername(name);
         isAuthentic.setPassword(pass);
-        isAuthentic.authenticate();
-        main.userData.setUserInformation(isAuthentic.getFoundUser());
+        authenticUser = isAuthentic.authenticate();
 
 
-        if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
-            //@TODO If user is authenticated return to proper screen
+        if(authenticUser) {
+        //if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
+
+            // Create persistent user
+            main.userData.setUserInformation(isAuthentic.getFoundUser());
+
             if(isAuthentic.getFoundUser().getAuthenticationLevel() == 1){
                 System.out.println("user has authentication lvl 1");
                 main.setDisplayToApplicantMain();
@@ -124,11 +126,11 @@ public class AuthenticationController {
 
             }
 
-        } else{
-            System.out.println("user not found");
-            errorLabel.setText("Invalid Username / Password, Please try again");
+        } else {    // Could not authenticate user
+
+            System.out.println("Could not authenticate user.");
+            errorLabel.setText("Invalid Username or Password, Please try again");
             clearFields();
-            return;
 
         }
 
