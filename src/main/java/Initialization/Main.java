@@ -353,7 +353,6 @@ public class Main extends Application {
         try {
 
            launch(args);
-//            Connection c = DBManager.TTB_database.connect();
         } catch (Exception e) {
             e.printStackTrace();
         }

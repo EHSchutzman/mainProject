@@ -87,7 +87,7 @@ public class SearchController {
 
     }
 
-    // Function that reads the input entered into the search page and passes it to a QueryBuilder object.
+    // Function that reads the input entered into the search page and passes it to DBManager
     protected ObservableList<AppRecord> searchCriteria() {
         try {
             //Set all variables equal to input data
@@ -152,21 +152,6 @@ public class SearchController {
             return null;
         }
     }
-
-    /*
-    //Function that reads (currently) an app id entered into a text box and searches for a single application
-    protected boolean applicationSearchCriteria(){
-        try {
-            //Set all variables equal to input data
-            appID = txtAppID.getText(); //This is the wrong way to implement it, it should pull from the object clicked on, we'll see how to pull from a tableview when we integrate
-            setQueryBuilder(new QueryBuilder("BEVERAGE", "*", appID));
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Could not build a query from search criteria.");
-            return false;
-        }
-    }*/
 
     // Display DB data into a TableView
     protected void displayData(ObservableList<AppRecord> list) {

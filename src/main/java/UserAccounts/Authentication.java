@@ -1,10 +1,6 @@
 package UserAccounts;
 
 import DBManager.DBManager;
-import DatabaseSearch.TTB_database;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class Authentication {
     DBManager manager = new DBManager();
@@ -113,10 +109,6 @@ public class Authentication {
         } else {
             return false;
         }
-    }
-
-    protected Connection DBConnect() throws SQLException {
-        return TTB_database.connect();
     }
 
 }
