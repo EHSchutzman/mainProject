@@ -106,7 +106,8 @@ public class AuthenticationController {
 
             // Create persistent user
             main.userData.setUserInformation(isAuthentic.getFoundUser());
-
+            System.out.println(isAuthentic.getFoundUser());
+            System.out.println(isAuthentic.getFoundUser().getAuthenticationLevel());
             if(isAuthentic.getFoundUser().getAuthenticationLevel() == 1){
                 System.out.println("user has authentication lvl 1");
                 main.setDisplayToApplicantMain();

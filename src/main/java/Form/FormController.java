@@ -41,6 +41,12 @@ public class FormController{
         this.main = main;
     }
 
+    public void setDisplay2(Main main, Form form) {
+        this.main = main;
+        this.form = form;
+        createAgentForm(form);
+    }
+
     public void ApplyDisplay(Main main) {
         this.main = main;
         //createApplicantForm();
@@ -55,12 +61,6 @@ public class FormController{
         this.main = main;
         this.form = form;
         createReviseForm(form);
-    }
-
-    public void setDisplay2(Main main, Form form) {
-        this.main = main;
-        this.form = form;
-        createAgentForm(form);
     }
 
     @FXML

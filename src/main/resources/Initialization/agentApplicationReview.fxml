@@ -80,19 +80,20 @@
             <Font size="14.0" />
          </font>
       </TextArea>
-        <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false" text="Accept">
+        <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false"
+                onMouseClicked="#acceptApplication" text="Accept">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
         <Button fx:id="reject_button" layoutX="957.0" layoutY="898.0" mnemonicParsing="false"
-                onMouseClicked="#submitForm" text="Reject">
+                onMouseClicked="#rejectApplication" text="Reject">
             <font>
                 <Font size="18.0"/>
             </font>
         </Button>
         <Button fx:id="back_button" layoutX="30.0" layoutY="30.0" mnemonicParsing="false"
-                onMouseClicked="#returnToMainPage" text="Back">
+                onMouseClicked="#closeApplication" text="Close">
             <font>
                 <Font size="18.0"/>
             </font>

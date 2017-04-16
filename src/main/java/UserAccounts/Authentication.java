@@ -15,8 +15,6 @@ public class Authentication {
     private int authenticationLevel = 0;
     private String realName;
     private User foundUser;
-    //list of applicaitons
-
 
     public Authentication(String username, String password, Boolean isValid, Boolean isAuthentic,
                           int authenticationLevel, String realName) {
@@ -33,7 +31,7 @@ public class Authentication {
     }
 
     public User getFoundUser() {
-        return foundUser;
+        return this.foundUser;
     }
 
     public String getRealName() {
@@ -110,7 +108,7 @@ public class Authentication {
         this.foundUser = manager.findUser("username = \'" + this.getUsername() + "\'" + " AND password = \'" + this.getPassword() + "\'");
 
         // Validate that we have indeed found a user
-        if(getFoundUser() != null) {
+        if (getFoundUser() != null && getFoundUser().getAuthenticationLevel() >= 0) {
             return true;
         } else {
             return false;
