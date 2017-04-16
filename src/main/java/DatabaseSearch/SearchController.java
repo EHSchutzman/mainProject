@@ -89,57 +89,41 @@ public class SearchController {
 
     // Function that reads the input entered into the search page and passes it to a QueryBuilder object.
     protected ObservableList<AppRecord> searchCriteria() {
-        String params = "";
         try {
             //Set all variables equal to input data
-            if(dpDateRangeStart.getValue() != null) {
-                from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-            }
-            if (dpDateRangeEnd.getValue() != null) {
-                to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-            }
-            if (brand_name_text.getText() != null) {
-                brand = brand_name_text.getText();
-            }
-            if (product_name_text.getText() != null) {
-                product = product_name_text.getText();
-            }
+            from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            brand = brand_name_text.getText();
+            product = product_name_text.getText();
             isMalt = malt_beverage_checkbox.isSelected();
             isSpirit = distilled_spirit_checkbox.isSelected();
             isWine = wine_checkbox.isSelected();
-            if (state_text.getText() != null) {
-                origin = state_text.getText();
-            }
+            origin = state_text.getText();
 
-            if (dpDateRangeStart != null && dpDateRangeEnd != null) {
-                //params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
-            }
-
+            String params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
 
             boolean firstCheck = false;
 
-            if ((isMalt || isSpirit || isWine) && params.isEmpty()) {
+            if (isMalt || isSpirit || isWine) {
 
-                params += "ALCOHOL_TYPE = ";
-            } else if (isMalt || isSpirit || isWine){
                 params += " AND ALCOHOL_TYPE = ";
             }
             if (isWine) {
-                params += "\'Wine\'";
+                params += "'Wine'";
                 firstCheck = true;
             }
             if (isSpirit && !firstCheck) {
-                params += "\'Distilled Spirit\'";
+                params += "'Distilled Spirit'";
                 firstCheck = true;
             } else if (isSpirit && firstCheck) {
-                params += " OR ALCOHOL_TYPE = \'Distilled Spirit\'";
+                params += " OR ALCOHOL_TYPE = 'Distilled Spirit'";
             }
 
             if (isMalt && !firstCheck) {
-                params += "\'Malted Beverages\'";
+                params += "'Malted Beverages'";
                 firstCheck = true;
             } else if (isMalt && firstCheck) {
-                params += " OR ALCOHOL_TYPE = \'Malted Beverages\'";
+                params += " OR ALCOHOL_TYPE = 'Malted Beverages'";
             }
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
@@ -148,26 +132,19 @@ public class SearchController {
             ArrayList<String> typeArray = new ArrayList<>();
             ArrayList<String> originArray = new ArrayList<>();
 
-            if(brand_name_text != null) {
-                brandArray.add("BRAND_NAME");
-                brandArray.add(brand);
-                searchParams.add(brandArray);
-            }
-            if(product_name_text != null) {
-                productArray.add("FANCIFUL_NAME");
-                productArray.add(product);
-                searchParams.add(productArray);
-            }
-            if(state_text != null) {
-                originArray.add("SOURCE");
-                originArray.add(origin);
-                searchParams.add(originArray);
-            }
+            brandArray.add("BRAND_NAME");
+            brandArray.add(brand);
+            productArray.add("FANCIFUL_NAME");
+            productArray.add(product);
+            originArray.add("SOURCE");
+            originArray.add(origin);
 
+            searchParams.add(brandArray);
+            searchParams.add(productArray);
             searchParams.add(typeArray);
+            searchParams.add(originArray);
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
-            System.out.println(params);
             return arr;
         } catch (Exception e) {
             e.printStackTrace();

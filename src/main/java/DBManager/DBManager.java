@@ -88,10 +88,10 @@ public class DBManager {
         fields.add("\'" + submit_date + "\'");
         fields.add("\'" + form.getSignature() + "\'");
         fields.add("\'" + form.getStatus() + "\'");
-        fields.add("NULL");
+        fields.add("null");
         fields.add("\'" + form.getapplicant_id() + "\'");
-        fields.add("NULL");
-        fields.add("NULL");
+        fields.add("null");
+        fields.add("null");
         fields.add("\'" + form.getapproval_comments() + "\'");
         if (form.getalcohol_type().equals("Wine")) {
             wine.add("\'" + form.getvintage_year() + "\'");
@@ -99,37 +99,6 @@ public class DBManager {
             wine.add("\'" + form.getgrape_varietals() + "\'");
             wine.add("\'" + form.getwine_appellation() + "\'");
         }
-        //Array to hold boolean type values
-        ArrayList<Boolean> types;
-        types = form.getapplication_type();
-        //Storing info for each type of application
-        ArrayList<String> typeofapplication0 = new ArrayList<String>();
-        ArrayList<String> typeofapplication1 = new ArrayList<String>();
-        ArrayList<String> typeofapplication2 = new ArrayList<String>();
-        ArrayList<String> typeofapplication3 = new ArrayList<String>();
-
-        if(types.get(0) == true){
-            typeofapplication0.add("\'" + form.getttb_id() + "\'");
-            typeofapplication0.add("" + 0 + "");
-            typeofapplication0.add("NULL");
-        }
-        if(types.get(1) == true){
-            typeofapplication1.add("\'" + form.getttb_id() + "\'");
-            typeofapplication1.add("" + 1 + "");
-            typeofapplication1.add("\'" + form.getapplication_type_text().get(0) + "\'");
-        }
-        if(types.get(2) == true){
-            typeofapplication2.add("\'" + form.getttb_id() + "\'");
-            typeofapplication2.add("" + 2 + "");
-            typeofapplication2.add("\'" + form.getapplication_type_text().get(1) + "\'");
-        }
-        if(types.get(3) == true){
-            typeofapplication3.add("\'" + form.getttb_id() + "\'");
-            typeofapplication3.add("" + 3 + "");
-            typeofapplication3.add("\'" + form.getapplication_type_text().get(2) + "\'");
-        }
-
-
         String queryString = queryBuilder.createInsertStatement("FORMS", fields);
         try {
             Connection connection = TTB_database.connect();
@@ -142,23 +111,6 @@ public class DBManager {
                 String wineString = queryBuilder.createInsertStatement("WINEONLY", wineonly);
                 stmt.executeUpdate(wineString);
             }
-            if(!typeofapplication0.isEmpty()){
-                String queryStringType = queryBuilder.createInsertStatement("TYPEOFAPPLICATION", typeofapplication0);
-                stmt.executeUpdate(queryStringType);
-            }
-            if(!typeofapplication1.isEmpty()){
-                String queryStringType1 = queryBuilder.createInsertStatement("TYPEOFAPPLICATION", typeofapplication1);
-                stmt.executeUpdate(queryStringType1);
-            }
-            if(!typeofapplication2.isEmpty()){
-                String queryStringType2 = queryBuilder.createInsertStatement("TYPEOFAPPLICATION", typeofapplication2);
-                stmt.executeUpdate(queryStringType2);
-            }
-            if(!typeofapplication3.isEmpty()){
-                String queryStringType3 = queryBuilder.createInsertStatement("TYPEOFAPPLICATION", typeofapplication3);
-                stmt.executeUpdate(queryStringType3);
-            }
-
             stmt.close();
             connection.close();
             return true;
@@ -277,7 +229,7 @@ public class DBManager {
             if (!filters.get(0).isEmpty()) {
                 query = query.concat(more);
             } else {
-                query = query.concat(" AND " + more);
+                query = query.concat(" and " + more);
             }
         }
         System.out.println(query);
@@ -406,10 +358,10 @@ public class DBManager {
                 Date approved_date = rs.getDate("approved_date");
                 Date expiration_date = rs.getDate("expiration_date");
                 String approval_comments = rs.getString("approval_comments");
-                String vintage_year = "NULL";
+                String vintage_year = null;
                 int ph_level = -1;
-                String grape_varietals = "NULL";
-                String wine_appellation = "NULL";
+                String grape_varietals = null;
+                String wine_appellation = null;
                 if(alcohol_type != null && alcohol_type.equals("Wine")) {
                     query = queryBuilder.createSelectStatement("WINEONLY", "*", "ttb_id=\'" + ttb_id + "\'");
                     try {

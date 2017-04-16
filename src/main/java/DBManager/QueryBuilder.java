@@ -85,7 +85,7 @@ public class QueryBuilder {
                     if (!options.get(i).get(1).isEmpty()) {
                         query = query.concat(options.get(i).get(0) + " like '%" + options.get(i).get(1) + "%'");
                         if (i < options.size() - 2) {
-                            query = query.concat(" AND ");
+                            query = query.concat(" and ");
                         }
                     }
                 }
