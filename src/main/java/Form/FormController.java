@@ -41,6 +41,12 @@ public class FormController{
         this.main = main;
     }
 
+    public void setDisplay2(Main main, Form form) {
+        this.main = main;
+        this.form = form;
+        createAgentForm(form);
+    }
+
     public void ApplyDisplay(Main main) {
         this.main = main;
         //createApplicantForm();
@@ -55,12 +61,6 @@ public class FormController{
         this.main = main;
         this.form = form;
         createReviseForm(form);
-    }
-
-    public void setDisplay2(Main main, Form form) {
-        this.main = main;
-        this.form = form;
-        createAgentForm(form);
     }
 
     @FXML
@@ -209,7 +209,7 @@ public class FormController{
         form.setSource((String) source_combobox.getValue());
 
         // Initialize Alcohol Type ChoiceBox, get and set value
-        alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
+        alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirit"));
         form.setalcohol_type((String) alcohol_type_combobox.getValue());
 
         // Initialize checkboxes
@@ -221,18 +221,24 @@ public class FormController{
 
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
-        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
-        ArrayList<String> tempStrArray = form.getapplication_type_text();
+        ArrayList<Boolean> tempBoolArray = new ArrayList<Boolean>();
+        for (int i = 0; i < 4; i++) {
+            tempBoolArray.add(false);
+        }
+        ArrayList<String> tempStrArray = new ArrayList<String>();
+        for (int i = 0; i < 4; i++) {
+            tempStrArray.add("");
+        }
         if (option_1_checkbox.isSelected()) {//choice 0
             tempBoolArray.set(0, true);
         } else if (option_2_checkbox.isSelected()) {
-            tempStrArray.set(1, option_2_text.getText());
+            tempStrArray.set(0, option_2_text.getText());
             tempBoolArray.set(1, true);
         } else if (option_3_checkbox.isSelected()) {
-            tempStrArray.set(2, option_3_text.getText());
+            tempStrArray.set(1, option_3_text.getText());
             tempBoolArray.set(2, true);
         } else if (option_4_checkbox.isSelected()) {
-            tempStrArray.set(3, option_4_text.getText());
+            tempStrArray.set(2, option_4_text.getText());
             tempBoolArray.set(3, true);
         }
         form.setapplication_type(tempBoolArray);
@@ -294,9 +300,9 @@ public class FormController{
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if(form.getalcohol_type().equals("Beer")) {
+        if(form.getalcohol_type().equals("Malt Beverages")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_content_text.setPromptText("Beer");
+            alcohol_content_text.setPromptText("Malt Beverages");
         } else if (form.getalcohol_type().equals("Wine")) {
             //alcohol_type_combobox.getSelectionModel().select(2);
             alcohol_content_text.setPromptText("Wine");
@@ -313,22 +319,25 @@ public class FormController{
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
 
         //@TODO: Whatever this shit is supposed to do
-        /*
+
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
         ArrayList<String> tempStrArray = form.getapplication_type_text();
         if (tempBoolArray.get(0) == true) {//choice 0
             option_1_checkbox.setSelected(true);
-        } else if (tempBoolArray.get(1) == true) {
-            option_2_text.setPromptText(tempStrArray.get(1));
+        }
+        if (tempBoolArray.get(1) == true) {
+            option_2_text.setPromptText(tempStrArray.get(0));
             option_2_checkbox.setSelected(true);
-        } else if (tempBoolArray.get(2) == true) {
-            option_3_text.setPromptText(tempStrArray.get(2));
+        }
+        if (tempBoolArray.get(2) == true) {
+            option_3_text.setPromptText(tempStrArray.get(1));
             option_3_checkbox.setSelected(true);
-        } else if (tempBoolArray.get(3) == true) {
-            option_4_text.setPromptText(tempStrArray.get(3));
+        }
+        if (tempBoolArray.get(3) == true) {
+            option_4_text.setPromptText(tempStrArray.get(2));
             option_4_checkbox.setSelected(true);
         }
-*/
+
         rep_id_text.setText(form.getrep_id());
         permit_no_text.setText(form.getpermit_no());
         serial_no_text.setText(form.getserial_no());
@@ -394,7 +403,7 @@ public class FormController{
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if (form.getalcohol_type().equals("Beer")) {
+        if (form.getalcohol_type().equals("Malt Beverages")) {
             alcohol_type_combobox.getSelectionModel().select(1);
             //alcohol_content_text.setPromptText("Beer");
         } else if (form.getalcohol_type().equals("Wine")) {
@@ -413,22 +422,25 @@ public class FormController{
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
 
         //@TODO: Whatever this shit is supposed to do
-        /*
+
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
         ArrayList<String> tempStrArray = form.getapplication_type_text();
         if (tempBoolArray.get(0) == true) {//choice 0
             option_1_checkbox.setSelected(true);
-        } else if (tempBoolArray.get(1) == true) {
-            option_2_text.setPromptText(tempStrArray.get(1));
+        }
+        if (tempBoolArray.get(1) == true) {
+            option_2_text.setPromptText(tempStrArray.get(0));
             option_2_checkbox.setSelected(true);
-        } else if (tempBoolArray.get(2) == true) {
-            option_3_text.setPromptText(tempStrArray.get(2));
+        }
+        if (tempBoolArray.get(2) == true) {
+            option_3_text.setPromptText(tempStrArray.get(1));
             option_3_checkbox.setSelected(true);
-        } else if (tempBoolArray.get(3) == true) {
-            option_4_text.setPromptText(tempStrArray.get(3));
+        }
+        if (tempBoolArray.get(3) == true) {
+            option_4_text.setPromptText(tempStrArray.get(2));
             option_4_checkbox.setSelected(true);
         }
-*/
+
         rep_id_text.setText(form.getrep_id());
         permit_no_text.setText(form.getpermit_no());
         serial_no_text.setText(form.getserial_no());
@@ -506,23 +518,26 @@ public class FormController{
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
         ArrayList<Boolean> application_type = new ArrayList<Boolean>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             application_type.add(false);
         }
         ArrayList<String> application_type_text = new ArrayList<String>();
-        for (int i = 0; i < 5; i++) {
-            application_type_text.add("hello");
+        for (int i = 0; i < 4; i++) {
+            application_type_text.add("");
         }
         if (option_1_checkbox.isSelected()) {//choice 0
             application_type.set(0, true);
-        } else if (option_2_checkbox.isSelected()) {
-            application_type_text.set(1, option_2_text.getText());
+        }
+        if (option_2_checkbox.isSelected()) {
+            application_type_text.set(0, option_2_text.getText());
             application_type.set(1, true);
-        } else if (option_3_checkbox.isSelected()) {
-            application_type_text.set(2, option_3_text.getText());
+        }
+        if (option_3_checkbox.isSelected()) {
+            application_type_text.set(1, option_3_text.getText());
             application_type.set(2, true);
-        } else if (option_4_checkbox.isSelected()) {
-            application_type_text.set(3, option_4_text.getText());
+        }
+        if (option_4_checkbox.isSelected()) {
+            application_type_text.set(2, option_4_text.getText());
             application_type.set(3, true);
         }
 
@@ -534,7 +549,7 @@ public class FormController{
 
         // Wines only
         String vintage_year = (vintage_year_text.getText());
-        if (source.equals("Wine")) {
+        if (alcohol_type.equals("Wine")) {
             pH_level = (Integer.parseInt(ph_level_text.getText()));
         } else {
             pH_level = -1;
@@ -583,23 +598,26 @@ public class FormController{
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
         ArrayList<Boolean> application_type = new ArrayList<Boolean>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             application_type.add(false);
         }
         ArrayList<String> application_type_text = new ArrayList<String>();
-        for (int i = 0; i < 5; i++) {
-            application_type_text.add("hello");
+        for (int i = 0; i < 4; i++) {
+            application_type_text.add("");
         }
         if (option_1_checkbox.isSelected()) {//choice 0
             application_type.set(0, true);
-        } else if (option_2_checkbox.isSelected()) {
-            application_type_text.set(1, option_2_text.getText());
+        }
+        if (option_2_checkbox.isSelected()) {
+            application_type_text.set(0, option_2_text.getText());
             application_type.set(1, true);
-        } else if (option_3_checkbox.isSelected()) {
-            application_type_text.set(2, option_3_text.getText());
+        }
+        if (option_3_checkbox.isSelected()) {
+            application_type_text.set(1, option_3_text.getText());
             application_type.set(2, true);
-        } else if (option_4_checkbox.isSelected()) {
-            application_type_text.set(3, option_4_text.getText());
+        }
+        if (option_4_checkbox.isSelected()) {
+            application_type_text.set(2, option_4_text.getText());
             application_type.set(3, true);
         }
 

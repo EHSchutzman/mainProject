@@ -119,7 +119,7 @@ public class Main extends Application {
             controller.source_combobox.setPromptText("Select Alcohol Soruce");
             controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
             controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -141,7 +141,7 @@ public class Main extends Application {
             controller.source_combobox.setPromptText("Select Alcohol Soruce");
             controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
             controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -206,11 +206,7 @@ public class Main extends Application {
 
             // Debugger works better when full screen is off
             stage.setFullScreen(false);
-            //stage.setFullScreen(true);
 
-            //stage.setTitle("Workflow Results");
-            //System.out.println(stage.getScene());
-            //System.out.println("go fuck yourself");
             stage.getScene().setRoot(newWindow);
             stage.show();
 
@@ -218,9 +214,6 @@ public class Main extends Application {
 
             //WorkflowController controller = loader.getController();
             controller.setDisplay2(this, application);
-
-            //@TODO: Display application details on page
-            //controller.resultsTable.setItems(list);
 
         } catch (IOException e){
             e.printStackTrace();
@@ -360,7 +353,6 @@ public class Main extends Application {
         try {
 
            launch(args);
-//            Connection c = DBManager.TTB_database.connect();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -382,7 +374,7 @@ public class Main extends Application {
             controller.source_combobox.setPromptText("Select Alcohol Soruce");
             controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
             controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
 
         } catch (IOException e) {
             e.printStackTrace();

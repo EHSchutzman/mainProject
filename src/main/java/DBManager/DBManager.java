@@ -6,11 +6,14 @@ import Form.Form;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.DirectoryChooser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 public class DBManager {
 
     //INSERT FUNCTIONS:
+
     /**
      * Persists a user into the database
      *
@@ -42,10 +46,13 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println(queryString);
             stmt.executeUpdate(queryString);
             stmt.close();
             connection.close();
             return true;
+        } catch (SQLIntegrityConstraintViolationException se) {
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -88,11 +95,11 @@ public class DBManager {
         fields.add("\'" + submit_date + "\'");
         fields.add("\'" + form.getSignature() + "\'");
         fields.add("\'" + form.getStatus() + "\'");
-        fields.add("null");
+        fields.add("NULL");
         fields.add("\'" + form.getapplicant_id() + "\'");
-        fields.add("null");
-        fields.add("null");
-        fields.add("\'" + form.getapproval_comments() + "\'");
+        fields.add("NULL");
+        fields.add("NULL");
+        fields.add("NULL");
         if (form.getalcohol_type().equals("Wine")) {
             wine.add("\'" + form.getvintage_year() + "\'");
             wine.add("\'" + form.getpH_level() + "\'");
@@ -128,83 +135,59 @@ public class DBManager {
         ObservableList<AgentRecord> o1 = FXCollections.observableArrayList();
         System.out.println(user.getAuthenticationLevel());
         if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
+
+            // Search for pre-assigned, un-reviewed applications first
+            String query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                    "\' AND STATUS = \'Pending\'");
+
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", "(AGENT_ID IS NULL)");
+            System.out.println(query0);
             System.out.println(query);
             try {
                 Connection connection = TTB_database.connect();
+                Statement stmt0 = connection.createStatement();
                 Statement stmt = connection.createStatement();
-                System.out.println("QUERY " + query);
+
+                ResultSet rs0 = stmt0.executeQuery(query0);
                 ResultSet rs = stmt.executeQuery(query);
+
                 int i = 0;
-                while (rs.next() && i < 10) {
-                    ObservableList<String> dataList = FXCollections.observableArrayList();
-                    String ttb_id = rs.getString("TTB_ID");
-                    System.out.println("THIS IS THE TTB ID " + ttb_id);
-                    ArrayList<String> fields = new ArrayList<String>();
-                    fields.add("*");
-                    Form form = findSingleForm(ttb_id, fields);
-                    System.out.println("FORM TTB ID: " + form.getttb_id());
-                    form.setagent_id(user.getUid());
-                    System.out.println("Set form agent id to: " + form.getagent_id());
-                    updateForm(form);
-                    String rep_id = rs.getString("REP_ID");
-                    String permit_no = rs.getString("PERMIT_NO");
-                    String source = rs.getString("SOURCE");
-                    String serial_no = rs.getString("SERIAL_NO");
-                    String alcohol_type = rs.getString("ALCOHOL_TYPE");
-                    String brand_name = rs.getString("BRAND_NAME");
-                    String fanciful_name = rs.getString("FANCIFUL_NAME");
-                    String alcohol_content = rs.getString("ALCOHOL_CONTENT");
-                    String applicant_street = rs.getString("APPLICANT_STREET");
-                    String applicant_city = rs.getString("APPLICANT_CITY");
-                    String applicant_zip = rs.getString("APPLICANT_ZIP");
-                    String applicant_state = rs.getString("APPLICANT_STATE");
-                    String applicant_country = rs.getString("APPLICANT_COUNTRY");
-                    String mailing_address = rs.getString("MAILING_ADDRESS");
-                    String formula = rs.getString("FORMULA");
-                    String phone_no = rs.getString("PHONE_NO");
-                    String email = rs.getString("EMAIL");
-                    String label_text = rs.getString("LABEL_TEXT");
-                    String label_image = rs.getString("LABEL_IMAGE");
-                    String submit_date = rs.getString("SUBMIT_DATE");
-                    String signature = rs.getString("SIGNATURE");
-                    String status = rs.getString("STATUS");
-                    String agent_id = rs.getString("AGENT_ID");
-                    String applicant_id = rs.getString("APPLICANT_ID");
-                    String approved_date = rs.getString("APPROVED_DATE");
-                    String expiration_date = rs.getString("EXPIRATION_DATE");
+
+                // Iterate through pre-assigned, un-reviewed applications
+                while (rs0.next() && i < 10) {
+                    String ttb_id = rs0.getString("TTB_ID");
+                    String brand_name = rs0.getString("BRAND_NAME");
+                    String fanciful_name = rs0.getString("FANCIFUL_NAME");
+                    String submit_date = rs0.getString("SUBMIT_DATE");
+                    String status = rs0.getString("STATUS");
                     AgentRecord agentRecord = new AgentRecord();
                     agentRecord.setIDNo(ttb_id);
                     agentRecord.setName(fanciful_name + ", " + brand_name);
                     agentRecord.setStatus(status);
                     agentRecord.setDate(submit_date);
-                    dataList.add(ttb_id);
-                    dataList.add(rep_id);
-                    dataList.add(permit_no);
-                    dataList.add(source);
-                    dataList.add(serial_no);
-                    dataList.add(alcohol_type);
-                    dataList.add(brand_name);
-                    dataList.add(fanciful_name);
-                    dataList.add(alcohol_content);
-                    dataList.add(applicant_street);
-                    dataList.add(applicant_city);
-                    dataList.add(applicant_zip);
-                    dataList.add(applicant_state);
-                    dataList.add(applicant_country);
-                    dataList.add(mailing_address);
-                    dataList.add(formula);
-                    dataList.add(phone_no);
-                    dataList.add(email);
-                    dataList.add(label_text);
-                    dataList.add(label_image);
-                    dataList.add(submit_date);
-                    dataList.add(signature);
-                    dataList.add(status);
-                    dataList.add(agent_id);
-                    dataList.add(applicant_id);
-                    dataList.add(approved_date);
-                    dataList.add(expiration_date);
+                    o1.add(agentRecord);
+                    i++;
+                }
+
+                // Then get to the unassigned, un-reviewed applications
+                while (rs.next() && i < 10) {
+                    // Update form to confirm agent assignment
+                    String ttb_id = rs.getString("TTB_ID");
+                    ArrayList<String> fields = new ArrayList<>();
+                    fields.add("*");
+                    Form form = findSingleForm(ttb_id, fields);
+                    form.setagent_id(user.getUid());
+                    updateForm(form);
+
+                    String brand_name = rs.getString("BRAND_NAME");
+                    String fanciful_name = rs.getString("FANCIFUL_NAME");
+                    String submit_date = rs.getString("SUBMIT_DATE");
+                    String status = rs.getString("STATUS");
+                    AgentRecord agentRecord = new AgentRecord();
+                    agentRecord.setIDNo(ttb_id);
+                    agentRecord.setName(fanciful_name + ", " + brand_name);
+                    agentRecord.setStatus(status);
+                    agentRecord.setDate(submit_date);
                     o1.add(agentRecord);
                     i++;
                 }
@@ -223,7 +206,7 @@ public class DBManager {
 
     public ObservableList<AppRecord> findLabels(ArrayList<ArrayList<String>> filters, String more) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, alcohol_type";
+        String fields = "ttb_id, permit_no, serial_no, fanciful_name, brand_name, alcohol_type, approved_date";
         String query = queryBuilder.createLikeStatement("APP.FORMS", fields, filters);
         if (more != null && !more.isEmpty()) {
             if (!filters.get(0).isEmpty()) {
@@ -239,14 +222,14 @@ public class DBManager {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 String ttbID = rs.getString("ttb_id");
                 String permitNo = rs.getString("permit_no");
                 String serialNo = rs.getString("serial_no");
-                String approvedDate = rs.getDate("approved_date").toString();
                 String fancifulName = rs.getString("fanciful_name");
                 String brandName = rs.getString("brand_name");
                 String alcoholType = rs.getString("alcohol_type");
+                String approvedDate = rs.getDate("approved_date").toString();
                 //ObservableList<String> observableList = FXCollections.observableArrayList();
                 //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
                 //ol.add(observableList);
@@ -254,11 +237,11 @@ public class DBManager {
                 application.setFormID(ttbID);
                 application.setPermitNo(permitNo);
                 application.setSerialNo(serialNo);
-                application.setCompletedDate(approvedDate);
                 application.setBrandName(brandName);
                 application.setFancifulName(fancifulName);
                 application.setTypeID(alcoholType);
                 ol.add(application);
+                application.setCompletedDate(approvedDate);
             }
             rs.close();
             stmt.close();
@@ -287,7 +270,7 @@ public class DBManager {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 AgentRecord application = new AgentRecord();
                 String status = rs.getString("STATUS");
                 String date = rs.getString("SUBMIT_DATE");
@@ -362,12 +345,12 @@ public class DBManager {
                 int ph_level = -1;
                 String grape_varietals = null;
                 String wine_appellation = null;
-                if(alcohol_type != null && alcohol_type.equals("Wine")) {
+                if (alcohol_type != null && alcohol_type.equals("Wine")) {
                     query = queryBuilder.createSelectStatement("WINEONLY", "*", "ttb_id=\'" + ttb_id + "\'");
                     try {
                         Statement stmt2 = connection.createStatement();
                         ResultSet rs2 = stmt2.executeQuery(query);
-                        while(rs2.next()){
+                        while (rs2.next()) {
                             vintage_year = rs2.getString("vintage_year");
                             ph_level = rs2.getInt("ph_level");
                             grape_varietals = rs2.getString("grape_varietals");
@@ -375,7 +358,7 @@ public class DBManager {
                         }
                         rs2.close();
                         stmt2.close();
-                    } catch (SQLException e){
+                    } catch (SQLException e) {
                         e.printStackTrace();
                     }
                 }
@@ -398,24 +381,58 @@ public class DBManager {
         return null;
     }
 
+    public User findUser(String options) {
+        System.out.println(options);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            User user = new User();
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                int authentication = rs.getInt("authentication");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                user = new User(user_id, username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //UPDATE FUNCTIONS:
+
     /**
      * Updates a user into the database
+     *
      * @param user - user object to update
      * @return returns true if update is successful, false otherwise
      */
     public boolean updateUser(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
-        fields.add("user_id = "+"\'" + user.getUid() + "\'");
-        fields.add("authentication = "+ user.getAuthenticationLevel());
-        fields.add("username ="+"\'" + user.getUsername() + "\'");
-        fields.add("password = "+"\'" + user.getPassword() + "\'");
-        fields.add("email = "+"\'" + user.getEmail() + "\'");
-        fields.add("phone_no = "+"\'" + user.getPhoneNo() + "\'");
-        fields.add("first_name = "+"\'" + user.getFirstName() + "\'");
-        fields.add("middle_inital = "+"\'" + user.getMiddleInitial() + "\'");
-        fields.add("last_name = "+"\'" + user.getLastName() + "\'");
+        fields.add("user_id = " + "\'" + user.getUid() + "\'");
+        fields.add("authentication = " + user.getAuthenticationLevel());
+        fields.add("username =" + "\'" + user.getUsername() + "\'");
+        fields.add("password = " + "\'" + user.getPassword() + "\'");
+        fields.add("email = " + "\'" + user.getEmail() + "\'");
+        fields.add("phone_no = " + "\'" + user.getPhoneNo() + "\'");
+        fields.add("first_name = " + "\'" + user.getFirstName() + "\'");
+        fields.add("middle_inital = " + "\'" + user.getMiddleInitial() + "\'");
+        fields.add("last_name = " + "\'" + user.getLastName() + "\'");
         String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'" + user.getUid() + "\'"));
         try {
             Connection connection = TTB_database.connect();
@@ -432,6 +449,7 @@ public class DBManager {
 
     /**
      * Updates a form in the database
+     *
      * @param form - form to update
      * @return returns true if the update is successful, false otherwise
      */
@@ -457,7 +475,7 @@ public class DBManager {
         } else {
             fields.add("fanciful_name=" + "NULL");
         }
-        
+
         fields.add("alcohol_content=" + form.getalcohol_content());
 
         fields.add("applicant_city=" + "\'" + form.getapplicant_city() + "\'");
@@ -542,7 +560,7 @@ public class DBManager {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(queryString);
-            if(!wine.isEmpty()) {
+            if (!wine.isEmpty()) {
                 System.out.println("Updating wine");
                 String wineString = queryBuilder.createUpdateStatement("WINEONLY", wine, "ttb_id=\'" + form.getttb_id() + "\'");
                 System.out.println(wineString);
@@ -559,80 +577,100 @@ public class DBManager {
         }
     }
 
-    public User findUser(String options) {
-        System.out.println(options);
-        QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.createSelectStatement("USERS", "*", options);
-        System.out.println(query);
-        try {
-            Connection connection = TTB_database.connect();
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            User user = new User();
-            while (rs.next()) {
-                String user_id = rs.getString("user_id");
-                int authentication = rs.getInt("authentication");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                String phone_no = rs.getString("phone_no");
-                String first_name = rs.getString("first_name");
-                String middle_initial = rs.getString("middle_initial");
-                String last_name = rs.getString("last_name");
-                user = new User(user_id, username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
-            }
-            rs.close();
-            statement.close();
-            connection.close();
-            return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    public void generateCSV(ResultSet rs) {
-        try {
-            File file = new File("labels.csv");
-            PrintWriter printWriter = new PrintWriter(file.getAbsolutePath());
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("TTB ID");
-            stringBuilder.append(',');
-            stringBuilder.append("Permit No.");
-            stringBuilder.append(',');
-            stringBuilder.append("Serial No.");
-            stringBuilder.append(',');
-            stringBuilder.append("Submitted Date");
-            stringBuilder.append(',');
-            stringBuilder.append("Fanciful Name");
-            stringBuilder.append(',');
-            stringBuilder.append("Brand Name");
-            stringBuilder.append(',');
-            stringBuilder.append("Alcohol Type");
-            stringBuilder.append('\n');
+
+    public void generateCSV(ObservableList<AppRecord> list) {
+        DirectoryChooser dc = new DirectoryChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.dir")));
+        File selectedFile = dc.showDialog(null);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + ".csv");
+        if (selectedFile != null) {
             try {
-                while(rs.next()) {
-                    stringBuilder.append(rs.getString("ttb_id"));
-                    stringBuilder.append(',');
-                    stringBuilder.append(rs.getString("permit_no"));
-                    stringBuilder.append(',');
-                    stringBuilder.append(rs.getString("serial_no"));
-                    stringBuilder.append(',');
-                    stringBuilder.append(rs.getDate("submit_date").toString());
-                    stringBuilder.append(',');
-                    stringBuilder.append(rs.getString("fanciful_name"));
-                    stringBuilder.append(',');
-                    stringBuilder.append(rs.getString("brand_name"));
-                    stringBuilder.append(',');
-                    stringBuilder.append(rs.getString("alcohol_type"));
-                    stringBuilder.append('\n');
+                FileWriter fileWriter = new FileWriter(file, false);
+                System.out.println(file.getAbsolutePath());
+                fileWriter.write("Completed Date");
+                fileWriter.write(",");
+                fileWriter.write("Alcohol Type");
+                fileWriter.write(",");
+                fileWriter.write("Brand Name");
+                fileWriter.write(",");
+                fileWriter.write("Fanciful Name");
+                fileWriter.write(",");
+                fileWriter.write("Permit Number");
+                fileWriter.write(",");
+                fileWriter.write("Serial Number");
+                fileWriter.write("\n");
+                for (AppRecord ar : list) {
+                    fileWriter.write(ar.getCompletedDate());
+                    fileWriter.write(",");
+                    fileWriter.write(ar.getTypeID());
+                    fileWriter.write(",");
+                    fileWriter.write(ar.getBrandName());
+                    fileWriter.write(",");
+                    try {
+                        fileWriter.write(ar.getFancifulName());
+                    } catch (NullPointerException e) {
+                        fileWriter.write("");
+                    }
+                    fileWriter.write(",");
+                    fileWriter.write(ar.getPermitNo());
+                    fileWriter.write(",");
+                    fileWriter.write(ar.getSerialNo());
+                    fileWriter.write("\n");
                 }
-                printWriter.write(stringBuilder.toString());
-                printWriter.close();
-            } catch (SQLException e) {
+                fileWriter.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+        }
+    }
+
+    public void generateTab(ObservableList<AppRecord> list) {
+        DirectoryChooser dc = new DirectoryChooser();
+        dc.setInitialDirectory(new File(System.getProperty("user.dir")));
+        File selectedFile = dc.showDialog(null);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + ".csv");
+        if (selectedFile != null) {
+            try {
+                FileWriter fileWriter = new FileWriter(file, false);
+                System.out.println(file.getAbsolutePath());
+                fileWriter.write("Completed Date");
+                fileWriter.write("\t");
+                fileWriter.write("Alcohol Type");
+                fileWriter.write("\t");
+                fileWriter.write("Brand Name");
+                fileWriter.write("\t");
+                fileWriter.write("Fanciful Name");
+                fileWriter.write("\t");
+                fileWriter.write("Permit Number");
+                fileWriter.write("\t");
+                fileWriter.write("Serial Number");
+                fileWriter.write("\n");
+                for (AppRecord ar : list) {
+                    fileWriter.write(ar.getCompletedDate());
+                    fileWriter.write("\t");
+                    fileWriter.write(ar.getTypeID());
+                    fileWriter.write("\t");
+                    fileWriter.write(ar.getBrandName());
+                    fileWriter.write("\t");
+                    try {
+                        fileWriter.write(ar.getFancifulName());
+                    } catch (NullPointerException e) {
+                        fileWriter.write("");
+                    }
+                    fileWriter.write("\t");
+                    fileWriter.write(ar.getPermitNo());
+                    fileWriter.write("\t");
+                    fileWriter.write(ar.getSerialNo());
+                    fileWriter.write("\n");
+                }
+                fileWriter.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }
