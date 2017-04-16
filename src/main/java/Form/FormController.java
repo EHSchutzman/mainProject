@@ -222,17 +222,24 @@ public class FormController{
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
+        tempBoolArray.add(false);
+        tempBoolArray.add(false);
+        tempBoolArray.add(false);
+        tempBoolArray.add(false);
         ArrayList<String> tempStrArray = form.getapplication_type_text();
+        tempStrArray.add("");
+        tempStrArray.add("");
+        tempStrArray.add("");
         if (option_1_checkbox.isSelected()) {//choice 0
             tempBoolArray.set(0, true);
         } else if (option_2_checkbox.isSelected()) {
-            tempStrArray.set(1, option_2_text.getText());
+            tempStrArray.set(0, option_2_text.getText());
             tempBoolArray.set(1, true);
         } else if (option_3_checkbox.isSelected()) {
-            tempStrArray.set(2, option_3_text.getText());
+            tempStrArray.set(1, option_3_text.getText());
             tempBoolArray.set(2, true);
         } else if (option_4_checkbox.isSelected()) {
-            tempStrArray.set(3, option_4_text.getText());
+            tempStrArray.set(2, option_4_text.getText());
             tempBoolArray.set(3, true);
         }
         form.setapplication_type(tempBoolArray);
