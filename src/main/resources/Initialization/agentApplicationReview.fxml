@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.112"
+<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="1000.0" layoutX="-25.0" layoutY="67.0"
@@ -32,7 +32,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <TextField fx:id="phone_no_text" disable="true" layoutX="161.0" layoutY="186.0" promptText="Phone Number"/>
+        <TextField fx:id="phone_no_text" disable="true" layoutX="161.0" layoutY="187.0" promptText="Phone Number"/>
         <TextField fx:id="email_text" disable="true" layoutX="161.0" layoutY="220.0" promptText="Email"/>
         <Label fx:id="errorLabel" layoutX="465.0" layoutY="151.0" prefHeight="17.0" prefWidth="80.0" />
         <Label layoutX="1143.0" layoutY="380.0" text="For Wine Only:">
@@ -43,12 +43,12 @@
         <TextField fx:id="alcohol_content_text" disable="true" layoutX="1122.0" layoutY="319.0"
                    promptText="Alcohol Content"/>
         <TextField fx:id="vintage_year_text" disable="true" layoutX="1127.0" layoutY="413.0" promptText="Vintage Year"/>
-        <TextField fx:id="ph_level_text" disable="true" layoutX="1128.0" layoutY="450.0" promptText="pH Level"/>
+        <TextField fx:id="ph_level_text" disable="true" layoutX="1128.0" layoutY="448.0" promptText="pH Level"/>
         <TextField fx:id="serial_no_text" disable="true" layoutX="1121.0" layoutY="200.0" promptText="Serial Number"/>
         <TextField fx:id="fanciful_name_text" disable="true" layoutX="1121.0" layoutY="162.0"
                    promptText="Fanciful Name (If Any)"/>
         <TextField fx:id="formula_text" disable="true" layoutX="1120.0" layoutY="241.0" promptText="Formula"/>
-        <TextField fx:id="grape_varietals_text" disable="true" layoutX="1128.0" layoutY="483.0"
+        <TextField fx:id="grape_varietals_text" disable="true" layoutX="1128.0" layoutY="481.0"
                    promptText="Grape Varietal(s)"/>
         <TextField fx:id="wine_appellation_text" disable="true" layoutX="1128.0" layoutY="521.0"
                    promptText="Wine Appellation"/>
@@ -80,8 +80,8 @@
             <Font size="14.0" />
          </font>
       </TextArea>
-        <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false" text="Accept"
-                onMouseClicked="#acceptApplication">
+        <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false"
+                onMouseClicked="#acceptApplication" text="Accept">
          <font>
             <Font size="18.0" />
          </font>
@@ -93,14 +93,15 @@
             </font>
         </Button>
         <Button fx:id="back_button" layoutX="30.0" layoutY="30.0" mnemonicParsing="false"
-                onMouseClicked="#returnToMainPage" text="Back">
+                onMouseClicked="#closeApplication" text="Close">
             <font>
                 <Font size="18.0"/>
             </font>
         </Button>
         <TextArea fx:id="address_text" disable="true" layoutX="161.0" layoutY="257.0" prefHeight="164.0"
                   prefWidth="286.0" promptText="address"/>
-        <TextField fx:id="source_text" disable="true" layoutX="635.0" layoutY="471.0" promptText="Source"/>
-        <TextField fx:id="alcohol_type_text" disable="true" layoutX="635.0" layoutY="510.0" promptText="Alcohol Type"/>
+        <TextField fx:id="source_text" disable="true" layoutX="635.0" layoutY="470.0" promptText="Source of Product"/>
+        <TextField fx:id="alcohol_type_text" disable="true" layoutX="635.0" layoutY="508.0"
+                   promptText="Type of Alcohol"/>
     </children>
 </AnchorPane>

@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 public class WorkflowController {
 
     private Main main;
-    private ObservableList<AgentRecord> resultsList = FXCollections.observableArrayList();
+    private ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
     private Form application = new Form();
     public DBManager db = new DBManager();
 
@@ -37,7 +36,6 @@ public class WorkflowController {
     public void displayResults() {
 
         //@TODO: Get 10 batch assignments from the DB Manager
-        ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
         System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
         olAR = db.pullFormBatch(main.userData.getUserInformation());
         System.out.println(olAR);
@@ -61,6 +59,8 @@ public class WorkflowController {
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
+                        olAR.remove(rowData);
+                        resultsTable.refresh();
                         // Open selected form in new window
                         main.displayWorkflowApplication(viewForm);
                     } catch (Exception e) {
@@ -73,45 +73,45 @@ public class WorkflowController {
 
     }
 
-    public void displayResults(ObservableList<AgentRecord> rl) {
-        System.out.println("hi");
-        // Display batch in table
-        //resultsTable.setItems(rl);
-
-    }
-
-
-    @FXML
-    public void displayApplication() {
-
-        //@TODO: Display application in new window with accept/reject options
-        // Query for individual application
-        // Fill Form object with query information
-        // Pass form to new window
-        //main.displayWorkflowApplication(form);
-        //createAgentForm(form);
-
-    }
-
-    @FXML
-    public void closeApplication() {
-
-        // Close the window
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-
-        //@TODO: Refresh the TableView's contents
-            // Update our resultset???
-        setDisplay2(this.main, resultsList);
-        //resultsTable.refresh();
-
-    }
+//    public void displayResults(ObservableList<AgentRecord> rl) {
+//        System.out.println("hi");
+//        // Display batch in table
+//        //resultsTable.setItems(rl);
+//
+//    }
+//
+//
+//    @FXML
+//    public void displayApplication() {
+//
+//        //@TODO: Display application in new window with accept/reject options
+//        // Query for individual application
+//        // Fill Form object with query information
+//        // Pass form to new window
+//        //main.displayWorkflowApplication(form);
+//        //createAgentForm(form);
+//
+//    }
+//
+//    @FXML
+//    public void closeApplication() {
+//
+//        // Close the window
+//        Stage stage = (Stage) closeButton.getScene().getWindow();
+//        stage.close();
+//
+//        //@TODO: Refresh the TableView's contents
+//            // Update our resultset???
+//        setDisplay2(this.main, resultsList);
+//        //resultsTable.refresh();
+//
+//    }
 
     @FXML
     public void returnToMainPage(){
-        try{
+        try {
                 main.setDisplayToAgentMain();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -121,9 +121,9 @@ public class WorkflowController {
         this.displayResults();  // Display TableView Results
     }
 
-    public void setDisplay2(Main main, ObservableList<AgentRecord> rl) {
-        this.main = main;
-        this.displayResults(rl);  // Display TableView Results
-    }
+//    public void setDisplay2(Main main, ObservableList<AgentRecord> rl) {
+//        this.main = main;
+//        this.displayResults(rl);  // Display TableView Results
+//    }
 
 }

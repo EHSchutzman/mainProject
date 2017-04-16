@@ -42,10 +42,13 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println(queryString);
             stmt.executeUpdate(queryString);
             stmt.close();
             connection.close();
             return true;
+        } catch (SQLIntegrityConstraintViolationException se){
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -128,83 +131,59 @@ public class DBManager {
         ObservableList<AgentRecord> o1 = FXCollections.observableArrayList();
         System.out.println(user.getAuthenticationLevel());
         if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
+
+            // Search for pre-assigned, un-reviewed applications first
+            String query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                    "\' AND STATUS = \'Pending\'");
+
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", "(AGENT_ID IS NULL)");
+            System.out.println(query0);
             System.out.println(query);
             try {
                 Connection connection = TTB_database.connect();
+                Statement stmt0 = connection.createStatement();
                 Statement stmt = connection.createStatement();
-                System.out.println("QUERY " + query);
+
+                ResultSet rs0 = stmt0.executeQuery(query0);
                 ResultSet rs = stmt.executeQuery(query);
+
                 int i = 0;
-                while (rs.next() && i < 10) {
-                    ObservableList<String> dataList = FXCollections.observableArrayList();
-                    String ttb_id = rs.getString("TTB_ID");
-                    System.out.println("THIS IS THE TTB ID " + ttb_id);
-                    ArrayList<String> fields = new ArrayList<String>();
-                    fields.add("*");
-                    Form form = findSingleForm(ttb_id, fields);
-                    System.out.println("FORM TTB ID: " + form.getttb_id());
-                    form.setagent_id(user.getUid());
-                    System.out.println("Set form agent id to: " + form.getagent_id());
-                    updateForm(form);
-                    String rep_id = rs.getString("REP_ID");
-                    String permit_no = rs.getString("PERMIT_NO");
-                    String source = rs.getString("SOURCE");
-                    String serial_no = rs.getString("SERIAL_NO");
-                    String alcohol_type = rs.getString("ALCOHOL_TYPE");
-                    String brand_name = rs.getString("BRAND_NAME");
-                    String fanciful_name = rs.getString("FANCIFUL_NAME");
-                    String alcohol_content = rs.getString("ALCOHOL_CONTENT");
-                    String applicant_street = rs.getString("APPLICANT_STREET");
-                    String applicant_city = rs.getString("APPLICANT_CITY");
-                    String applicant_zip = rs.getString("APPLICANT_ZIP");
-                    String applicant_state = rs.getString("APPLICANT_STATE");
-                    String applicant_country = rs.getString("APPLICANT_COUNTRY");
-                    String mailing_address = rs.getString("MAILING_ADDRESS");
-                    String formula = rs.getString("FORMULA");
-                    String phone_no = rs.getString("PHONE_NO");
-                    String email = rs.getString("EMAIL");
-                    String label_text = rs.getString("LABEL_TEXT");
-                    String label_image = rs.getString("LABEL_IMAGE");
-                    String submit_date = rs.getString("SUBMIT_DATE");
-                    String signature = rs.getString("SIGNATURE");
-                    String status = rs.getString("STATUS");
-                    String agent_id = rs.getString("AGENT_ID");
-                    String applicant_id = rs.getString("APPLICANT_ID");
-                    String approved_date = rs.getString("APPROVED_DATE");
-                    String expiration_date = rs.getString("EXPIRATION_DATE");
+
+                // Iterate through pre-assigned, un-reviewed applications
+                while (rs0.next() && i < 10) {
+                    String ttb_id = rs0.getString("TTB_ID");
+                    String brand_name = rs0.getString("BRAND_NAME");
+                    String fanciful_name = rs0.getString("FANCIFUL_NAME");
+                    String submit_date = rs0.getString("SUBMIT_DATE");
+                    String status = rs0.getString("STATUS");
                     AgentRecord agentRecord = new AgentRecord();
                     agentRecord.setIDNo(ttb_id);
                     agentRecord.setName(fanciful_name + ", " + brand_name);
                     agentRecord.setStatus(status);
                     agentRecord.setDate(submit_date);
-                    dataList.add(ttb_id);
-                    dataList.add(rep_id);
-                    dataList.add(permit_no);
-                    dataList.add(source);
-                    dataList.add(serial_no);
-                    dataList.add(alcohol_type);
-                    dataList.add(brand_name);
-                    dataList.add(fanciful_name);
-                    dataList.add(alcohol_content);
-                    dataList.add(applicant_street);
-                    dataList.add(applicant_city);
-                    dataList.add(applicant_zip);
-                    dataList.add(applicant_state);
-                    dataList.add(applicant_country);
-                    dataList.add(mailing_address);
-                    dataList.add(formula);
-                    dataList.add(phone_no);
-                    dataList.add(email);
-                    dataList.add(label_text);
-                    dataList.add(label_image);
-                    dataList.add(submit_date);
-                    dataList.add(signature);
-                    dataList.add(status);
-                    dataList.add(agent_id);
-                    dataList.add(applicant_id);
-                    dataList.add(approved_date);
-                    dataList.add(expiration_date);
+                    o1.add(agentRecord);
+                    i++;
+                }
+
+                // Then get to the unassigned, un-reviewed applications
+                while (rs.next() && i < 10) {
+                    // Update form to confirm agent assignment
+                    String ttb_id = rs.getString("TTB_ID");
+                    ArrayList<String> fields = new ArrayList<>();
+                    fields.add("*");
+                    Form form = findSingleForm(ttb_id, fields);
+                    form.setagent_id(user.getUid());
+                    updateForm(form);
+
+                    String brand_name = rs.getString("BRAND_NAME");
+                    String fanciful_name = rs.getString("FANCIFUL_NAME");
+                    String submit_date = rs.getString("SUBMIT_DATE");
+                    String status = rs.getString("STATUS");
+                    AgentRecord agentRecord = new AgentRecord();
+                    agentRecord.setIDNo(ttb_id);
+                    agentRecord.setName(fanciful_name + ", " + brand_name);
+                    agentRecord.setStatus(status);
+                    agentRecord.setDate(submit_date);
                     o1.add(agentRecord);
                     i++;
                 }
@@ -271,10 +250,10 @@ public class DBManager {
     }
 
 
-    public ObservableList<AppRecord> findForms(User user) {
+    public ObservableList<AgentRecord> findForms(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = "";
-        ObservableList<AppRecord> ol = FXCollections.observableArrayList();
+        ObservableList<AgentRecord> ol = FXCollections.observableArrayList();
         //I think that appending these tables is going to get rid of the beer applications but ????
 
         if (user.getAuthenticationLevel() == 1) {
@@ -288,34 +267,11 @@ public class DBManager {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
-                ObservableList<String> dataList = FXCollections.observableArrayList();
-                AppRecord application = new AppRecord();
-                String ttb_id = rs.getString("TTB_ID");
-                String rep_id = rs.getString("REP_ID");
-                String permit_no = rs.getString("PERMIT_NO");
-                String source = rs.getString("SOURCE");
-                String serial_no = rs.getString("SERIAL_NO");
-                String alcohol_type = rs.getString("ALCOHOL_TYPE");
-                String brand_name = rs.getString("BRAND_NAME");
-                String fanciful_name = rs.getString("FANCIFUL_NAME");
-                String alcohol_content = rs.getString("ALCOHOL_CONTENT");
-                String applicant_city = rs.getString("APPLICANT_CITY");
-                String applicant_zip = rs.getString("APPLICANT_ZIP");
-                String applicant_state = rs.getString("APPLICANT_STATE");
-                String applicant_country = rs.getString("APPLICANT_COUNTRY");
-                String mailing_address = rs.getString("MAILING_ADDRESS");
-                String formula = rs.getString("FORMULA");
-                String phone_no = rs.getString("PHONE_NO");
-                String email = rs.getString("EMAIL");
-                String label_text = rs.getString("LABEL_TEXT");
-                String label_image = rs.getString("LABEL_IMAGE");
-                String submit_date = rs.getString("SUBMIT_DATE");
-                String signature = rs.getString("SIGNATURE");
+                AgentRecord application = new AgentRecord();
                 String status = rs.getString("STATUS");
-                String agent_id = rs.getString("AGENT_ID");
-                String applicant_id = rs.getString("APPLICANT_ID");
-                String approved_date = rs.getString("APPROVED_DATE");
-                String expiration_date = rs.getString("EXPIRATION_DATE");
+                String date = rs.getString("SUBMIT_DATE");
+                String idno = rs.getString("TTB_ID");
+                String name = rs.getString("BRAND_NAME") + " " + rs.getString("FANCIFUL_NAME");
                 /*if(alcohol_type.equals("Wine")){
                     String vintage_year = rs.getString("VINTAGE_YEAR");
                     String ph_level = rs.getString("PH_LEVEL");
@@ -327,43 +283,10 @@ public class DBManager {
                     dataList.add(wine_appellation);
                 }*/
 
-                application.setFormID(ttb_id);
-                application.setApplicantID(applicant_id);
-                application.setBrandName(brand_name);
-                application.setFancifulName(fanciful_name);
-                application.setCompletedDate(approved_date);
-                application.setSerialNo(serial_no);
-                application.setPermitNo(permit_no);
                 application.setStatus(status);
-                application.setTypeID(alcohol_type);
-
-
-                dataList.add(ttb_id);
-                dataList.add(rep_id);
-                dataList.add(permit_no);
-                dataList.add(source);
-                dataList.add(serial_no);
-                dataList.add(alcohol_type);
-                dataList.add(brand_name);
-                dataList.add(fanciful_name);
-                dataList.add(alcohol_content);
-                dataList.add(applicant_city);
-                dataList.add(applicant_zip);
-                dataList.add(applicant_state);
-                dataList.add(applicant_country);
-                dataList.add(mailing_address);
-                dataList.add(formula);
-                dataList.add(phone_no);
-                dataList.add(email);
-                dataList.add(label_text);
-                dataList.add(label_image);
-                dataList.add(submit_date);
-                dataList.add(signature);
-                dataList.add(status);
-                dataList.add(agent_id);
-                dataList.add(applicant_id);
-                dataList.add(approved_date);
-                dataList.add(expiration_date);
+                application.setDate(date);
+                application.setIDNo(idno);
+                application.setName(name);
 
                 ol.add(application);
             }
@@ -418,12 +341,23 @@ public class DBManager {
                 int ph_level = -1;
                 String grape_varietals = null;
                 String wine_appellation = null;
-                /*if(alcohol_type != null && alcohol_type.equals("Wine")) {
-                    vintage_year = rs.getString("vintage_year");
-                    ph_level = rs.getInt("ph_level");
-                    grape_varietals = rs.getString("grape_varietals");
-                    wine_appellation = rs.getString("wine_appelation");
-                }*/
+                if(alcohol_type != null && alcohol_type.equals("Wine")) {
+                    query = queryBuilder.createSelectStatement("WINEONLY", "*", "ttb_id=\'" + ttb_id + "\'");
+                    try {
+                        Statement stmt2 = connection.createStatement();
+                        ResultSet rs2 = stmt2.executeQuery(query);
+                        while(rs2.next()){
+                            vintage_year = rs2.getString("vintage_year");
+                            ph_level = rs2.getInt("ph_level");
+                            grape_varietals = rs2.getString("grape_varietals");
+                            wine_appellation = rs2.getString("wine_appellation");
+                        }
+                        rs2.close();
+                        stmt2.close();
+                    } catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                }
                 ArrayList<Boolean> application_type = new ArrayList<>();
                 ArrayList<String> application_type_text = new ArrayList<>();
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type,
@@ -433,6 +367,9 @@ public class DBManager {
                         agent_id, applicant_id, approved_date, expiration_date, vintage_year,
                         ph_level, grape_varietals, wine_appellation, application_type, application_type_text, approval_comments);
             }
+            rs.close();
+            stmt.close();
+            connection.close();
             return form;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -16,15 +16,15 @@
          <font>
             <Font size="24.0" />
          </font></TextField>
-       <TextField fx:id="password_text" layoutX="351.0" layoutY="199.0" promptText="Password">
+       <PasswordField fx:id="password_text" layoutX="351.0" layoutY="199.0" promptText="Password">
          <font>
             <Font size="24.0" />
-         </font></TextField>
+         </font></PasswordField>
       <Button fx:id="loginButton" layoutX="351.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#loginAction" text="Log In">
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Label fx:id="errorLabel" layoutX="341.0" layoutY="259.0" prefHeight="17.0" prefWidth="318.0">
+       <Label fx:id="errorLabel" layoutX="275.0" layoutY="260.0" prefHeight="17.0" prefWidth="450.0">
          <font>
             <Font size="18.0" />
          </font></Label>
