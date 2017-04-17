@@ -325,8 +325,14 @@ public class FormController{
         option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
 
-        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
-        ArrayList<String> tempStrArray = form.getapplication_type_text();
+        ArrayList<Boolean> tempBoolArray = new ArrayList<Boolean>();
+        for (int i = 0; i < 4; i++) {
+            tempBoolArray.add(false);
+        }
+        ArrayList<String> tempStrArray = new ArrayList<String>();
+        for (int i = 0; i < 4; i++) {
+            tempStrArray.add("");
+        }
         if (tempBoolArray.get(0) == true) {//choice 0
             option_1_checkbox.setSelected(true);
         }

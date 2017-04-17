@@ -460,7 +460,7 @@ public class DBManager {
 
     public String findUsersName(String user_id) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.createSelectStatement("USERS", "first_name, middle_inital, last_name", "user_id = \'" + user_id + "\'");
+        String query = queryBuilder.createSelectStatement("USERS", "first_name, middle_initial, last_name", "user_id = \'" + user_id + "\'");
         System.out.println(query);
         try {
             Connection connection = TTB_database.connect();

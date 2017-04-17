@@ -133,7 +133,7 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             controller.ReviewDisplay(this, form);
-//            controller.source_combobox.setPromptText("Select Alcohol Soruce");
+//            controller.source_combobox.setPromptText("Select Alcohol Source");
 //            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
 //            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
 //            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
@@ -148,14 +148,14 @@ public class Main extends Application {
             // Get Alcohol Type info and set it to display for the Agent
             //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
             if (form.getalcohol_type().equals("Malt Beverages")) {
-                controller.source_text.setText("Malt Beverages");
+                controller.alcohol_type_text.setText("Malt Beverages");
 
                 //alcohol_content_text.setPromptText("Beer");
             } else if (form.getalcohol_type().equals("Wine")) {
-                controller.source_text.setText("Wine");
+                controller.alcohol_type_text.setText("Wine");
                 //alcohol_content_text.setPromptText("Wine");
             } else if (form.getalcohol_type().equals("Distilled Spirit")) {
-                controller.source_text.setText("Distilled Spirit");
+                controller.alcohol_type_text.setText("Distilled Spirit");
 
                 //alcohol_content_text.setPromptText("Distilled Spirit");
             }
@@ -169,23 +169,29 @@ public class Main extends Application {
 
 //            //@TODO: Whatever this shit is supposed to do
 //
-//            ArrayList<Boolean> tempBoolArray = form.getapplication_type();
-//            ArrayList<String> tempStrArray = form.getapplication_type_text();
-//            if (tempBoolArray.get(0) == true) {//choice 0
-//                controller.option_1_checkbox.setSelected(true);
-//            }
-//            if (tempBoolArray.get(1) == true) {
-//                controller.option_2_text.setPromptText(tempStrArray.get(0));
-//                controller.option_2_checkbox.setSelected(true);
-//            }
-//            if (tempBoolArray.get(2) == true) {
-//                controller.option_3_text.setPromptText(tempStrArray.get(1));
-//                controller.option_3_checkbox.setSelected(true);
-//            }
-//            if (tempBoolArray.get(3) == true) {
-//                controller.option_4_text.setPromptText(tempStrArray.get(2));
-//                controller.option_4_checkbox.setSelected(true);
-//            }
+            ArrayList<Boolean> tempBoolArray = new ArrayList<Boolean>();
+            for (int i = 0; i < 4; i++) {
+                tempBoolArray.add(false);
+            }
+            ArrayList<String> tempStrArray = new ArrayList<String>();
+            for (int i = 0; i < 4; i++) {
+                tempStrArray.add("");
+            }
+            if (tempBoolArray.get(0) == true) {//choice 0
+                controller.option_1_checkbox.setSelected(true);
+            }
+            if (tempBoolArray.get(1) == true) {
+                controller.option_2_text.setPromptText(tempStrArray.get(0));
+                controller.option_2_checkbox.setSelected(true);
+            }
+            if (tempBoolArray.get(2) == true) {
+                controller.option_3_text.setPromptText(tempStrArray.get(1));
+                controller.option_3_checkbox.setSelected(true);
+            }
+            if (tempBoolArray.get(3) == true) {
+                controller.option_4_text.setPromptText(tempStrArray.get(2));
+                controller.option_4_checkbox.setSelected(true);
+            }
 
             controller.rep_id_text.setText(form.getrep_id());
             controller.permit_no_text.setText(form.getpermit_no());
@@ -195,11 +201,17 @@ public class Main extends Application {
             controller.alcohol_content_text.setText(String.valueOf(form.getalcohol_content()));
             controller.formula_text.setText(form.getFormula());
             controller.label_text.setText(form.getlabel_text());
-            // Wines only
-            controller.vintage_year_text.setText(form.getvintage_year());
-            controller.ph_level_text.setText(String.valueOf(form.getpH_level()));
-            controller.grape_varietals_text.setText(form.getgrape_varietals());
-            controller.wine_appellation_text.setText(form.getwine_appellation());
+            if(controller.alcohol_type_text.getText().equals("Wine")) {
+                controller.vintage_year_text.setText(form.getvintage_year());
+                controller.ph_level_text.setText(String.valueOf(form.getpH_level()));
+                controller.grape_varietals_text.setText(form.getgrape_varietals());
+                controller.wine_appellation_text.setText(form.getwine_appellation());
+            } else {
+                controller.vintage_year_text.setText(null);
+                controller.ph_level_text.setText(null);
+                controller.grape_varietals_text.setText(null);
+                controller.wine_appellation_text.setText(null);
+            }
 
             //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
         /*applicant_street_1_text.setPromptText(form.getapplicant_street());
