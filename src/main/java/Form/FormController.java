@@ -210,7 +210,7 @@ public class FormController{
 
         // Initialize Alcohol Type ChoiceBox, get and set value
         alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirit"));
-        form.setalcohol_type((String) alcohol_type_combobox.getValue());
+        form.setalcohol_type((String)alcohol_type_combobox.getValue());
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
@@ -250,10 +250,17 @@ public class FormController{
         form.setFormula(formula_text.getText());
         form.setlabel_text(label_text.getText());
         // Wines only
-        form.setvintage_year(vintage_year_text.getText());
-        //form.setpH_level(Integer.parseInt(ph_level_text.getText()));
-        form.setgrape_varietals(grape_varietals_text.getText());
-        form.setwine_appellation(wine_appellation_text.getText());
+        if (alcohol_type_combobox.getValue().equals("Wine")) {
+            form.setvintage_year(vintage_year_text.getText());
+            form.setpH_level(Integer.parseInt(ph_level_text.getText()));
+            form.setgrape_varietals(grape_varietals_text.getText());
+            form.setwine_appellation(wine_appellation_text.getText());
+        } else {
+            form.setvintage_year(null);
+            form.setpH_level(-1);
+            form.setgrape_varietals(null);
+            form.setwine_appellation(null);
+        }
 
         form.setapplicant_street(applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
         form.setapplicant_city(applicant_city_text.getText());
@@ -302,13 +309,13 @@ public class FormController{
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
         if(form.getalcohol_type().equals("Malt Beverages")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_content_text.setPromptText("Malt Beverages");
+            alcohol_type_text.setPromptText("Malt Beverages");
         } else if (form.getalcohol_type().equals("Wine")) {
             //alcohol_type_combobox.getSelectionModel().select(2);
-            alcohol_content_text.setPromptText("Wine");
+            alcohol_type_text.setPromptText("Wine");
         } else if (form.getalcohol_type().equals("Distilled Spirit")) {
             //alcohol_type_combobox.getSelectionModel().select(3);
-            alcohol_content_text.setPromptText("Distilled Spirit");
+            alcohol_type_text.setPromptText("Distilled Spirit");
         }
 
         // Initialize checkboxes
@@ -317,8 +324,6 @@ public class FormController{
         option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");
         option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
-
-        //@TODO: Whatever this shit is supposed to do
 
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
         ArrayList<String> tempStrArray = form.getapplication_type_text();
@@ -347,10 +352,17 @@ public class FormController{
         formula_text.setText(form.getFormula());
         label_text.setText(form.getlabel_text());
         // Wines only
-        vintage_year_text.setText(form.getvintage_year());
-        ph_level_text.setText(String.valueOf(form.getpH_level()));
-        grape_varietals_text.setText(form.getgrape_varietals());
-        wine_appellation_text.setText(form.getwine_appellation());
+        if (alcohol_type_text.getText().equals("Wine")) {
+            vintage_year_text.setText(form.getvintage_year());
+            ph_level_text.setText(String.valueOf(form.getpH_level()));
+            grape_varietals_text.setText(form.getgrape_varietals());
+            wine_appellation_text.setText(form.getwine_appellation());
+        }else {
+            vintage_year_text.setText(null);
+            ph_level_text.setText(null);
+            grape_varietals_text.setText(null);
+            wine_appellation_text.setText(null);
+        }
 
         //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
         /*applicant_street_1_text.setPromptText(form.getapplicant_street());
@@ -549,15 +561,20 @@ public class FormController{
         String formula = (formula_text.getText());
         String labeltext = label_text.getText();
 
-        // Wines only
-        String vintage_year = (vintage_year_text.getText());
-        if (alcohol_type.equals("Wine")) {
+        String vintage_year;
+        String grape_varietals;
+        String wine_appellation;
+        if (alcohol_type_combobox.getValue().equals("Wine")){
+            vintage_year = (vintage_year_text.getText());
+            grape_varietals = (grape_varietals_text.getText());
             pH_level = (Integer.parseInt(ph_level_text.getText()));
+            wine_appellation = (wine_appellation_text.getText());
         } else {
+            vintage_year = (null);
+            grape_varietals = (null);
             pH_level = -1;
+            wine_appellation = (null);
         }
-        String grape_varietals = (grape_varietals_text.getText());
-        String wine_appellation = (wine_appellation_text.getText());
 
         String applicant_street = (applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
         String applicant_city = (applicant_city_text.getText());

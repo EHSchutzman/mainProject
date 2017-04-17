@@ -101,8 +101,9 @@ public class DBManager {
         fields.add("NULL");
         fields.add("NULL");
         if (form.getalcohol_type().equals("Wine")) {
+            wine.add("\'" + form.getttb_id() + "\'");
             wine.add("\'" + form.getvintage_year() + "\'");
-            wine.add("\'" + form.getpH_level() + "\'");
+            wine.add("" + form.getpH_level() + "");
             wine.add("\'" + form.getgrape_varietals() + "\'");
             wine.add("\'" + form.getwine_appellation() + "\'");
         }
@@ -141,10 +142,7 @@ public class DBManager {
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(queryString);
             if (!wine.isEmpty()) {
-                ArrayList<String> wineonly = new ArrayList<>();
-                wineonly.add(form.getttb_id());
-                wineonly.addAll(wine);
-                String wineString = queryBuilder.createInsertStatement("WINEONLY", wineonly);
+                String wineString = queryBuilder.createInsertStatement("WINEONLY", wine);
                 stmt.executeUpdate(wineString);
             }
             if(!typeofapplication0.isEmpty()){
@@ -454,6 +452,32 @@ public class DBManager {
             statement.close();
             connection.close();
             return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String findUsersName(String user_id) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "first_name, middle_inital, last_name", "user_id = \'" + user_id + "\'");
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            String usersname = "";
+            while (rs.next()) {
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+
+                usersname = "" + first_name + " " + middle_initial + ". " + last_name;
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return usersname;
         } catch (SQLException e) {
             e.printStackTrace();
         }
