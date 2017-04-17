@@ -169,29 +169,6 @@ public class Main extends Application {
 
 //            //@TODO: Whatever this shit is supposed to do
 //
-            ArrayList<Boolean> tempBoolArray = new ArrayList<Boolean>();
-            for (int i = 0; i < 4; i++) {
-                tempBoolArray.add(false);
-            }
-            ArrayList<String> tempStrArray = new ArrayList<String>();
-            for (int i = 0; i < 4; i++) {
-                tempStrArray.add("");
-            }
-            if (tempBoolArray.get(0) == true) {//choice 0
-                controller.option_1_checkbox.setSelected(true);
-            }
-            if (tempBoolArray.get(1) == true) {
-                controller.option_2_text.setPromptText(tempStrArray.get(0));
-                controller.option_2_checkbox.setSelected(true);
-            }
-            if (tempBoolArray.get(2) == true) {
-                controller.option_3_text.setPromptText(tempStrArray.get(1));
-                controller.option_3_checkbox.setSelected(true);
-            }
-            if (tempBoolArray.get(3) == true) {
-                controller.option_4_text.setPromptText(tempStrArray.get(2));
-                controller.option_4_checkbox.setSelected(true);
-            }
 
             controller.rep_id_text.setText(form.getrep_id());
             controller.permit_no_text.setText(form.getpermit_no());

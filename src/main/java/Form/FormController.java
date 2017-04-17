@@ -8,12 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
@@ -159,6 +164,7 @@ public class FormController{
     public TextField mailing_zip_text;
     public TextField mailing_country_text;
     public TextField mailing_state_text;
+    public TextField applicant_name_text;
     @FXML
     public TextField phone_no_text;
     @FXML
@@ -377,13 +383,14 @@ public class FormController{
         applicant_zip_text.setPromptText(form.getapplicant_zip());
         applicant_country_text.setPromptText(form.getapplicant_country());*/
 
-        address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
         //mailing_addressText.setPromptText(form.getmailing_address());
-
-        signature_text.setPromptText(form.getSignature());
-        phone_no_text.setPromptText(form.getphone_no());
-        email_text.setPromptText(form.getEmail());
+        DBManager manager  = new DBManager();
+        applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
+        signature_text.setText(form.getSignature());
+        phone_no_text.setText(form.getphone_no());
+        email_text.setText(form.getEmail());
 
         try {
             File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
