@@ -40,6 +40,7 @@ public class SearchController {
     //Name info
     protected String brand;
     protected String product; //also known as fanciful name
+    protected String name;
     //Type info
     protected boolean isMalt;
     protected boolean isSpirit;
@@ -72,19 +73,24 @@ public class SearchController {
     @FXML
     private TextField txtAppID;
 
+    // For the search results page
+    @FXML
+    TextField searchBox;
 
     @FXML
     // Handle a search - effectively a "main" function for our program
     protected void handleSearch() throws SQLException {
 
-        System.out.println("Handles search!");
-
-        // Handle search criteria
-        //searchCriteria();
-
         // Display our new data in the TableView
         displayData(searchCriteria());
 
+    }
+
+    @FXML
+    protected void handleInlineSearch() throws SQLException {
+
+        //
+        searchInlineCriteria();
     }
 
     // Function that reads the input entered into the search page and passes it to DBManager
@@ -106,24 +112,26 @@ public class SearchController {
 
             if (isMalt || isSpirit || isWine) {
 
-                params += " AND ALCOHOL_TYPE = ";
-            }
-            if (isWine) {
-                params += "'Wine'";
-                firstCheck = true;
-            }
-            if (isSpirit && !firstCheck) {
-                params += "'Distilled Spirit'";
-                firstCheck = true;
-            } else if (isSpirit && firstCheck) {
-                params += " OR ALCOHOL_TYPE = 'Distilled Spirit'";
-            }
+                params += " AND (ALCOHOL_TYPE = ";
 
-            if (isMalt && !firstCheck) {
-                params += "'Malted Beverages'";
-                firstCheck = true;
-            } else if (isMalt && firstCheck) {
-                params += " OR ALCOHOL_TYPE = 'Malted Beverages'";
+                if (isWine) {
+                    params += "'Wine'";
+                    firstCheck = true;
+                }
+                if (isSpirit && !firstCheck) {
+                    params += "'Distilled Spirits'";
+                    firstCheck = true;
+                } else if (isSpirit && firstCheck) {
+                    params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
+                }
+
+                if (isMalt && !firstCheck) {
+                    params += "'Malt Beverages'";
+                    firstCheck = true;
+                } else if (isMalt && firstCheck) {
+                    params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
+                }
+                params += ")";
             }
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
@@ -153,6 +161,65 @@ public class SearchController {
         }
     }
 
+    protected ObservableList<AppRecord> searchInlineCriteria() {
+        try {
+            //Set all variables equal to input data
+            name = searchBox.getText();
+            isMalt = malt_beverage_checkbox.isSelected();
+            isSpirit = distilled_spirit_checkbox.isSelected();
+            isWine = wine_checkbox.isSelected();
+
+            boolean firstCheck = false;
+
+            String params = " WHERE STATUS = 'Accepted' AND";
+
+            if (isMalt || isSpirit || isWine) {
+
+                params += " (ALCOHOL_TYPE = ";
+
+                if (isWine) {
+                    params += "'Wine'";
+                    firstCheck = true;
+                }
+
+                if (isSpirit && !firstCheck) {
+                    params += "'Distilled Spirits'";
+                    firstCheck = true;
+                } else if (isSpirit && firstCheck) {
+                    params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
+                }
+
+                if (isMalt && !firstCheck) {
+                    params += "'Malt Beverages'";
+                    firstCheck = true;
+                } else if (isMalt && firstCheck) {
+                    params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
+                }
+                params += ")";
+            }
+
+            if (firstCheck) {
+                params += " AND (BRAND_NAME LIKE '%" + name + "%' OR FANCIFUL_NAME LIKE '%" + name + "%')";
+
+            } else {
+                params += " (BRAND_NAME LIKE '%" + name + "%' OR FANCIFUL_NAME LIKE '%" + name + "%')";
+            }
+
+
+            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
+
+            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            resultsTable.setItems(arr);
+            resultsTable.refresh();
+
+            return arr;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not build a query from search criteria.");
+            return null;
+        }
+    }
+
     // Display DB data into a TableView
     protected void displayData(ObservableList<AppRecord> list) {
 
@@ -161,56 +228,6 @@ public class SearchController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*ResultSet searchResults = rs;
-
-        try {
-
-            try {
-
-                ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
-                while(searchResults.previous());
-                AppRecord row;
-                while (searchResults.next()) {
-                    row  = new AppRecord();
-                    String formID = searchResults.getString("TTB_ID");
-                    String permitNo = searchResults.getString("PERMIT_NUMBER");
-                    String serialNo = searchResults.getString("SERIAL_NUMBER");
-                    String completedDate = searchResults.getString("COMPLETED_DATE");
-                    String fancifulName = searchResults.getString("FANCIFUL_NAME");
-                    String brandName = searchResults.getString("BRAND_NAME");
-                    String origin = searchResults.getString("ORIGIN_CODE");
-                    String type = searchResults.getString("TYPE_ID");
-
-                    row.setTypeID(formID);
-                    row.setPermitNo(permitNo);
-                    row.setSerialNo(serialNo);
-                    row.setCompletedDate(completedDate);
-                    row.setFancifulName(fancifulName);
-                    row.setBrandName(brandName);
-                    row.setOriginCode(origin);
-                    row.setTypeID(type);
-
-                    dataList.add(row);
-
-                    System.out.println("Data "+ dataList);
-
-                }
-                System.out.println("Data "+ dataList);
-
-                //FINALLY ADDED TO TableView
-
-                main.displaySearchResultsPage(dataList);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Error building data!");
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error displaying data.");
-            return false;
-        }*/
 
     }
 
@@ -309,5 +326,4 @@ public class SearchController {
             e.printStackTrace();
         }
     }
-
 }
