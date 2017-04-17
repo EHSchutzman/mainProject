@@ -106,6 +106,7 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println(queryString);
             stmt.executeUpdate(queryString);
             if (!wine.isEmpty()) {
                 ArrayList<String> wineonly = new ArrayList<>();

@@ -35,7 +35,6 @@ public class Main extends Application {
         initRootLayout();
     }
 
-
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
@@ -101,7 +100,6 @@ public class Main extends Application {
         }
     }
 
-
     public void setDisplayToReviseForm(Form form) throws Exception {
 
         try {
@@ -122,7 +120,6 @@ public class Main extends Application {
         }
 
     }
-
 
     public void setDisplayToApply() throws Exception {
 
@@ -348,14 +345,52 @@ public class Main extends Application {
     }
 
     public void setDisplayToApplicantApply() throws Exception {
+    /*
+    *             Stage stage = new Stage();
+            stage.setTitle("Workflow Results");
 
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            FormController controller = loader.getController();
+
+            controller.setDisplay2(this, application);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    *
+    *
+    * */
         try {
+
+            Stage stage = new Stage();
+            stage.setTitle("Application Form");
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("iter2application.fxml"));
+            AnchorPane newWindow = loader.load();
 
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Applicant Application Page");
-            primaryStage.getScene().setRoot(page);
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
 
             FormController controller = loader.getController();
 
@@ -414,6 +449,56 @@ public class Main extends Application {
             controller.resultsTable.setItems(one);
 */
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayAboutPage() throws Exception {
+        try {
+
+            Stage stage = new Stage();
+            stage.setTitle("About Page");
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("aboutPage.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 518, 840);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void displayConfirmationMessage() throws Exception {
+        try {
+
+            Stage stage = new Stage();
+            stage.setTitle("Action confirmation!");
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("confirmationMessage.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 299, 204);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

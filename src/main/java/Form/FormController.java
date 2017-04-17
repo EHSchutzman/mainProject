@@ -191,6 +191,8 @@ public class FormController{
     public TextField submit_date;
     public ImageView label_image;
 
+    @FXML Button closeButton;
+
 
     public void createApplicantForm() {
 
@@ -575,7 +577,7 @@ public class FormController{
 
         DBManager.persistForm(form);
 
-        //TODO return to applicant's application list page
+        closeApplication();
     }
 
     @FXML
@@ -731,10 +733,21 @@ public class FormController{
         Stage stage = (Stage) back_button.getScene().getWindow();
         stage.close();
 
-        //@TODO: Refresh the TableView's contents
-        // Update our resultset???
-        //(this.main, resultsList);
-        //resultsTable.refresh();
+        // Display confirmation message
+        try {
+            main.displayConfirmationMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    public void closeWindow() {
+
+        // Close the window
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
 
     }
 

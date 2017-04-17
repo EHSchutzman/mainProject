@@ -88,4 +88,12 @@ public class ActionController {
             e.printStackTrace();
         }
     }
+
+    @FXML public void displayAboutPage() {
+        try {
+            main.displayAboutPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
