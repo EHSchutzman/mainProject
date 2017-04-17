@@ -429,4 +429,32 @@ public class Main extends Application {
         }
     }
 
+    public void setDisplayToSuperAgentSearchUsers() throws IOException{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentMainPage.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Search Users");
+            primaryStage.getScene().setRoot(page);
+            FormController controller = loader.getController();
+            controller.ReviseDisplay(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDisplayToSuperAgentCreateAgent() throws IOException{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentCreateAgent.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Create Agents");
+            primaryStage.getScene().setRoot(page);
+            FormController controller = loader.getController();
+            controller.ReviseDisplay(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
