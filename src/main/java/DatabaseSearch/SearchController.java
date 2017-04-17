@@ -111,8 +111,8 @@ public class SearchController {
                 origin = state_text.getText();
             }
 
-            if (dpDateRangeStart != null && dpDateRangeEnd != null) {
-                //params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
+            if (dpDateRangeStart.getValue() != null && dpDateRangeEnd.getValue() != null) {
+                params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
             }
 
 
@@ -134,7 +134,6 @@ public class SearchController {
             } else if (isSpirit && firstCheck) {
                 params += " OR ALCOHOL_TYPE = \'Distilled Spirit\'";
             }
-
             if (isMalt && !firstCheck) {
                 params += "\'Malt Beverages\'";
                 firstCheck = true;
@@ -142,11 +141,14 @@ public class SearchController {
                 params += " OR ALCOHOL_TYPE = \'Malt Beverages\'";
             }
 
+            params += " AND STATUS = \'approved\' ";
+
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
             ArrayList<String> brandArray = new ArrayList<>();
             ArrayList<String> productArray = new ArrayList<>();
             ArrayList<String> typeArray = new ArrayList<>();
             ArrayList<String> originArray = new ArrayList<>();
+            ArrayList<String> statusArray = new ArrayList<>();
 
             if(brand_name_text != null) {
                 brandArray.add("BRAND_NAME");
@@ -163,6 +165,8 @@ public class SearchController {
                 originArray.add(origin);
                 searchParams.add(originArray);
             }
+
+            searchParams.add(statusArray);
 
             searchParams.add(typeArray);
 

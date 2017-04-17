@@ -6,6 +6,7 @@ import Form.Form;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
@@ -250,7 +251,7 @@ public class DBManager {
 
     public ObservableList<AppRecord> findLabels(ArrayList<ArrayList<String>> filters, String more) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "ttb_id, permit_no, serial_no, fanciful_name, brand_name, alcohol_type, approved_date";
+        String fields = "ttb_id, permit_no, serial_no, fanciful_name, brand_name, alcohol_type, approved_date, status";
         String query = queryBuilder.createLikeStatement("APP.FORMS", fields, filters);
         if (more != null && !more.isEmpty()) {
             if (!filters.get(0).isEmpty()) {
@@ -274,6 +275,7 @@ public class DBManager {
                 String brandName = rs.getString("brand_name");
                 String alcoholType = rs.getString("alcohol_type");
                 String approvedDate = rs.getDate("approved_date").toString();
+                String status = rs.getString("status");
                 //ObservableList<String> observableList = FXCollections.observableArrayList();
                 //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
                 //ol.add(observableList);
@@ -287,6 +289,7 @@ public class DBManager {
                 ol.add(application);
                 application.setCompletedDate(approvedDate);
                 application.setTtb_ID(ttbID);
+                application.setStatus(status);
             }
             rs.close();
             stmt.close();
@@ -649,6 +652,7 @@ public class DBManager {
     }
 
 
+    @FXML
     public void generateCSV(ObservableList<AppRecord> list) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
