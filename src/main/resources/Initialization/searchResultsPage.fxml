@@ -5,13 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DatabaseSearch.SearchController">
+<AnchorPane prefHeight="570.0" prefWidth="1086.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="DatabaseSearch.SearchController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="500.0" layoutX="-25.0" layoutY="67.0"
-                   stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0"
+        <Rectangle fx:id="searchBar" arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="570.0" layoutX="-25.0"
+                   layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="1086.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.topAnchor="0.0"/>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#597B99" height="100.0" layoutX="667.0" layoutY="664.0"
-                   stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0"
+                   stroke="BLACK" strokeType="INSIDE" width="1086.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.topAnchor="0.0"/>
         <Label fx:id="pageLabel" layoutX="386.0" layoutY="26.0" text="Search Results">
             <font>
@@ -30,7 +31,7 @@
                 <Font size="18.0"/>
             </font>
         </Button>
-        <TableView fx:id="resultsTable" layoutX="17.0" layoutY="119.0" prefHeight="356.0" prefWidth="967.0">
+        <TableView fx:id="resultsTable" layoutX="20.0" layoutY="142.0" prefHeight="408.0" prefWidth="1043.0">
             <columns>
                 <TableColumn fx:id="formIDCol" prefWidth="120.0" text="Form ID">
                     <cellValueFactory><PropertyValueFactory property="formID" />
@@ -48,37 +49,36 @@
                     <cellValueFactory><PropertyValueFactory property="completedDate" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="fancifulNameCol" prefWidth="100.0" text="Fanciful Name.">
+                <TableColumn fx:id="fancifulNameCol" prefWidth="125.3333740234375" text="Fanciful Name.">
                     <cellValueFactory><PropertyValueFactory property="fancifulName" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="brandNameCol" prefWidth="100.0" text="Brand Name">
+                <TableColumn fx:id="brandNameCol" prefWidth="102.6666259765625" text="Brand Name">
                     <cellValueFactory><PropertyValueFactory property="brandName" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="originCol" prefWidth="100.0" text="Origin">
+                <TableColumn fx:id="originCol" prefWidth="86.0" text="Origin">
                     <cellValueFactory><PropertyValueFactory property="originCode" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="typeIDCol" prefWidth="100.0" text="Type ID">
+                <TableColumn fx:id="typeIDCol" prefWidth="123.66668701171875" text="Type ID">
                     <cellValueFactory><PropertyValueFactory property="typeID" />
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn fx:id="statusCol" prefWidth="100.0" text="Status">
+                <TableColumn fx:id="statusCol" minWidth="0.0" prefWidth="124.33331298828125" text="Status">
                     <cellValueFactory>
                         <PropertyValueFactory property="status"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>
-            <!--<items>
-                <FXCollections fx:factory="observableArrayList">
-                    <AppRecord formID="1" permitNo="1" serialNo="1" completedDate="04/05/1997" fancifulName="Adams"
-                    brandName="Sam" originCode="26" typeID="1" />
-                </FXCollections>
-            </items>-->
-            <!--<sortOrder>
-                <fx:reference source="formID" />
-            </sortOrder>-->
         </TableView>
+        <TextField fx:id="searchBox" layoutX="28.0" layoutY="105.0" onKeyReleased="#handleInlineSearch"
+                   prefHeight="31.0" prefWidth="482.0"/>
+        <CheckBox fx:id="malt_beverage_checkbox" layoutX="527.0" layoutY="110.0" mnemonicParsing="false"
+                  onAction="#handleInlineSearch" text="Beer"/>
+        <CheckBox fx:id="wine_checkbox" layoutX="594.0" layoutY="110.0" mnemonicParsing="false"
+                  onAction="#handleInlineSearch" text="Wine"/>
+        <CheckBox fx:id="distilled_spirit_checkbox" layoutX="664.0" layoutY="110.0" mnemonicParsing="false"
+                  onAction="#handleInlineSearch" text="Distilled Spirits"/>
     </children>
 </AnchorPane>

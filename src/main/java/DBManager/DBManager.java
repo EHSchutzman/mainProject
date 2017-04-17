@@ -205,7 +205,9 @@ public class DBManager {
         String fields = "ttb_id, permit_no, serial_no, approved_date, fanciful_name, brand_name, alcohol_type";
         String query = queryBuilder.createLikeStatement("APP.FORMS", fields, filters);
         if (more != null && !more.isEmpty()) {
-            if (!filters.get(0).isEmpty()) {
+            if (filters.isEmpty()) {
+                query = query.concat(more);
+            } else if (!filters.get(0).isEmpty()) {
                 query = query.concat(more);
             } else {
                 query = query.concat(" and " + more);

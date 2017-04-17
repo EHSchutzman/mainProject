@@ -50,7 +50,6 @@ public class Main extends Application {
 
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
-            //primaryStage.setFullScreen(true);
 
             primaryStage.show();
 
@@ -96,8 +95,6 @@ public class Main extends Application {
 
             AuthenticationController controller = loader.getController();
             controller.setDisplay(this);
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -174,11 +171,6 @@ public class Main extends Application {
             SearchController controller = loader.getController();
             controller.setDisplay(this);
 
-
-//            for(AppRecord a : list){
-//                System.out.println(a.getFormID());
-//            }
-
             controller.resultsTable.setItems(list);
 
 
@@ -186,8 +178,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-
 
     // Currently attempting to open in a new page
     public void displayWorkflowApplication(Form application) throws Exception{
@@ -212,7 +202,6 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
 
-            //WorkflowController controller = loader.getController();
             controller.setDisplay2(this, application);
 
         } catch (IOException e){
