@@ -12,12 +12,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -43,9 +45,12 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("mainPage.fxml"));
 
             rootLayout = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            rootLayout.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout, 1000, 500);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
             primaryStage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -72,6 +77,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
 
             ActionController controller = loader.getController();
@@ -89,6 +98,11 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("loginPage.fxml"));
             AnchorPane page = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            rootLayout.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             primaryStage.setTitle("Login Page");
             primaryStage.getScene().setRoot(page);
@@ -113,13 +127,97 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("reviseApplication.css").toExternalForm());
+
+
 
             FormController controller = loader.getController();
             controller.ReviewDisplay(this, form);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
+//            controller.source_combobox.setPromptText("Select Alcohol Soruce");
+//            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+//            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
+//            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
+            if (form.getSource().equals("Imported")) {
+                controller.source_text.setText("Imported");
+                //source_text.setPromptText("Imported");
+            } else if (form.getSource().equals("Domestic")) {
+                controller.source_text.setText("Domestic");
+                //source_text.setPromptText("Domestic");
+            }
+
+            // Get Alcohol Type info and set it to display for the Agent
+            //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
+            if (form.getalcohol_type().equals("Malt Beverages")) {
+                controller.source_text.setText("Malt Beverages");
+
+                //alcohol_content_text.setPromptText("Beer");
+            } else if (form.getalcohol_type().equals("Wine")) {
+                controller.source_text.setText("Wine");
+                //alcohol_content_text.setPromptText("Wine");
+            } else if (form.getalcohol_type().equals("Distilled Spirit")) {
+                controller.source_text.setText("Distilled Spirit");
+
+                //alcohol_content_text.setPromptText("Distilled Spirit");
+            }
+
+            // Initialize checkboxes
+            // Type of Application Check Boxes and their corresponding TextFields
+            controller.option_1_checkbox = new CheckBox("Certificate of Label Approval");
+            controller.option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");
+            controller.option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
+            controller.option_4_checkbox = new CheckBox("Resubmission After Rejection");
+
+//            //@TODO: Whatever this shit is supposed to do
+//
+//            ArrayList<Boolean> tempBoolArray = form.getapplication_type();
+//            ArrayList<String> tempStrArray = form.getapplication_type_text();
+//            if (tempBoolArray.get(0) == true) {//choice 0
+//                controller.option_1_checkbox.setSelected(true);
+//            }
+//            if (tempBoolArray.get(1) == true) {
+//                controller.option_2_text.setPromptText(tempStrArray.get(0));
+//                controller.option_2_checkbox.setSelected(true);
+//            }
+//            if (tempBoolArray.get(2) == true) {
+//                controller.option_3_text.setPromptText(tempStrArray.get(1));
+//                controller.option_3_checkbox.setSelected(true);
+//            }
+//            if (tempBoolArray.get(3) == true) {
+//                controller.option_4_text.setPromptText(tempStrArray.get(2));
+//                controller.option_4_checkbox.setSelected(true);
+//            }
+
+            controller.rep_id_text.setText(form.getrep_id());
+            controller.permit_no_text.setText(form.getpermit_no());
+            controller.serial_no_text.setText(form.getserial_no());
+            controller.brand_name_text.setText(form.getbrand_name());
+            controller.fanciful_name_text.setText(form.getfanciful_name());
+            controller.alcohol_content_text.setText(String.valueOf(form.getalcohol_content()));
+            controller.formula_text.setText(form.getFormula());
+            controller.label_text.setText(form.getlabel_text());
+            // Wines only
+            controller.vintage_year_text.setText(form.getvintage_year());
+            controller.ph_level_text.setText(String.valueOf(form.getpH_level()));
+            controller.grape_varietals_text.setText(form.getgrape_varietals());
+            controller.wine_appellation_text.setText(form.getwine_appellation());
+
+            //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
+        /*applicant_street_1_text.setPromptText(form.getapplicant_street());
+        applicant_city_text.setPromptText(form.getapplicant_city());
+        applicant_state_text.setPromptText(form.getapplicant_state());
+        applicant_zip_text.setPromptText(form.getapplicant_zip());
+        applicant_country_text.setPromptText(form.getapplicant_country());*/
+
+            controller.address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+
+            //mailing_addressText.setPromptText(form.getmailing_address());
+
+            controller.signature_text.setPromptText(form.getSignature());
+            controller.phone_no_text.setPromptText(form.getphone_no());
+            controller.email_text.setPromptText(form.getEmail());
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -135,6 +233,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
@@ -155,6 +255,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             SearchController controller = loader.getController();
             controller.setDisplay(this);
@@ -170,6 +272,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             SearchController controller = loader.getController();
             controller.setDisplay(this);
@@ -199,6 +303,8 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
             AnchorPane newWindow = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1500, 1000);
@@ -227,6 +333,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Create User Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             AuthenticationController controller = loader.getController();
             controller.setDisplay(this);
@@ -246,6 +354,8 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("agentMainPage.fxml"));
 
             AnchorPane page = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
             primaryStage.setTitle("Agent Main Page");
             primaryStage.getScene().setRoot(page);
 
@@ -270,6 +380,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
 
             ActionController controller = loader.getController();
@@ -290,6 +402,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
 
             ActionController controller = loader.getController();
@@ -330,6 +444,9 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("agentApplicationReview.css").toExternalForm());
+
+
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
@@ -369,6 +486,8 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
 
             FormController controller = loader.getController();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             controller.ApplyDisplay(this);
             controller.source_combobox.setPromptText("Select Alcohol Soruce");
@@ -390,6 +509,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Workflow Results");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             WorkflowController controller = loader.getController();
             controller.setDisplay(this);
@@ -413,6 +534,8 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Forms");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
             FormController controller = loader.getController();
             controller.ReviseDisplay(this);

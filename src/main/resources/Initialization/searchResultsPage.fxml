@@ -25,7 +25,7 @@
             </font>
         </Button>
         <Button fx:id="generate_csv_button" layoutX="830.0" layoutY="30.0" mnemonicParsing="false"
-                onMouseClicked="#saveCSV" text="Generate CSV">
+                onMouseClicked="#makeCSV" text="Generate CSV">
             <font>
                 <Font size="18.0"/>
             </font>

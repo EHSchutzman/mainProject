@@ -242,6 +242,7 @@ public class DBManager {
                 application.setTypeID(alcoholType);
                 ol.add(application);
                 application.setCompletedDate(approvedDate);
+                application.setTtb_ID(ttbID);
             }
             rs.close();
             stmt.close();
@@ -588,6 +589,8 @@ public class DBManager {
             try {
                 FileWriter fileWriter = new FileWriter(file, false);
                 System.out.println(file.getAbsolutePath());
+                fileWriter.write("TTB ID");
+                fileWriter.write(",");
                 fileWriter.write("Completed Date");
                 fileWriter.write(",");
                 fileWriter.write("Alcohol Type");
@@ -601,6 +604,8 @@ public class DBManager {
                 fileWriter.write("Serial Number");
                 fileWriter.write("\n");
                 for (AppRecord ar : list) {
+                    fileWriter.write(ar.getTtb_ID());
+                    fileWriter.write(",");
                     fileWriter.write(ar.getCompletedDate());
                     fileWriter.write(",");
                     fileWriter.write(ar.getTypeID());
@@ -649,6 +654,8 @@ public class DBManager {
                 fileWriter.write("Serial Number");
                 fileWriter.write("\n");
                 for (AppRecord ar : list) {
+                    fileWriter.write(ar.getTtb_ID());
+                    fileWriter.write("\t");
                     fileWriter.write(ar.getCompletedDate());
                     fileWriter.write("\t");
                     fileWriter.write(ar.getTypeID());
