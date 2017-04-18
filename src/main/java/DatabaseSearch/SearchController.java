@@ -2,13 +2,11 @@ package DatabaseSearch;
 
 import DBManager.DBManager;
 import Initialization.Main;
+import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -291,6 +289,7 @@ public class SearchController {
 
     public void setDisplay(Main main) {
         this.main = main;
+        this.displayResults(); // Display TableView results
     }
     @FXML
     public void returnToMain(){
@@ -299,8 +298,10 @@ public class SearchController {
                 main.setDisplayToDefaultMain();
             } else if (main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 main.setDisplayToApplicantMain();
-            } else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2) {
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() == 2) {
                 main.setDisplayToAgentMain();
+            } else if(main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+                main.setDisplayToSuperAgentMain();
             }
             else{
                 main.setDisplayToMain();
@@ -310,4 +311,117 @@ public class SearchController {
         }
     }
 
+    @FXML
+    public TextField search_users_text;
+    @FXML
+    public CheckBox username_filter;
+    @FXML
+    public CheckBox email_filter;
+    @FXML
+    public CheckBox first_name_filter;
+    @FXML
+    public CheckBox last_name_filter;
+    @FXML
+    public ChoiceBox<String> authentication_filter;
+    @FXML
+    public TableColumn UserIDCol;
+    @FXML
+    public TableColumn UsernameCol;
+    @FXML
+    public TableColumn firstNameCol;
+    @FXML
+    public TableColumn lastNameCol;
+    @FXML
+    public TableColumn middleInitialCol;
+    @FXML
+    public TableColumn emailCol;
+    @FXML
+    public TableColumn phoneNumberCol;
+    @FXML
+    public TableColumn authenticationCol;
+    @FXML
+    public TableView<UserRecord> resultsTableUsers;
+
+    public void initUserAuthenticationChoiceBox() {
+        authentication_filter.getItems().addAll("0", "1", "2", "3");
+        authentication_filter.setValue("0");
+    }
+
+    @FXML
+    public void searchUsers() {
+        // refresh the table view
+        resultsTableUsers.refresh();
+        resultsTableUsers.setItems(null);
+        // build a query
+        String searchText = search_users_text.getText();
+        boolean usernameFilter = username_filter.isSelected();
+        boolean emailFilter = email_filter.isSelected();
+        boolean firstNameFilter = first_name_filter.isSelected();
+        boolean lastNameFilter = last_name_filter.isSelected();
+        String authenticationFilter = authentication_filter.getValue();
+        String options = "";
+        if(searchText != null && !searchText.isEmpty()) {
+            if (usernameFilter) {
+                if (!options.isEmpty()) {
+                    options = options.concat(" and ");
+                }
+                options = options.concat("username= '%" + searchText + "%'");
+            }
+            if (emailFilter) {
+                if (!options.isEmpty()) {
+                    options = options.concat(" and ");
+                }
+                options = options.concat("email='%" + searchText + "%'");
+            }
+            if (firstNameFilter) {
+                if (!options.isEmpty()) {
+                    options = options.concat(" and ");
+                }
+                options = options.concat("first_name='%" + searchText + "%'");
+            }
+            if (lastNameFilter) {
+                if (!options.isEmpty()) {
+                    options = options.concat(" and ");
+                }
+                options = options.concat("last_name='%" + searchText + "%'");
+            }
+        }
+        if(authenticationFilter != null && !authenticationFilter.isEmpty()) {
+            if(!options.isEmpty()) {
+                options = options.concat(" and ");
+            }
+            options = options.concat("authentication=" + authenticationFilter);
+        }
+        ObservableList<UserRecord> userList = FXCollections.observableArrayList();
+        userList.clear();
+        userList = db.searchUsers(options);
+        System.out.println(userList.size());
+        // display users in the table view
+        if(!userList.isEmpty()) {
+            resultsTableUsers.setItems(userList);
+            //resultsTableUsers.getItems().addAll(userList);
+        }
+    }
+
+    @FXML
+    public void displayResults() {
+        resultsTableUsers.setRowFactory(tv -> {
+            TableRow<UserRecord> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if((event.getClickCount() == 2) && (!row.isEmpty())) {
+                    UserRecord record = row.getItem();
+                    // Get user from db using selected row
+                    try {
+                        String options = "user_id='" + record.getUserID() + "'";
+                        User user = db.findUser(options);
+                        resultsTableUsers.refresh();
+                        main.displayEditUser(user);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
+    }
 }

@@ -5,6 +5,7 @@ import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
 import Form.Form;
 import Form.FormController;
+import UserAccounts.Authentication;
 import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.application.Application;
@@ -429,15 +430,31 @@ public class Main extends Application {
         }
     }
 
-    public void setDisplayToSuperAgentSearchUsers() throws IOException{
+    public void setDisplayToSuperAgentMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("superAgentMainPage.fxml"));
             AnchorPane page = loader.load();
+            primaryStage.setTitle("Super Agent Main");
+            primaryStage.getScene().setRoot(page);
+            ActionController controller = loader.getController();
+            controller.setDisplay(this);
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDisplayToSuperAgentSearchUsers() throws IOException{
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentSearchUsers.fxml"));
+            AnchorPane page = loader.load();
             primaryStage.setTitle("Search Users");
             primaryStage.getScene().setRoot(page);
-            FormController controller = loader.getController();
-            controller.ReviseDisplay(this);
+            SearchController controller = loader.getController();
+            controller.initUserAuthenticationChoiceBox();
+            controller.setDisplay(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -450,9 +467,32 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Create Agents");
             primaryStage.getScene().setRoot(page);
-            FormController controller = loader.getController();
-            controller.ReviseDisplay(this);
+            AuthenticationController controller = loader.getController();
+            controller.setDisplay(this);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Displays edit user page for super agents after they have double clicked a row
+    public void displayEditUser(User user) throws Exception{
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Edit User");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentEditUser.fxml"));
+            AnchorPane newWindow = loader.load();
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            AuthenticationController controller = loader.getController();
+            controller.setDisplay2(this, user);
+
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
