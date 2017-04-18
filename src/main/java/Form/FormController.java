@@ -358,7 +358,7 @@ public class FormController{
         formula_text.setText(form.getFormula());
         label_text.setText(form.getlabel_text());
         // Wines only
-        if (alcohol_type_text.getText().equals("Wine")) {
+        if (form.getalcohol_type().equals("Wine")) {
             vintage_year_text.setText(form.getvintage_year());
             ph_level_text.setText(String.valueOf(form.getpH_level()));
             grape_varietals_text.setText(form.getgrape_varietals());
