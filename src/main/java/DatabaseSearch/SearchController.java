@@ -141,7 +141,7 @@ public class SearchController {
                 params += " OR ALCOHOL_TYPE = \'Malt Beverages\'";
             }
 
-            params += " AND STATUS = \'approved\' ";
+            params += " AND STATUS = \'Accepted\' ";
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
             ArrayList<String> brandArray = new ArrayList<>();
