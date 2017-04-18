@@ -365,25 +365,25 @@ public class SearchController {
                 if (!options.isEmpty()) {
                     options = options.concat(" and ");
                 }
-                options = options.concat("username= '%" + searchText + "%'");
+                options = options.concat("username like '%" + searchText + "%'");
             }
             if (emailFilter) {
                 if (!options.isEmpty()) {
                     options = options.concat(" and ");
                 }
-                options = options.concat("email='%" + searchText + "%'");
+                options = options.concat("email like '%" + searchText + "%'");
             }
             if (firstNameFilter) {
                 if (!options.isEmpty()) {
                     options = options.concat(" and ");
                 }
-                options = options.concat("first_name='%" + searchText + "%'");
+                options = options.concat("first_name like '%" + searchText + "%'");
             }
             if (lastNameFilter) {
                 if (!options.isEmpty()) {
                     options = options.concat(" and ");
                 }
-                options = options.concat("last_name='%" + searchText + "%'");
+                options = options.concat("last_name like '%" + searchText + "%'");
             }
         }
         if(authenticationFilter != null && !authenticationFilter.isEmpty()) {
