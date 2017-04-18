@@ -25,7 +25,7 @@
             </font>
         </Button>
         <Button fx:id="generate_csv_button" layoutX="830.0" layoutY="30.0" mnemonicParsing="false"
-                onMouseClicked="#makeCSV" text="Generate CSV">
+                text="Generate CSV">
             <font>
                 <Font size="18.0"/>
             </font>
@@ -62,11 +62,6 @@
                 </TableColumn>
                 <TableColumn fx:id="typeIDCol" prefWidth="100.0" text="Type ID">
                     <cellValueFactory><PropertyValueFactory property="typeID" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="statusCol" prefWidth="100.0" text="Status">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="status"/>
                     </cellValueFactory>
                 </TableColumn>
             </columns>
