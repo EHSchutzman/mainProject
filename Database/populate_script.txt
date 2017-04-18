@@ -1,0 +1,184 @@
+DROP TABLE TYPEOFAPPLICATION;
+DROP TABLE WINEONLY;
+DROP TABLE FORMS;
+
+CREATE TABLE FORMS
+(
+  TTB_ID varchar(255) PRIMARY KEY NOT NULL,
+  REP_ID varchar(255),
+  PERMIT_NO varchar(255) NOT NULL,
+  SOURCE varchar(8) NOT NULL,
+  SERIAL_NO varchar(255) NOT NULL,
+  ALCOHOL_TYPE varchar(255) NOT NULL,
+  BRAND_NAME varchar(255) NOT NULL,
+  FANCIFUL_NAME varchar(255),
+  ALCOHOL_CONTENT float(52),
+  APPLICANT_STREET varchar(255),
+  APPLICANT_CITY varchar(255) NOT NULL,
+  APPLICANT_ZIP varchar(255) NOT NULL,
+  APPLICANT_STATE varchar(255) NOT NULL,
+  APPLICANT_COUNTRY varchar(255) NOT NULL,
+  MAILING_ADDRESS varchar(255),
+  FORMULA varchar(255),
+  PHONE_NO varchar(20),
+  EMAIL varchar(255) NOT NULL,
+  LABEL_TEXT varchar(511),
+  LABEL_IMAGE varchar(255),
+  SUBMIT_DATE date NOT NULL,
+  SIGNATURE varchar(255) NOT NULL,
+  STATUS varchar(30) NOT NULL,
+  AGENT_ID varchar(255),
+  APPLICANT_ID varchar(255) NOT NULL,
+  APPROVED_DATE date,
+  EXPIRATION_DATE date,
+  APPROVAL_COMMENTS varchar(511),
+  CONSTRAINT FORMS_USERS_AGENT_ID_FK FOREIGN KEY (AGENT_ID) REFERENCES USERS (USER_ID),
+  CONSTRAINT FORMS_USERS_APPLICANT_ID_FK FOREIGN KEY (APPLICANT_ID) REFERENCES USERS (USER_ID)
+);
+
+CREATE TABLE WINEONLY
+(
+  TTB_ID varchar(255) PRIMARY KEY NOT NULL,
+  VINTAGE_YEAR varchar(4) NOT NULL,
+  PH_LEVEL int NOT NULL,
+  GRAPE_VARIETALS varchar(255),
+  WINE_APPELLATION varchar(255),
+  CONSTRAINT WINEONLY_FORMS_TTB_ID_FK FOREIGN KEY (TTB_ID) REFERENCES FORMS (TTB_ID)
+);
+
+CREATE TABLE TYPEOFAPPLICATION
+(
+  TTB_ID varchar(255) PRIMARY KEY NOT NULL,
+  OPTION_NO int NOT NULL,
+  OPTION_DESCRIPTION varchar(255),
+  CONSTRAINT TYPEOFAPPLICATION_FORMS_TTB_ID_FK FOREIGN KEY (TTB_ID) REFERENCES FORMS (TTB_ID)
+);
+
+insert into FORMS values ('00108002000175',null,'BR-CO-LEF-1','Domestic','00-01','Malt Beverages','TABERNASH BREWING COMPANY','MAIBOCK SPRING LAGER',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55555', 'me@me.com', 'label_text',null, '2000-02-04','signature', 'approved','5', '3',null, null, null);
+insert into FORMS values ('00108002000176',null,'BR-PA-BUL-1','Domestic','00-02','Malt Beverages','BULLFROG BREWERY',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55556', 'me@me.com', 'label_text',null, '2000-02-05','signature', 'pending','5', '3',null,null,null );
+insert into FORMS values ('00108002000177',null,'BR-PA-BUL-1','Domestic','00-01','Malt Beverages','BULLFROG BREWERY',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55557', 'me@me.com', 'label_text',null, '2000-02-06','signature', 'approved','5', '3',null,null,null );
+insert into FORMS values ('00109000000060',null,'BR-PA-PEN-1','Domestic','00-001','Malt Beverages','CREW LAGER','CREW',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55558', 'me@me.com', 'label_text',null, '2000-02-07','signature', 'approved','7', '3',null,null,null );
+insert into FORMS values ('00109000000066',null,'BR-PA-KEY-1','Domestic','00-004','Malt Beverages','I.C. LIGHT',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55559', 'me@me.com', 'label_text',null, '2000-02-08','signature', 'approved','7', '3',null,null,null );
+insert into FORMS values ('00109000000067',null,'BR-NC-CBB-1','Domestic','00-V3','Malt Beverages','CAROLINA BEER COMPANY','CAROLINA LIGHT BEER',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55560', 'me@me.com', 'label_text',null, '2000-02-09','signature', 'approved','6', '3',null,null,null );
+insert into FORMS values ('00109000000069',null,'BR-NC-CBB-1','Domestic','00-V5','Malt Beverages','CAROLINA BEER COMPANY','CHARLESTON BROWN ALE',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55561', 'me@me.com', 'label_text',null, '2000-02-10','signature', 'approved','5', '3',null,null,null );
+insert into FORMS values ('00109000000072',null,'BR-NC-CBB-1','Domestic','00-V8','Malt Beverages','CAROLINA BEER COMPANY','CAROLINA BLONDE BEER',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55562', 'me@me.com', 'label_text',null, '2000-02-11','signature', 'approved','8', '3',null,null,null );
+insert into FORMS values ('00109000000087',null,'BR-AZ-PRE-1','Domestic','00-3','Malt Beverages','LIQUID AMBER',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55563', 'me@me.com', 'label_text',null, '2000-02-12','signature', 'approved','9', '3',null,null,null );
+insert into FORMS values ('00109000000089',null,'BR-BLU-NJ-I','Domestic','00-14','Malt Beverages','BLUE COLLAR',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55564', 'me@me.com', 'label_text',null, '2000-02-13','signature', 'pending','6', '3',null,null,null );
+insert into FORMS values ('00109000000090',null,'BR-BLU-NJ-I','Domestic','00-13','Malt Beverages','BLUE COLLAR',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55565', 'me@me.com', 'label_text',null, '2000-02-14','signature', 'approved','6', '3',null,null,null );
+insert into FORMS values ('00109000000092',null,'BR-BLU-NJ-I','Domestic','00-11','Malt Beverages','BLUE COLLAR',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55566', 'me@me.com', 'label_text',null, '2000-02-15','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00109000000093',null,'BR-BLU-NJ-I','Domestic','00-10','Malt Beverages','BLUE COLLAR',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55567', 'me@me.com', 'label_text',null, '2000-02-16','signature', 'approved','7', '4',null,null,null );
+insert into FORMS values ('00109000000149',null,'BR-CA-FIE-1','Domestic','00-03','Malt Beverages','FIRESTONE WALKER BREWING CO.',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55568', 'me@me.com', 'label_text',null, '2000-02-17','signature', 'pending','5', '4',null,null,null );
+insert into FORMS values ('00109000000150',null,'BR-CA-FIE-1','Domestic','00-04','Malt Beverages','FIRESTONE WALKER BREWING CO.','DOUBLE BARREL ALE',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55569', 'me@me.com', 'label_text',null, '2000-02-18','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00109000000151',null,'BR-CA-FIE-1','Domestic','00-05','Malt Beverages','FIRESTONE WALKER BREWING CO.','WINDSOR PALE ALE',4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55570', 'me@me.com', 'label_text',null, '2000-02-19','signature', 'approved','6', '4',null,null,null );
+insert into FORMS values ('00109003000015',null,'BR-IL-AMR-1','Domestic','00-0011','Malt Beverages','MCCLINTOCK PILSNER',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55571', 'me@me.com', 'label_text',null, '2000-02-20','signature', 'approved','6', '4',null,null,null );
+insert into FORMS values ('00109003000016',null,'BR-IL-AMR-1','Domestic','00-0010','Malt Beverages','MCCLINTOCK AMBER',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55572', 'me@me.com', 'label_text',null, '2000-02-21','signature', 'approved','9', '4',null,null,null );
+insert into FORMS values ('00110000000043',null,'BR-MO-ANH-1','Domestic','00-BI102','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55573', 'me@me.com', 'label_text',null, '2000-02-22','signature', 'approved','9', '4',null,null,null );
+insert into FORMS values ('00110000000044',null,'BR-MO-ANH-1','Domestic','00-BI101','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55574', 'me@me.com', 'label_text',null, '2000-02-23','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00110000000045',null,'BR-MO-ANH-1','Domestic','00-BI100','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55575', 'me@me.com', 'label_text',null, '2000-02-24','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00110000000046',null,'BR-MO-ANH-1','Domestic','00-BI099','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55576', 'me@me.com', 'label_text',null, '2000-02-25','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00110000000047',null,'BR-MO-ANH-1','Domestic','00-BI098','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55577', 'me@me.com', 'label_text',null, '2000-02-26','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00110000000048',null,'BR-MO-ANH-1','Domestic','00-BI097','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55578', 'me@me.com', 'label_text',null, '2000-02-27','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00110000000049',null,'BR-MO-ANH-1','Domestic','00-BI096','Malt Beverages','BUD ICE',null,4.5, 'test_street','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55579', 'me@me.com', 'label_text',null, '2000-02-28','signature', 'approved','8', '4',null,null,null );
+
+insert into FORMS values ('00108',null,'CA-I-3963','Imported','00-572','Wine','DOMAINE DU CLOS NOLY',null,5, 'address_1','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55555', 'me@me.com', 'label_text',null, '2000-02-04','signature', 'approved','5', '4',null,null,null );
+insert into FORMS values ('00171',null,'CA-I-3963','Imported','00-573','Wine','DOMAINE DU CLOS NOLY', null,5, 'address_2','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55556', 'me@me.com', 'label_text',null, '2000-02-05','signature', 'pending',null , '4', null,null,null );
+insert into FORMS values ('000173',null,'MD-I-458','Imported','00-0017','Wine','DOMAINE DELETANG',null,5, 'address_3','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55557', 'me@me.com', 'label_text',null, '2000-02-06','signature', 'approved','5', '4', null,null,null );
+insert into FORMS values ('0001324573',null,'MD-I-458','Imported','00-0018','Wine','LE CHARME LABORY',null,5, 'address_4','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55558', 'me@me.com', 'label_text',null, '2000-02-07','signature', 'approved','7', '4', null,null,null );
+insert into FORMS values ('0001723453',null,'VA-I-565','Imported','00-0308','Wine','LA MONTAGNETTE',null,5, 'address_5','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55559', 'me@me.com', 'label_text',null, '2000-02-08','signature', 'approved','7', '4',null,null,null);
+insert into FORMS values ('000346173',null,'BW-CT-39','Domestic','00-0031','Wine','JERRAM WINERY','HIGHLAND RESERVE',5, 'address_6','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55560', 'me@me.com', 'label_text',null, '2000-02-09','signature', 'approved','6', '4',null,null,null);
+insert into FORMS values ('00025623173',null,'PHI-I-200','Imported','00-2481','Wine','RESERVA RED QUINTA DE SAO JOA',null,5, 'address_7','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55561', 'me@me.com', 'label_text',null, '2000-02-10','signature', 'approved','6', '4',null,null,null);
+insert into FORMS values ('00013246273',null,'NH-I-156','Imported','00-0401','Wine','J.D. LAURENT', null,5, 'address_8','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55562', 'me@me.com', 'label_text',null, '2000-02-11','signature', 'pending',null, '4',null,null,null);
+insert into FORMS values ('2346000173',null,'NH-I-156','Imported','00-0402','Wine','J.D. LAURENT',null,5, 'address_9','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55563', 'me@me.com', 'label_text',null, '2000-02-12','signature', 'approved','9', '4',null,null,null);
+insert into FORMS values ('0234600173',null,'PA-I-485','Imported','00-0004','Wine','PIPERS BROOK',null,5, 'address_10','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55564', 'me@me.com', 'label_text',null, '2000-02-13','signature', 'approved','6', '4',null,null,null);
+insert into FORMS values ('0002346173',null,'MO-P-2816','Imported','00-0108','Wine','ALTER EGO DE PALMER',null,5, 'address_11','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55565', 'me@me.com', 'label_text',null, '2000-02-14','signature', 'approved','6', '4',null,null,null);
+insert into FORMS values ('23462',null,'NY-W-211','Domestic','00-6','Wine','ELK HILL',null,5, 'address_12','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55566', 'me@me.com', 'label_text',null, '2000-02-15','signature', 'approved','6', '4',null,null,null);
+insert into FORMS values ('00013473',null,'NY-I-1305','Imported','00-0710','Wine','ANTONIN RODET',null,5, 'address_13','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55567', 'me@me.com', 'label_text',null, '2000-02-16','signature', 'approved','7', '4',null,null,null);
+insert into FORMS values ('0023460173',null,'NY-I-1305','Imported','00-0711','Wine','ANTONIN RODET',null,5, 'address_14','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55568', 'me@me.com', 'label_text',null, '2000-02-17','signature', 'approved','5', '4',null,null,null);
+insert into FORMS values ('025600173',null,'CA-I-3599','Imported','00-99','Wine','BLASON TIMBERLAY',null,5, 'address_15','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55569', 'me@me.com', 'label_text',null, '2000-02-18','signature', 'approved','5', '3',null,null,null);
+insert into FORMS values ('00023452173',null,'CA-I-3599','Imported','00-100','Wine','CHATEAU ROC DE BERNON','PUISSEGUIN SAINT EMILION',5, 'address_16','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55570', 'me@me.com', 'label_text',null, '2000-02-19','signature', 'approved','6', '3',null,null,null);
+insert into FORMS values ('06236200173',null,'CA-I-3599','Imported','00-97','Wine','SELECTION ERIC STAUFFENEGGER',null,5, 'address_17','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55571', 'me@me.com', 'label_text',null, '2000-02-20','signature', 'approved','6', '3',null,null,null);
+insert into FORMS values ('062400173',null,'CA-I-3599','Imported','00-98','Wine','CHATEAU TIMBERLAY','CUVEE PRESTIGE',5, 'address_18','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55572', 'me@me.com', 'label_text',null, '2000-02-21','signature', 'approved','9', '3',null,null,null);
+insert into FORMS values ('00526230173',null,'BW-OR-83','Domestic','00-04','Wine','WASSON BROTHERS','LATE HARVEST',5, 'address_19','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55573', 'me@me.com', 'label_text',null, '2000-02-22','signature', 'approved','9', '3',null,null,null);
+insert into FORMS values ('003220173',null,'MD-I-435','Imported','00-18','Wine','VILLA CALCINAIA','CHIANTI CLASSICO D. O. C. G.',5, 'address_20','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55574', 'me@me.com', 'label_text',null, '2000-02-23','signature', 'approved','9', '3',null,null,null);
+insert into FORMS values ('0033330173',null,'MD-I-435','Imported','00-19','Wine','TENUTA FARNETA','CHIANTI D. O. C. G.',5, 'address_21','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55575', 'me@me.com', 'label_text',null, '2000-02-24','signature', 'pending',null, '3',null,null,null);
+insert into FORMS values ('0066660173',null,'MD-I-435','Imported','00-20','Wine','TENUTA FARNETA','CHIANTI D. O. C. G.',5, 'address_22','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55576', 'me@me.com', 'label_text',null, '2000-02-25','signature', 'approved','9', '3',null,null,null);
+insert into FORMS values ('0444400173',null,'AL-I-381','Imported','00-106','Wine','PERRIN','NATURE',5, 'address_23','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55577', 'me@me.com', 'label_text',null, '2000-02-26','signature', 'approved','9', '3',null,null,null);
+insert into FORMS values ('00234520173',null,'BW-WI-39','Domestic','00-0065','Wine','WISCONSINS COUNTRY VINES','KRAZY FOR KIWI',5, 'address_24','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55578', 'me@me.com', 'label_text',null, '2000-02-27','signature', 'approved','5', '3',null,null,null);
+insert into FORMS values ('0300173',null,'BW-NY-797','Domestic','00-1','Wine','MACARI','COLLINA 48',5, 'address_25','test_city', 'test_zip','test_state', 'test_country','test_mailing', 'formula','555-555-55579', 'me@me.com', 'label_text',null, '2000-02-28','signature', 'approved','8', '3',null,null,null);
+
+insert into WINEONLY values ('00108','2000',8,'N/A', null);
+insert into WINEONLY values ('00171','2000',8,'N/A', null);
+insert into WINEONLY values ('000173','2000',8,'N/A', null);
+insert into WINEONLY values ('0001324573','2000',8,'N/A', null);
+insert into WINEONLY values ('0001723453','2000',8,'N/A', null);
+insert into WINEONLY values ('000346173','2000',8,'N/A', null);
+insert into WINEONLY values ('00025623173','2000',8,'N/A', null);
+insert into WINEONLY values ('00013246273','2000',8,'N/A', null);
+insert into WINEONLY values ('2346000173','2000',8,'N/A', null);
+insert into WINEONLY values ('0234600173','2000',8,'N/A', null);
+insert into WINEONLY values ('0002346173','2000',8,'N/A', null);
+insert into WINEONLY values ('23462','2000',8,'N/A', null);
+insert into WINEONLY values ('00013473','2000',8,'N/A', null);
+insert into WINEONLY values ('0023460173','2000',8,'N/A', null);
+insert into WINEONLY values ('025600173','2000',8,'N/A', null);
+insert into WINEONLY values ('00023452173','2000',8,'N/A', null);
+insert into WINEONLY values ('06236200173','2000',8,'N/A', null);
+insert into WINEONLY values ('062400173','2000',8,'N/A', null);
+insert into WINEONLY values ('00526230173','2000',8,'N/A', null);
+insert into WINEONLY values ('003220173','2000',8,'N/A', null);
+insert into WINEONLY values ('0033330173','2000',8,'N/A', null);
+insert into WINEONLY values ('0066660173','2000',8,'N/A', null);
+insert into WINEONLY values ('0444400173','2000',8,'N/A', null);
+insert into WINEONLY values ('00234520173','2000',8,'N/A', null);
+insert into WINEONLY values ('0300173','2000',8,'N/A', null);
+
+insert into TYPEOFAPPLICATION values ('00108', 0, null );
+insert into TYPEOFAPPLICATION values ('00171', 0, null);
+insert into TYPEOFAPPLICATION values ('000173', 0, null);
+insert into TYPEOFAPPLICATION values ('0001324573', 0, null );
+insert into TYPEOFAPPLICATION values ('0001723453', 0, null );
+insert into TYPEOFAPPLICATION values ('000346173', 0, null );
+insert into TYPEOFAPPLICATION values ('00025623173', 0, null );
+insert into TYPEOFAPPLICATION values ('00013246273', 0, null );
+insert into TYPEOFAPPLICATION values ('2346000173', 0, null );
+insert into TYPEOFAPPLICATION values ('0234600173', 0, null );
+insert into TYPEOFAPPLICATION values ('0002346173', 0, null );
+insert into TYPEOFAPPLICATION values ('23462', 0, null );
+insert into TYPEOFAPPLICATION values ('00013473', 0, null );
+insert into TYPEOFAPPLICATION values ('0023460173', 0, null );
+insert into TYPEOFAPPLICATION values ('025600173', 0, null );
+insert into TYPEOFAPPLICATION values ('00023452173', 0, null );
+insert into TYPEOFAPPLICATION values ('06236200173', 0, null );
+insert into TYPEOFAPPLICATION values ('062400173', 0, null );
+insert into TYPEOFAPPLICATION values ('00526230173', 0, null );
+insert into TYPEOFAPPLICATION values ('003220173', 0, null );
+insert into TYPEOFAPPLICATION values ('0033330173', 0, null );
+insert into TYPEOFAPPLICATION values ('0066660173', 0, null );
+insert into TYPEOFAPPLICATION values ('0444400173', 0, null );
+insert into TYPEOFAPPLICATION values ('00234520173', 0, null );
+insert into TYPEOFAPPLICATION values ('0300173', 0, null );
+insert into TYPEOFAPPLICATION values ('00108002000175', 0, null );
+insert into TYPEOFAPPLICATION values ('00108002000176', 0, null );
+insert into TYPEOFAPPLICATION values ('00108002000177', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000060', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000066', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000067', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000069', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000072', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000087', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000089', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000090', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000092', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000093', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000149', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000150', 0, null );
+insert into TYPEOFAPPLICATION values ('00109000000151', 0, null );
+insert into TYPEOFAPPLICATION values ('00109003000015', 0, null );
+insert into TYPEOFAPPLICATION values ('00109003000016', 0, null );
+insert into TYPEOFAPPLICATION values ('00110000000043', 0, null );
+insert into TYPEOFAPPLICATION values ('00110000000044', 0, null );
+insert into TYPEOFAPPLICATION values ('00110000000045', 0, null );
+insert into TYPEOFAPPLICATION values ('00110000000046', 0, null );
+insert into TYPEOFAPPLICATION values ('00110000000047', 0, null );
+insert into TYPEOFAPPLICATION values ('00110000000048', 0, null);
+insert into TYPEOFAPPLICATION values ('00110000000049', 0, null );

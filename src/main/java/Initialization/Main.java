@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -105,7 +106,7 @@ public class Main extends Application {
     }
 
 
-    public void setDisplayToReviseForm(Form form) throws Exception {
+    public void setDisplayToReviseForm(Form form, ArrayList<Boolean> booleanArrayList) throws Exception {
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -115,15 +116,31 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
 
             FormController controller = loader.getController();
-            controller.ReviewDisplay(this, form);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            controller.ReviewDisplay(this, form, booleanArrayList);
+            //controller.source_combobox.setPromptText("Select Alcohol Source");
+            //controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+            //controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
+            //controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void setDisplayToRevisionsMenu() throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Revisions Menu Page");
+            primaryStage.getScene().setRoot(page);
+
+            FormController controller = loader.getController();
+            controller.createRevisionsMenu(this.userData.getForm(), this);
+            System.out.println("in main" + this.userData.getForm());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
 

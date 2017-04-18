@@ -3,9 +3,12 @@ package Form;
 import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
 import Initialization.Main;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.xml.soap.Text;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
@@ -36,6 +40,7 @@ public class FormController{
 
     public DBManager DBManager = new DBManager();
     public TableView<AgentRecord> resultsTable;
+    public ArrayList<Boolean> boolArray = new ArrayList<Boolean>();
 
     public void setDisplay(Main main) {
         this.main = main;
@@ -57,10 +62,11 @@ public class FormController{
         displayApplicantResults();
     }
 
-    public void ReviewDisplay(Main main, Form form) {
+    public void ReviewDisplay(Main main, Form form, ArrayList<Boolean> booleanArrayList) {
         this.main = main;
         this.form = form;
-        createReviseForm(form);
+        createReviseForm(form, booleanArrayList);
+        //displayApplicantRevisionForm();
     }
 
     @FXML
@@ -69,9 +75,14 @@ public class FormController{
     @FXML
     public Button nextButton;
 
+    @FXML
+    public Button browse_button;
+
     // Label Info
     @FXML
     public Label ttb_id_label;
+    @FXML
+    public TextField applicant_name_text;
     @FXML
     public TextField rep_id_text;
     @FXML
@@ -191,12 +202,37 @@ public class FormController{
     public TextField submit_date;
     public ImageView label_image;
 
+    @FXML
+    public CheckBox revision1_checkbox = new CheckBox(); //label picture
+    @FXML
+    public CheckBox revision2_checkbox; //label picture
+    @FXML
+    public CheckBox revision3_checkbox; //label picture
+    @FXML
+    public CheckBox revision4_checkbox; //grape varietals and appellations for wine labels
+    @FXML
+    public CheckBox revision5_checkbox; //vintage date for wine labels
+    @FXML
+    public CheckBox revision6_checkbox; //label picture(wine: produced,made,blended,etc.)
+    @FXML
+    public CheckBox revision7_checkbox; //pH level for wine labels
+    @FXML
+    public CheckBox revision8_checkbox; //label picture(wine sugar)
+    @FXML
+    public CheckBox revision9_checkbox; //label picture(Add or delete bonded winery or taxpaid wine bottling house number for wine labels)
+    @FXML
+    public CheckBox revision10_checkbox;//label picture(Change the net contents statement)
+    @FXML
+    public CheckBox revision11_checkbox;//alcohol content
+    @FXML
+    public CheckBox revision12_checkbox;//alcohol content for malt beverage labels
+
+
 
     public void createApplicantForm() {
 
         Form form = new Form();
-
-        //statusLabel.setText(form.getStatus());
+        // TODO pull the applicant name from the DB
 
         // TODO make a random number generator and add a label to display ttbID
         form.setttb_id(form.makeUniqueID());
@@ -280,7 +316,7 @@ public class FormController{
 
 
     public void createAgentForm(Form form){
-
+        //TODO pull the applicant name from the DB
 
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
@@ -380,29 +416,26 @@ public class FormController{
         //form.setapproval_comments(approval_comments_text.getText());
     }
 
-    public void createReviseForm(Form form) {
-
-        // Get Source info and set it to display for the Agent
-        //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
+    public void createReviseForm(Form form, ArrayList<Boolean> booleanArrayList) {
+        System.out.println("creating revision form" + booleanArrayList);
+        //TODO pull the applicant name from the DB
         if (form.getSource().equals("Imported")) {
-            source_combobox.getSelectionModel().select(2);
-            //source_text.setPromptText("Imported");
+            source_text.setPromptText("Imported");
         } else if (form.getSource().equals("Domestic")) {
-            source_combobox.getSelectionModel().select(1);
-            //source_text.setPromptText("Domestic");
+            source_text.setPromptText("Domestic");
         }
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
         if (form.getalcohol_type().equals("Beer")) {
-            alcohol_type_combobox.getSelectionModel().select(1);
-            //alcohol_content_text.setPromptText("Beer");
+            //alcohol_type_combobox.getSelectionModel().select(1);
+            alcohol_content_text.setPromptText("Beer");
         } else if (form.getalcohol_type().equals("Wine")) {
-            alcohol_type_combobox.getSelectionModel().select(2);
-            //alcohol_content_text.setPromptText("Wine");
+            //alcohol_type_combobox.getSelectionModel().select(2);
+            alcohol_content_text.setPromptText("Wine");
         } else if (form.getalcohol_type().equals("Distilled Spirit")) {
-            alcohol_type_combobox.getSelectionModel().select(3);
-            //alcohol_content_text.setPromptText("Distilled Spirit");
+            //alcohol_type_combobox.getSelectionModel().select(3);
+            alcohol_content_text.setPromptText("Distilled Spirit");
         }
 
         // Initialize checkboxes
@@ -412,7 +445,7 @@ public class FormController{
         option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
 
-        //@TODO: Whatever this shit is supposed to do
+        //TODO have the DB support type of application
         /*
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
         ArrayList<String> tempStrArray = form.getapplication_type_text();
@@ -443,20 +476,69 @@ public class FormController{
         grape_varietals_text.setText(form.getgrape_varietals());
         wine_appellation_text.setText(form.getwine_appellation());
 
-        //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
-        /*applicant_street_1_text.setPromptText(form.getapplicant_street());
-        applicant_city_text.setPromptText(form.getapplicant_city());
-        applicant_state_text.setPromptText(form.getapplicant_state());
-        applicant_zip_text.setPromptText(form.getapplicant_zip());
-        applicant_country_text.setPromptText(form.getapplicant_country());*/
+        //address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
-        address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+        applicant_street_1_text.setText(form.getapplicant_street());
+        applicant_city_text.setText(form.getapplicant_city());
+        applicant_state_text.setText(form.getapplicant_state());
+        applicant_zip_text.setText(form.getapplicant_zip());
+        applicant_country_text.setText(form.getapplicant_country());
 
-        //mailing_addressText.setPromptText(form.getmailing_address());
 
         signature_text.setPromptText(form.getSignature());
         phone_no_text.setPromptText(form.getphone_no());
         email_text.setPromptText(form.getEmail());
+
+        if (booleanArrayList.get(0) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(1) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(2) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(3) == true) {
+            grape_varietals_text.setDisable(false);
+            wine_appellation_text.setDisable(false);
+
+        }
+        if (booleanArrayList.get(4) == true) {
+            vintage_year_text.setDisable(false);
+
+        }
+        if (booleanArrayList.get(5) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(6) == true) {
+            ph_level_text.setDisable(false);
+            //ph_level_text.setEditable(true);
+
+        }
+        if (booleanArrayList.get(7) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(8) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(9) == true) {
+            browse_button.setDisable(false);
+
+        }
+        if (booleanArrayList.get(10) == true) {
+            alcohol_content_text.setDisable(false);
+
+        }
+        if (booleanArrayList.get(11) == true) {
+            alcohol_content_text.setDisable(false);
+
+        }
 
 
         //@TODO: Put on UI
@@ -470,6 +552,106 @@ public class FormController{
         //form.setapproval_comments(approval_comments_text.getText());
     }
 
+
+    @FXML
+    public void createRevisionsMenu(Form form, Main main) {
+        //TODO get checkboxes to work
+        for (int i = 0; i < 12; i++) {
+            boolArray.add(false);
+        }
+
+        System.out.println("b4" + boolArray);
+
+        revision1_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(0, true);
+            }
+        });
+
+        revision2_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(1, true);
+            }
+        });
+
+        revision3_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(2, true);
+            }
+        });
+
+        revision4_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(3, true);
+            }
+        });
+
+        revision5_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(4, true);
+            }
+        });
+
+        revision6_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(5, true);
+            }
+        });
+
+        revision7_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(6, true);
+            }
+        });
+
+        revision8_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(7, true);
+            }
+        });
+
+        revision9_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(8, true);
+            }
+        });
+
+        revision10_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(9, true);
+            }
+        });
+
+        revision11_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(10, true);
+            }
+        });
+
+        revision12_checkbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                boolArray.set(11, true);
+            }
+        });
+
+
+        System.out.println("after" + boolArray);
+        System.out.println("in form controller" + form);
+        this.form = form;
+        this.main = main;
+    }
 
     // TODO delete probably outdated method
     @FXML
@@ -621,15 +803,6 @@ public class FormController{
         String applicant_zip = (applicant_zip_text.getText());
         String applicant_country = (applicant_country_text.getText());
 
-        String mailing_address;
-        if (sameAsApplicantButton.isSelected()) {
-            mailing_address = (applicant_street + " " +
-                    applicant_city + " " + applicant_state +
-                    applicant_zip + " " + applicant_country);
-        } else {
-            mailing_address = (mailing_addressText.getText());
-        }
-
         String signature = (signature_text.getText());
         String phone_no = (phone_no_text.getText());
         String email = (email_text.getText());
@@ -639,7 +812,7 @@ public class FormController{
         Date submitdate = new Date(System.currentTimeMillis());
         Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(),
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
-                applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
+                applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, phone_no, email,
                 labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), "agent_id", "applicant_id", main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 "approval_comments");
@@ -665,7 +838,7 @@ public class FormController{
         }
     }
 
-    //TODO literally the same as returnToMainPage but to their respective lists of applications
+    //TODO literally the same as returnToMainPage but to their respective lists of application or applicant main or agent main
     @FXML
     public void back() {
         try{
@@ -766,7 +939,8 @@ public class FormController{
                         Form viewForm = DBManager.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
                         main.userData.setForm(viewForm);
-                        main.setDisplayToReviseForm(viewForm);
+                        System.out.println("saving stuff in results page" + main.userData.getForm());
+                        main.setDisplayToRevisionsMenu();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -774,7 +948,17 @@ public class FormController{
             });
             return row;
         });
+    }
 
+    @FXML
+    public void displayApplicantRevisionForm() {
+        try {
+            System.out.println(form);
+            System.out.println(main);
+            main.setDisplayToReviseForm(form, boolArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
