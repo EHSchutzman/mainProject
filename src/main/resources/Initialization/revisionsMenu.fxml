@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
+<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#597B99" height="100.0" layoutX="615.0" layoutY="370.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="900.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
@@ -77,5 +77,6 @@
             </font>
         </CheckBox>
       <Button fx:id="reviseButton" layoutX="99.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#displayApplicantRevisionForm" prefHeight="50.0" prefWidth="181.0" text="Revise" />
+      <Button fx:id="viewButton" layoutX="102.0" layoutY="283.0" mnemonicParsing="false" onMouseClicked="#displayApplicantViewForm" prefHeight="50.0" prefWidth="181.0" text="View" />
     </children>
 </AnchorPane>

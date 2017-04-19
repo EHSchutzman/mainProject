@@ -487,6 +487,7 @@ public class FormController{
 
         signature_text.setPromptText(form.getSignature());
         phone_no_text.setPromptText(form.getphone_no());
+        System.out.println("trying to display email and phone");
         email_text.setPromptText(form.getEmail());
 
         if (booleanArrayList.get(0) == true) {
@@ -501,12 +502,12 @@ public class FormController{
             browse_button.setDisable(false);
 
         }
-        if (booleanArrayList.get(3) == true) {
+        if (booleanArrayList.get(3) == true && form.getalcohol_type().equals("Wine")) {
             grape_varietals_text.setDisable(false);
             wine_appellation_text.setDisable(false);
 
         }
-        if (booleanArrayList.get(4) == true) {
+        if (booleanArrayList.get(4) == true && form.getalcohol_type().equals("Wine")) {
             vintage_year_text.setDisable(false);
 
         }
@@ -514,7 +515,7 @@ public class FormController{
             browse_button.setDisable(false);
 
         }
-        if (booleanArrayList.get(6) == true) {
+        if (booleanArrayList.get(6) == true && form.getalcohol_type().equals("Wine")) {
             ph_level_text.setDisable(false);
             //ph_level_text.setEditable(true);
 
@@ -758,12 +759,14 @@ public class FormController{
         DBManager.persistForm(form);
 
         //TODO return to applicant's application list page
+        returnToMainPage();
     }
 
     @FXML
     public void submitRevisedForm() {
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
+        //TODO use type of application, THIS IS NOT IMPLEMENTED YET!!!
         ArrayList<Boolean> application_type = new ArrayList<Boolean>();
         for (int i = 0; i < 5; i++) {
             application_type.add(false);
@@ -811,13 +814,14 @@ public class FormController{
         Date date = new Date(0);
         Date submitdate = new Date(System.currentTimeMillis());
         Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(),
-                brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
-                applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, phone_no, email,
-                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), main.userData.form.getagent_id(), main.userData.form.getapplicant_id(), main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
+                main.userData.form.getbrand_name(), main.userData.form.getfanciful_name(), alcohol_content, applicant_street, applicant_city, applicant_state,
+                applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, main.userData.form.getphone_no(), main.userData.form.getEmail(),
+                labeltext, main.userData.form.getlabel_image(), main.userData.form.getsubmit_date(), main.userData.form.getSignature(), main.userData.form.getStatus(), main.userData.form.getagent_id(), main.userData.form.getapplicant_id(), main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 main.userData.form.getapproval_comments());
 
         DBManager.updateForm(form);
+        returnToMainPage();
     }
 
     @FXML
@@ -954,7 +958,19 @@ public class FormController{
         try {
             System.out.println(form);
             System.out.println(main);
-            main.setDisplayToReviseForm(form, boolArray);
+            if (form.getStatus().equals("approved")) {
+                main.setDisplayToReviseForm(form, boolArray);
+            }
+            System.out.println("Your form has not been approved!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void displayApplicantViewForm() {
+        try {
+            main.displayApprovedLabel(form);
         } catch (Exception e) {
             e.printStackTrace();
         }
