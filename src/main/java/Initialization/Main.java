@@ -679,7 +679,7 @@ public class Main extends Application {
             FormController controller = loader.getController();
             controller.createAgentForm(form);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

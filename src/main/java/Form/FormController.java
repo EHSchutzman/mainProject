@@ -234,7 +234,7 @@ public class FormController {
 
         Form form = new Form();
         User currentUser = DBManager.findUser("user_id = \'" + main.userData.getUserInformation().getUid() + "\'");
-        String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " "  +currentUser.getLastName();
+        String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " " + currentUser.getLastName();
         applicant_name_text.setText(name);
         phone_no_text.setText(currentUser.getPhoneNo());
         email_text.setText(currentUser.getEmail());
@@ -336,12 +336,12 @@ public class FormController {
     }
 
 
-    public void createAgentForm(Form form){
+    public void createAgentForm(Form form) {
         //TODO pull the applicant name from the DB
         //System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
         //System.out.println(main.userData.getUserInformation().getUsername());
         User currentUser = DBManager.findUser("user_id = \'" + form.getapplicant_id() + "\'");
-        String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " "  +currentUser.getLastName();
+        String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " " + currentUser.getLastName();
         applicant_name_text.setText(name);
         System.out.println(name);
 

@@ -1,6 +1,5 @@
 package DatabaseSearch;
 
-import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
 import Form.Form;
 import Initialization.Main;
@@ -339,6 +338,7 @@ public class SearchController {
     public void setDisplay(Main main) {
         this.main = main;
     }
+
     public void setDisplay2(Main main, ObservableList<AppRecord> list) {
         this.main = main;
         displayApplication(list);
