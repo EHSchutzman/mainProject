@@ -1,14 +1,13 @@
 package DatabaseSearch;
 
+import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
+import Form.Form;
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -80,10 +79,11 @@ public class SearchController {
         System.out.println("Handles search!");
 
         // Handle search criteria
-        //searchCriteria();
+        System.out.println("in handle search" + searchCriteria());
 
         // Display our new data in the TableView
         displayData(searchCriteria());
+        //displayApplication();
 
     }
 
@@ -162,74 +162,41 @@ public class SearchController {
             e.printStackTrace();
         }
 
-        /*ResultSet searchResults = rs;
-
-        try {
-
-            try {
-
-                ObservableList<AppRecord> dataList = FXCollections.observableArrayList();
-                while(searchResults.previous());
-                AppRecord row;
-                while (searchResults.next()) {
-                    row  = new AppRecord();
-                    String formID = searchResults.getString("TTB_ID");
-                    String permitNo = searchResults.getString("PERMIT_NUMBER");
-                    String serialNo = searchResults.getString("SERIAL_NUMBER");
-                    String completedDate = searchResults.getString("COMPLETED_DATE");
-                    String fancifulName = searchResults.getString("FANCIFUL_NAME");
-                    String brandName = searchResults.getString("BRAND_NAME");
-                    String origin = searchResults.getString("ORIGIN_CODE");
-                    String type = searchResults.getString("TYPE_ID");
-
-                    row.setTypeID(formID);
-                    row.setPermitNo(permitNo);
-                    row.setSerialNo(serialNo);
-                    row.setCompletedDate(completedDate);
-                    row.setFancifulName(fancifulName);
-                    row.setBrandName(brandName);
-                    row.setOriginCode(origin);
-                    row.setTypeID(type);
-
-                    dataList.add(row);
-
-                    System.out.println("Data "+ dataList);
-
-                }
-                System.out.println("Data "+ dataList);
-
-                //FINALLY ADDED TO TableView
-
-                main.displaySearchResultsPage(dataList);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Error building data!");
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error displaying data.");
-            return false;
-        }*/
-
     }
 
     //@TODO: Display application on click
-    /*// Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
-    protected void displayApplication() {
-        // Handle search criteria
-        applicationSearchCriteria();
+    // Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
+    protected void displayApplication(ObservableList<AppRecord> list) {
 
-        // Set our query
-        setQuery(getQueryBuilder().getQuery());
+        // This block monitors the user's interaction with the tableview,
+        //  determining when they double-click a row
+        resultsTable.setItems(list);
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AppRecord> row = new TableRow<>();
 
-        // Query the DB
-        apprs = queryDB(getQuery());
+            // Open application if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AppRecord rowData = row.getItem();
 
-        // Display our new data in the TableView
-        //displayData(apprs);
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
+
+                    // Get form form DB using selected row's ID
+                    try {
+                        Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
+                        // Open selected form in new window
+                        main.userData.setForm(viewForm);
+                        main.displayApprovedLabel(viewForm);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
     }
-*/
+
 
     // Save a CSV of the results locally
     @FXML
@@ -292,6 +259,11 @@ public class SearchController {
     public void setDisplay(Main main) {
         this.main = main;
     }
+    public void setDisplay2(Main main, ObservableList<AppRecord> list) {
+        this.main = main;
+        displayApplication(list);
+    }
+
     @FXML
     public void returnToMain(){
         try{

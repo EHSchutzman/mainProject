@@ -386,13 +386,13 @@ public class FormController{
         applicant_zip_text.setPromptText(form.getapplicant_zip());
         applicant_country_text.setPromptText(form.getapplicant_country());*/
 
-        address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
         //mailing_addressText.setPromptText(form.getmailing_address());
 
-        signature_text.setPromptText(form.getSignature());
-        phone_no_text.setPromptText(form.getphone_no());
-        email_text.setPromptText(form.getEmail());
+        signature_text.setText(form.getSignature());
+        phone_no_text.setText(form.getphone_no());
+        email_text.setText(form.getEmail());
 
         try {
             File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
@@ -813,9 +813,9 @@ public class FormController{
         Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(),
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, phone_no, email,
-                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), "agent_id", "applicant_id", main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
+                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), main.userData.form.getagent_id(), main.userData.form.getapplicant_id(), main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
-                "approval_comments");
+                main.userData.form.getapproval_comments());
 
         DBManager.updateForm(form);
     }
@@ -939,7 +939,6 @@ public class FormController{
                         Form viewForm = DBManager.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
                         main.userData.setForm(viewForm);
-                        System.out.println("saving stuff in results page" + main.userData.getForm());
                         main.setDisplayToRevisionsMenu();
                     } catch (Exception e) {
                         e.printStackTrace();
