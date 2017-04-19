@@ -13,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -454,8 +453,6 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
             controller.ApplyDisplay(this);
-            controller.source_combobox.getItems().addAll(new MenuItem("Domestic"), new MenuItem("Imported"));
-            controller.alcohol_type_combobox.getItems().addAll(new MenuItem("Malt Beverages"), new MenuItem("Wine"), new MenuItem("Distilled Spirits"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -621,7 +618,7 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("superAgentEditUser.fxml"));
             AnchorPane newWindow = loader.load();
             // Show the scene containing the root layout.
-            Scene scene = new Scene(newWindow, 1500, 1000);
+            Scene scene = new Scene(newWindow, 1000, 500);
             stage.setScene(scene);
             // Debugger works better when full screen is off
             stage.setFullScreen(false);

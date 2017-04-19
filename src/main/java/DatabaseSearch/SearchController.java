@@ -121,36 +121,17 @@ public class SearchController {
                 origin = state_text.getText();
             }
 
+
+            params += " STATUS = \'Accepted\' ";
+
             if (dpDateRangeStart.getValue() != null && dpDateRangeEnd.getValue() != null) {
-                params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
+                params = "AND APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
             }
 
 
             boolean firstCheck = false;
 
-            if ((isMalt || isSpirit || isWine) && params.isEmpty()) {
-
-                params += "(ALCOHOL_TYPE = ";
-
-                if (isWine) {
-                    params += "\'Wine\'";
-                    firstCheck = true;
-                }
-                if (isSpirit && !firstCheck) {
-                    params += "\'Distilled Spirits\'";
-                    firstCheck = true;
-                } else if (isSpirit && firstCheck) {
-                    params += " OR ALCOHOL_TYPE = \'Distilled Spirit\'";
-                }
-                if (isMalt && !firstCheck) {
-                    params += "\'Malt Beverages\'";
-                    firstCheck = true;
-                } else if (isMalt && firstCheck) {
-                    params += " OR ALCOHOL_TYPE = \'Malt Beverages\'";
-                }
-                params += ")";
-
-            } else if (isMalt || isSpirit || isWine){
+            if (isMalt || isSpirit || isWine) {
                 params += " AND (ALCOHOL_TYPE = ";
 
                 if (isWine) {
@@ -172,8 +153,6 @@ public class SearchController {
                 params += ")";
 
             }
-
-            params += " AND STATUS = \'Accepted\' ";
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
             ArrayList<String> brandArray = new ArrayList<>();
@@ -252,10 +231,9 @@ public class SearchController {
             }
 
             if (firstCheck) {
-                params += " AND (BRAND_NAME LIKE '%" + name + "%' OR FANCIFUL_NAME LIKE '%" + name + "%')";
-
+                params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + name + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + name + "%'))";
             } else {
-                params += " (BRAND_NAME LIKE '%" + name + "%' OR FANCIFUL_NAME LIKE '%" + name + "%')";
+                params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + name + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + name + "%'))";
             }
 
 
@@ -478,7 +456,7 @@ public class SearchController {
         }
         ObservableList<UserRecord> userList = FXCollections.observableArrayList();
         userList.clear();
-//        userList = db.searchUsers(options);
+        userList = db.searchUsers(options);
         System.out.println(userList.size());
         // display users in the table view
         if (!userList.isEmpty()) {
