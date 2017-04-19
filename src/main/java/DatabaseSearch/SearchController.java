@@ -376,6 +376,15 @@ public class SearchController {
     }
 
     @FXML
+    public void returnToSearch() {
+        try {
+            main.setDisplayToSearch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public TextField search_users_text;
     @FXML
     public CheckBox username_filter;

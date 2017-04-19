@@ -30,7 +30,6 @@ import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 //import com.sun.tools.javac.comp.Check;
 
-// TODO checkboxes and their corresponding lists from Form object and choiceboxes may be the source of errors
 public class FormController {
     public int currentPage;
 
@@ -1197,13 +1196,24 @@ public class FormController {
     //
     @FXML
     protected void disableFields() {
-        mailing_country_text.setDisable(true);
-        mailing_city_text.setDisable(true);
-        mailing_name_text.setDisable(true);
-        mailing_state_text.setDisable(true);
-        mailing_street_1_text.setDisable(true);
-        mailing_street_2_text.setDisable(true);
-        mailing_zip_text.setDisable(true);
+        if (mailing_country_text.isDisabled()) {
+            mailing_country_text.setDisable(false);
+            mailing_city_text.setDisable(false);
+            mailing_name_text.setDisable(false);
+            mailing_state_text.setDisable(false);
+            mailing_street_1_text.setDisable(false);
+            mailing_street_2_text.setDisable(false);
+            mailing_zip_text.setDisable(false);
+
+        } else {
+            mailing_country_text.setDisable(true);
+            mailing_city_text.setDisable(true);
+            mailing_name_text.setDisable(true);
+            mailing_state_text.setDisable(true);
+            mailing_street_1_text.setDisable(true);
+            mailing_street_2_text.setDisable(true);
+            mailing_zip_text.setDisable(true);
+        }
     }
 
 }

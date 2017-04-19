@@ -20,7 +20,7 @@
             </font>
         </Label>
         <Button fx:id="return_to_main_button" layoutX="20.0" layoutY="31.0" mnemonicParsing="false"
-                onMouseClicked="#returnToMain" text="Return To Main">
+                onMouseClicked="#returnToSearch" text="Return To Main">
             <font>
                 <Font size="18.0"/>
             </font>
