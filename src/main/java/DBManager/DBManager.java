@@ -505,18 +505,21 @@ public class DBManager {
         fields.add("email = " + "\'" + user.getEmail() + "\'");
         fields.add("phone_no = " + "\'" + user.getPhoneNo() + "\'");
         fields.add("first_name = " + "\'" + user.getFirstName() + "\'");
-        fields.add("middle_inital = " + "\'" + user.getMiddleInitial() + "\'");
+        fields.add("middle_initial = " + "\'" + user.getMiddleInitial() + "\'");
         fields.add("last_name = " + "\'" + user.getLastName() + "\'");
         String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'" + user.getUid() + "\'"));
+        System.out.println(updateString);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(updateString);
             stmt.close();
             connection.close();
+            System.out.println("Update success");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Update failed");
             return false;
         }
     }
@@ -704,6 +707,6 @@ public class DBManager {
 
         }
     }
-    
+
 }
 
