@@ -3,6 +3,7 @@ package Form;
 import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
 import Initialization.Main;
+import UserAccounts.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -54,7 +55,7 @@ public class FormController{
 
     public void ApplyDisplay(Main main) {
         this.main = main;
-        //createApplicantForm();
+        createApplicantForm();
     }
 
     public void ReviseDisplay(Main main) {
@@ -232,7 +233,11 @@ public class FormController{
     public void createApplicantForm() {
 
         Form form = new Form();
-        // TODO pull the applicant name from the DB
+        User currentUser = DBManager.findUser("user_id = \'" + main.userData.getUserInformation().getUid() + "\'");
+        String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " "  +currentUser.getLastName();
+        applicant_name_text.setText(name);
+        phone_no_text.setText(currentUser.getPhoneNo());
+        email_text.setText(currentUser.getEmail());
 
         // TODO make a random number generator and add a label to display ttbID
         form.setttb_id(form.makeUniqueID());
@@ -296,7 +301,8 @@ public class FormController{
                     form.getapplicant_city() + " " + form.getapplicant_state() +
                     form.getapplicant_zip() + " " + form.getapplicant_country());
         } else {
-            form.setmailing_address(mailing_addressText.getText());
+            form.setmailing_address(mailing_street_1_text.getText() + mailing_street_2_text.getText() +
+                    mailing_city_text.getText() + mailing_state_text.getText() + mailing_zip_text.getText() + mailing_country_text);
         }
 
         form.setSignature(signature_text.getText());
@@ -317,6 +323,12 @@ public class FormController{
 
     public void createAgentForm(Form form){
         //TODO pull the applicant name from the DB
+        //System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
+        //System.out.println(main.userData.getUserInformation().getUsername());
+        User currentUser = DBManager.findUser("user_id = \'" + form.getapplicant_id() + "\'");
+        String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " "  +currentUser.getLastName();
+        applicant_name_text.setText(name);
+        System.out.println(name);
 
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
@@ -677,7 +689,6 @@ public class FormController{
     @FXML
     public void submitForm() {
         int pH_level;
-//        String ttb_id = ttb_id_label.getText();
 
         String rep_id = rep_id_text.getText();
         String permit_no = permit_no_text.getText();
@@ -1033,6 +1044,10 @@ public class FormController{
         //        Image image = new Image(getClass().getResource("images/" + newFileName).toExternalForm());
 
 //        label_image.setImage(image);
+
+    }
+
+    public void closeWindow() {
 
     }
 }
