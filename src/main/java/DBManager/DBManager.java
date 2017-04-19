@@ -2,6 +2,7 @@ package DBManager;
 
 import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
+import DatabaseSearch.UserRecord;
 import Form.Form;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
@@ -504,18 +505,21 @@ public class DBManager {
         fields.add("email = " + "\'" + user.getEmail() + "\'");
         fields.add("phone_no = " + "\'" + user.getPhoneNo() + "\'");
         fields.add("first_name = " + "\'" + user.getFirstName() + "\'");
-        fields.add("middle_inital = " + "\'" + user.getMiddleInitial() + "\'");
+        fields.add("middle_initial = " + "\'" + user.getMiddleInitial() + "\'");
         fields.add("last_name = " + "\'" + user.getLastName() + "\'");
         String updateString = queryBuilder.createUpdateStatement("USERS", fields, ("user_id = \'" + user.getUid() + "\'"));
+        System.out.println(updateString);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(updateString);
             stmt.close();
             connection.close();
+            System.out.println("Update success");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Update failed");
             return false;
         }
     }
@@ -702,6 +706,38 @@ public class DBManager {
             }
 
         }
+    public User findUser (String options) {
+        System.out.println(options);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            User user = new User();
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                int authentication = rs.getInt("authentication");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                user = new User(user_id, username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            System.out.println("Found user");
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Cannot find user");
+            return null;
+        }
     }
 
     public void generateTab(ObservableList<AppRecord> list) {
@@ -752,6 +788,38 @@ public class DBManager {
             }
 
         }
+    }
+
+    // For the search users page for super agents
+    public ObservableList<UserRecord> searchUsers(String options) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ObservableList<UserRecord> userRecordList = FXCollections.observableArrayList();
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                String username = rs.getString("username");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                int authentication = rs.getInt("authentication");
+                UserRecord userRecord = new UserRecord(user_id, username, first_name, middle_initial, last_name, email, phone_no, Integer.toString(authentication));
+                userRecordList.add(userRecord);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return userRecordList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
 

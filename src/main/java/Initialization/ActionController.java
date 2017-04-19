@@ -89,6 +89,24 @@ public class ActionController {
         }
     }
 
+    @FXML
+    public void displayUserSearchPage() {
+        try {
+            main.setDisplayToSuperAgentSearchUsers();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void displayCreateAgentPage() {
+        try {
+            main.setDisplayToSuperAgentCreateAgent();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML public void displayAboutPage() {
         try {
             main.displayAboutPage();
