@@ -1,18 +1,13 @@
+
+
 .text-field {
-	-fx-opacity:0.8;
-}
-
-#approval_comments_text {
-	-fx-background-color: #a9a9a9 , #FAFFFF , #FAFFFF;
-	-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
-}
-
-#address_text {
-	-fx-opacity:0.8;
+    -fx-background-color: #a9a9a9 , #FAFFFF , #FAFFFF;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+    -fx-opacity: 1;
 }
 
 .button {
-	-fx-background-color:#7D7F7F, #FAFFFF;
+    -fx-background-color:#7D7F7F, #FAFFFF;
     -fx-background-insets: -1 -1 -1 -1, 0 0 0 0;
 }
 
@@ -22,4 +17,56 @@
 
 .button:pressed {
     -fx-background-color: #7D7F7F;
+}
+
+.combo-box {
+    -fx-background-color: #a9a9a9 , #E3E8E8, #E3E8E8;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.combo-box:hover {
+    -fx-background-color: #AAADAD;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.combo-box:pressed {
+    -fx-background-color: #7D7F7F;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.text-area {
+    -fx-background-color: #a9a9a9 , #FAFFFF , #FAFFFF;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+    -fx-opacity: 1;
+
+}
+
+.table-view {
+    -fx-background-color: #a9a9a9 , #FAFFFF , #FAFFFF;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.radio-button {
+    -fx-background-color:#7D7F7F, #FAFFFF;
+    -fx-background-insets: -1 -1 -1 -1, 0 0 0 0;
+}
+
+.radio-button:hover {
+    -fx-background-color: #C8CCCC;
+}
+
+.radio-button:pressed {
+    -fx-background-color: #7D7F7F;
+}
+
+.check-box {
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+#body{
+    -fx-fill: #a1a6a6;
+
+}
+#header{
+    -fx-fill: #597B99;
 }

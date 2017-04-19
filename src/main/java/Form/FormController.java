@@ -11,6 +11,10 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -18,6 +22,7 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import javax.xml.soap.Text;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
@@ -81,8 +86,6 @@ public class FormController{
     // Label Info
     @FXML
     public Label ttb_id_label;
-    @FXML
-    public TextField applicant_name_text;
     @FXML
     public TextField rep_id_text;
     @FXML
@@ -170,6 +173,7 @@ public class FormController{
     public TextField mailing_zip_text;
     public TextField mailing_country_text;
     public TextField mailing_state_text;
+    public TextField applicant_name_text;
     @FXML
     public TextField phone_no_text;
     @FXML
@@ -331,7 +335,7 @@ public class FormController{
 
 
     public void createAgentForm(Form form){
-        //TODO pull the applicant name from the DB
+
 
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
@@ -415,13 +419,32 @@ public class FormController{
         applicant_zip_text.setPromptText(form.getapplicant_zip());
         applicant_country_text.setPromptText(form.getapplicant_country());*/
 
-        address_text.setPromptText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
         //mailing_addressText.setPromptText(form.getmailing_address());
+        DBManager manager  = new DBManager();
+        applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
+        signature_text.setText(form.getSignature());
+        phone_no_text.setText(form.getphone_no());
+        email_text.setText(form.getEmail());
+        try {
+            System.out.println("image is " + form.getlabel_image());
+            /**
+             * IF EXPORTING THIS FOR JAR CHANGE
+             */
+            String path = (System.getProperty("user.dir") + "/images/" + form.getlabel_image());
+            System.out.println(path);
+            File file = new File(path);
+            String localURL = file.toURI().toURL().toString();
+            Image image = new Image(localURL);
+            System.out.println("Image loaded");
+            label_image.setImage(image);
+            System.out.println("displaying image");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        signature_text.setPromptText(form.getSignature());
-        phone_no_text.setPromptText(form.getphone_no());
-        email_text.setPromptText(form.getEmail());
+
 
         try {
             File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
@@ -716,11 +739,11 @@ public class FormController{
 
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
-        ArrayList<Boolean> application_type = new ArrayList<Boolean>();
+        ArrayList<Boolean> application_type = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             application_type.add(false);
         }
-        ArrayList<String> application_type_text = new ArrayList<String>();
+        ArrayList<String> application_type_text = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             application_type_text.add("");
         }
@@ -853,9 +876,9 @@ public class FormController{
         Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(),
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, phone_no, email,
-                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), "agent_id", "applicant_id", main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
+                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), main.userData.form.getagent_id(), main.userData.form.getapplicant_id(), main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
-                "approval_comments");
+                main.userData.form.getapproval_comments());
 
         DBManager.updateForm(form);
     }
@@ -878,7 +901,7 @@ public class FormController{
         }
     }
 
-    //TODO literally the same as returnToMainPage but to their respective lists of application or applicant main or agent main
+    //TODO literally the same as returnToMainPage but to their respective lists of applications
     @FXML
     public void back() {
         try{
@@ -1041,8 +1064,17 @@ public class FormController{
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
         File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
+        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Initialization/images/" + newFileName);
+        System.out.println(destInSys.getAbsolutePath());
+        File destForJar = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {
+            /**
+                IF EXPORTING THIS TO JAR COMMENT OUT THE FIRST TWO FILES.copy calls,
+                it will throw FIle not found exceptions
+             */
             Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
+            Files.copy(selectedFile.toPath(), destInBuild.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
+            Files.copy(selectedFile.toPath(), destForJar.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1051,17 +1083,6 @@ public class FormController{
 //        String path = getClass().getResource("images/").toExternalForm();
 //        System.out.println(path);
         main.userData.getForm().setlabel_image(newFileName);
-        try {
-            System.out.println("here");
-            String path = (System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
-            File file = new File(path);
-            String localURL = file.toURI().toURL().toString();
-            Image image = new Image(localURL);
-            System.out.println("Now here");
-            System.out.println("down");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
         //        Image image = new Image(getClass().getResource("images/" + newFileName).toExternalForm());

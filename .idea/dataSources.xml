@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="appDB" uuid="ca057c81-01f1-49f4-b906-1b7a166397dc">
+    <data-source source="LOCAL" name="appDB" uuid="fd436da8-c327-4189-b87b-42ca185e3a5b">
       <driver-ref>derby.embedded</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
-      <jdbc-url>jdbc:derby:$USER_HOME$/Database/Database/appDB</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="appDB [2]" uuid="753df0f2-3b2b-4c5e-890b-14387b269215">
-      <driver-ref>derby.embedded</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
-      <jdbc-url>jdbc:derby:$PROJECT_DIR$/Database/Database/appDB</jdbc-url>
+      <jdbc-url>jdbc:derby:$PROJECT_DIR$/../Database/Database/appDB</jdbc-url>
     </data-source>
   </component>
 </project>
