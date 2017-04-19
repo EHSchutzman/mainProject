@@ -31,7 +31,7 @@ import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 //import com.sun.tools.javac.comp.Check;
 
 // TODO checkboxes and their corresponding lists from Form object and choiceboxes may be the source of errors
-public class FormController{
+public class FormController {
     public int currentPage;
 
     private Main main;
@@ -158,6 +158,7 @@ public class FormController{
     public RadioButton sameAsApplicantButton;
     @FXML
     public TextArea mailing_addressText;
+    public Label errorLabel;
 
     @FXML
     public TextField mailing_name_text;
@@ -200,7 +201,8 @@ public class FormController{
     public TextField submit_date;
     public ImageView label_image;
 
-    @FXML Button closeButton;
+    @FXML
+    Button closeButton;
 
     @FXML
     public CheckBox revision1_checkbox = new CheckBox(); //label picture
@@ -228,7 +230,6 @@ public class FormController{
     public CheckBox revision12_checkbox;//alcohol content for malt beverage labels
 
 
-
     public void createApplicantForm() {
 
         Form form = new Form();
@@ -246,7 +247,7 @@ public class FormController{
 
         // Initialize Alcohol Type ChoiceBox, get and set value
         alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirit"));
-        form.setalcohol_type((String)alcohol_type_combobox.getValue());
+        form.setalcohol_type((String) alcohol_type_combobox.getValue());
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
@@ -305,9 +306,7 @@ public class FormController{
         form.setapplicant_country(applicant_country_text.getText());
 
         if (sameAsApplicantButton.isSelected()) {
-            form.setmailing_address(form.getapplicant_street() + " " +
-                    form.getapplicant_city() + " " + form.getapplicant_state() +
-                    form.getapplicant_zip() + " " + form.getapplicant_country());
+            form.setmailing_address(form.getapplicant_street() + " " + form.getapplicant_city() + " " + form.getapplicant_state() + form.getapplicant_zip() + " " + form.getapplicant_country());
         } else {
             form.setmailing_address(mailing_addressText.getText());
         }
@@ -328,12 +327,12 @@ public class FormController{
     }
 
 
-    public void createAgentForm(Form form){
+    public void createAgentForm(Form form) {
 
 
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-        if(form.getSource().equals("Imported")) {
+        if (form.getSource().equals("Imported")) {
             //source_combobox.getSelectionModel().select(2);
             source_text.setPromptText("Imported");
         } else if (form.getSource().equals("Domestic")) {
@@ -343,7 +342,7 @@ public class FormController{
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if(form.getalcohol_type().equals("Malt Beverages")) {
+        if (form.getalcohol_type().equals("Malt Beverages")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
             alcohol_type_text.setPromptText("Malt Beverages");
         } else if (form.getalcohol_type().equals("Wine")) {
@@ -399,7 +398,7 @@ public class FormController{
             ph_level_text.setText(String.valueOf(form.getpH_level()));
             grape_varietals_text.setText(form.getgrape_varietals());
             wine_appellation_text.setText(form.getwine_appellation());
-        }else {
+        } else {
             vintage_year_text.setText(null);
             ph_level_text.setText(null);
             grape_varietals_text.setText(null);
@@ -416,7 +415,7 @@ public class FormController{
         address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
         //mailing_addressText.setPromptText(form.getmailing_address());
-        DBManager manager  = new DBManager();
+        DBManager manager = new DBManager();
         System.out.println("NAME IS THIS");
         System.out.println(manager.findUsersName(form.getapplicant_id()));
         applicant_name_text.setText(null);
@@ -436,7 +435,7 @@ public class FormController{
             System.out.println("Image loaded");
             label_image.setImage(image);
             System.out.println("displaying image");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -705,16 +704,16 @@ public class FormController{
 
     // TODO delete probably outdated method
     @FXML
-    public void startApplication(){
-        try{
+    public void startApplication() {
+        try {
             main.setDisplayToApply();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //TODO use DBManager functions for applicant to choose form from list
-    public void chooseForm () {
+    public void chooseForm() {
         Form review = new Form();
 
         main.setDisplayToAgentReview();
@@ -723,87 +722,103 @@ public class FormController{
     }
 
 
-
     @FXML
     public void submitForm() {
         int pH_level;
 //        String ttb_id = ttb_id_label.getText();
 
-        if(rep_id_text.getText() == null){
+        if (rep_id_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(permit_no_text.getText() == null){
+        if (permit_no_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(serial_no_text.getText() == null){
+        if (serial_no_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(source_combobox.getValue().toString() != "Imported" || source_combobox.getValue().toString() != "Domestic"){
+        if (source_combobox.getValue().toString() != "Imported" || source_combobox.getValue().toString() != "Domestic") {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(alcohol_type_combobox.getValue().toString() != "Wine" || source_combobox.getValue().toString() != "Malt Beverages"
-                || source_combobox.getValue().toString() != "Distilled Spirits"){
+        if (alcohol_type_combobox.getValue().toString() != "Wine" || source_combobox.getValue().toString() != "Malt Beverages" || source_combobox.getValue().toString() != "Distilled Spirits") {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(brand_name_text.getText() == null){
+        if (brand_name_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(fanciful_name_text.getText() == null){
+        if (fanciful_name_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(alcohol_content_text.getText() == null){
+        if (alcohol_content_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(formula_text.getText() == null){
+        if (formula_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(label_text.getText() == null){
+        if (label_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(vintage_year_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+        if (vintage_year_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(grape_varietals_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+        if (grape_varietals_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(ph_level_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+        if (ph_level_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(wine_appellation_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+        if (wine_appellation_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(applicant_street_1_text.getText() == null){
+        if (applicant_street_1_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(applicant_city_text.getText() == null){
+        if (applicant_city_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(applicant_state_text.getText() == null){
+        if (applicant_state_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(applicant_country_text.getText() == null){
+        if (applicant_country_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(applicant_zip_text.getText() == null){
+        if (applicant_zip_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(applicant_country_text.getText() == null){
+        if (applicant_country_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(signature_text.getText() == null){
+        if (signature_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(phone_no_text.getText() == null){
+        if (phone_no_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if(email_text.getText() == null){
+        if (email_text.getText() == null) {
+            errorLabel.setText("Please Fill in all fields");
             return;
         }
-
-
-
-
-
 
 
         String rep_id = rep_id_text.getText();
@@ -850,7 +865,7 @@ public class FormController{
         String vintage_year;
         String grape_varietals;
         String wine_appellation;
-        if (alcohol_type_combobox.getValue().equals("Wine")){
+        if (alcohol_type_combobox.getValue().equals("Wine")) {
             vintage_year = (vintage_year_text.getText());
             grape_varietals = (grape_varietals_text.getText());
             pH_level = (Integer.parseInt(ph_level_text.getText()));
@@ -870,13 +885,9 @@ public class FormController{
 
         String mailing_address;
         if (sameAsApplicantButton.isSelected()) {
-            mailing_address = (applicant_street + " " +
-                    applicant_city + " " + applicant_state +
-                    applicant_zip + " " + applicant_country);
+            mailing_address = (applicant_street + " " + applicant_city + " " + applicant_state + applicant_zip + " " + applicant_country);
         } else {
-            mailing_address = (mailing_name_text.getText() + mailing_street_1_text.getText()
-                    + mailing_street_2_text.getText() + mailing_city_text.getText() + mailing_zip_text.getText()
-                    + mailing_country_text.getText() + mailing_state_text.getText());
+            mailing_address = (mailing_name_text.getText() + mailing_street_1_text.getText() + mailing_street_2_text.getText() + mailing_city_text.getText() + mailing_zip_text.getText() + mailing_country_text.getText() + mailing_state_text.getText());
         }
 
         String signature = (signature_text.getText());
@@ -886,12 +897,7 @@ public class FormController{
 
 
         //TODO Update image when adding image display things
-        Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
-                brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
-                applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, main.userData.form.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
-                vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
-                null);
+        Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address, formula, phone_no, email, labeltext, main.userData.form.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null, vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text, null);
 
         DBManager.persistForm(form);
 
@@ -951,30 +957,23 @@ public class FormController{
 
         Date date = new Date(0);
         Date submitdate = new Date(System.currentTimeMillis());
-        Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(),
-                brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
-                applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, phone_no, email,
-                labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), main.userData.form.getagent_id(), main.userData.form.getapplicant_id(), main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(),
-                vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
-                main.userData.form.getapproval_comments());
+        Form form = new Form(main.userData.form.getttb_id(), main.userData.form.getrep_id(), main.userData.form.getpermit_no(), main.userData.form.getSource(), main.userData.form.getserial_no(), main.userData.form.getalcohol_type(), brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state, applicant_zip, applicant_country, main.userData.form.getmailing_address(), formula, phone_no, email, labeltext, main.userData.form.getlabel_image(), submitdate, signature, main.userData.form.getStatus(), main.userData.form.getagent_id(), main.userData.form.getapplicant_id(), main.userData.form.getapproved_date(), main.userData.form.getexpiration_date(), vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text, main.userData.form.getapproval_comments());
 
         DBManager.updateForm(form);
     }
 
     @FXML
-    public void returnToMainPage(){
-        try{
-            if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
+    public void returnToMainPage() {
+        try {
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 main.setDisplayToApplicantMain();
-            }
-            else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2) {
 
                 main.setDisplayToAgentMain();
-            }
-            else{
+            } else {
                 main.setDisplayToDefaultMain();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -982,17 +981,15 @@ public class FormController{
     //TODO literally the same as returnToMainPage but to their respective lists of applications
     @FXML
     public void back() {
-        try{
-            if(main.userData.getUserInformation().getAuthenticationLevel() == 1) {
+        try {
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 1) {
                 //set display to list of Applicant applications
-            }
-            else if(main.userData.getUserInformation().getAuthenticationLevel() >= 2){
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2) {
                 //set display to list of applications to review
-            }
-            else{
+            } else {
                 //you are not supposed to be here as a guest user, return to main page
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -1147,8 +1144,8 @@ public class FormController{
         File destForJar = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {
             /**
-                IF EXPORTING THIS TO JAR COMMENT OUT THE FIRST TWO FILES.copy calls,
-                it will throw FIle not found exceptions
+             IF EXPORTING THIS TO JAR COMMENT OUT THE FIRST TWO FILES.copy calls,
+             it will throw FIle not found exceptions
              */
             Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
             Files.copy(selectedFile.toPath(), destInBuild.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
