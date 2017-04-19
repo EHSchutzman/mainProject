@@ -286,9 +286,10 @@ public class DBManager {
                 application.setBrandName(brandName);
                 application.setFancifulName(fancifulName);
                 application.setTypeID(alcoholType);
+                application.setTtbID(ttbID);
                 ol.add(application);
                 application.setCompletedDate(approvedDate);
-                application.setTtb_ID(ttbID);
+                application.setTtbID(ttbID);
             }
             rs.close();
             stmt.close();
@@ -652,7 +653,7 @@ public class DBManager {
 
 
     @FXML
-    public void generateCSV(ObservableList<AppRecord> list) {
+    public void generateCSV(ObservableList<AppRecord> list, String separator) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
         File selectedFile = dc.showDialog(null);
@@ -663,36 +664,36 @@ public class DBManager {
                 FileWriter fileWriter = new FileWriter(file, false);
                 System.out.println(file.getAbsolutePath());
                 fileWriter.write("TTB ID");
-                fileWriter.write(",");
+                fileWriter.write(separator);
                 fileWriter.write("Completed Date");
-                fileWriter.write(",");
+                fileWriter.write(separator);
                 fileWriter.write("Alcohol Type");
-                fileWriter.write(",");
+                fileWriter.write(separator);
                 fileWriter.write("Brand Name");
-                fileWriter.write(",");
+                fileWriter.write(separator);
                 fileWriter.write("Fanciful Name");
-                fileWriter.write(",");
+                fileWriter.write(separator);
                 fileWriter.write("Permit Number");
-                fileWriter.write(",");
+                fileWriter.write(separator);
                 fileWriter.write("Serial Number");
                 fileWriter.write("\n");
                 for (AppRecord ar : list) {
-                    fileWriter.write(ar.getTtb_ID());
-                    fileWriter.write(",");
+                    fileWriter.write(ar.getTtbID());
+                    fileWriter.write(separator);
                     fileWriter.write(ar.getCompletedDate());
-                    fileWriter.write(",");
+                    fileWriter.write(separator);
                     fileWriter.write(ar.getTypeID());
-                    fileWriter.write(",");
+                    fileWriter.write(separator);
                     fileWriter.write(ar.getBrandName());
-                    fileWriter.write(",");
+                    fileWriter.write(separator);
                     try {
                         fileWriter.write(ar.getFancifulName());
                     } catch (NullPointerException e) {
                         fileWriter.write("");
                     }
-                    fileWriter.write(",");
+                    fileWriter.write(separator);
                     fileWriter.write(ar.getPermitNo());
-                    fileWriter.write(",");
+                    fileWriter.write(separator);
                     fileWriter.write(ar.getSerialNo());
                     fileWriter.write("\n");
                 }
@@ -703,55 +704,6 @@ public class DBManager {
 
         }
     }
-
-    public void generateTab(ObservableList<AppRecord> list) {
-        DirectoryChooser dc = new DirectoryChooser();
-        dc.setInitialDirectory(new File(System.getProperty("user.dir")));
-        File selectedFile = dc.showDialog(null);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
-        File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + ".csv");
-        if (selectedFile != null) {
-            try {
-                FileWriter fileWriter = new FileWriter(file, false);
-                System.out.println(file.getAbsolutePath());
-                fileWriter.write("Completed Date");
-                fileWriter.write("\t");
-                fileWriter.write("Alcohol Type");
-                fileWriter.write("\t");
-                fileWriter.write("Brand Name");
-                fileWriter.write("\t");
-                fileWriter.write("Fanciful Name");
-                fileWriter.write("\t");
-                fileWriter.write("Permit Number");
-                fileWriter.write("\t");
-                fileWriter.write("Serial Number");
-                fileWriter.write("\n");
-                for (AppRecord ar : list) {
-                    fileWriter.write(ar.getTtb_ID());
-                    fileWriter.write("\t");
-                    fileWriter.write(ar.getCompletedDate());
-                    fileWriter.write("\t");
-                    fileWriter.write(ar.getTypeID());
-                    fileWriter.write("\t");
-                    fileWriter.write(ar.getBrandName());
-                    fileWriter.write("\t");
-                    try {
-                        fileWriter.write(ar.getFancifulName());
-                    } catch (NullPointerException e) {
-                        fileWriter.write("");
-                    }
-                    fileWriter.write("\t");
-                    fileWriter.write(ar.getPermitNo());
-                    fileWriter.write("\t");
-                    fileWriter.write(ar.getSerialNo());
-                    fileWriter.write("\n");
-                }
-                fileWriter.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
+    
 }
 

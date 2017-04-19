@@ -17,13 +17,13 @@ public class AppRecord {
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
     private final SimpleStringProperty status = new SimpleStringProperty("");
     private final SimpleStringProperty applicantID = new SimpleStringProperty("");
-    private final SimpleStringProperty ttb_ID = new SimpleStringProperty("");
+    private final SimpleStringProperty ttbID = new SimpleStringProperty("");
 
     public AppRecord() {
         this("", "", "", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status, String applicantID, String ttb_ID) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status, String applicantID, String ttbID) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
@@ -34,7 +34,19 @@ public class AppRecord {
         setTypeID(typeID);
         setStatus(status);
         setApplicantID(applicantID);
-        setTtb_ID(ttb_ID);
+        setTtbID(ttbID);
+    }
+
+    public String getTtbID() {
+        return ttbID.get();
+    }
+
+    public SimpleStringProperty ttbIDProperty() {
+        return ttbID;
+    }
+
+    public void setTtbID(String ttbID) {
+        this.ttbID.set(ttbID);
     }
 
     public String getFormID() {
@@ -43,18 +55,6 @@ public class AppRecord {
 
     public SimpleStringProperty formIDProperty() {
         return formID;
-    }
-
-    public String getTtb_ID() {
-        return ttb_ID.get();
-    }
-
-    public SimpleStringProperty ttb_IDProperty() {
-        return ttb_ID;
-    }
-
-    public void setTtb_ID(String ttb_ID) {
-        this.ttb_ID.set(ttb_ID);
     }
 
     public void setFormID(String formID) {
