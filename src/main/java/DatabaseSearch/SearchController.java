@@ -9,7 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import javax.xml.soap.Text;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +27,7 @@ import java.util.ArrayList;
  */
 public class SearchController {
 
-    private Main main = new Main();
+    private Main main;
     // Database information
     public DBManager db = new DBManager();
     private ResultSet apprs;
@@ -195,6 +201,9 @@ public class SearchController {
             searchParams.add(typeArray);
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            System.out.println("OBSERVABLE LIST IS " + arr);
+            main.userData.setObservableList(arr);
+            System.out.println("MAIN HAS" + main.userData.getObservableList());
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
@@ -251,6 +260,9 @@ public class SearchController {
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            System.out.println("ARR IS " + arr);
+            main.userData.setObservableList(arr);
+            System.out.println("USERDATA IS " + main.userData.getObservableList());
             resultsTable.setItems(arr);
             resultsTable.refresh();
 
@@ -349,6 +361,11 @@ public class SearchController {
     public TableColumn authenticationCol;
     @FXML
     public TableView<UserRecord> resultsTableUsers;
+    public Button comma_separated_button;
+    public Button tab_separated_button;
+    public Button user_specified_button;
+    public TextField user_specified_value_text;
+    public Button close_button;
 
     public void initUserAuthenticationChoiceBox() {
         authentication_filter.getItems().addAll("0", "1", "2", "3");
@@ -408,7 +425,7 @@ public class SearchController {
         }
         ObservableList<UserRecord> userList = FXCollections.observableArrayList();
         userList.clear();
-        userList = db.searchUsers(options);
+//        userList = db.searchUsers(options);
         System.out.println(userList.size());
         // display users in the table view
         if (!userList.isEmpty()) {
@@ -438,4 +455,39 @@ public class SearchController {
             return row;
         });
     }
+
+    @FXML
+    public void makeCSV(){
+        DBManager manager = new DBManager();
+        System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
+
+        manager.generateCSV(main.userData.getObservableList(), ",");
+    }
+    @FXML
+    public void makeTab(){
+        DBManager manager = new DBManager();
+        manager.generateCSV(main.userData.getObservableList(), "\t");
+    }
+    @FXML
+    public void makeUserSpecified(){
+        DBManager manager = new DBManager();
+        String separator = user_specified_value_text.getText();
+        manager.generateCSV(main.userData.getObservableList(), separator);
+    }
+    @FXML
+    public void closeApplication() {
+
+        // Close the window
+        Stage stage = (Stage) close_button.getScene().getWindow();
+        stage.close();
+
+        // Display confirmation message
+        try {
+            main.displayConfirmationMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

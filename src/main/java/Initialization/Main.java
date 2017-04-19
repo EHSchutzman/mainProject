@@ -47,8 +47,6 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("mainPage.fxml"));
 
             rootLayout = loader.load();
-            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            rootLayout.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout, 1000, 500);
@@ -658,6 +656,8 @@ public class Main extends Application {
 
             stage.getScene().setRoot(newWindow);
             stage.show();
+            SearchController controller = loader.getController();
+            controller.setDisplay(this);
 
         } catch (IOException e) {
             e.printStackTrace();
