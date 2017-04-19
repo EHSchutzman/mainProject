@@ -83,7 +83,7 @@
        <TextField fx:id="option_4_text" disable="true" layoutX="635.0" layoutY="308.0" prefHeight="27.0" prefWidth="263.0" promptText="TTB ID" />
        <TextField fx:id="label_text" disable="true" layoutX="1121.0" layoutY="280.0" prefHeight="27.0" prefWidth="194.0" promptText="Content Printed on Bottle" />
        <TextField fx:id="signature_text" disable="true" layoutX="1050.0" layoutY="900.0" promptText="Electronic Signature" />
-       <Button fx:id="submit_button" layoutX="1300.0" layoutY="900.0" mnemonicParsing="false" onMouseClicked="#submitRevisedForm" text="Submit">
+       <Button fx:id="submit_button" layoutX="948.0" layoutY="496.0" mnemonicParsing="false" onMouseClicked="#submitRevisedForm" text="Submit">
            <font>
                <Font size="18.0" />
            </font>

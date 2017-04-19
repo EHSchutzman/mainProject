@@ -249,10 +249,9 @@ public class Main extends Application {
 
 
             SearchController controller = loader.getController();
-            controller.setDisplay(this);
+            controller.setDisplay2(this, list);
 
             controller.resultsTable.setItems(list);
-
 
         } catch (IOException e){
             e.printStackTrace();
@@ -660,6 +659,27 @@ public class Main extends Application {
             stage.show();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayApprovedLabel(Form form) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("viewApprovedLabel.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            FormController controller = loader.getController();
+            controller.createAgentForm(form);
+
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

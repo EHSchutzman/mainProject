@@ -1,6 +1,8 @@
 package DatabaseSearch;
 
+import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
+import Form.Form;
 import Initialization.Main;
 import UserAccounts.User;
 import javafx.beans.value.ChangeListener;
@@ -77,8 +79,14 @@ public class SearchController {
     // Handle a search - effectively a "main" function for our program
     protected void handleSearch() throws SQLException {
 
+        System.out.println("Handles search!");
+
+        // Handle search criteria
+        System.out.println("in handle search" + searchCriteria());
+
         // Display our new data in the TableView
         displayData(searchCriteria());
+        //displayApplication();
 
     }
 
@@ -275,6 +283,42 @@ public class SearchController {
 
     // Generate a CSV file of the current ResultSet
     // http://stackoverflow.com/questions/22439776/how-to-convert-resultset-to-csv
+
+    //@TODO: Display application on click
+    // Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
+    protected void displayApplication(ObservableList<AppRecord> list) {
+
+        // This block monitors the user's interaction with the tableview,
+        //  determining when they double-click a row
+        resultsTable.setItems(list);
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AppRecord> row = new TableRow<>();
+
+            // Open application if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AppRecord rowData = row.getItem();
+
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
+
+                    // Get form form DB using selected row's ID
+                    try {
+                        Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
+                        // Open selected form in new window
+                        main.userData.setForm(viewForm);
+                        main.displayApprovedLabel(viewForm);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
+    }
+
+
+    // Save a CSV of the results locally
     @FXML
     protected void generateCSV() {
         try {
@@ -295,6 +339,11 @@ public class SearchController {
     public void setDisplay(Main main) {
         this.main = main;
     }
+    public void setDisplay2(Main main, ObservableList<AppRecord> list) {
+        this.main = main;
+        displayApplication(list);
+    }
+
 
     public void setDisplayUsers(Main main) {
         this.main = main;
