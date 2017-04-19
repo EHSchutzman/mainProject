@@ -391,6 +391,24 @@ public class FormController{
         signature_text.setText(form.getSignature());
         phone_no_text.setText(form.getphone_no());
         email_text.setText(form.getEmail());
+        try {
+            System.out.println("image is " + form.getlabel_image());
+            /**
+             * IF EXPORTING THIS FOR JAR CHANGE
+             */
+            String path = (System.getProperty("user.dir") + "/images/" + form.getlabel_image());
+            System.out.println(path);
+            File file = new File(path);
+            String localURL = file.toURI().toURL().toString();
+            Image image = new Image(localURL);
+            System.out.println("Image loaded");
+            label_image.setImage(image);
+            System.out.println("displaying image");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
         try {
             File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
@@ -856,8 +874,17 @@ public class FormController{
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
         File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
+        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Initialization/images/" + newFileName);
+        System.out.println(destInSys.getAbsolutePath());
+        File destForJar = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {
+            /**
+                IF EXPORTING THIS TO JAR COMMENT OUT THE FIRST TWO FILES.copy calls,
+                it will throw FIle not found exceptions
+             */
             Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
+            Files.copy(selectedFile.toPath(), destInBuild.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
+            Files.copy(selectedFile.toPath(), destForJar.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -866,17 +893,6 @@ public class FormController{
 //        String path = getClass().getResource("images/").toExternalForm();
 //        System.out.println(path);
         main.userData.getForm().setlabel_image(newFileName);
-        try {
-            System.out.println("here");
-            String path = (System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
-            File file = new File(path);
-            String localURL = file.toURI().toURL().toString();
-            Image image = new Image(localURL);
-            System.out.println("Now here");
-            System.out.println("down");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
         //        Image image = new Image(getClass().getResource("images/" + newFileName).toExternalForm());

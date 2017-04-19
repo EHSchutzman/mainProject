@@ -14,11 +14,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Main extends Application {
@@ -204,7 +206,22 @@ public class Main extends Application {
             controller.signature_text.setPromptText(form.getSignature());
             controller.phone_no_text.setPromptText(form.getphone_no());
             controller.email_text.setPromptText(form.getEmail());
-
+            try {
+                System.out.println("image is " + form.getlabel_image());
+                /**
+                 * IF EXPORTING THIS FOR JAR CHANGE
+                 */
+                String path = (System.getProperty("user.dir") + "/images/" + form.getlabel_image());
+                System.out.println(path);
+                File file = new File(path);
+                String localURL = file.toURI().toURL().toString();
+                Image image = new Image(localURL);
+                System.out.println("Image loaded");
+                controller.label_image.setImage(image);
+                System.out.println("displaying image");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
 
         } catch (IOException e) {
