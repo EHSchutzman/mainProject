@@ -13,7 +13,7 @@
 <AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
       <Button fx:id="closeButton" layoutX="102.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#closeWindow" prefHeight="31.0" prefWidth="96.0" text="Close" />
-      <Label layoutX="102.0" layoutY="14.0" text="Success!">
+      <Label layoutX="102.0" layoutY="14.0" text="Success!" fx:id="header">
          <font>
             <Font size="26.0" />
          </font>

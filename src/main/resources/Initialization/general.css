@@ -1,4 +1,118 @@
+
 /* Buttons */
+
+
+
+
+#logOutButton {
+    -fx-font-size: 30px;
+    -fx-background-color: #e8491d;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+
+}
+
+#logOutButton:hover {
+    -fx-background-color: #ea6844;
+}
+
+#logOutButton:pressed {
+    -fx-background-color: #ffa287;
+}
+
+
+
+#createAgentButton {
+    -fx-font-size: 30px;
+    -fx-background-color: #e8491d;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+
+}
+
+#createAgentButton:hover {
+    -fx-background-color: #ea6844;
+}
+
+#createAgentButton:pressed {
+    -fx-background-color: #ffa287;
+}
+
+
+#viewFormsButton {
+    -fx-font-size: 30px;
+    -fx-background-color: #e8491d;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+
+}
+
+#viewFormsButton:hover {
+    -fx-background-color: #ea6844;
+}
+
+#viewFormsButton:pressed {
+    -fx-background-color: #ffa287;
+}
+
+
+
+
+#submissionButton {
+    -fx-font-size: 30px;
+    -fx-background-color: #e8491d;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+
+ }
+
+#submissionButton:hover {
+    -fx-background-color: #ea6844;
+}
+
+#submissionButton:pressed {
+    -fx-background-color: #ffa287;
+}
+
+
+#userSearchButton {
+    -fx-font-size: 30px;
+    -fx-background-color: #e8491d;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+
+}
+
+#userSearchButton:hover {
+    -fx-background-color: #ea6844;
+}
+
+#userSearchButton:pressed {
+    -fx-background-color: #ffa287;
+}
+
+
+#reviewLabelButton {
+    -fx-font-size: 30px;
+    -fx-background-color: #e8491d;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+}
+
+#reviewLabelButton:hover {
+    -fx-background-color: #ea6844;
+}
+
+#reviewLabelButton:pressed {
+    -fx-background-color: #ffa287;
+}
+
 
 
 .button {
@@ -20,14 +134,14 @@
     -fx-background-color: #a3a3a3;
 }
 
+
 #back_button {
-    -fx-font-size: 20px;
+    -fx-font-size: 30px;
     -fx-background-color: #e8491d;
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
-
 #back_button:hover {
     -fx-background-color: #ea6844;
 }
@@ -37,13 +151,12 @@
 }
 
 #loginButton {
-    -fx-font-size: 20px;
+    -fx-font-size: 30px;
     -fx-background-color: #e8491d;
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
-
 #loginButton:hover {
     -fx-background-color: #ea6844;
 }
@@ -52,14 +165,14 @@
     -fx-background-color: #ffa287;
 }
 
-#create_user_button {
-    -fx-font-size: 20px;
+
+#create_user_button{
+    -fx-font-size: 30px;
     -fx-background-color: #e8491d;
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
-
 #create_user_button:hover {
     -fx-background-color: #ea6844;
 }
@@ -76,7 +189,6 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
-
 #searchButton:hover {
     -fx-background-color: #ea6844;
 }
@@ -93,7 +205,6 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
-
 #logInButton:hover {
     -fx-background-color: #ea6844;
 }
@@ -102,10 +213,12 @@
     -fx-background-color: #ffa287;
 }
 
+
 /* TextFields */
 
+
 .text-field {
-    -fx-background-color: #a9a9a9, white, white;
+    -fx-background-color: #a9a9a9 , white , white;
     -fx-border-style: solid;
     -fx-border-width: 1;
     -fx-border-color: #e8491d;
@@ -118,7 +231,7 @@
 }
 
 .text-field:focused {
-    -fx-background-color: #a9a9a9, white, white;
+    -fx-background-color: #a9a9a9 , white , white;
 
 }
 
@@ -127,9 +240,10 @@
     -fx-border-color: #35424a;
 }
 
+
 /* Text Area */
 .text-area {
-    -fx-background-color: #a9a9a9, white, white;
+    -fx-background-color: #a9a9a9 , white , white;
     -fx-border-style: solid;
     -fx-border-width: 1;
     -fx-border-color: #e8491d;
@@ -142,7 +256,7 @@
 }
 
 .text-area:focused {
-    -fx-background-color: #a9a9a9, white, white;
+    -fx-background-color: #a9a9a9 , white , white;
 
 }
 
@@ -150,6 +264,10 @@
     -fx-opacity: 90%;
     -fx-border-color: #35424a;
 }
+
+
+
+
 
 /* Table View */
 
@@ -170,7 +288,11 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: #e8491d;
-    -fx-border-color: #e8491d #e8491d derive(-fx-base, 80%) #e8491d;
+    -fx-border-color:
+            #e8491d
+            #e8491d
+            derive(-fx-base, 80%)
+            #e8491d;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -186,3 +308,8 @@
     -fx-background-color: -fx-focus-color;
 }
 
+/* Label */
+
+#header {
+    -fx-text-fill: white;
+}

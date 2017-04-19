@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.ActionController">
+
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.ActionController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="500.0" layoutX="-25.0" layoutY="67.0"
-                 stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0"
-                 AnchorPane.topAnchor="0.0"/>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#597B99" height="100.0" layoutX="667.0" layoutY="664.0"
-                 stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0"
-                 AnchorPane.topAnchor="0.0"/>
-      <Button fx:id="searchButton" layoutX="396.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Database Search">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="396.0" layoutY="152.0" mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Database Search">
          <font>
             <Font size="24.0" />
          </font></Button>
@@ -24,22 +23,19 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="viewFormsButton" layoutX="365.0" layoutY="220.0" mnemonicParsing="false"
-              onMouseClicked="#displayApplicantFormsPage" text="View Submitted Forms">
+      <Button fx:id="viewFormsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="365.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#displayApplicantFormsPage" text="View Submitted Forms">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="logInButton" layoutX="447.0" layoutY="370.0" mnemonicParsing="false"
-              onMouseClicked="#logoutAction" text="Log Out">
+      <Button fx:id="logInButton" contentDisplay="CENTER" layoutX="447.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#logoutAction" text="Log Out">
          <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="submissionButton" layoutX="392.0" layoutY="294.0" mnemonicParsing="false"
-              onMouseClicked="#displayApplicationPage" text="Submit New Form">
+      <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#displayApplicationPage" text="Submit New Form">
          <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
          </font>
       </Button>
    </children>

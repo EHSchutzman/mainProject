@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -568,7 +569,7 @@ public class Main extends Application {
     public void setDisplayToSuperAgentMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("superAgentMainPage.fxml"));
+            loader.setLocation(getClass().getResource("superAgentInitialPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Super Agent Main");
             primaryStage.getScene().setRoot(page);
@@ -645,6 +646,8 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 600, 400);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
             stage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -664,10 +667,35 @@ public class Main extends Application {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            FormController controller = loader.getController();
+            controller.setDisplay2(this, form);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayApprovedLabelUser(Form form){
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("viewApprovedLabel.fxml"));
             AnchorPane newWindow = loader.load();
 
             Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
@@ -676,6 +704,26 @@ public class Main extends Application {
             FormController controller = loader.getController();
             controller.createAgentForm(form);
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void setDisplayToPrintableVersion() {
+        try {
+            Stage stage = new Stage();
+            //stage = (Stage) printable_version.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("testingForm.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/main/Initialization/testingForm.fxml"));
+            //System.out.println(loader.getLocation().toString());
+            ScrollPane newWindow = loader.load();
+            Scene scene = new Scene(newWindow, 1000, 700);
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            FormController controller = loader.getController();
+            controller.setFormControllerForm(this, this.userData.getForm());
         } catch (Exception e) {
             e.printStackTrace();
         }

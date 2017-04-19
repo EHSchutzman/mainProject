@@ -10,15 +10,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.Date;
@@ -423,17 +427,6 @@ public class FormController {
             e.printStackTrace();
         }
 
-        try {
-            File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
-            System.out.println("here");
-            String localURL = file.toURI().toURL().toString();
-            System.out.println("here now");
-            Image image = new Image(localURL);
-            System.out.println("here now now");
-            label_image.setImage(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         //@TODO: Put on UI
         //submit_date.setText(form.getsubmit_date().toString());
 
@@ -582,6 +575,22 @@ public class FormController {
 
         //form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
         //form.setapproval_comments(approval_comments_text.getText());
+        try {
+            System.out.println("image is " + form.getlabel_image());
+            /**
+             * IF EXPORTING THIS FOR JAR CHANGE
+             */
+            String path = (System.getProperty("user.dir") + "/images/" + form.getlabel_image());
+            System.out.println(path);
+            File file = new File(path);
+            String localURL = file.toURI().toURL().toString();
+            Image image = new Image(localURL);
+            System.out.println("Image loaded");
+            label_image.setImage(image);
+            System.out.println("displaying image");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -1099,7 +1108,7 @@ public class FormController {
     @FXML
     public void displayApplicantViewForm() {
         try {
-            main.displayApprovedLabel(form);
+            main.displayApprovedLabelUser(form);
             System.out.println(form.getalcohol_type());
             closeWindow();
         } catch (Exception e) {
@@ -1183,6 +1192,139 @@ public class FormController {
             mailing_street_1_text.setDisable(true);
             mailing_street_2_text.setDisable(true);
             mailing_zip_text.setDisable(true);
+        }
+    }
+
+    @FXML
+    private Button printable_version;
+    DBManager dbManager = new DBManager();
+    @FXML
+    public void setDisplayPrintableVersion() {
+        System.out.println(main);
+        main.setDisplayToPrintableVersion();
+    }
+    public void setPrintDisplay(Main main, Form form) {
+        this.main = main;
+        this.form = form;
+    }
+    public void setFormControllerForm(Main main, Form form) {
+        this.main = main;
+        setFormPrintableVersion(form);
+    }
+    @FXML
+    private Label ttb_id_print;
+    @FXML
+    private Label rep_id_print;
+    @FXML
+    private Label permit_no_print;
+    @FXML
+    private Label serial_no_print;
+    @FXML
+    private Label brand_name_print;
+    @FXML
+    private Label fanciful_name_print;
+    @FXML
+    private Label formula_print;
+    @FXML
+    private Label grape_varietals_print;
+    @FXML
+    private Label wine_appellation_print;
+    @FXML
+    private Label phone_no_print;
+    @FXML
+    private Label email_print;
+    @FXML
+    private Label mailing_street_address1_print;
+    @FXML
+    private Label mailing_second_line1_print;
+    @FXML
+    private Label mailing_third_line1_print;
+    @FXML
+    private Label mailing_street_address2_print;
+    @FXML
+    private Label mailing_second_line2_print;
+    @FXML
+    private Label mailing_third_line2_print;
+    @FXML
+    private CheckBox domesticCheck;
+    @FXML
+    private CheckBox importCheck;
+    @FXML
+    private CheckBox wineCheck;
+    @FXML
+    private CheckBox distilledCheck;
+    @FXML
+    private CheckBox maltCheck;
+    @FXML
+    private Label label_text_print;
+    @FXML
+    private Label submit_date_print,
+            signature_print,
+            applicant_name_print;
+    @FXML
+    private CheckBox cert_label_approval_print,
+            cert_exemption_print,
+            cert_distinctive_print,
+            cert_resubmission_print;
+    public void setFormPrintableVersion(Form form) {
+        System.out.println("this is form" + form);
+        System.out.println(form.getttb_id());
+        form = dbManager.findSingleForm(form.getttb_id(), new ArrayList<>());
+        ttb_id_print.setText(form.getttb_id());
+        rep_id_print.setText(form.getrep_id());
+        permit_no_print.setText(form.getpermit_no());
+        serial_no_print.setText(form.getserial_no());
+        brand_name_print.setText(form.getbrand_name());
+        fanciful_name_print.setText(form.getfanciful_name());
+        formula_print.setText(form.getformula());
+        wine_appellation_print.setText(form.getwine_appellation());
+        grape_varietals_print.setText(form.getgrape_varietals());
+        phone_no_print.setText(form.getphone_no());
+        email_print.setText(form.getEmail());
+        mailing_street_address1_print.setText("");
+        mailing_street_address2_print.setText("");
+        mailing_second_line1_print.setText("");
+        mailing_second_line2_print.setText("");
+        mailing_third_line1_print.setText("");
+        mailing_third_line2_print.setText("");
+        if(form.getSource().equals("Domestic")) {
+            domesticCheck.setSelected(true);
+        } else {
+            importCheck.setSelected(true);
+        }
+        if(form.getalcohol_type().equals("Wine")) {
+            wineCheck.setSelected(true);
+        } else if(form.getalcohol_type().equals("Malt Beverages")) {
+            maltCheck.setSelected(true);
+        } else {
+            distilledCheck.setSelected(true);
+        }
+        label_text_print.setText(form.getlabel_text());
+        submit_date_print.setText(form.getsubmit_date().toString());
+        signature_print.setText(form.getSignature());
+        applicant_name_print.setText(form.getapplicant_id()); // TODO: add query for getting name
+        if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(0) == true) {
+            cert_label_approval_print.setSelected(true);
+        } else if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(1) == true) {
+            cert_exemption_print.setSelected(true);
+        } else if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(2) == true) {
+            cert_distinctive_print.setSelected(true);
+        } else {
+            cert_resubmission_print.setSelected(true);
+        }
+    }
+    @FXML
+    private AnchorPane printAnchorPane;
+    @FXML
+    public void saveAsPng() {
+        WritableImage image = printAnchorPane.snapshot(new SnapshotParameters(), null);
+        // TODO: probably use a file chooser here
+        File file = new File(System.getProperty("user.dir") + "/form.png");
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (IOException e) {
+            // TODO: handle exception here
+            e.printStackTrace();
         }
     }
 

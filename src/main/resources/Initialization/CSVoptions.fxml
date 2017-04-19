@@ -16,7 +16,7 @@
                    AnchorPane.topAnchor="0.0"/>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE"
                    strokeWidth="0.0" width="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-        <Label fx:id="CSVoptions_title" layoutX="176.0" layoutY="44.0" text="CSV Format Options">
+        <Label fx:id="header" layoutX="176.0" layoutY="44.0" text="CSV Format Options" >
             <font>
                 <Font size="24.0"/>
             </font>

@@ -7,8 +7,9 @@
 <?import javafx.scene.text.*?>
 <AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
    <children>
-       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="1000.0" layoutX="14.0" layoutY="259.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#597B99" height="100.0" layoutX="667.0" layoutY="664.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
        <TextField fx:id="formula_text" disable="true" layoutX="1120.0" layoutY="241.0" promptText="Formula" />
        <TextField fx:id="alcohol_content_text" disable="true" layoutX="1122.0" layoutY="319.0" promptText="Alcohol Content" />
        <TextField fx:id="vintage_year_text" disable="true" layoutX="1127.0" layoutY="413.0" promptText="Vintage Year" />

@@ -7,8 +7,9 @@
 <?import javafx.scene.text.*?>
 <AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Form.FormController">
     <children>
-        <Rectangle fx:id="body" arcHeight="5.0" arcWidth="5.0"  height="1000.0" layoutX="-25.0" layoutY="67.0" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Rectangle fx:id="header" arcHeight="5.0" arcWidth="5.0"  height="100.0" layoutX="667.0" layoutY="664.0"  strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Label layoutX="544.0" layoutY="30.0" text="Label Application Review">
             <font>
                 <Font size="36.0" />
