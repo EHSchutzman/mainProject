@@ -1,6 +1,7 @@
 package Initialization;
 
 import AgentWorkflow.WorkflowController;
+import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
 import Form.Form;
@@ -12,12 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
 
@@ -45,6 +50,7 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout, 1000, 500);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
             primaryStage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -70,6 +76,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
 
 
             ActionController controller = loader.getController();
@@ -87,6 +97,11 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("loginPage.fxml"));
             AnchorPane page = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            rootLayout.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             primaryStage.setTitle("Login Page");
             primaryStage.getScene().setRoot(page);
@@ -100,42 +115,101 @@ public class Main extends Application {
         }
     }
 
-    public void setDisplayToReviseForm(Form form) throws Exception {
+    public void setDisplayToReviseForm(Form form, ArrayList<Boolean> booleanArrayList) throws Exception {
 
         try {
+
+            Stage stage = new Stage();
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("reviseApplication.fxml"));
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Form Page");
-            primaryStage.getScene().setRoot(page);
+            AnchorPane newWindow = loader.load();
+            stage.setTitle("Form Page");
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
 
             FormController controller = loader.getController();
-            controller.ReviewDisplay(this, form);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            controller.ReviewDisplay(this, form, booleanArrayList);
+            try {
+                System.out.println("image is " + form.getlabel_image());
+                /**
+                 * IF EXPORTING THIS FOR JAR CHANGE
+                 */
+                String path = (System.getProperty("user.dir") + "/images/" + form.getlabel_image());
+                System.out.println(path);
+                File file = new File(path);
+                String localURL = file.toURI().toURL().toString();
+                Image image = new Image(localURL);
+                System.out.println("Image loaded");
+                controller.label_image.setImage(image);
+                System.out.println("displaying image");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+    public void setDisplayToRevisionsMenu() throws Exception {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
+            AnchorPane newWindow = loader.load();
+            //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            stage.setTitle("Revisions Menu Page");
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            FormController controller = loader.getController();
+            controller.createRevisionsMenu(this.userData.getForm(), this);
+            System.out.println("in main" + this.userData.getForm());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public void setDisplayToApply() throws Exception {
 
         try {
+            DBManager manager = new DBManager();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("iter2application.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            //controller.source_combobox.getSelectionModel().selectFirst();
+            //controller.alcohol_type_combobox.getSelectionModel().selectFirst();
+            controller.applicant_name_text.setText(manager.findUsersName(this.userData.getUserInformation().getUid()));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,9 +223,12 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
             SearchController controller = loader.getController();
             controller.setDisplay(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,12 +241,15 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             SearchController controller = loader.getController();
-            controller.setDisplay(this);
+            controller.setDisplay2(this, list);
 
             controller.resultsTable.setItems(list);
-
 
         } catch (IOException e){
             e.printStackTrace();
@@ -186,11 +266,16 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
             AnchorPane newWindow = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1500, 1000);
-            stage.setScene(scene);
 
+            stage.setScene(scene);
+            stage.getScene().getStylesheets().add(getClass().getResource("agentApplicationReview.css").toExternalForm());
             // Debugger works better when full screen is off
             stage.setFullScreen(false);
 
@@ -213,6 +298,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Create User Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             AuthenticationController controller = loader.getController();
             controller.setDisplay(this);
@@ -232,6 +321,10 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("agentMainPage.fxml"));
 
             AnchorPane page = loader.load();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
             primaryStage.setTitle("Agent Main Page");
             primaryStage.getScene().setRoot(page);
 
@@ -256,6 +349,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
 
             ActionController controller = loader.getController();
@@ -276,6 +373,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
 
             ActionController controller = loader.getController();
@@ -288,26 +389,6 @@ public class Main extends Application {
 
     }
 
-    /*public void setDisplayToReviewApplicaiton() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
-
-
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Main Page");
-            primaryStage.getScene().setRoot(page);
-
-
-            FormController controller = loader.getController();
-            controller.setDisplay(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
     public void setDisplayToAgentReview(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -316,6 +397,9 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("agentApplicationReview.css").toExternalForm());
+
+
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
@@ -345,34 +429,7 @@ public class Main extends Application {
     }
 
     public void setDisplayToApplicantApply() throws Exception {
-    /*
-    *             Stage stage = new Stage();
-            stage.setTitle("Workflow Results");
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            AnchorPane newWindow = loader.load();
-
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(newWindow, 1500, 1000);
-            stage.setScene(scene);
-
-            // Debugger works better when full screen is off
-            stage.setFullScreen(false);
-
-            stage.getScene().setRoot(newWindow);
-            stage.show();
-
-            FormController controller = loader.getController();
-
-            controller.setDisplay2(this, application);
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    *
-    *
-    * */
         try {
 
             Stage stage = new Stage();
@@ -393,12 +450,10 @@ public class Main extends Application {
             stage.show();
 
             FormController controller = loader.getController();
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
             controller.ApplyDisplay(this);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -414,6 +469,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Workflow Results");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             WorkflowController controller = loader.getController();
             controller.setDisplay(this);
@@ -437,6 +496,10 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Applicant Forms");
             primaryStage.getScene().setRoot(page);
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+
 
             FormController controller = loader.getController();
             controller.ReviseDisplay(this);
@@ -498,7 +561,170 @@ public class Main extends Application {
             stage.getScene().setRoot(newWindow);
             stage.show();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDisplayToSuperAgentMain() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentInitialPage.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Super Agent Main");
+            primaryStage.getScene().setRoot(page);
+            ActionController controller = loader.getController();
+            controller.setDisplay(this);
+            controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDisplayToSuperAgentSearchUsers() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentSearchUsers.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Search Users");
+            primaryStage.getScene().setRoot(page);
+            SearchController controller = loader.getController();
+            controller.initUserAuthenticationChoiceBox();
+            controller.setDisplayUsers(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setDisplayToSuperAgentCreateAgent() throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentCreateAgent.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Create Agents");
+            primaryStage.getScene().setRoot(page);
+            AuthenticationController controller = loader.getController();
+            controller.setDisplay(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Displays edit user page for super agents after they have double clicked a row
+    public void displayEditUser(User user) throws Exception {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Edit User");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("superAgentEditUser.fxml"));
+            AnchorPane newWindow = loader.load();
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1000, 500);
+            stage.setScene(scene);
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            AuthenticationController controller = loader.getController();
+            controller.setDisplay2(this, user);
+
         } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void displayCSVOptionsPage() throws Exception {
+        try {
+
+            Stage stage = new Stage();
+            stage.setTitle("CSV Options");
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("CSVoptions.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 600, 400);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            SearchController controller = loader.getController();
+            controller.setDisplay(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayApprovedLabel(Form form) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            FormController controller = loader.getController();
+            controller.setDisplay2(this, form);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void displayApprovedLabelUser(Form form){
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("viewApprovedLabel.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            FormController controller = loader.getController();
+            controller.createAgentForm(form);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void setDisplayToPrintableVersion() {
+        try {
+            Stage stage = new Stage();
+            //stage = (Stage) printable_version.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("testingForm.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/main/Initialization/testingForm.fxml"));
+            //System.out.println(loader.getLocation().toString());
+            ScrollPane newWindow = loader.load();
+            Scene scene = new Scene(newWindow, 1000, 700);
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            FormController controller = loader.getController();
+            controller.setFormControllerForm(this, this.userData.getForm());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

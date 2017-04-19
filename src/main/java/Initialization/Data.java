@@ -1,6 +1,8 @@
 package Initialization;
+import DatabaseSearch.AppRecord;
 import Form.Form;
 import UserAccounts.*;
+import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 
@@ -12,6 +14,9 @@ public class Data {
     private ResultSet rs;
     public ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
     public Form form = new Form();
+    public ObservableList<AppRecord> observableList;
+
+
 
     public Data(User userInformation) {
         this.userInformation = userInformation;
@@ -23,6 +28,14 @@ public class Data {
         this.rs = rs;
         System.out.println(this.rs);
         System.out.println(rs);
+    }
+
+    public ObservableList<AppRecord> getObservableList() {
+        return observableList;
+    }
+
+    public void setObservableList(ObservableList<AppRecord> observableList) {
+        this.observableList = observableList;
     }
 
     public ResultSet getSearchResults(){

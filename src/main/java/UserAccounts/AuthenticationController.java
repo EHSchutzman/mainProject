@@ -1,31 +1,46 @@
 package UserAccounts;
 
 
+import DBManager.DBManager;
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class AuthenticationController {
     Authentication isAuthentic = new Authentication();
     User user;
+    DBManager dbManager = new DBManager();
 
     ObservableList<String> menuOptions = FXCollections.observableArrayList("Agent", "User", "Applicant");
 
     private Main main;
     @FXML
     public TextField username;
+    @FXML
     public PasswordField password_text;
+    @FXML
     public Button loginButton;
     @FXML
     public TextField userID;
+    @FXML
     public TextField email_text;
+    @FXML
     public TextField login_name_text;
+    @FXML
     public TextField phone_number_text;
+    @FXML
     public TextField last_name_text;
+    @FXML
     public TextField middle_initial_text;
+    @FXML
     public TextField first_name_text;
     @FXML
     public ComboBox<String> user_type_combobox;
@@ -48,7 +63,11 @@ public class AuthenticationController {
     @FXML
     public void returnToMain() {
         try {
-            main.setDisplayToMain();
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+                main.setDisplayToSuperAgentMain();
+            } else {
+                main.setDisplayToMain();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,8 +83,27 @@ public class AuthenticationController {
         String firstName = first_name_text.getText();
         String middleIn = middle_initial_text.getText();
         String lastname = last_name_text.getText();
-        String combo = user_type_combobox.getValue();
         int authLvl;
+
+        if (main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+            authLvl = 2;
+            boolean newUser = isAuthentic.createUser(firstName, middleIn, lastname, loginNameText, passwordText, emailText, phoneNum, authLvl);
+            if (newUser) {
+                try {
+                    main.setDisplayToSuperAgentMain();
+                    return;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("User already exists!");
+                errorLabel.setText("User already exists!");
+                return;
+            }
+        }
+
+        String combo = user_type_combobox.getValue();
+
         if (combo.equals("Default User")) {
             authLvl = 0;
         } else if (combo.equals("Applicant")) {
@@ -119,7 +157,7 @@ public class AuthenticationController {
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 3){
                 System.out.println("user has authentication lvl 3");
-                main.setDisplayToAgentMain();
+                main.setDisplayToSuperAgentMain();
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 0){
                 System.out.println("This user has authentication level 0");
@@ -146,5 +184,84 @@ public class AuthenticationController {
         this.main = main;
     }
 
+    public void setDisplay2(Main main, User user) {
+        this.main = main;
+        this.user = user;
+        setEditUser(user);
+    }
+
+    @FXML
+    private TextField edit_user_id_text;
+    @FXML
+    private TextField edit_username_text;
+    @FXML
+    private TextField edit_first_name_text;
+    @FXML
+    private TextField edit_middle_initial_text;
+    @FXML
+    private TextField edit_last_name_text;
+    @FXML
+    private TextField edit_email_text;
+    @FXML
+    private TextField edit_phone_number_text;
+    @FXML
+    private ComboBox<String> edit_user_type_combobox;
+    @FXML
+    private Button edit_user_button;
+    @FXML
+    private Label edit_errorLabel;
+
+    // prefill edit user page
+    public void setEditUser(User user) {
+        edit_user_type_combobox.setItems(FXCollections.observableArrayList("0", "1", "2", "3"));
+        edit_user_id_text.setText(user.getUid());
+        edit_username_text.setText(user.getUsername());
+        edit_email_text.setText(user.getEmail());
+        edit_phone_number_text.setText(user.getPhoneNo());
+        edit_first_name_text.setText(user.getFirstName());
+        edit_middle_initial_text.setText(user.getMiddleInitial());
+        edit_last_name_text.setText(user.getLastName());
+        edit_user_type_combobox.setValue(Integer.toString(user.getAuthenticationLevel()));
+    }
+
+    // When super agent presses edit button
+    @FXML
+    public void editUserAction() {
+        User user = dbManager.findUser("user_id='" + edit_user_id_text.getText() + "'");
+        User editUser = new User(user.getUid(), edit_username_text.getText(), user.getPassword(),
+                edit_first_name_text.getText(), edit_middle_initial_text.getText(), edit_last_name_text.getText(),
+                edit_email_text.getText(), edit_phone_number_text.getText(), Integer.parseInt(edit_user_type_combobox.getValue()));
+        boolean editSuccess = dbManager.updateUser(editUser);
+        System.out.println(editSuccess);
+        if (editSuccess) {
+            // go to success page
+            try {
+                Stage stage;
+                stage = (Stage) edit_user_button.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader();
+                //loader.setLocation(getClass().getResource("editUserConfirmationMessage.fxml"));
+                loader.setLocation(getClass().getResource("../../../resources/main/Initialization/editUserConfirmationMessage.fxml"));
+                //System.out.println(loader.getLocation().toString());
+                Scene scene = new Scene(loader.load());
+                stage.setScene(scene);
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            // set error label
+            edit_errorLabel.setText("User with the edited username/email already exists");
+        }
+    }
+
+    @FXML
+    private Button edit_closeButton;
+
+    @FXML
+    public void closeWindow() throws IOException {
+        Stage stage;
+        stage = (Stage) edit_closeButton.getScene().getWindow();
+        stage.close();
+    }
 
 }
