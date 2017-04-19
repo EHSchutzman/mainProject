@@ -4,6 +4,7 @@ import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.UserRecord;
 import Form.Form;
+import Initialization.Main;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
  */
 public class DBManager {
 
+    private Main main;
     //INSERT FUNCTIONS:
 
     /**
@@ -290,6 +292,7 @@ public class DBManager {
                 application.setCompletedDate(approvedDate);
                 application.setTtbID(ttbID);
             }
+
             rs.close();
             stmt.close();
             connection.close();
@@ -654,7 +657,6 @@ public class DBManager {
     }
 
 
-    @FXML
     public void generateCSV(ObservableList<AppRecord> list, String separator) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
