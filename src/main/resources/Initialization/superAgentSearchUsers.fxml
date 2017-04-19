@@ -75,7 +75,7 @@
       <CheckBox fx:id="first_name_filter" layoutX="658.0" layoutY="72.0" mnemonicParsing="false" onAction="#searchUsers" text="First Name" />
       <CheckBox fx:id="last_name_filter" layoutX="659.0" layoutY="99.0" mnemonicParsing="false" onAction="#searchUsers" text="Last Name" />
       <CheckBox fx:id="email_filter" layoutX="658.0" layoutY="45.0" mnemonicParsing="false" onAction="#searchUsers" text="Email" />
-      <ChoiceBox fx:id="authentication_filter" layoutX="816.0" layoutY="69.0" onMouseClicked="#searchUsers" prefHeight="31.0" prefWidth="147.0" />
+      <ChoiceBox fx:id="authentication_filter" layoutX="816.0" layoutY="69.0" prefHeight="31.0" prefWidth="147.0" />
       <Label layoutX="822.0" layoutY="37.0" text="Authentication Level" />
       <Button fx:id="refreshButton" layoutX="295.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#searchUsers" text="Refresh" />
    </children>
