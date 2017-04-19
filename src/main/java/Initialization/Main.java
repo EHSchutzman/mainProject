@@ -119,11 +119,23 @@ public class Main extends Application {
     public void setDisplayToReviseForm(Form form, ArrayList<Boolean> booleanArrayList) throws Exception {
 
         try {
+
+            Stage stage = new Stage();
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("reviseApplication.fxml"));
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Form Page");
-            primaryStage.getScene().setRoot(page);
+            AnchorPane newWindow = loader.load();
+            stage.setTitle("Form Page");
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
 
             FormController controller = loader.getController();
             controller.ReviewDisplay(this, form, booleanArrayList);
@@ -153,11 +165,24 @@ public class Main extends Application {
 
     public void setDisplayToRevisionsMenu() throws Exception {
         try {
+            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Revisions Menu Page");
-            primaryStage.getScene().setRoot(page);
+            AnchorPane newWindow = loader.load();
+            //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            stage.setTitle("Revisions Menu Page");
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
 
             FormController controller = loader.getController();
             controller.createRevisionsMenu(this.userData.getForm(), this);
