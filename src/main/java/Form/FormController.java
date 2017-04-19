@@ -330,15 +330,16 @@ public class FormController{
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if(form.getalcohol_type().equals("Beer")) {
+        System.out.println("creating the form" + form.getalcohol_type());
+        if(form.getalcohol_type().equals("Malt Beverages")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_content_text.setPromptText("Beer");
+            alcohol_type_text.setText("Malt Beverages");
         } else if (form.getalcohol_type().equals("Wine")) {
             //alcohol_type_combobox.getSelectionModel().select(2);
-            alcohol_content_text.setPromptText("Wine");
-        } else if (form.getalcohol_type().equals("Distilled Spirit")) {
+            alcohol_type_text.setText("Wine");
+        } else if (form.getalcohol_type().equals("Distilled Spirits")) {
             //alcohol_type_combobox.getSelectionModel().select(3);
-            alcohol_content_text.setPromptText("Distilled Spirit");
+            alcohol_type_text.setText("Distilled Spirits");
         }
 
         // Initialize checkboxes
@@ -427,15 +428,15 @@ public class FormController{
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if (form.getalcohol_type().equals("Beer")) {
+        if (form.getalcohol_type().equals("Malt Beverages")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_content_text.setPromptText("Beer");
+            alcohol_type_text.setText("Malt Beverages");
         } else if (form.getalcohol_type().equals("Wine")) {
             //alcohol_type_combobox.getSelectionModel().select(2);
-            alcohol_content_text.setPromptText("Wine");
-        } else if (form.getalcohol_type().equals("Distilled Spirit")) {
+            alcohol_type_text.setText("Wine");
+        } else if (form.getalcohol_type().equals("Distilled Spirits")) {
             //alcohol_type_combobox.getSelectionModel().select(3);
-            alcohol_content_text.setPromptText("Distilled Spirit");
+            alcohol_type_text.setText("Distilled Spirits");
         }
 
         // Initialize checkboxes
@@ -971,6 +972,7 @@ public class FormController{
     public void displayApplicantViewForm() {
         try {
             main.displayApprovedLabel(form);
+            System.out.println(form.getalcohol_type());
         } catch (Exception e) {
             e.printStackTrace();
         }

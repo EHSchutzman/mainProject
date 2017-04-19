@@ -385,10 +385,10 @@ public class Main extends Application {
             FormController controller = loader.getController();
 
             controller.ApplyDisplay(this);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
+            controller.source_combobox.setPromptText("Select Alcohol Source");
             controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
             controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverage", "Distilled Spirits"));
+            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
 
         } catch (IOException e) {
             e.printStackTrace();
