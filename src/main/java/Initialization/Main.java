@@ -114,7 +114,7 @@ public class Main extends Application {
         }
     }
 
-    public void setDisplayToReviseForm(Form form) throws Exception {
+    public void setDisplayToReviseForm(Form form, ArrayList<Boolean> booleanArrayList) throws Exception {
 
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -229,6 +229,22 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
+    }
+
+    public void setDisplayToRevisionsMenu() throws Exception {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
+            AnchorPane page = loader.load();
+            primaryStage.setTitle("Revisions Menu Page");
+            primaryStage.getScene().setRoot(page);
+
+            FormController controller = loader.getController();
+            controller.createRevisionsMenu(this.userData.getForm(), this);
+            System.out.println("in main" + this.userData.getForm());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void setDisplayToApply() throws Exception {
@@ -414,26 +430,6 @@ public class Main extends Application {
 
     }
 
-    /*public void setDisplayToReviewApplicaiton() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("applicationsForAgent.fxml"));
-
-
-            AnchorPane page = loader.load();
-            primaryStage.setTitle("Main Page");
-            primaryStage.getScene().setRoot(page);
-
-
-            FormController controller = loader.getController();
-            controller.setDisplay(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
     public void setDisplayToAgentReview(){
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -474,34 +470,7 @@ public class Main extends Application {
     }
 
     public void setDisplayToApplicantApply() throws Exception {
-    /*
-    *             Stage stage = new Stage();
-            stage.setTitle("Workflow Results");
 
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            AnchorPane newWindow = loader.load();
-
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(newWindow, 1500, 1000);
-            stage.setScene(scene);
-
-            // Debugger works better when full screen is off
-            stage.setFullScreen(false);
-
-            stage.getScene().setRoot(newWindow);
-            stage.show();
-
-            FormController controller = loader.getController();
-
-            controller.setDisplay2(this, application);
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    *
-    *
-    * */
         try {
 
             Stage stage = new Stage();
