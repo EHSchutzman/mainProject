@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -724,10 +725,89 @@ public class FormController{
         //display the form
     }
 
+
+
     @FXML
     public void submitForm() {
         int pH_level;
 //        String ttb_id = ttb_id_label.getText();
+
+        if(rep_id_text.getText() == null){
+            return;
+        }
+        if(permit_no_text.getText() == null){
+            return;
+        }
+        if(serial_no_text.getText() == null){
+            return;
+        }
+        if(source_combobox.getValue().toString() != "Imported" || source_combobox.getValue().toString() != "Domestic"){
+            return;
+        }
+        if(alcohol_type_combobox.getValue().toString() != "Wine" || source_combobox.getValue().toString() != "Malt Beverages"
+                || source_combobox.getValue().toString() != "Distilled Spirits"){
+            return;
+        }
+        if(brand_name_text.getText() == null){
+            return;
+        }
+        if(fanciful_name_text.getText() == null){
+            return;
+        }
+        if(alcohol_content_text.getText() == null){
+            return;
+        }
+        if(formula_text.getText() == null){
+            return;
+        }
+        if(label_text.getText() == null){
+            return;
+        }
+        if(vintage_year_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+            return;
+        }
+        if(grape_varietals_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+            return;
+        }
+        if(ph_level_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+            return;
+        }
+        if(wine_appellation_text.getText() == null && source_combobox.getValue().toString() == "Wine"){
+            return;
+        }
+        if(applicant_street_1_text.getText() == null){
+            return;
+        }
+        if(applicant_city_text.getText() == null){
+            return;
+        }
+        if(applicant_state_text.getText() == null){
+            return;
+        }
+        if(applicant_country_text.getText() == null){
+            return;
+        }
+        if(applicant_zip_text.getText() == null){
+            return;
+        }
+        if(applicant_country_text.getText() == null){
+            return;
+        }
+        if(signature_text.getText() == null){
+            return;
+        }
+        if(phone_no_text.getText() == null){
+            return;
+        }
+        if(email_text.getText() == null){
+            return;
+        }
+
+
+
+
+
+
 
         String rep_id = rep_id_text.getText();
         String permit_no = permit_no_text.getText();
@@ -762,6 +842,7 @@ public class FormController{
             application_type_text.set(2, option_4_text.getText());
             application_type.set(3, true);
         }
+
 
         String brand_name = brand_name_text.getText();
         String fanciful_name = (fanciful_name_text.getText());
