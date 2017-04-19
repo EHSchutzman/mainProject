@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -89,11 +88,11 @@ public class FormController {
 
     // Source and Alcohol Type ComboBoxes + their TextFields for Agent Review
     @FXML
-    public ComboBox source_combobox;
+    public MenuButton source_combobox;
     @FXML
     public TextField source_text;
     @FXML
-    public ComboBox alcohol_type_combobox;
+    public MenuButton alcohol_type_combobox;
     @FXML
     public TextField alcohol_type_text;
 
@@ -242,12 +241,16 @@ public class FormController {
         form.setserial_no(serial_no_text.getText());
 
         // Initialize Source ChoiceBox and get value
-        source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-        form.setSource((String) source_combobox.getValue());
+        source_combobox = new MenuButton();
+        source_combobox.getItems().addAll(new MenuItem("Domestic"), new MenuItem("Imported"));
+        form.setSource(source_combobox.getText());
+        System.out.println(form.getSource());
 
         // Initialize Alcohol Type ChoiceBox, get and set value
-        alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirit"));
-        form.setalcohol_type((String) alcohol_type_combobox.getValue());
+        alcohol_type_combobox = new MenuButton();
+        alcohol_type_combobox.getItems().addAll(new MenuItem("Malt Beverages"), new MenuItem("Wine"), new MenuItem("Distilled Spirits"));
+        form.setalcohol_type(alcohol_type_combobox.getText());
+        System.out.println(form.getalcohol_type());
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
@@ -287,7 +290,7 @@ public class FormController {
         form.setFormula(formula_text.getText());
         form.setlabel_text(label_text.getText());
         // Wines only
-        if (alcohol_type_combobox.getValue().equals("Wine")) {
+        if (alcohol_type_combobox.getText().equals("Wine")) {
             form.setvintage_year(vintage_year_text.getText());
             form.setpH_level(Integer.parseInt(ph_level_text.getText()));
             form.setgrape_varietals(grape_varietals_text.getText());
@@ -739,14 +742,6 @@ public class FormController {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if (source_combobox.getValue().toString() != "Imported" || source_combobox.getValue().toString() != "Domestic") {
-            errorLabel.setText("Please Fill in all fields");
-            return;
-        }
-        if (alcohol_type_combobox.getValue().toString() != "Wine" || source_combobox.getValue().toString() != "Malt Beverages" || source_combobox.getValue().toString() != "Distilled Spirits") {
-            errorLabel.setText("Please Fill in all fields");
-            return;
-        }
         if (brand_name_text.getText() == null) {
             errorLabel.setText("Please Fill in all fields");
             return;
@@ -755,8 +750,10 @@ public class FormController {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if (alcohol_content_text.getText() == null) {
-            errorLabel.setText("Please Fill in all fields");
+        try {
+            Double.parseDouble(alcohol_content_text.getText());
+        } catch (Exception e) {
+            errorLabel.setText("Please FIll in all fields");
             return;
         }
         if (formula_text.getText() == null) {
@@ -767,19 +764,19 @@ public class FormController {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if (vintage_year_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+        if (vintage_year_text.getText() == null && source_combobox.getText().toString().equals("Wine")) {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if (grape_varietals_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+        if (grape_varietals_text.getText() == null && source_combobox.getText().toString().equals("Wine")) {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if (ph_level_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+        if (ph_level_text.getText() == null && source_combobox.getText().toString().equals("Wine")) {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
-        if (wine_appellation_text.getText() == null && source_combobox.getValue().toString() == "Wine") {
+        if (wine_appellation_text.getText() == null && source_combobox.getText().toString().equals("Wine")) {
             errorLabel.setText("Please Fill in all fields");
             return;
         }
@@ -825,9 +822,9 @@ public class FormController {
         String permit_no = permit_no_text.getText();
         String serial_no = serial_no_text.getText();
 
-        String source = (String) source_combobox.getValue();
+        String source = source_combobox.getText();
 
-        String alcohol_type = (String) alcohol_type_combobox.getValue();
+        String alcohol_type = alcohol_type_combobox.getText();
 
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
@@ -865,7 +862,7 @@ public class FormController {
         String vintage_year;
         String grape_varietals;
         String wine_appellation;
-        if (alcohol_type_combobox.getValue().equals("Wine")) {
+        if (alcohol_type_combobox.getText().equals("Wine")) {
             vintage_year = (vintage_year_text.getText());
             grape_varietals = (grape_varietals_text.getText());
             pH_level = (Integer.parseInt(ph_level_text.getText()));
@@ -1165,4 +1162,17 @@ public class FormController {
 //        label_image.setImage(image);
 
     }
+
+    //
+    @FXML
+    protected void disableFields() {
+        mailing_country_text.setDisable(true);
+        mailing_city_text.setDisable(true);
+        mailing_name_text.setDisable(true);
+        mailing_state_text.setDisable(true);
+        mailing_street_1_text.setDisable(true);
+        mailing_street_2_text.setDisable(true);
+        mailing_zip_text.setDisable(true);
+    }
+
 }

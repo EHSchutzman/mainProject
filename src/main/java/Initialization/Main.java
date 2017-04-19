@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -208,10 +209,8 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             controller.setDisplay(this);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
+            //controller.source_combobox.getSelectionModel().selectFirst();
+            //controller.alcohol_type_combobox.getSelectionModel().selectFirst();
             controller.applicant_name_text.setText(manager.findUsersName(this.userData.getUserInformation().getUid()));
         } catch (IOException e) {
             e.printStackTrace();
@@ -457,13 +456,9 @@ public class Main extends Application {
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
-
-
             controller.ApplyDisplay(this);
-            controller.source_combobox.setPromptText("Select Alcohol Soruce");
-            controller.source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-            controller.alcohol_type_combobox.setPromptText("Select Type of Alcohol");
-            controller.alcohol_type_combobox.setItems(FXCollections.observableArrayList("Wine", "Malt Beverages", "Distilled Spirits"));
+            controller.source_combobox.getItems().addAll(new MenuItem("Domestic"), new MenuItem("Imported"));
+            controller.alcohol_type_combobox.getItems().addAll(new MenuItem("Malt Beverages"), new MenuItem("Wine"), new MenuItem("Distilled Spirits"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -639,6 +634,32 @@ public class Main extends Application {
             controller.setDisplay2(this, user);
 
         } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void displayCSVOptionsPage() throws Exception {
+        try {
+
+            Stage stage = new Stage();
+            stage.setTitle("CSV Options");
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("CSVoptions.fxml"));
+            AnchorPane newWindow = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 600, 400);
+            stage.setScene(scene);
+
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -10,11 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -277,71 +273,15 @@ public class SearchController {
 
     }
 
-    //@TODO: Display application on click
-    /*// Displays individual application information when user selects an application from the TableView (I don't think this will currently display any additional information, but it should work)
-    protected void displayApplication() {
-        // Handle search criteria
-        applicationSearchCriteria();
-
-        // Set our query
-        setQuery(getQueryBuilder().getQuery());
-
-        // Query the DB
-        apprs = queryDB(getQuery());
-
-        // Display our new data in the TableView
-        //displayData(apprs);
-    }
-*/
-
-    // Save a CSV of the results locally
-    @FXML
-    protected boolean saveCSV() {
-
-        try {
-            generateCSV();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error generating CSV!");
-            return false;
-        }
-
-    }
-
     // Generate a CSV file of the current ResultSet
     // http://stackoverflow.com/questions/22439776/how-to-convert-resultset-to-csv
-    protected void generateCSV() throws SQLException, FileNotFoundException {
-
-        // Initialize file
-        PrintWriter csvWriter = new PrintWriter(new File("TTB_Search_Results.csv"));
-
-        while(rs.previous());
-
-        ResultSet searchResults = rs;
-
-        // Determine CSV size and headers
-        ResultSetMetaData meta = rs.getMetaData();
-        int numberOfColumns = meta.getColumnCount();
-        System.out.println(numberOfColumns);
-        String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
-        for (int i = 2; i < numberOfColumns + 1; i++) {
-            dataHeaders += ",\"" + meta.getColumnName(i).replaceAll("\"", "\\\"") + "\"";
+    @FXML
+    protected void generateCSV() {
+        try {
+            main.displayCSVOptionsPage();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        // Print headers to CSV
-        csvWriter.println(dataHeaders);
-
-        // Print data to CSV
-        while (searchResults.next()) {
-            String row = "\"" + searchResults.getString(1).replaceAll("\"", "\\\"") + "\"";
-            for (int i = 2; i < numberOfColumns + 1; i++) {
-                row += ",\"" + searchResults.getString(i).replaceAll("\"", "\\\"") + "\"";
-            }
-            csvWriter.println(row);
-        }
-        csvWriter.close();
-
     }
 
     public String getQuery() {
