@@ -8,13 +8,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -22,8 +17,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
-import javax.xml.soap.Text;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
@@ -424,7 +417,9 @@ public class FormController{
 
         //mailing_addressText.setPromptText(form.getmailing_address());
         DBManager manager  = new DBManager();
-        applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
+        System.out.println("NAME IS THIS");
+        System.out.println(manager.findUsersName(form.getapplicant_id()));
+        applicant_name_text.setText(null);
         signature_text.setText(form.getSignature());
         phone_no_text.setText(form.getphone_no());
         email_text.setText(form.getEmail());
@@ -444,8 +439,6 @@ public class FormController{
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
 
         try {
             File file = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + form.getlabel_image());
@@ -592,7 +585,11 @@ public class FormController{
             alcohol_content_text.setDisable(false);
 
         }
+        DBManager manager = new DBManager();
 
+        applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
+        email_text.setText(main.userData.getUserInformation().getEmail());
+        phone_no_text.setText(main.userData.getUserInformation().getPhoneNo());
 
         //@TODO: Put on UI
         //submit_date.setText(form.getsubmit_date().toString());

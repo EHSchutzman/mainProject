@@ -2,6 +2,7 @@ package DBManager;
 
 import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
+import DatabaseSearch.UserRecord;
 import Form.Form;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
@@ -10,9 +11,7 @@ import javafx.fxml.FXML;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -708,5 +707,36 @@ public class DBManager {
         }
     }
 
+    // For the search users page for super agents
+    public ObservableList<UserRecord> searchUsers(String options) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ObservableList<UserRecord> userRecordList = FXCollections.observableArrayList();
+            while (rs.next()) {
+                String user_id = rs.getString("user_id");
+                String username = rs.getString("username");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                int authentication = rs.getInt("authentication");
+                UserRecord userRecord = new UserRecord(user_id, username, first_name, middle_initial, last_name, email, phone_no, Integer.toString(authentication));
+                userRecordList.add(userRecord);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return userRecordList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
