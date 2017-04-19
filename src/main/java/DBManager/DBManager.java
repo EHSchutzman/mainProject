@@ -8,7 +8,6 @@ import Initialization.Main;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;

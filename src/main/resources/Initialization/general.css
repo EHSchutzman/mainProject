@@ -1,4 +1,3 @@
-
 /* Buttons */
 
 
@@ -21,7 +20,6 @@
     -fx-background-color: #a3a3a3;
 }
 
-
 #back_button {
     -fx-font-size: 20px;
     -fx-background-color: #e8491d;
@@ -29,6 +27,7 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
+
 #back_button:hover {
     -fx-background-color: #ea6844;
 }
@@ -44,6 +43,7 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
+
 #loginButton:hover {
     -fx-background-color: #ea6844;
 }
@@ -52,14 +52,14 @@
     -fx-background-color: #ffa287;
 }
 
-
-#create_user_button{
+#create_user_button {
     -fx-font-size: 20px;
     -fx-background-color: #e8491d;
     -fx-border-style: solid;
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
+
 #create_user_button:hover {
     -fx-background-color: #ea6844;
 }
@@ -76,6 +76,7 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
+
 #searchButton:hover {
     -fx-background-color: #ea6844;
 }
@@ -92,6 +93,7 @@
     -fx-border-width: 2px;
     -fx-border-color: black;
 }
+
 #logInButton:hover {
     -fx-background-color: #ea6844;
 }
@@ -100,12 +102,10 @@
     -fx-background-color: #ffa287;
 }
 
-
 /* TextFields */
 
-
 .text-field {
-    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-color: #a9a9a9, white, white;
     -fx-border-style: solid;
     -fx-border-width: 1;
     -fx-border-color: #e8491d;
@@ -118,7 +118,7 @@
 }
 
 .text-field:focused {
-    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-color: #a9a9a9, white, white;
 
 }
 
@@ -127,10 +127,9 @@
     -fx-border-color: #35424a;
 }
 
-
 /* Text Area */
 .text-area {
-    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-color: #a9a9a9, white, white;
     -fx-border-style: solid;
     -fx-border-width: 1;
     -fx-border-color: #e8491d;
@@ -143,7 +142,7 @@
 }
 
 .text-area:focused {
-    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-color: #a9a9a9, white, white;
 
 }
 
@@ -151,10 +150,6 @@
     -fx-opacity: 90%;
     -fx-border-color: #35424a;
 }
-
-
-
-
 
 /* Table View */
 
@@ -175,11 +170,7 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: #e8491d;
-    -fx-border-color:
-            #e8491d
-            #e8491d
-            derive(-fx-base, 80%)
-            #e8491d;
+    -fx-border-color: #e8491d #e8491d derive(-fx-base, 80%) #e8491d;
     -fx-border-insets: 0 10 1 0;
 }
 

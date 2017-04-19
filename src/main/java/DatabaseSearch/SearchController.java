@@ -10,13 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
@@ -506,23 +501,26 @@ public class SearchController {
     }
 
     @FXML
-    public void makeCSV(){
+    public void makeCSV() {
         DBManager manager = new DBManager();
         System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
 
         manager.generateCSV(main.userData.getObservableList(), ",");
     }
+
     @FXML
-    public void makeTab(){
+    public void makeTab() {
         DBManager manager = new DBManager();
         manager.generateCSV(main.userData.getObservableList(), "\t");
     }
+
     @FXML
-    public void makeUserSpecified(){
+    public void makeUserSpecified() {
         DBManager manager = new DBManager();
         String separator = user_specified_value_text.getText();
         manager.generateCSV(main.userData.getObservableList(), separator);
     }
+
     @FXML
     public void closeApplication() {
 
