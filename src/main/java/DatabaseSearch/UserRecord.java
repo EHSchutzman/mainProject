@@ -15,7 +15,9 @@ public class UserRecord {
     private final SimpleStringProperty phoneNumber = new SimpleStringProperty("");
     private final SimpleStringProperty authentication = new SimpleStringProperty("");
 
-    public UserRecord() {}
+    public UserRecord() {
+    }
+
     public UserRecord(String userID, String username, String firstName, String middleInitial, String lastName, String email, String phoneNumber, String authentication) {
         this.userID.set(userID);
         this.username.set(username);

@@ -7,7 +7,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -355,6 +354,10 @@ public class SearchController {
 
     public void setDisplay(Main main) {
         this.main = main;
+    }
+
+    public void setDisplayUsers(Main main) {
+        this.main = main;
         this.displayResults(); // Display TableView results
     }
     @FXML
@@ -366,10 +369,9 @@ public class SearchController {
                 main.setDisplayToApplicantMain();
             } else if (main.userData.getUserInformation().getAuthenticationLevel() == 2) {
                 main.setDisplayToAgentMain();
-            } else if(main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() == 3) {
                 main.setDisplayToSuperAgentMain();
-            }
-            else{
+            } else {
                 main.setDisplayToMain();
             }
         }catch (Exception e){
@@ -432,7 +434,7 @@ public class SearchController {
         boolean lastNameFilter = last_name_filter.isSelected();
         String authenticationFilter = authentication_filter.getValue();
         String options = "";
-        if(searchText != null && !searchText.isEmpty()) {
+        if (searchText != null && !searchText.isEmpty()) {
             if (usernameFilter) {
                 if (!options.isEmpty()) {
                     options = options.concat(" and ");
@@ -458,8 +460,8 @@ public class SearchController {
                 options = options.concat("last_name like '%" + searchText + "%'");
             }
         }
-        if(authenticationFilter != null && !authenticationFilter.isEmpty()) {
-            if(!options.isEmpty()) {
+        if (authenticationFilter != null && !authenticationFilter.isEmpty()) {
+            if (!options.isEmpty()) {
                 options = options.concat(" and ");
             }
             options = options.concat("authentication=" + authenticationFilter);
@@ -469,7 +471,7 @@ public class SearchController {
         userList = db.searchUsers(options);
         System.out.println(userList.size());
         // display users in the table view
-        if(!userList.isEmpty()) {
+        if (!userList.isEmpty()) {
             resultsTableUsers.setItems(userList);
             //resultsTableUsers.getItems().addAll(userList);
         }
@@ -480,7 +482,7 @@ public class SearchController {
         resultsTableUsers.setRowFactory(tv -> {
             TableRow<UserRecord> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if((event.getClickCount() == 2) && (!row.isEmpty())) {
+                if ((event.getClickCount() == 2) && (!row.isEmpty())) {
                     UserRecord record = row.getItem();
                     // Get user from db using selected row
                     try {

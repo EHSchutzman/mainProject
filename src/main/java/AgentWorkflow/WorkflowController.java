@@ -110,9 +110,9 @@ public class WorkflowController {
     @FXML
     public void returnToMainPage(){
         try {
-            if(main.userData.getUserInformation().getAuthenticationLevel() == 2) {
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 2) {
                 main.setDisplayToAgentMain();
-            } else if(main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+            } else if (main.userData.getUserInformation().getAuthenticationLevel() == 3) {
                 main.setDisplayToSuperAgentMain();
             }
         } catch (Exception e) {

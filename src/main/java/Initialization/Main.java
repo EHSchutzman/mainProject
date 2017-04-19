@@ -6,7 +6,6 @@ import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
 import Form.Form;
 import Form.FormController;
-import UserAccounts.Authentication;
 import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.application.Application;
@@ -14,7 +13,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -206,10 +204,9 @@ public class Main extends Application {
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
-
-
             SearchController controller = loader.getController();
             controller.setDisplay(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -549,7 +546,7 @@ public class Main extends Application {
             stage.getScene().setRoot(newWindow);
             stage.show();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -569,7 +566,7 @@ public class Main extends Application {
         }
     }
 
-    public void setDisplayToSuperAgentSearchUsers() throws IOException{
+    public void setDisplayToSuperAgentSearchUsers() throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("superAgentSearchUsers.fxml"));
@@ -578,13 +575,13 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
             SearchController controller = loader.getController();
             controller.initUserAuthenticationChoiceBox();
-            controller.setDisplay(this);
+            controller.setDisplayUsers(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void setDisplayToSuperAgentCreateAgent() throws IOException{
+    public void setDisplayToSuperAgentCreateAgent() throws IOException {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("superAgentCreateAgent.fxml"));
@@ -599,7 +596,7 @@ public class Main extends Application {
     }
 
     // Displays edit user page for super agents after they have double clicked a row
-    public void displayEditUser(User user) throws Exception{
+    public void displayEditUser(User user) throws Exception {
         try {
             Stage stage = new Stage();
             stage.setTitle("Edit User");

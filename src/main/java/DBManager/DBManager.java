@@ -11,9 +11,7 @@ import javafx.fxml.FXML;
 import javafx.stage.DirectoryChooser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -429,38 +427,6 @@ public class DBManager {
         return null;
     }
 
-    public User findUser(String options) {
-        System.out.println(options);
-        QueryBuilder queryBuilder = new QueryBuilder();
-        String query = queryBuilder.createSelectStatement("USERS", "*", options);
-        System.out.println(query);
-        try {
-            Connection connection = TTB_database.connect();
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            User user = new User();
-            while (rs.next()) {
-                String user_id = rs.getString("user_id");
-                int authentication = rs.getInt("authentication");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                String phone_no = rs.getString("phone_no");
-                String first_name = rs.getString("first_name");
-                String middle_initial = rs.getString("middle_initial");
-                String last_name = rs.getString("last_name");
-                user = new User(user_id, username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
-            }
-            rs.close();
-            statement.close();
-            connection.close();
-            return user;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public String findUsersName(String user_id) {
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = queryBuilder.createSelectStatement("USERS", "first_name, middle_initial, last_name", "user_id = \'" + user_id + "\'");
@@ -706,7 +672,9 @@ public class DBManager {
             }
 
         }
-    public User findUser (String options) {
+    }
+
+    public User findUser(String options) {
         System.out.println(options);
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = queryBuilder.createSelectStatement("USERS", "*", options);

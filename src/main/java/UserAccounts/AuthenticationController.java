@@ -2,7 +2,6 @@ package UserAccounts;
 
 
 import DBManager.DBManager;
-import DatabaseSearch.SearchController;
 import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,7 +63,7 @@ public class AuthenticationController {
     @FXML
     public void returnToMain() {
         try {
-            if(main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+            if (main.userData.getUserInformation().getAuthenticationLevel() == 3) {
                 main.setDisplayToSuperAgentMain();
             } else {
                 main.setDisplayToMain();
@@ -84,13 +83,12 @@ public class AuthenticationController {
         String firstName = first_name_text.getText();
         String middleIn = middle_initial_text.getText();
         String lastname = last_name_text.getText();
-        String combo = user_type_combobox.getValue();
         int authLvl;
 
-        if(main.userData.getUserInformation().getAuthenticationLevel() == 3) {
+        if (main.userData.getUserInformation().getAuthenticationLevel() == 3) {
             authLvl = 2;
-            boolean newUser = isAuthentic.createUser(firstName,middleIn,lastname,loginNameText,passwordText,emailText,phoneNum,authLvl);
-            if(newUser) {
+            boolean newUser = isAuthentic.createUser(firstName, middleIn, lastname, loginNameText, passwordText, emailText, phoneNum, authLvl);
+            if (newUser) {
                 try {
                     main.setDisplayToSuperAgentMain();
                     return;
@@ -103,6 +101,8 @@ public class AuthenticationController {
                 return;
             }
         }
+
+        String combo = user_type_combobox.getValue();
 
         if (combo.equals("Default User")) {
             authLvl = 0;
@@ -213,7 +213,7 @@ public class AuthenticationController {
 
     // prefill edit user page
     public void setEditUser(User user) {
-        edit_user_type_combobox.setItems(FXCollections.observableArrayList("0","1","2","3"));
+        edit_user_type_combobox.setItems(FXCollections.observableArrayList("0", "1", "2", "3"));
         edit_user_id_text.setText(user.getUid());
         edit_username_text.setText(user.getUsername());
         edit_email_text.setText(user.getEmail());
@@ -233,11 +233,11 @@ public class AuthenticationController {
                 edit_email_text.getText(), edit_phone_number_text.getText(), Integer.parseInt(edit_user_type_combobox.getValue()));
         boolean editSuccess = dbManager.updateUser(editUser);
         System.out.println(editSuccess);
-        if(editSuccess) {
+        if (editSuccess) {
             // go to success page
             try {
                 Stage stage;
-                stage=(Stage) edit_user_button.getScene().getWindow();
+                stage = (Stage) edit_user_button.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader();
                 //loader.setLocation(getClass().getResource("editUserConfirmationMessage.fxml"));
                 loader.setLocation(getClass().getResource("../../../resources/main/Initialization/editUserConfirmationMessage.fxml"));
@@ -258,7 +258,7 @@ public class AuthenticationController {
     private Button edit_closeButton;
 
     @FXML
-    public void closeWindow() throws IOException{
+    public void closeWindow() throws IOException {
         Stage stage;
         stage = (Stage) edit_closeButton.getScene().getWindow();
         stage.close();
