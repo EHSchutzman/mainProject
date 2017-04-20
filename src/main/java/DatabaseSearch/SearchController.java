@@ -492,20 +492,20 @@ public class SearchController {
         DBManager manager = new DBManager();
         System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
 
-        manager.generateCSV(main.userData.getObservableList(), ",");
+        manager.generateCSV(main.userData.getObservableList(), ",", ".csv");
     }
 
     @FXML
     public void makeTab() {
         DBManager manager = new DBManager();
-        manager.generateCSV(main.userData.getObservableList(), "\t");
+        manager.generateCSV(main.userData.getObservableList(), "\t", ".txt");
     }
 
     @FXML
     public void makeUserSpecified() {
         DBManager manager = new DBManager();
         String separator = user_specified_value_text.getText();
-        manager.generateCSV(main.userData.getObservableList(), separator);
+        manager.generateCSV(main.userData.getObservableList(), separator, ".txt");
     }
 
     @FXML

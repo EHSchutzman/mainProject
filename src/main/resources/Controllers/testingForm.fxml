@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<ScrollPane pannable="true" prefHeight="564.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.testingFormController">
+   <content>
+	  <AnchorPane fx:id="printAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#saveAsPng" prefHeight="1200.0" prefWidth="1000.0" style="-fx-background-image: url('/Controllers/images/f510031-1.png'); -fx-background-size: 1000px; -fx-background-repeat: no-repeat;">
+		 <children>
+			<Label fx:id="ttb_id_print" layoutX="100.0" layoutY="78.0" text="TTB ID" />
+			<Label fx:id="rep_id_print" layoutX="58.33333" layoutY="136.66666" text="Rep ID" />
+			<Label fx:id="permit_no_print" layoutX="58.33333" layoutY="200.0" text="Permit No" />
+			<Label fx:id="serial_no_print" layoutX="58.33333" layoutY="253.33333" text="Serial No" />
+			<Label fx:id="brand_name_print" layoutX="58.333333" layoutY="350.0" text="Brand Name" />
+			<Label fx:id="fanciful_name_print" layoutX="58.33333" layoutY="391.666666" text="Fanciful Name" />
+			<Label fx:id="formula_print" layoutX="58.333333" layoutY="433.333333" text="Formula" />
+			<Label fx:id="grape_varietals_print" layoutX="283.333333" layoutY="433.333333" text="Grape Varietals" />
+			<Label fx:id="wine_appellation_print" layoutX="58.333333" layoutY="491.666666" text="Wine Appellation" />
+			<Label fx:id="phone_no_print" layoutX="58.333333" layoutY="545.0" text="Phone Number" />
+			<Label fx:id="email_print" layoutX="283.333333" layoutY="545.0" text="Email" />
+			<Label fx:id="mailing_street_address2_print" layoutX="436.6666666" layoutY="343.3333333" text="Mailing Street Address" />
+			<Label fx:id="mailing_street_address1_print" layoutX="436.6666666666" layoutY="240.0" text="Mailing Street Address" />
+			<Label fx:id="mailing_second_line2_print" layoutX="436.6666" layoutY="363.33333" text="Mailing Second Line" />
+			<Label fx:id="mailing_second_line1_print" layoutX="436.333333" layoutY="260.0" text="Mailing Second Line" />
+			<Label fx:id="mailing_third_line2_print" layoutX="436.66666" layoutY="383.33333" text="Mailing Third Line" />
+			<Label fx:id="mailing_third_line1_print" layoutX="436.6666666" layoutY="280.0" text="Mailing Third Line" />
+			<CheckBox fx:id="domesticCheck" layoutX="226.666666" layoutY="206.66666" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+			<CheckBox fx:id="importCheck" layoutX="321.666666" layoutY="206.66666" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+			<CheckBox fx:id="wineCheck" layoutX="240.0" layoutY="273.333333" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+			<CheckBox fx:id="distilledCheck" layoutX="240.0" layoutY="295.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+			<CheckBox fx:id="maltCheck" layoutX="240.0" layoutY="315.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+			<Label fx:id="label_text_print" layoutX="95" layoutY="620.0" text="TextLabel" />
+			<Label fx:id="submit_date_print" layoutX="60.0" layoutY="801" text="date" />
+			<Label fx:id="signature_print" layoutX="232" layoutY="801" text="Signature" />
+			<Label fx:id="applicant_name_print" layoutX="672.0" layoutY="801" text="Label" />
+            <CheckBox fx:id="cert_label_approval_print" layoutX="645.0" layoutY="457.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+            <CheckBox fx:id="cert_exemption_print" layoutX="645.0" layoutY="488.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+            <CheckBox fx:id="cert_distinctive_print" layoutX="645.0" layoutY="437.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+            <CheckBox fx:id="cert_resubmission_print" layoutX="645.0" layoutY="535" mnemonicParsing="false" prefHeight="0.0" prefWidth="0.0" />
+		 </children>
+	  </AnchorPane>
+   </content></ScrollPane>

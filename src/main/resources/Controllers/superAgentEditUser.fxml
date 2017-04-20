@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentEditUserController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <TextField fx:id="edit_username_text" layoutX="289.0" layoutY="171.0" promptText="Username">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </TextField>
+        <Group layoutX="576.0" layoutY="182.0">
+            <children>
+                <TextField fx:id="edit_first_name_text" layoutX="93.0" prefHeight="35.0" prefWidth="193.0"
+                           promptText="First Name">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="edit_middle_initial_text" layoutX="95.0" layoutY="47.0" prefHeight="35.0"
+                           prefWidth="62.0" promptText="M. I.">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="edit_last_name_text" layoutX="96.0" layoutY="94.0" prefHeight="35.0" prefWidth="186.0"
+                           promptText="Last Name">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </TextField>
+                <Label layoutX="7.0" layoutY="4.0" text="First Name"/>
+                <Label layoutY="56.0" text="Middle Initial"/>
+                <Label layoutX="8.0" layoutY="103.0" text="Last Name"/>
+            </children>
+        </Group>
+        <TextField fx:id="edit_email_text" layoutX="289.0" layoutY="218.0" promptText="Email">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </TextField>
+        <TextField fx:id="edit_phone_number_text" layoutX="289.0" layoutY="264.0" promptText="Phone Number">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </TextField>
+        <ComboBox id="userType" fx:id="edit_user_type_combobox" layoutX="301.0" layoutY="313.0" prefWidth="200.0"
+                  promptText="User Type"/>
+        <Button fx:id="edit_user_button" layoutX="466.0" layoutY="400.0" mnemonicParsing="false"
+                onMouseClicked="#editUserAction" text="Edit User">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Button>
+        <Label layoutX="459.0" layoutY="24.0" text="Edit User">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+        <Label fx:id="edit_errorLabel" layoutX="370.0" layoutY="364.0" prefHeight="17.0" prefWidth="318.0"
+               textAlignment="CENTER">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="edit_user_id_text" disable="true" editable="false" layoutX="498.0" layoutY="113.0"
+                   prefHeight="39.0" prefWidth="127.0" promptText="User ID"/>
+        <Label layoutX="433.0" layoutY="122.0" text="User ID"/>
+        <Label layoutX="188.0" layoutY="180.0" text="Username"/>
+        <Label layoutX="203.0" layoutY="227.0" text="Email"/>
+        <Label layoutX="171.0" layoutY="273.0" text="Phone Number"/>
+        <Label layoutX="188.0" layoutY="318.0" text="User Type"/>
+    </children>
+</AnchorPane>

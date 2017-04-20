@@ -1144,8 +1144,8 @@ public class FormController {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
-        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
-        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Initialization/images/" + newFileName);
+        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);
+        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Controllers/images/" + newFileName);
         System.out.println(destInSys.getAbsolutePath());
         File destForJar = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {

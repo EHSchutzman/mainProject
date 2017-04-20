@@ -1,6 +1,7 @@
 package Initialization;
 
 import AgentWorkflow.WorkflowController;
+import Controllers.ActionController;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
@@ -714,7 +715,7 @@ public class Main extends Application {
             //stage = (Stage) printable_version.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("testingForm.fxml"));
-            //loader.setLocation(getClass().getResource("../../../resources/main/Initialization/testingForm.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/testingForm.fxml"));
             //System.out.println(loader.getLocation().toString());
             ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 700);
