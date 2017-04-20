@@ -61,6 +61,10 @@ public class mainPageController extends UIController {
     //TODO: Set this using the Data class? Or keep sending a user object across pages to update currentUserLabel(s)
     @FXML
     public void initializeCurrentUserLabel(User user) {
-        currentUserLabel.setText(user.getUsername());
+        if(user == null) {
+            currentUserLabel.setText("Not Logged In");
+        } else {
+            currentUserLabel.setText(user.getUsername());
+        }
     }
 }

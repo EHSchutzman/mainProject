@@ -2,6 +2,7 @@ package Initialization;
 
 import AgentWorkflow.WorkflowController;
 import Controllers.ActionController;
+import Controllers.mainPageController;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SearchController;
@@ -45,13 +46,14 @@ public class Main extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("mainPage.fxml"));
+            loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
+            System.out.println(loader.getLocation().getPath());
 
             rootLayout = loader.load();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout, 1000, 500);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
             primaryStage.setScene(scene);
 
             // Debugger works better when full screen is off
@@ -59,12 +61,14 @@ public class Main extends Application {
 
             primaryStage.show();
 
-            ActionController controller = loader.getController();
-            controller.setDisplay(this);
-            controller.currentUserLabel.setText("Not Logged In");
+            mainPageController controller = loader.getController();
+            controller.initializeCurrentUserLabel(null);
+            //ActionController controller = loader.getController();
+            //controller.setDisplay(this);
+            //controller.currentUserLabel.setText("Not Logged In");
 
         } catch (Exception e) {
-            LOGGER.debug(e.getStackTrace().toString());
+            e.printStackTrace();
         }
     }
 

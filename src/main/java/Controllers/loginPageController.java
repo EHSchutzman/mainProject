@@ -63,9 +63,19 @@ public class loginPageController extends UIController{
     }
 
     @FXML
-    public void setDisplayToCreateUserPage() throws IOException{
+    public void setDisplayToSuperAgentMain() throws IOException{
         Stage stage;
-        stage=(Stage) create_user_button.getScene().getWindow();
+        stage=(Stage) loginButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentMainPage.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void setDisplayToCreateUser() throws IOException{
+        Stage stage;
+        stage=(Stage) createUserButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createUser.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -77,7 +87,7 @@ public class loginPageController extends UIController{
     @FXML
     public void loginAction() {
         String name = username.getText();
-        String pass = password_text.getText();
+        String pass = password.getText();
 
         isAuthentic.setUsername(name);
         isAuthentic.setPassword(pass);
@@ -85,7 +95,6 @@ public class loginPageController extends UIController{
         if(isAuthentic.authenticate()) {
             user = isAuthentic.getFoundUser();
         }
-
 
         if(user.getUsername() != null && user.getUsername().equals(name)){
             try {
@@ -104,7 +113,7 @@ public class loginPageController extends UIController{
                         break;
                     case 3:
                         System.out.println("user has authentication lvl 3");
-                        setDisplayToAgentMain();
+                        setDisplayToSuperAgentMain();
                         break;
                     default:
                         errorLabel.setText("There was an issue processing your request. Please try again.");
@@ -114,9 +123,7 @@ public class loginPageController extends UIController{
             } catch (IOException e){
                 e.printStackTrace();
             }
-
         } else{
-            System.out.println("user not found");
             errorLabel.setText("Invalid Username / Password, Please try again");
             clearFields();
         }
@@ -124,7 +131,7 @@ public class loginPageController extends UIController{
 
     public void clearFields(){
         username.clear();
-        password_text.clear();
+        password.clear();
     }
 
     public User getUser(){
