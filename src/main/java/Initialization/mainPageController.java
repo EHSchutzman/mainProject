@@ -1,5 +1,6 @@
 package Initialization;
 
+import UserAccounts.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,11 +40,8 @@ public class mainPageController extends UIController {
     public void setDisplayToSearchPage() throws IOException{
         Stage stage;
         Parent root;
-        //get reference to the button's stage
         stage=(Stage) searchButton.getScene().getWindow();
-        //load up OTHER FXML document
         root = FXMLLoader.load(getClass().getResource("searchPage.fxml"));
-        //create a new scene with root and set the stage
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -58,5 +56,10 @@ public class mainPageController extends UIController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void initializeCurrentUserLabel(User user) {
+        currentUserLabel.setText(user.getUsername());
     }
 }

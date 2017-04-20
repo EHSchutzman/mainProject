@@ -63,7 +63,7 @@ public class applicationStatusForApplicantController {
 
         ObservableList<AppRecord> olAR = FXCollections.observableArrayList();
         System.out.println(user.getAuthenticationLevel());
-        olAR = db.findForms(user);
+        //olAR = db.findForms(user);
         System.out.println(olAR);
         // Query for batch
         // Display batch in table
