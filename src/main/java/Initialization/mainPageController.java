@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -18,6 +19,8 @@ public class mainPageController extends UIController {
     private Button logInButton;
     @FXML
     private Button searchButton;
+    @FXML
+    private Hyperlink aboutLink;
     @FXML
     private Label currentUserLabel;
 
@@ -41,6 +44,17 @@ public class mainPageController extends UIController {
         //load up OTHER FXML document
         root = FXMLLoader.load(getClass().getResource("searchPage.fxml"));
         //create a new scene with root and set the stage
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void setDisplayToAboutPage() throws IOException{
+        Stage stage;
+        Parent root;
+        stage=(Stage) aboutLink.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("aboutPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
