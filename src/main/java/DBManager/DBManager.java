@@ -656,12 +656,12 @@ public class DBManager {
     }
 
 
-    public void generateCSV(ObservableList<AppRecord> list, String separator) {
+    public void generateCSV(ObservableList<AppRecord> list, String separator, String extension) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
         File selectedFile = dc.showDialog(null);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
-        File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + ".csv");
+        File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + extension);
         if (selectedFile != null) {
             try {
                 FileWriter fileWriter = new FileWriter(file, false);
