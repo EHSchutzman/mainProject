@@ -642,7 +642,7 @@ public class Main extends Application {
             stage.setTitle("CSV Options");
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("CSVoptions.fxml"));
+            loader.setLocation(getClass().getResource("csvOptions.fxml"));
             AnchorPane newWindow = loader.load();
 
             // Show the scene containing the root layout.

@@ -3,5 +3,5 @@ package Controllers;
 /**
  * Created by eschutzman on 4/20/17.
  */
-public class csvController {
+public class csvOptionsController {
 }
