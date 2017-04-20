@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class mainPageController extends UIController {
     @FXML
-    private Button logInButton;
+    private Button loginButton;
     @FXML
     private Button searchButton;
     @FXML
@@ -28,7 +28,7 @@ public class mainPageController extends UIController {
     @FXML
     public void setDisplayToLoginPage() throws IOException{
         Stage stage;
-        stage=(Stage) logInButton.getScene().getWindow();
+        stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());

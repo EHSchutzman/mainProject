@@ -19,15 +19,15 @@ public class loginPageController extends UIController{
     @FXML
     private TextField username;
     @FXML
-    private TextField password_text;
+    private TextField password;
     @FXML
     private Button loginButton;
     @FXML
     private Label errorLabel;
     @FXML
-    private Button create_user_button;
+    private Button createUserButton;
     @FXML
-    private Button returnToMain;
+    private Button returnToMainButton;
 
     private Authentication isAuthentic = new Authentication();
     public User user = new User();
@@ -35,7 +35,7 @@ public class loginPageController extends UIController{
     @FXML
     public void setDisplayToMainPage() throws IOException{
         Stage stage;
-        stage=(Stage) returnToMain.getScene().getWindow();
+        stage=(Stage) returnToMainButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

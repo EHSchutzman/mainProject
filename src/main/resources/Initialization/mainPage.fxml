@@ -13,7 +13,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Button fx:id="logInButton" layoutX="453.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#setDisplayToLoginPage" text="Log In">
+      <Button fx:id="loginButton" layoutX="453.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#setDisplayToLoginPage" text="Log In">
          <font>
             <Font size="24.0" />
          </font></Button>

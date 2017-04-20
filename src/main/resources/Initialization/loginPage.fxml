@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserAccounts.AuthenticationController">
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Initialization.loginPageController">
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -16,7 +13,7 @@
          <font>
             <Font size="24.0" />
          </font></TextField>
-       <PasswordField fx:id="password_text" layoutX="351.0" layoutY="199.0" prefHeight="45.0" prefWidth="340.0" promptText="Password">
+       <PasswordField fx:id="password" layoutX="351.0" layoutY="199.0" prefHeight="45.0" prefWidth="340.0" promptText="Password">
          <font>
             <Font size="24.0" />
          </font></PasswordField>
@@ -28,11 +25,11 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-       <Button fx:id="create_user_button" layoutX="523.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#displayCreateUserPage" text="Create User">
+       <Button fx:id="createUserButton" layoutX="523.0" layoutY="298.0" mnemonicParsing="false" onMouseClicked="#displayCreateUserPage" text="Create User">
          <font>
             <Font size="24.0" />
          </font></Button>
-       <Button fx:id="returnButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main">
+       <Button fx:id="returnToMainButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#returnToMain" text="Return To Main">
          <font>
             <Font size="18.0" />
          </font></Button>
