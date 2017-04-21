@@ -40,12 +40,15 @@ public class mainPageController extends UIController {
     @FXML
     public void setDisplayToSearchPage() throws IOException{
         Stage stage;
-        Parent root;
         stage=(Stage) searchButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("searchPage.fxml"));
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+
+        searchResultsPageController controller = loader.getController();
+        controller.init(super.main);
+        controller.displayApplication(null); //set to null because there is nothing to show xD
     }
 
     @FXML

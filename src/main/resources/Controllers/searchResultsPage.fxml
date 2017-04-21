@@ -22,14 +22,14 @@
                 <Font size="36.0"/>
             </font>
         </Label>
-        <Button fx:id="return_to_main_button" layoutX="20.0" layoutY="31.0" mnemonicParsing="false"
+        <Button fx:id="return_to_search" layoutX="20.0" layoutY="31.0" mnemonicParsing="false"
                 onMouseClicked="#returnToSearch" text="Return to Search">
             <font>
                 <Font size="18.0"/>
             </font>
         </Button>
         <Button fx:id="generate_csv_button" layoutX="846.0" layoutY="30.0" mnemonicParsing="false"
-                onMouseClicked="#generateCSV" text="Generate CSV">
+                onMouseClicked="#displayCSVOptionsPage" text="Generate CSV">
             <font>
                 <Font size="18.0"/>
             </font>
@@ -70,7 +70,7 @@
                 </TableColumn>
             </columns>
         </TableView>
-        <TextField fx:id="searchBox" layoutX="28.0" layoutY="105.0" onKeyReleased="#handleInlineSearch"
+        <TextField fx:id="search_box" layoutX="28.0" layoutY="105.0" onKeyReleased="#handleInlineSearch"
                    prefHeight="31.0" prefWidth="482.0" promptText="Search Brand or Fanciful Names "/>
         <CheckBox fx:id="malt_beverage_checkbox" layoutX="527.0" layoutY="110.0" mnemonicParsing="false"
                   onAction="#handleInlineSearch" text="Beer"/>

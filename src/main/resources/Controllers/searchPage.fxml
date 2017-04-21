@@ -32,7 +32,7 @@
         <CheckBox fx:id="wine_checkbox" layoutX="300.0" layoutY="330.0" mnemonicParsing="false" text="Wine"/>
         <TextField fx:id="state_text" layoutX="278.0" layoutY="393.0" promptText="State"/>
         <Button fx:id="search_button" layoutX="504.0" layoutY="372.0" mnemonicParsing="false"
-                onMouseClicked="#handleSearch" prefHeight="31.0" prefWidth="187.0" text="Search">
+                onMouseClicked="#displaySearchResultsPage" prefHeight="31.0" prefWidth="187.0" text="Search">
          <font>
             <Font size="24.0" />
          </font></Button>

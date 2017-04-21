@@ -54,14 +54,14 @@ public class searchPageController {
     @FXML
     public TableView<AppRecord> resultsTable;
     @FXML
-    private Button searchButton;
+    private Button search_button;
     @FXML
-    private Button returnToMainButton;
+    private Button return_to_main_button;
 
     @FXML
     protected void returnToMain() throws IOException{
         Stage stage;
-        stage=(Stage) returnToMainButton.getScene().getWindow();
+        stage=(Stage) return_to_main_button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
@@ -73,7 +73,7 @@ public class searchPageController {
     // Handle a search - effectively a "main" function for our program
     protected void displaySearchResultsPage() throws IOException {
         Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
+        stage=(Stage) search_button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("searchResultsPage.fxml"));
         Scene scene = new Scene(loader.load());
