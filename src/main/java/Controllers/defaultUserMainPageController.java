@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,21 +52,21 @@ public class defaultUserMainPageController extends UIController{
 
     @FXML
     public void logoutAction() throws IOException{
-        //TODO: Logout user first
+        // logout user
         super.main.userData.setUserInformation(new User());
-        System.out.println("Here " + main.userData.getUserInformation().getUid());
+        // set new stage
         Stage stage;
         stage=(Stage) logoutButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        // initialize next page's current user label
         mainPageController controller = loader.getController();
-        controller.initializeCurrentUserLabel(super.main);
+        controller.init(super.main);
     }
 
-    public void initializeCurrentUserLabel(Main main) {
-        super.initializeCurrentUserLabel(main);
-        System.out.println(main.userData.getUserInformation().getUsername());
+    public void init(Main main) {
+        super.init(main);
     }
 }

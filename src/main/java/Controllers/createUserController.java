@@ -56,7 +56,7 @@ public class createUserController extends UIController{
         stage.setScene(scene);
         stage.show();
         //mainPageController controller = loader.getController();
-        //controller.initializeCurrentUserLabel(user);
+        //controller.init(user);
     }
 
     @FXML

@@ -30,7 +30,7 @@ public abstract class UIController {
 
     // Init
     @FXML
-    public void initializeCurrentUserLabel(Main main) {
+    public void init(Main main) {
         this.main = main;
         if(currentUserLabel != null) {
             if (main.userData == null || main.userData.getUserInformation().getUid() == null) {

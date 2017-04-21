@@ -1,6 +1,5 @@
 package Controllers;
 
-import Initialization.Main;
 import UserAccounts.Authentication;
 import UserAccounts.User;
 import javafx.fxml.FXML;
@@ -42,7 +41,7 @@ public class loginPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         //mainPageController controller = loader.getController();
-        //controller.initializeCurrentUserLabel(user);
+        //controller.init(user);
     }
 
     @FXML
@@ -54,7 +53,7 @@ public class loginPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         defaultUserMainPageController controller = loader.getController();
-        controller.initializeCurrentUserLabel(super.main);
+        controller.init(super.main);
     }
 
     @FXML
@@ -66,7 +65,7 @@ public class loginPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         //applicantMainPageController controller = loader.getController();
-        //controller.initializeCurrentUserLabel(user);
+        //controller.init(user);
     }
 
     @FXML
@@ -90,7 +89,7 @@ public class loginPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         //superAgentInitialPageController controller = loader.getController();
-        //controller.initializeCurrentUserLabel(user);
+        //controller.init(user);
     }
 
     @FXML
