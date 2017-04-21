@@ -1,5 +1,6 @@
 package Controllers;
 
+import Initialization.Main;
 import UserAccounts.Authentication;
 import UserAccounts.User;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ public class loginPageController extends UIController{
 
     private Authentication isAuthentic = new Authentication();
     public User user = new User();
+    Main main = new Main();
 
     @FXML
     public void setDisplayToMainPage() throws IOException{
@@ -40,6 +42,20 @@ public class loginPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        //mainPageController controller = loader.getController();
+        //controller.initializeCurrentUserLabel(user);
+    }
+
+    @FXML
+    public void setDisplayToDefaultUserMainPage() throws IOException{
+        Stage stage;
+        stage=(Stage) loginButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("defaultUserMainPage.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+        //defaultUserMainPageController controller = loader.getController();
+        //controller.setCurrentUserLabel(main.userData.getUserInformation().getUsername());
     }
 
     @FXML
@@ -50,6 +66,8 @@ public class loginPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        //applicantMainPageController controller = loader.getController();
+        //controller.initializeCurrentUserLabel(user);
     }
 
     @FXML
@@ -60,16 +78,20 @@ public class loginPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        //agentMainPageController controller = loader.getController();
+        //controller.initiailizeCurrentUserLabel(user);
     }
 
     @FXML
     public void setDisplayToSuperAgentMain() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentMainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentInitialPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        //superAgentInitialPageController controller = loader.getController();
+        //controller.initializeCurrentUserLabel(user);
     }
 
     @FXML
@@ -79,9 +101,9 @@ public class loginPageController extends UIController{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createUser.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+        stage.show();
         createUserController controller = loader.getController();
         controller.initializeComboBox();
-        stage.show();
     }
 
     @FXML
@@ -101,7 +123,8 @@ public class loginPageController extends UIController{
                 switch (user.getAuthenticationLevel()) {
                     case 0:
                         System.out.println("This user has authentication level 0");
-                        setDisplayToMainPage();
+                        setDisplayToDefaultUserMainPage();
+                        main.userData.setUserInformation(user);
                         break;
                     case 1:
                         System.out.println("user has authentication lvl 1");

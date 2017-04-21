@@ -19,54 +19,56 @@ import java.io.IOException;
  */
 public class createUserController extends UIController{
     @FXML
-    private TextField login_name_text;
+    private TextField username;
     @FXML
-    private TextField password_text;
+    private TextField password;
     @FXML
-    private TextField first_name_text;
+    private TextField firstName;
     @FXML
-    private TextField middle_initial_text;
+    private TextField middleInitial;
     @FXML
-    private TextField last_name_text;
+    private TextField lastName;
     @FXML
-    private TextField email_text;
+    private TextField email;
     @FXML
-    private TextField phone_number_text;
-    ObservableList<String> user_types = FXCollections.observableArrayList("User","Agent","Applicant","SuperAgent");
+    private TextField phoneNo;
     @FXML
-    private ComboBox<String> user_type_combobox;
+    private ComboBox<String> authentication;
     @FXML
     public Label errorLabel;
     @FXML
-    private Button returnToMain;
+    private Button returnToMainButton;
+
+    ObservableList<String> user_types = FXCollections.observableArrayList("User","Agent","Applicant","SuperAgent");
 
     private Authentication isAuthentic = new Authentication();
 
     public void initializeComboBox() {
-        user_type_combobox.getItems().addAll(user_types);
+        authentication.getItems().addAll(user_types);
     }
 
     @FXML
     public void setDisplayToMainPage() throws IOException {
         Stage stage;
-        stage=(Stage) returnToMain.getScene().getWindow();
+        stage=(Stage) returnToMainButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        //mainPageController controller = loader.getController();
+        //controller.initializeCurrentUserLabel(user);
     }
 
     @FXML
-    public void createUser() throws IOException{
-        String emailText = email_text.getText();
-        String loginNameText = login_name_text.getText();
-        String passwordText = password_text.getText();
-        String phoneNum = phone_number_text.getText();
-        String firstName = first_name_text.getText();
-        String middleIn = middle_initial_text.getText();
-        String lastname = last_name_text.getText();
-        String combo = user_type_combobox.getValue();
-        System.out.println(combo);
+    public void createUserAction() throws IOException{
+        String emailText = email.getText();
+        String loginNameText = username.getText();
+        String passwordText = password.getText();
+        String phoneNum = phoneNo.getText();
+        String firstName = this.firstName.getText();
+        String middleIn = middleInitial.getText();
+        String lastname = lastName.getText();
+        String combo = authentication.getValue();
 
         int authLvl;
         if (combo.equals("User")) {
