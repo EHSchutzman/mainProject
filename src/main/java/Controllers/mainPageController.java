@@ -1,5 +1,6 @@
 package Controllers;
 
+import Initialization.Main;
 import UserAccounts.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,8 +23,8 @@ public class mainPageController extends UIController {
     private Button searchButton;
     @FXML
     private Hyperlink aboutLink;
-    @FXML
-    private Label currentUserLabel;
+    //@FXML
+    //private Label currentUserLabel;
 
     @FXML
     public void setDisplayToLoginPage() throws IOException{
@@ -34,6 +35,8 @@ public class mainPageController extends UIController {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        loginPageController controller = loader.getController();
+        controller.initializeCurrentUserLabel(super.main);
     }
 
     @FXML
@@ -58,13 +61,7 @@ public class mainPageController extends UIController {
         stage.show();
     }
 
-    //TODO: Set this using the Data class? Or keep sending a user object across pages to update currentUserLabel(s)
-    @FXML
-    public void initializeCurrentUserLabel(User user) {
-        if(user.getUsername() == null || user.getUsername().isEmpty()) {
-            currentUserLabel.setText("Not Logged In");
-        } else {
-            currentUserLabel.setText(user.getUsername());
-        }
+    public void initializeCurrentUserLabel(Main main) {
+        super.initializeCurrentUserLabel(main);
     }
 }

@@ -15,19 +15,19 @@ import java.io.IOException;
 /**
  * Created by DanielKim on 4/16/2017.
  */
-public class defaultUserMainPageController {
+public class defaultUserMainPageController extends UIController{
     @FXML
     private Button searchButton;
     @FXML
     private Button logoutButton;
     @FXML
     private Hyperlink aboutLink;
-    @FXML
-    private Label currentUserLabel;
+    //@FXML
+    //private Label currentUserLabel;
 
     //public void setCurrentUserLabel(String s){currentUserLabel.setText(s);}
 
-    Main main = new Main();
+    //Main main = new Main();
 
     @FXML
     public void setDisplayToSearchPage() throws IOException{
@@ -54,12 +54,20 @@ public class defaultUserMainPageController {
     @FXML
     public void logoutAction() throws IOException{
         //TODO: Logout user first
-        main.userData.setUserInformation(new User());
+        super.main.userData.setUserInformation(new User());
+        System.out.println("Here " + main.userData.getUserInformation().getUid());
         Stage stage;
         stage=(Stage) logoutButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        mainPageController controller = loader.getController();
+        controller.initializeCurrentUserLabel(super.main);
+    }
+
+    public void initializeCurrentUserLabel(Main main) {
+        super.initializeCurrentUserLabel(main);
+        System.out.println(main.userData.getUserInformation().getUsername());
     }
 }

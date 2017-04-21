@@ -62,7 +62,7 @@ public class Main extends Application {
             primaryStage.show();
 
             mainPageController controller = loader.getController();
-            controller.initializeCurrentUserLabel(new User());
+            controller.initializeCurrentUserLabel(this);
             //ActionController controller = loader.getController();
             //controller.setDisplay(this);
             //controller.currentUserLabel.setText("Not Logged In");

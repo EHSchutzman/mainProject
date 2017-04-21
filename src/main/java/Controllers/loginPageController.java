@@ -32,7 +32,6 @@ public class loginPageController extends UIController{
 
     private Authentication isAuthentic = new Authentication();
     public User user = new User();
-    Main main = new Main();
 
     @FXML
     public void setDisplayToMainPage() throws IOException{
@@ -54,8 +53,8 @@ public class loginPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        //defaultUserMainPageController controller = loader.getController();
-        //controller.setCurrentUserLabel(main.userData.getUserInformation().getUsername());
+        defaultUserMainPageController controller = loader.getController();
+        controller.initializeCurrentUserLabel(super.main);
     }
 
     @FXML
@@ -123,8 +122,8 @@ public class loginPageController extends UIController{
                 switch (user.getAuthenticationLevel()) {
                     case 0:
                         System.out.println("This user has authentication level 0");
+                        super.main.userData.setUserInformation(user);
                         setDisplayToDefaultUserMainPage();
-                        main.userData.setUserInformation(user);
                         break;
                     case 1:
                         System.out.println("user has authentication lvl 1");
