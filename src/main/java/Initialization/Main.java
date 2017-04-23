@@ -26,6 +26,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Status: incomplete.
+ * TODO: after controller haul, delete unnecessary methods (specified), clean code, doxygen, warnings, TODOs
+ */
 public class Main extends Application {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
@@ -61,6 +65,8 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    // ---------------- SHOULDN'T NEED ANYTHING PAST HERE AFTER CONTROLLER HAUL ---------------
 
     public void setDisplayToDefaultMain() {
 

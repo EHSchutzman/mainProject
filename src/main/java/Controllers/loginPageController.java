@@ -13,29 +13,27 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by DanielKim on 4/13/2017.
+ * Status: needs review.
+ * TODO: doxygen, fix all WARNINGS
  */
 public class loginPageController extends UIController{
+
     @FXML
-    private TextField username;
+    private TextField username, password;
     @FXML
-    private TextField password;
-    @FXML
-    private Button loginButton;
+    private Button loginButton, createUserButton;
     @FXML
     private Label errorLabel;
-    @FXML
-    private Button createUserButton;
 
     private Authentication isAuthentic = new Authentication();
     public User user = new User();
 
     /**
      * Redirects to defaultUserMainPage.fxml
-     * @throws IOException
+     * @throws IOException - throws exception
      */
     @FXML
-    public void setDisplayToDefaultUserMainPage() throws IOException{
+    private void setDisplayToDefaultUserMain() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("defaultUserMainPage.fxml"));
@@ -46,44 +44,60 @@ public class loginPageController extends UIController{
         controller.init(super.main);
     }
 
+    /**
+     * Redirects to applicantMainPage.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToApplicantMain() throws IOException{
+    private void setDisplayToApplicantMain() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        //applicantMainPageController controller = loader.getController();
-        //controller.init(user);
+        applicantMainPageController controller = loader.getController();
+        controller.init(super.main);
     }
 
+    /**
+     * Redirects to agentMainPage.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToAgentMain() throws IOException{
+    private void setDisplayToAgentMain() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("agentMainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        //agentMainPageController controller = loader.getController();
-        //controller.initiailizeCurrentUserLabel(user);
+        agentMainPageController controller = loader.getController();
+        controller.init(super.main);
     }
 
+    /**
+     * Redirects to superAgentInitialPage.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToSuperAgentMain() throws IOException{
+    private void setDisplayToSuperAgentMain() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentInitialPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        //superAgentInitialPageController controller = loader.getController();
-        //controller.init(user);
+        superAgentInitialPageController controller = loader.getController();
+        controller.init(super.main);
     }
 
+    /**
+     * Redirects to createUser.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToCreateUser() throws IOException{
+    private void setDisplayToCreateUser() throws IOException{
         Stage stage;
         stage=(Stage) createUserButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("createUser.fxml"));
@@ -91,39 +105,42 @@ public class loginPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         createUserController controller = loader.getController();
+        controller.init(main);
         controller.initializeComboBox();
     }
 
+    /**
+     * Login user if valid, redirect to page with correct authentication.
+     * Update errorLabel otherwise
+     */
     @FXML
     public void loginAction() {
         String name = username.getText();
         String pass = password.getText();
-
         isAuthentic.setUsername(name);
         isAuthentic.setPassword(pass);
-
+        // Check if valid user
         if(isAuthentic.authenticate()) {
             user = isAuthentic.getFoundUser();
         }
-
+        // Redirect to correct page if valid
         if(user.getUsername() != null && user.getUsername().equals(name)){
             try {
                 switch (user.getAuthenticationLevel()) {
                     case 0:
-                        System.out.println("This user has authentication level 0");
                         super.main.userData.setUserInformation(user);
-                        setDisplayToDefaultUserMainPage();
+                        setDisplayToDefaultUserMain();
                         break;
                     case 1:
-                        System.out.println("user has authentication lvl 1");
+                        super.main.userData.setUserInformation(user);
                         setDisplayToApplicantMain();
                         break;
                     case 2:
-                        System.out.println("user has authentication lvl 2");
+                        super.main.userData.setUserInformation(user);
                         setDisplayToAgentMain();
                         break;
                     case 3:
-                        System.out.println("user has authentication lvl 3");
+                        super.main.userData.setUserInformation(user);
                         setDisplayToSuperAgentMain();
                         break;
                     default:
@@ -140,11 +157,19 @@ public class loginPageController extends UIController{
         }
     }
 
-    public void clearFields(){
+    /**
+     * Clears username and password text fields
+     */
+    private void clearFields(){
         username.clear();
         password.clear();
     }
 
+    /**
+     * Getter for user
+     * @return returns user field
+     * TODO: figure out why we need this
+     */
     public User getUser() {
         return this.user;
     }

@@ -3,11 +3,18 @@ package Controllers;
 import Form.Form;
 
 /**
- * Created by eschutzman on 4/20/17.
+ * Status: incomplete.
+ * TODO: clean code, add functionality, need UI to make pages first (COMMUNICATE!), make sure there are no WARNINGS
  */
 public class testingFormController {
 
-    public void setFormDisplay(Form form) {
+    private Form form = new Form();
 
+    public void setForm(Form form) {
+        this.form = form;
+        setFormDisplay();
+    }
+
+    private void setFormDisplay() {
     }
 }

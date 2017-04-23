@@ -1,6 +1,5 @@
 package Controllers;
 
-import Initialization.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,18 +11,22 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by DanielKim on 4/13/2017.
+ * Status: needs review.
+ * TODO: do all TODOs
  */
 public class mainPageController extends UIController {
+
     @FXML
-    private Button loginButton;
-    @FXML
-    private Button searchButton;
+    private Button loginButton, searchButton;
     @FXML
     private Hyperlink aboutLink;
 
+    /**
+     * Redirects to loginPage.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToLoginPage() throws IOException{
+    private void setDisplayToLoginPage() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
@@ -35,22 +38,29 @@ public class mainPageController extends UIController {
         controller.init(super.main);
     }
 
+    /**
+     * Redirects to searchResultsPage.fxml TODO: make sure this is correct
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToSearchPage() throws IOException{
+    private void setDisplayToSearchPage() throws IOException{
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-
         searchResultsPageController controller = loader.getController();
         controller.init(super.main);
-        controller.displayApplication(null); //set to null because there is nothing to show xD
+        controller.displayApplication();
     }
 
+    /**
+     * Redirects to aboutPage.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
-    public void setDisplayToAboutPage() throws IOException{
+    private void setDisplayToAboutPage() throws IOException{
         Stage stage;
         Parent root;
         stage=(Stage) aboutLink.getScene().getWindow();
@@ -58,9 +68,5 @@ public class mainPageController extends UIController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void init(Main main) {
-        super.init(main);
     }
 }

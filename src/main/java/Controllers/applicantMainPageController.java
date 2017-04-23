@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by DanielKim on 4/16/2017.
  */
-public class applicantMainPageController {
+public class applicantMainPageController extends UIController{
     @FXML
     private Button searchButton;
     @FXML

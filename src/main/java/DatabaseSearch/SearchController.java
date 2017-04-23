@@ -37,7 +37,7 @@ public class SearchController {
     protected String to;
     //Name info
     protected String brand;
-    protected String product; //also known as fanciful name
+    protected String product; //also known as fanciful search
     protected String name;
     //Type info
     protected boolean isMalt;

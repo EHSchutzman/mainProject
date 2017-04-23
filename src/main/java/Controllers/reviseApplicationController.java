@@ -284,7 +284,7 @@ public class reviseApplicationController {
 
         //Agent Headers
         //form.setapproved_date(Date.valueOf(approved_date.getValue()));
-        //TODO reference agent name if needed
+        //TODO reference agent search if needed
 
         //form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
         //form.setapproval_comments(approval_comments_text.getText());

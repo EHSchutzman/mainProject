@@ -140,7 +140,7 @@ public class AuthenticationController {
 
 
         if(authenticUser) {
-        //if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
+        //if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(search) ){
 
             // Create persistent user
             main.userData.setUserInformation(isAuthentic.getFoundUser());

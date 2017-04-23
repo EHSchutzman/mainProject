@@ -2,7 +2,6 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
-import DatabaseSearch.SearchController;
 import Form.Form;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,27 +9,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
- * Created by Anthony on 4/20/2017. ayyyy lmao xD
+ * Status: incomplete.
+ * TODO: clean code, make sure there are no WARNINGS, rename Buttons, add Doxygen comments
  */
 public class searchResultsPageController extends UIController{
 
-    public DBManager db = new DBManager();
-    protected String name;
-    private boolean isMalt, isSpirit, isWine;
-    private ResultSet rs;
+    private DBManager db = new DBManager();
+    protected String search;
 
     @FXML
     public TableView<AppRecord> resultsTable;
@@ -43,12 +34,12 @@ public class searchResultsPageController extends UIController{
     @FXML
     private CheckBox malt_beverage_checkbox, wine_checkbox, distilled_spirit_checkbox;
 
-    @FXML
-    protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
+    //@FXML
+    //protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
 
     // TODO:Replace this with returnToMain???
     @FXML
-    protected void returnToSearch() throws IOException {
+    public void returnToSearch() throws IOException {
         Stage stage;
         stage = (Stage) return_to_search.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
@@ -79,46 +70,36 @@ public class searchResultsPageController extends UIController{
         }
     }
 
-    protected ObservableList<AppRecord> searchInlineCriteria() {
+    @FXML
+    ObservableList<AppRecord> handleInlineSearch() {
         try {
             //Set all variables equal to input data
-            name = search_box.getText();
-            isMalt = malt_beverage_checkbox.isSelected();
-            isSpirit = distilled_spirit_checkbox.isSelected();
-            isWine = wine_checkbox.isSelected();
-            boolean firstCheck = false;
+            search = search_box.getText();
+            boolean isMalt = malt_beverage_checkbox.isSelected();
+            boolean isSpirit = distilled_spirit_checkbox.isSelected();
+            boolean isWine = wine_checkbox.isSelected();
             String params = " WHERE STATUS = 'Accepted' AND";
             if (isMalt || isSpirit || isWine) {
                 params += " (ALCOHOL_TYPE = ";
-                if (isWine) {
-                    params += "'Wine'";
-                    firstCheck = true;
-                }
-                if (isSpirit && !firstCheck) {
-                    params += "'Distilled Spirits'";
-                    firstCheck = true;
-                } else if (isSpirit && firstCheck) {
-                    params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
-                }
-                if (isMalt && !firstCheck) {
-                    params += "'Malt Beverages'";
-                    firstCheck = true;
-                } else if (isMalt && firstCheck) {
-                    params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
-                }
+                if (isWine) {params += "'Wine'";}
+                if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
+                if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
+                if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
+                if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
                 params += ")";
             }
-            if (firstCheck) {
-                params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + name + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + name + "%'))";
+            if (isMalt || isSpirit || isWine) {
+                params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + search +
+                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + search + "%'))";
             } else {
-                params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + name + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + name + "%'))";
+                params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + search +
+                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + search + "%'))";
             }
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
-            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
-            resultsTable.setItems(arr);
+            ObservableList<AppRecord> array = db.findLabels(searchParams, params);
+            resultsTable.setItems(array);
             resultsTable.refresh();
-            super.main.userData.setObservableList(arr);
-            return arr;
+            return array;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
@@ -126,7 +107,7 @@ public class searchResultsPageController extends UIController{
         }
     }
 
-     public void displayApprovedLabel(Form form) {
+     private void displayApprovedLabel(Form form) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -147,10 +128,9 @@ public class searchResultsPageController extends UIController{
 
     /**
      * Monitors user double click on results table
-     * @param list
      */
-    protected void displayApplication(ObservableList<AppRecord> list) {
-        resultsTable.setItems(list);
+    void displayApplication() {
+        resultsTable.setItems(null);
         resultsTable.setRowFactory(tv -> {
             TableRow<AppRecord> row = new TableRow<>();
             // Open window if row double-clicked

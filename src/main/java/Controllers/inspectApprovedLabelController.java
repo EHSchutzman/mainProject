@@ -48,7 +48,7 @@ public class inspectApprovedLabelController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             testingFormController controller = loader.getController();
-            controller.setFormDisplay(form);
+            controller.setForm(form);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class inspectApprovedLabelController extends UIController{
         // Get current user info
         User currentUser = dbManager.findUser("user_id = \'" + form.getapplicant_id() + "\'");
         String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " " + currentUser.getLastName();
-        // Set applicant name
+        // Set applicant search
         applicant_name.setText(name);
         // Set source
         if (form.getSource().equals("Imported")) {

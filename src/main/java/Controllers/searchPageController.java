@@ -24,7 +24,7 @@ public class searchPageController {
     protected String to;
     //Name info
     protected String brand;
-    protected String product; //also known as fanciful name
+    protected String product; //also known as fanciful search
     //Type info
     protected boolean isMalt;
     protected boolean isSpirit;
