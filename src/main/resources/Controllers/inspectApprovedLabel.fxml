@@ -62,7 +62,7 @@
         <TextArea fx:id="address" disable="true" layoutX="161.0" layoutY="257.0" prefHeight="164.0" prefWidth="286.0" promptText="address" />
         <TextField fx:id="source" disable="true" layoutX="715.0" layoutY="237.0" promptText="Source of Product" />
         <TextField fx:id="alcohol_type" disable="true" layoutX="715.0" layoutY="275.0" promptText="Type of Alcohol" />
-        <Button fx:id="printableVersion" layoutX="1333.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#setDisplayPrintableVersion" prefHeight="46.0" prefWidth="145.0" text="Printable Version" />
+        <Button fx:id="printableVersionButton" layoutX="1333.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#setDisplayPrintableVersion" prefHeight="46.0" prefWidth="145.0" text="Printable Version" />
 
     </children>
 </AnchorPane>

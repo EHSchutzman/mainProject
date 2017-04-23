@@ -4,14 +4,18 @@ import DBManager.DBManager;
 import UserAccounts.User;
 import Form.Form;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.File;
 
 /**
- * Created by eschutzman on 4/20/17.
+ * Status: incomplete.
+ * TODO: clean code, make sure there are no WARNINGS
  */
 public class inspectApprovedLabelController extends UIController{
     @FXML
@@ -19,25 +23,47 @@ public class inspectApprovedLabelController extends UIController{
     vintage_year, ph_level, serial_no, fanciful_name, formula, grape_varietals, wine_appellation,
     label_text, signature, applicant_name, source, alcohol_type;
     @FXML
-    private Button closeButton, printableVersion;
+    private Button printableVersionButton;
     @FXML
     private TextArea address;
     @FXML
     private ImageView label_image;
     @FXML
-    private Label errorLabel;
+    private Label errorLabel; //TODO: Check if this is necessary
 
-    DBManager dbManager = new DBManager();
-
-    @FXML
-    public void closeWindow() {
-    }
+    private DBManager dbManager = new DBManager();
+    private Form form = new Form();
 
     @FXML
     public void setDisplayPrintableVersion() {
+        try {
+            Stage stage;
+            stage = (Stage) printableVersionButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("testingForm.fxml"));
+            ScrollPane newWindow = loader.load();
+            Scene scene = new Scene(newWindow, 1000, 700);
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            testingFormController controller = loader.getController();
+            controller.setFormDisplay(form);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setAgentForm(Form form) {
+    /**
+     * Sets form object in this controller, and sets all displayable fields
+     * @param form - form passed from double clicked row
+     */
+    void setForm(Form form) {
+        this.form = form;
+        setFormDisplay();
+    }
+
+    private void setFormDisplay() {
         // Get current user info
         User currentUser = dbManager.findUser("user_id = \'" + form.getapplicant_id() + "\'");
         String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " " + currentUser.getLastName();
@@ -118,7 +144,7 @@ public class inspectApprovedLabelController extends UIController{
         email.setText(form.getEmail());
         // Set label image
         try {
-            /**
+            /*
              * IF EXPORTING THIS FOR JAR CHANGE
              */
             String path = (System.getProperty("user.dir") + "/images/" + form.getlabel_image());

@@ -63,20 +63,13 @@ public class searchResultsPageController extends UIController{
         try {
             Stage stage = new Stage();
             stage.setTitle("CSV Options");
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("csvOptions.fxml"));
             AnchorPane newWindow = loader.load();
-
-            // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 600, 400);
             scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-
             stage.setScene(scene);
-
-            // Debugger works better when full screen is off
             stage.setFullScreen(false);
-
             stage.getScene().setRoot(newWindow);
             stage.show();
             csvOptionsController controller = loader.getController();
@@ -146,7 +139,7 @@ public class searchResultsPageController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             inspectApprovedLabelController controller = loader.getController();
-            controller.setAgentForm(form);
+            controller.setForm(form);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -170,7 +163,6 @@ public class searchResultsPageController extends UIController{
                     try {
                         Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
                         // Open selected form in new window
-                        super.main.userData.setForm(viewForm);
                         displayApprovedLabel(viewForm);
                     } catch (Exception e) {
                         e.printStackTrace();

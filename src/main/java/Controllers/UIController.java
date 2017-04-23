@@ -17,7 +17,7 @@ public abstract class UIController {
     @FXML
     protected Label currentUserLabel;
     @FXML
-    protected Button returnToMainButton;
+    protected Button returnToMainButton, closeButton;
 
     protected Main main = new Main();
 
@@ -36,6 +36,17 @@ public abstract class UIController {
         mainPageController controller = loader.getController();
         controller.init(main);
     }
+
+    /**
+     * Closes current window
+     * @throws IOException
+     */
+    @FXML
+    public void closeWindow() throws IOException {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
+    }
+
     public void back() {}
     /*@FXML
     public void logoutAction() {
@@ -47,7 +58,6 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
     }*/
-    public void clear() {}
     public void submit() {}
 
     // Init
