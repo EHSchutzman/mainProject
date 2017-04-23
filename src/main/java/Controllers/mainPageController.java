@@ -52,7 +52,7 @@ public class mainPageController extends UIController {
         stage.show();
         searchResultsPageController controller = loader.getController();
         controller.init(super.main);
-        controller.displayApplication();
+        controller.initApplicationTableView();
     }
 
     /**

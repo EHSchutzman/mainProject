@@ -28,7 +28,7 @@ public class searchResultsPageController extends UIController{
     @FXML
     private Button return_to_search;
     @FXML
-    private Button generate_csv_button;
+    private Button generate_csv_button; //TODO: make sure this works! naming convention!
     @FXML
     private TextField search_box;
     @FXML
@@ -47,6 +47,11 @@ public class searchResultsPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void returnToMainPage() throws IOException{
+        super.returnToMainPage();
     }
 
     @FXML
@@ -129,7 +134,7 @@ public class searchResultsPageController extends UIController{
     /**
      * Monitors user double click on results table
      */
-    void displayApplication() {
+    void initApplicationTableView() {
         resultsTable.setItems(null);
         resultsTable.setRowFactory(tv -> {
             TableRow<AppRecord> row = new TableRow<>();

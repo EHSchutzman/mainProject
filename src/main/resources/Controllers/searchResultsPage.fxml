@@ -22,8 +22,8 @@
                 <Font size="36.0"/>
             </font>
         </Label>
-        <Button fx:id="return_to_search" layoutX="20.0" layoutY="31.0" mnemonicParsing="false"
-                onMouseClicked="#returnToSearch" text="Return to Search">
+        <Button fx:id="returnToMainButton" layoutX="20.0" layoutY="31.0" mnemonicParsing="false"
+                onMouseClicked="#returnToMainPage" text="Return to Search">
             <font>
                 <Font size="18.0"/>
             </font>

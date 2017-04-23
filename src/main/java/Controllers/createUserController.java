@@ -15,49 +15,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by DanielKim on 4/14/2017.
+ * Status: incomplete.
+ * TODO: clean code, WARNINGS, doxygen
  */
 public class createUserController extends UIController{
+
     @FXML
-    private TextField username;
-    @FXML
-    private TextField password;
-    @FXML
-    private TextField firstName;
-    @FXML
-    private TextField middleInitial;
-    @FXML
-    private TextField lastName;
-    @FXML
-    private TextField email;
-    @FXML
-    private TextField phoneNo;
+    private TextField username, password, firstName, middleInitial, lastName, email, phoneNo;
     @FXML
     private ComboBox<String> authentication;
+    private ObservableList<String> user_types = FXCollections.observableArrayList("User","Agent","Applicant","SuperAgent");
     @FXML
     public Label errorLabel;
-    @FXML
-    private Button returnToMainButton;
-
-    ObservableList<String> user_types = FXCollections.observableArrayList("User","Agent","Applicant","SuperAgent");
 
     private Authentication isAuthentic = new Authentication();
 
-    public void initializeComboBox() {
-        authentication.getItems().addAll(user_types);
-    }
-
-    @FXML
-    public void setDisplayToMainPage() throws IOException {
-        Stage stage;
-        stage=(Stage) returnToMainButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        //mainPageController controller = loader.getController();
-        //controller.init(user);
-    }
+    /**
+     * Initialize the authentication combo box
+     */
+    void initializeComboBox() {authentication.getItems().addAll(user_types);}
 
     @FXML
     public void createUserAction() throws IOException{
