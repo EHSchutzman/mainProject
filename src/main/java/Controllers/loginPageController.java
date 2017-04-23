@@ -26,24 +26,14 @@ public class loginPageController extends UIController{
     private Label errorLabel;
     @FXML
     private Button createUserButton;
-    @FXML
-    private Button returnToMainButton;
 
     private Authentication isAuthentic = new Authentication();
     public User user = new User();
 
-    @FXML
-    public void setDisplayToMainPage() throws IOException{
-        Stage stage;
-        stage=(Stage) returnToMainButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        //mainPageController controller = loader.getController();
-        //controller.init(user);
-    }
-
+    /**
+     * Redirects to defaultUserMainPage.fxml
+     * @throws IOException
+     */
     @FXML
     public void setDisplayToDefaultUserMainPage() throws IOException{
         Stage stage;
@@ -155,7 +145,8 @@ public class loginPageController extends UIController{
         password.clear();
     }
 
-    public User getUser(){
-        return user;
+    public User getUser() {
+        return this.user;
     }
+
 }

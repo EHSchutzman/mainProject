@@ -27,23 +27,10 @@ import java.util.ArrayList;
  */
 public class searchResultsPageController extends UIController{
 
-    /*
-    Search Variables
-     */
     public DBManager db = new DBManager();
     protected String name;
     private boolean isMalt, isSpirit, isWine;
-
-
-
-
-
     private ResultSet rs;
-
-
-
-
-
 
     @FXML
     public TableView<AppRecord> resultsTable;
@@ -56,18 +43,10 @@ public class searchResultsPageController extends UIController{
     @FXML
     private CheckBox malt_beverage_checkbox, wine_checkbox, distilled_spirit_checkbox;
 
-
-
-
-
-
-    /*
-    This is a function
-    It searches the database for what you want on click
-     */
     @FXML
     protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
 
+    // TODO:Replace this with returnToMain???
     @FXML
     protected void returnToSearch() throws IOException {
         Stage stage;
@@ -78,7 +57,6 @@ public class searchResultsPageController extends UIController{
         stage.setScene(scene);
         stage.show();
     }
-
 
     @FXML
     public void displayCSVOptionsPage() throws Exception {
@@ -103,13 +81,10 @@ public class searchResultsPageController extends UIController{
             stage.show();
             csvOptionsController controller = loader.getController();
             controller.init(super.main);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 
     protected ObservableList<AppRecord> searchInlineCriteria() {
         try {
@@ -118,27 +93,20 @@ public class searchResultsPageController extends UIController{
             isMalt = malt_beverage_checkbox.isSelected();
             isSpirit = distilled_spirit_checkbox.isSelected();
             isWine = wine_checkbox.isSelected();
-
             boolean firstCheck = false;
-
             String params = " WHERE STATUS = 'Accepted' AND";
-
             if (isMalt || isSpirit || isWine) {
-
                 params += " (ALCOHOL_TYPE = ";
-
                 if (isWine) {
                     params += "'Wine'";
                     firstCheck = true;
                 }
-
                 if (isSpirit && !firstCheck) {
                     params += "'Distilled Spirits'";
                     firstCheck = true;
                 } else if (isSpirit && firstCheck) {
                     params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
                 }
-
                 if (isMalt && !firstCheck) {
                     params += "'Malt Beverages'";
                     firstCheck = true;
@@ -147,53 +115,63 @@ public class searchResultsPageController extends UIController{
                 }
                 params += ")";
             }
-
             if (firstCheck) {
                 params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + name + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + name + "%'))";
             } else {
                 params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + name + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + name + "%'))";
             }
-
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
-
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
-
             resultsTable.setItems(arr);
             resultsTable.refresh();
-
             super.main.userData.setObservableList(arr);
-
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
             return null;
-
         }
     }
 
-    protected void displayApplication(ObservableList<AppRecord> list) {
+     public void displayApprovedLabel(Form form) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
+            AnchorPane newWindow = loader.load();
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            inspectApprovedLabelController controller = loader.getController();
+            controller.setAgentForm(form);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-        // This block monitors the user's interaction with the tableview,
-        //  determining when they double-click a row
+    /**
+     * Monitors user double click on results table
+     * @param list
+     */
+    protected void displayApplication(ObservableList<AppRecord> list) {
         resultsTable.setItems(list);
         resultsTable.setRowFactory(tv -> {
             TableRow<AppRecord> row = new TableRow<>();
-
-            // Open application if row double-clicked
+            // Open window if row double-clicked
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     AppRecord rowData = row.getItem();
-
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
-
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
                         // Open selected form in new window
                         super.main.userData.setForm(viewForm);
-                        super.main.displayApprovedLabel(viewForm);
+                        displayApprovedLabel(viewForm);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

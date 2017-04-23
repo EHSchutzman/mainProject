@@ -30,7 +30,6 @@ public class Main extends Application {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-
     public Data userData = new Data(new User());
     private Stage primaryStage;
     private AnchorPane rootLayout;
@@ -38,7 +37,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-//        rootLayout.getStylesheets().add(getClass().getResource("style.css").toString());
         initRootLayout();
     }
 
@@ -47,26 +45,18 @@ public class Main extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
-            System.out.println(loader.getLocation().getPath());
-
+            //System.out.println(loader.getLocation().getPath());
             rootLayout = loader.load();
-
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout, 1000, 500);
             scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
             primaryStage.setScene(scene);
-
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
-
             primaryStage.show();
-
+            // initialize mainPageController
             mainPageController controller = loader.getController();
             controller.init(this);
-            //ActionController controller = loader.getController();
-            //controller.setDisplay(this);
-            //controller.currentUserLabel.setText("Not Logged In");
-
         } catch (Exception e) {
             e.printStackTrace();
         }

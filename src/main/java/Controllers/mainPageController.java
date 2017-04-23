@@ -21,8 +21,6 @@ public class mainPageController extends UIController {
     private Button searchButton;
     @FXML
     private Hyperlink aboutLink;
-    //@FXML
-    //private Label currentUserLabel;
 
     @FXML
     public void setDisplayToLoginPage() throws IOException{
