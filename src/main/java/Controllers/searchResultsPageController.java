@@ -37,18 +37,6 @@ public class searchResultsPageController extends UIController{
     //@FXML
     //protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
 
-    // TODO:Replace this with returnToMain???
-    @FXML
-    public void returnToSearch() throws IOException {
-        Stage stage;
-        stage = (Stage) return_to_search.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("searchPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @FXML
     public void returnToMainPage() throws IOException{
         super.returnToMainPage();
