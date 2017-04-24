@@ -42,6 +42,13 @@ public class searchResultsPageController extends UIController{
         super.returnToMainPage();
     }
 
+    //TODO Find out what people want for the goofy wacky and zany COLA search page
+
+
+    /**
+     * This function opens a pop up for the CSV display
+     * @throws Exception
+     */
     @FXML
     public void displayCSVOptionsPage() throws Exception {
         try {
@@ -63,6 +70,10 @@ public class searchResultsPageController extends UIController{
         }
     }
 
+    /**
+     * Function handles all the searching functionality
+     * @return
+     */
     @FXML
     ObservableList<AppRecord> handleInlineSearch() {
         try {
