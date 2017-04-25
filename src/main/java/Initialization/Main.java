@@ -19,6 +19,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,21 +67,26 @@ public class Main extends Application {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
-            //System.out.println(loader.getLocation().getPath());
-            rootLayout = loader.load();
-            Scene scene = new Scene(root, 1000, 2000);
+            System.out.println(loader.getLocation());
+            ScrollPane root = loader.load();
+            AnchorPane anchorPane = new AnchorPane(root);
+            //root.setStyle("-fx-background-color: #ffffff;");
+            //anchorPane.setStyle("-fx-background-color: #ffffff;");
 
+            // Show the scene containing the root layout.
+            primaryStage.setScene(new Scene(anchorPane));
+            primaryStage.setFullScreen(false);
+            //scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
 
-            root.setTop(menuBar);
-            root.setBottom(rootLayout);
-            scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
-            primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
-            primaryStage.show();
-            // initialize mainPageController
             mainPageController controller = loader.getController();
             controller.init(this);
+            controller.initSlideshow();
+            controller.startAnimation();
+            primaryStage.show();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
