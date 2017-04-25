@@ -27,13 +27,22 @@ public class csvOptionsController extends UIController{
     @FXML
     private TextField user_specified_value_text;
 
+    private ObservableList<AppRecord> observableList;
+
+
+    /**
+     * Use function upon initialization to pass a list of forms to the CSV controller
+     * See SearchResultsPageController.displayCSVOptionsPage() for first use.
+     * @param listOfForms
+     */
+    void passListOfForms(ObservableList<AppRecord> listOfForms){
+        this.observableList = listOfForms;
+    }
 
     @FXML
     public void makeCSV() {
         DBManager manager = new DBManager();
-        //System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
-
-        manager.generateCSV(main.userData.getObservableList(), ",", ".csv");
+        manager.generateCSV(observableList, ",", ".csv");
         try {
             displayConfirmationMessage();
         } catch (Exception e) {
@@ -44,7 +53,7 @@ public class csvOptionsController extends UIController{
     @FXML
     public void makeTab() {
         DBManager manager = new DBManager();
-        manager.generateCSV(main.userData.getObservableList(), "\t", ".txt");
+        manager.generateCSV(observableList, "\t", ".txt");
         try {
             displayConfirmationMessage();
         } catch (Exception e) {
@@ -59,25 +68,13 @@ public class csvOptionsController extends UIController{
     public void makeUserSpecified() {
         DBManager manager = new DBManager();
         String separator = user_specified_value_text.getText();
-        manager.generateCSV(main.userData.getObservableList(), separator, ".txt");
+        manager.generateCSV(observableList, separator, ".txt");
         try {
             displayConfirmationMessage();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Close window closes the window
-     */
-//    @FXML
-//    public void closeWindow() {
-//        try {
-//            super.closeWindow();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
     /**

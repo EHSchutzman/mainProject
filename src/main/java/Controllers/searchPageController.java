@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * TODO: this is currently not used anywhere. May need to move this to searchResultsPageController
  * TODO: - once advanced options are created in UI
  */
-public class searchPageController {
+public class searchPageController extends UIController{
 
     //VARIABLES FOR SEARCH CRITERIA:
     //Date info
