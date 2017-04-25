@@ -138,6 +138,10 @@ public class iter2applicationController extends UIController{
     private loginPageController lpc = new loginPageController();
     private Form form = new Form();
 
+    public void initializeComboBox() {
+        source_combobox.setItems(FXCollections.observableArrayList("Domestic", "Imported"));
+        alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
+    }
 
     public void createApplicantForm() {
 
@@ -147,11 +151,10 @@ public class iter2applicationController extends UIController{
         form.setserial_no(serial_no_text.getText());
 
         // Initialize Source ChoiceBox and get value
-        source_combobox.setItems(FXCollections.observableArrayList("Domestic", "Imported"));
-        form.setSource("Domestic");
+        form.setSource(source_combobox.getValue().toString());
 
         // Initialize Alcohol Type ChoiceBox, get and set value
-        alcohol_type_combobox.setItems(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
+        form.setalcohol_type(alcohol_type_combobox.getValue().toString());
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
