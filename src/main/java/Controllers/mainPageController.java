@@ -12,12 +12,12 @@ import java.io.IOException;
 
 /**
  * Status: needs review.
- * TODO: do all TODOs
+ * TODO: change about link to button? - have a function setDisplayToAboutPage in UIController
  */
 public class mainPageController extends UIController {
 
     @FXML
-    private Button loginButton, searchButton;
+    private Button loginButton;
     @FXML
     private Hyperlink aboutLink;
 
@@ -39,28 +39,11 @@ public class mainPageController extends UIController {
     }
 
     /**
-     * Redirects to searchResultsPage.fxml TODO: make sure this is correct
-     * @throws IOException - throws exception
-     */
-    @FXML
-    private void setDisplayToSearchPage() throws IOException{
-        Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        searchResultsPageController controller = loader.getController();
-        controller.init(super.main);
-        controller.initApplicationTableView();
-    }
-
-    /**
      * Redirects to aboutPage.fxml
      * @throws IOException - throws exception
      */
     @FXML
-    private void setDisplayToAboutPage() throws IOException{
+    private void setDisplayToAboutPageTemp() throws IOException{
         Stage stage;
         Parent root;
         stage=(Stage) aboutLink.getScene().getWindow();

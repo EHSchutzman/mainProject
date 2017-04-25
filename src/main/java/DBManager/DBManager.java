@@ -27,6 +27,7 @@ public class DBManager {
 
     /**
      * Persists a user into the database
+     * TODO: add .replace("'", "''") to all sql fields to be able to include ' char in strings
      *
      * @param user - user to persist
      * @return returns true if persist is successful, false otherwise
@@ -36,14 +37,15 @@ public class DBManager {
         ArrayList<String> fields = new ArrayList<>();
         fields.add("\'" + user.getUid() + "\'");
         fields.add("" + user.getAuthenticationLevel() + "");
-        fields.add("\'" + user.getUsername() + "\'");
-        fields.add("\'" + user.getPassword() + "\'");
+        fields.add("\'" + user.getUsername().replace("'", "''") + "\'");
+        fields.add("\'" + user.getPassword().replace("'", "''") + "\'");
         fields.add("\'" + user.getEmail() + "\'");
         fields.add("\'" + user.getPhoneNo() + "\'");
-        fields.add("\'" + user.getFirstName() + "\'");
+        fields.add("\'" + user.getFirstName().replace("'", "''") + "\'");
         fields.add("\'" + user.getMiddleInitial() + "\'");
-        fields.add("\'" + user.getLastName() + "\'");
+        fields.add("\'" + user.getLastName().replace("'", "''") + "\'");
         String queryString = queryBuilder.createInsertStatement("USERS", fields);
+        //System.out.println(queryString); For testing purposes
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -164,6 +166,7 @@ public class DBManager {
 
             stmt.close();
             connection.close();
+            System.out.println("Form persisted");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

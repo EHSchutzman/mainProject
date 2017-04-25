@@ -24,7 +24,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Hyperlink fx:id="aboutLink" layoutX="924.0" layoutY="458.0" onMouseClicked="#setDisplayToAboutPage" text="About" textAlignment="CENTER" underline="true">
+      <Hyperlink fx:id="aboutLink" layoutX="924.0" layoutY="458.0" onMouseClicked="#setDisplayToAboutPageTemp" text="About" textAlignment="CENTER" underline="true">
          <font>
             <Font size="16.0" />
          </font>
