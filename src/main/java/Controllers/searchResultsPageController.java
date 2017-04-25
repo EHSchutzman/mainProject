@@ -69,42 +69,6 @@ public class searchResultsPageController extends UIController{
      * Function handles all the searching functionality
      * @return
      */
-    @FXML
-    ObservableList<AppRecord> handleInlineSearch() {
-        try {
-            //Set all variables equal to input data
-            search = search_box.getText();
-            boolean isMalt = malt_beverage_checkbox.isSelected();
-            boolean isSpirit = distilled_spirit_checkbox.isSelected();
-            boolean isWine = wine_checkbox.isSelected();
-            String params = " WHERE STATUS = 'Accepted' AND";
-            if (isMalt || isSpirit || isWine) {
-                params += " (ALCOHOL_TYPE = ";
-                if (isWine) {params += "'Wine'";}
-                if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
-                if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
-                if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
-                if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
-                params += ")";
-            }
-            if (isMalt || isSpirit || isWine) {
-                params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + search +
-                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + search + "%'))";
-            } else {
-                params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + search +
-                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + search + "%'))";
-            }
-            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
-            ObservableList<AppRecord> array = db.findLabels(searchParams, params);
-            resultsTable.setItems(array);
-            resultsTable.refresh();
-            return array;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Could not build a query from search criteria.");
-            return null;
-        }
-    }
 
      private void displayApprovedLabel(Form form) {
         try {
