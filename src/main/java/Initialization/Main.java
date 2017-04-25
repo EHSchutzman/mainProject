@@ -570,7 +570,7 @@ public class Main extends Application {
     public void setDisplayToSuperAgentMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("superAgentInitialPage.fxml"));
+            loader.setLocation(getClass().getResource("superAgentMainPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Super Agent Main");
             primaryStage.getScene().setRoot(page);

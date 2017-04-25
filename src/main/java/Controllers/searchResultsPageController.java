@@ -37,11 +37,6 @@ public class searchResultsPageController extends UIController{
     //@FXML
     //protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
 
-    @FXML
-    public void returnToMainPage() throws IOException{
-        super.returnToMainPage();
-    }
-
     //TODO Find out what people want for the goofy wacky and zany COLA search page
 
 

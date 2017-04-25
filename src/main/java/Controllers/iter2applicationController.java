@@ -27,18 +27,17 @@ import java.util.ArrayList;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 /**
- * Created by Anthony on 4/18/2017.
+ * TODO: make this a popup?
+ * TODO: no closeButton in fxml - no need to make it in this controller
+ * TODO: - just make the onMouseClick = "closeWindow" and it will work! (UIController rocks!)
+ * TODO: do we need browseButton in iter2application.fxml? (remove)
  */
 public class iter2applicationController extends UIController{
 
     @FXML
-    public Button back_button;
-    @FXML
-    public Button submit_button;
+    public Button submitButton;
     @FXML
     public Button browse_button;
-    @FXML
-    public Button close_button;
     @FXML
     public TextField rep_id_text;
     @FXML
@@ -138,16 +137,6 @@ public class iter2applicationController extends UIController{
     private DBManager db = new DBManager();
     private loginPageController lpc = new loginPageController();
     private Form form = new Form();
-
-    @FXML
-    public void setDisplayToApplicantMain() throws IOException{
-        Stage stage;
-        stage=(Stage) back_button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
 
 
     public void createApplicantForm() {
@@ -394,7 +383,7 @@ public class iter2applicationController extends UIController{
         Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type, brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state, applicant_zip, applicant_country, mailing_address, formula, phone_no, email, labeltext, main.userData.form.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null, vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text, null);
 
         db.persistForm(form);
-        returnToApplicantMain();
+        super.returnToMainPage();
     }
 
     @FXML
@@ -476,23 +465,4 @@ public class iter2applicationController extends UIController{
         }
     }
 
-    @FXML
-    public void closeWindow() {
-
-        // Close the window
-        Stage stage = (Stage) close_button.getScene().getWindow();
-        stage.close();
-
-    }
-
-    @FXML
-    public void returnToApplicantMain() throws IOException {
-        Stage stage;
-        stage = (Stage) submit_button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("applicantMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
 }

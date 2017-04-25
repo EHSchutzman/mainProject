@@ -86,12 +86,12 @@
         </Button>
         <ImageView fx:id="label_image" fitHeight="250.0" fitWidth="600.0" layoutX="668.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true" />
         <TextField fx:id="signature_text" layoutX="100.0" layoutY="200.0" promptText="Electronic Signature" />
-        <Button fx:id="submit_button" layoutX="100.0" layoutY="100.0" mnemonicParsing="false"
+        <Button fx:id="submitButton" layoutX="100.0" layoutY="100.0" mnemonicParsing="false"
                 onMouseClicked="#submitForm" text="Submit">
          <font>
             <Font size="18.0" />
          </font></Button>
-        <Button fx:id="back_button" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicantMain"
+        <Button fx:id="backButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage"
                 text="Back">
             <font>
             <Font size="18.0" />

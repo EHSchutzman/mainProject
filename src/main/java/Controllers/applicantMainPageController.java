@@ -10,27 +10,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by DanielKim on 4/16/2017.
+ * Status: mostly done, needs some work.
+ * TODO: make sure things work properly (logging info)
  */
 public class applicantMainPageController extends UIController{
-    @FXML
-    private Button searchButton;
-    @FXML
-    private Button viewFormsButton;
-    @FXML
-    private Button submissionButton;
-    @FXML
-    private Label currentUserLabel;
 
     @FXML
-    public void setDisplayToSearchPage() throws IOException {
-        Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
+    private Button viewFormsButton, submissionButton;
 
     @FXML
     public void setDisplayToApplicationStatusForApplicant() throws IOException{

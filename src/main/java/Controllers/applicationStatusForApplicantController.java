@@ -21,24 +21,13 @@ import java.util.ArrayList;
  * Created by DanielKim on 4/16/2017.
  */
 public class applicationStatusForApplicantController extends UIController{
-    @FXML
-    private Button back_button;
+
     @FXML
     private Label errorLabel;
     @FXML
     private TableView resultsTable;
 
     private DBManager db = new DBManager();
-
-    @FXML
-    public void setDisplayToApplicantMainPage() throws IOException {
-        Stage stage;
-        stage = (Stage) back_button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @FXML
     private void setDisplayToRevisionsMenu(Form form) {
