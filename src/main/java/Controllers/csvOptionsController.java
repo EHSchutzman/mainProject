@@ -29,6 +29,8 @@ public class csvOptionsController extends UIController{
 
     private ObservableList<AppRecord> observableList;
 
+    private DBManager manager = new DBManager();
+
 
     /**
      * Use function upon initialization to pass a list of forms to the CSV controller
@@ -39,9 +41,11 @@ public class csvOptionsController extends UIController{
         this.observableList = listOfForms;
     }
 
+    /**
+     * Function makes a csv file out of observable list in this controller.
+     */
     @FXML
     public void makeCSV() {
-        DBManager manager = new DBManager();
         manager.generateCSV(observableList, ",", ".csv");
         try {
             displayConfirmationMessage();
@@ -50,9 +54,11 @@ public class csvOptionsController extends UIController{
         }
     }
 
+    /**
+     * Function makes a tab delimited format text file out of observable list in this controller.
+     */
     @FXML
     public void makeTab() {
-        DBManager manager = new DBManager();
         manager.generateCSV(observableList, "\t", ".txt");
         try {
             displayConfirmationMessage();
@@ -62,11 +68,10 @@ public class csvOptionsController extends UIController{
     }
 
     /**
-     * Function
+     * Function passes a parameter from the fxml file and sets the delimiter to this character, then exports text file.
      */
     @FXML
     public void makeUserSpecified() {
-        DBManager manager = new DBManager();
         String separator = user_specified_value_text.getText();
         manager.generateCSV(observableList, separator, ".txt");
         try {
