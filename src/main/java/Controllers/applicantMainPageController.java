@@ -43,5 +43,6 @@ public class applicantMainPageController extends UIController{
         stage.show();
         iter2applicationController controller = loader.getController();
         controller.init(super.main);
+        controller.initializeComboBox();
     }
 }

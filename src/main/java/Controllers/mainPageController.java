@@ -17,7 +17,7 @@ import java.io.IOException;
 public class mainPageController extends UIController {
 
     @FXML
-    private Button loginButton;
+    private Button loginButton; // This is a different loginButton from UIController's? double check
     @FXML
     private Hyperlink aboutLink;
 
