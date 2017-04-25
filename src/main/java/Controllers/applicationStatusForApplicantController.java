@@ -1,5 +1,6 @@
 package Controllers;
 
+import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
 import Form.Form;
 import DBManager.DBManager;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,24 +20,20 @@ import java.util.ArrayList;
 /**
  * Created by DanielKim on 4/16/2017.
  */
-public class applicationStatusForApplicantController {
+public class applicationStatusForApplicantController extends UIController{
     @FXML
-    private Button backButton;
-    @FXML
-    private Button logoutButton;
+    private Button back_button;
     @FXML
     private Label errorLabel;
     @FXML
     private TableView resultsTable;
 
     private DBManager db = new DBManager();
-    private Form viewForm;
-    private Stage primaryStage;
 
     @FXML
     public void setDisplayToApplicantMainPage() throws IOException {
         Stage stage;
-        stage = (Stage) backButton.getScene().getWindow();
+        stage = (Stage) back_button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -43,47 +41,45 @@ public class applicationStatusForApplicantController {
     }
 
     @FXML
-    public void logoutAction() throws IOException {
-        //TODO: logout user first
-        Stage stage;
-        stage = (Stage) logoutButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
+    private void setDisplayToRevisionsMenu(Form form) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
+            AnchorPane newWindow = loader.load();
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            revisionsMenuController controller = loader.getController();
+            controller.init(super.main);
+            controller.createRevisionsMenu(form,main);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void displayApplicantResults() {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPageController"));
-        loginPageController lpc = loader.<loginPageController>getController();
-        User user = lpc.getUser();
-
-        ObservableList<AppRecord> olAR = FXCollections.observableArrayList();
-        System.out.println(user.getAuthenticationLevel());
-        //olAR = db.findForms(user);
-        System.out.println(olAR);
-        // Query for batch
-        // Display batch in table
+    public void initApplicationStatusTableView(){
+        ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
+        olAR = db.findForms(main.userData.getUserInformation());
         resultsTable.setItems(olAR);
+        resultsTable.refresh();
 
-        // This block monitors the user's interaction with the tableview,
-        //  determining when they double-click a row
         resultsTable.setRowFactory(tv -> {
-            TableRow<AppRecord> row = new TableRow<>();
-
-            // Open application if row double-clicked
+            TableRow<AgentRecord> row = new TableRow<>();
+            // Open window if row double-clicked
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    AppRecord rowData = row.getItem();
-
+                    AgentRecord rowData = row.getItem();
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
-
-                    // Get form from DB using selected row's ID
+                    // Get form form DB using selected row's ID
                     try {
-                        viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
+                        Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
+                        // Open selected form in new window
+                        setDisplayToRevisionsMenu(viewForm);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -91,20 +87,5 @@ public class applicationStatusForApplicantController {
             });
             return row;
         });
-    }
-
-    @FXML
-    public void setDisplayToReviseApplication() throws IOException {
-        //TODO: logout user first
-        Stage stage;
-        stage = (Stage) logoutButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public Form getForm(){
-        return viewForm;
     }
 }

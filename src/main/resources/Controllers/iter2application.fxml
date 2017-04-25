@@ -79,19 +79,19 @@
         <TextField fx:id="ph_level_text" layoutX="1128.0" layoutY="448.0" promptText="pH Level" />
         <TextField fx:id="grape_varietals_text" layoutX="1128.0" layoutY="481.0" promptText="Grape Varietal(s)" />
         <TextField fx:id="wine_appellation_text" layoutX="1128.0" layoutY="521.0" promptText="Wine Appellation" />
-        <Button fx:id="browse_button" layoutX="460.0" layoutY="829.0" mnemonicParsing="false" onMouseClicked="#browseForFile" text="Browse for Image">
+        <Button fx:id="browse_button" layoutX="100.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#browseForFile" text="Browse for Image">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
         <ImageView fx:id="label_image" fitHeight="250.0" fitWidth="600.0" layoutX="668.0" layoutY="608.0" pickOnBounds="true" preserveRatio="true" />
-        <TextField fx:id="signature_text" layoutX="1050.0" layoutY="900.0" promptText="Electronic Signature" />
-        <Button fx:id="submit_button" layoutX="1290.0" layoutY="829.0" mnemonicParsing="false"
+        <TextField fx:id="signature_text" layoutX="100.0" layoutY="200.0" promptText="Electronic Signature" />
+        <Button fx:id="submit_button" layoutX="100.0" layoutY="100.0" mnemonicParsing="false"
                 onMouseClicked="#submitForm" text="Submit">
          <font>
             <Font size="18.0" />
          </font></Button>
-        <Button fx:id="closeButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#closeWindow"
+        <Button fx:id="back_button" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicantMain"
                 text="Back">
             <font>
             <Font size="18.0" />

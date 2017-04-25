@@ -164,6 +164,7 @@ public class DBManager {
 
             stmt.close();
             connection.close();
+            System.out.println("Form persisted");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

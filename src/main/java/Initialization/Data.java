@@ -15,6 +15,7 @@ public class Data {
     public ArrayList<Form> listOfForms; //unique for each user (agent or applicant)
     public Form form = new Form();
     public ObservableList<AppRecord> observableList;
+    public ArrayList<Boolean> boolArray;
 
 
 
@@ -80,5 +81,13 @@ public class Data {
 
     public void setForm(Form form) {
         this.form = form;
+    }
+
+    public void setBoolArray(ArrayList<Boolean> boolArray){
+        this.boolArray = boolArray;
+    }
+
+    public ArrayList<Boolean> getBoolArray(){
+        return boolArray;
     }
 }
