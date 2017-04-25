@@ -37,13 +37,23 @@ public class searchResultsPageController extends UIController{
     //@FXML
     //protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
 
-    //TODO Find out what people want for the goofy wacky and zany COLA search page
+    // TODO:Replace this with returnToMain???
+    @FXML
+    public void returnToSearch() throws IOException {
+        Stage stage;
+        stage = (Stage) return_to_search.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("searchPage.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    @FXML
+    public void returnToMainPage() throws IOException{
+        super.returnToMainPage();
+    }
 
-    /**
-     * This function opens a pop up for the CSV display
-     * @throws Exception
-     */
     @FXML
     public void displayCSVOptionsPage() throws Exception {
         try {
@@ -65,10 +75,6 @@ public class searchResultsPageController extends UIController{
         }
     }
 
-    /**
-     * Function handles all the searching functionality
-     * @return
-     */
     @FXML
     ObservableList<AppRecord> handleInlineSearch() {
         try {
