@@ -78,12 +78,13 @@
                 <Label layoutX="628.0" layoutY="500.0" text="Show any Information that is Blown Branded, " />
                 <Label layoutX="628.0" layoutY="521.0" text="Or Embossed on the Container Only if " />
                 <Label layoutX="628.0" layoutY="542.0" text="It Does NOT Appear on the Labels Affixed Below " />
-                <TextField layoutX="644.0" layoutY="906.0" prefHeight="31.0" prefWidth="303.0" promptText="Signature (Required)" />
-                <Label layoutX="573.0" layoutY="911.0" text="Signature" />
+                <TextField layoutX="640.0" layoutY="878.0" prefHeight="31.0" prefWidth="303.0" promptText="Signature (Required)" />
+                <Label layoutX="569.0" layoutY="883.0" text="Signature" />
                 <Label layoutX="31.0" layoutY="507.0" text="Vintage Year" />
                 <TextField layoutX="154.0" layoutY="502.0" prefHeight="31.0" prefWidth="237.0" promptText="Vintage Year" />
                 <Label layoutX="34.0" layoutY="545.0" text="PH Level" />
                 <TextField layoutX="154.0" layoutY="540.0" prefHeight="31.0" prefWidth="237.0" promptText="PH Level (Required)" />
+            <Button layoutX="568.0" layoutY="924.0" mnemonicParsing="false" text="Submit" />
             </children></AnchorPane>
     </content>
 </ScrollPane>
