@@ -25,15 +25,16 @@ import java.util.List;
 
 /**
  * Status: needs review.
- * TODO: change about link to button? - have a function setDisplayToAboutPage in UIController
+ * TODO: do all TODOs
  */
 public class mainPageController extends UIController {
     public ArrayList<ImageView> imageArrayList = new ArrayList<>();
     public int count = 0;
 
     @FXML
-    private Button loginButton; // This is a different loginButton from UIController's? double check
     private HBox imagebox;
+    @FXML
+    private Button loginButton, searchButton;
     @FXML
     private Hyperlink aboutLink;
 
@@ -55,11 +56,28 @@ public class mainPageController extends UIController {
     }
 
     /**
+     * Redirects to searchResultsPage.fxml TODO: make sure this is correct
+     * @throws IOException - throws exception
+     */
+    @FXML
+    private void setDisplayToSearchPage() throws IOException{
+        Stage stage;
+        stage=(Stage) searchButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+        searchResultsPageController controller = loader.getController();
+        controller.init(super.main);
+        controller.initApplicationTableView();
+    }
+
+    /**
      * Redirects to aboutPage.fxml
      * @throws IOException - throws exception
      */
     @FXML
-    private void setDisplayToAboutPageTemp() throws IOException{
+    private void setDisplayToAboutPage() throws IOException{
         Stage stage;
         Parent root;
         stage=(Stage) aboutLink.getScene().getWindow();
