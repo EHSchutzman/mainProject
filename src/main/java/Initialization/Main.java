@@ -18,12 +18,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -37,30 +42,53 @@ public class Main extends Application {
     public Data userData = new Data(new User());
     private Stage primaryStage;
     private AnchorPane rootLayout;
+    public static BorderPane root = new BorderPane();
+
+    public BorderPane getBorderPane(){
+        return root;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
+    public AnchorPane getMenuBar() throws IOException{
+        URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
+        AnchorPane menuBar = FXMLLoader.load(menuBarURL);
+        return menuBar;
+    }
 
     public void initRootLayout() {
         try {
+
+            AnchorPane menuBar = getMenuBar();
+
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
-            //System.out.println(loader.getLocation().getPath());
-            rootLayout = loader.load();
+            System.out.println(loader.getLocation());
+            ScrollPane root = loader.load();
+            AnchorPane anchorPane = new AnchorPane(root);
+            //root.setStyle("-fx-background-color: #ffffff;");
+            //anchorPane.setStyle("-fx-background-color: #ffffff;");
+
             // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout, 1000, 500);
-            scene.getStylesheets().add(getClass().getResource("../Controllers/style.css").toExternalForm());
-            primaryStage.setScene(scene);
+            primaryStage.setScene(new Scene(anchorPane));
+            primaryStage.setFullScreen(false);
+            //scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
+
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
             primaryStage.show();
             // initialize mainPageController
             mainPageController controller = loader.getController();
             controller.init(this);
+            controller.initSlideshow();
+            controller.startAnimation();
+            primaryStage.show();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -570,7 +598,7 @@ public class Main extends Application {
     public void setDisplayToSuperAgentMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("superAgentInitialPage.fxml"));
+            loader.setLocation(getClass().getResource("superAgentMainPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Super Agent Main");
             primaryStage.getScene().setRoot(page);
