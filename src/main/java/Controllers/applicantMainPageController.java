@@ -5,9 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Status: mostly done, needs some work.
@@ -34,15 +38,23 @@ public class applicantMainPageController extends UIController{
 
     @FXML
     public void setDisplayToIter2application() throws IOException{
+
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("iter2application.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+        BorderPane root = super.main.getBorderPane();
+
+        URL iter2applicationURL = getClass().getResource("iter2application.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        ScrollPane pane = loader.load(iter2applicationURL);
+        root.setTop(main.getMenuBar());
+        root.setBottom(pane);
+
+        Scene scene = root.getScene();
+        stage.setScene(root.getScene());
         stage.show();
         iter2applicationController controller = loader.getController();
         controller.init(super.main);
+
         controller.initializeComboBox();
     }
 }
