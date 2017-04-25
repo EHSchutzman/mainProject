@@ -18,12 +18,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -37,22 +39,38 @@ public class Main extends Application {
     public Data userData = new Data(new User());
     private Stage primaryStage;
     private AnchorPane rootLayout;
+    public static BorderPane root = new BorderPane();
+
+    public BorderPane getBorderPane(){
+        return root;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
+    public AnchorPane getMenuBar() throws IOException{
+        URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
+        AnchorPane menuBar = FXMLLoader.load(menuBarURL);
+        return menuBar;
+    }
 
     public void initRootLayout() {
         try {
+
+            AnchorPane menuBar = getMenuBar();
+
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
             //System.out.println(loader.getLocation().getPath());
             rootLayout = loader.load();
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout, 1000, 500);
+            Scene scene = new Scene(root, 1000, 2000);
+
+
+            root.setTop(menuBar);
+            root.setBottom(rootLayout);
             scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
             primaryStage.setScene(scene);
             // Debugger works better when full screen is off
