@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.agentApplicationReviewController">
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.agentApplicationReviewController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -61,20 +65,17 @@
                 <Font size="14.0" />
             </font>
         </TextArea>
-        <Button fx:id="accept_button" layoutX="708.0" layoutY="895.0" mnemonicParsing="false" text="Accept"
-                onMouseClicked="#acceptApplication">
+        <Button fx:id="acceptButton" layoutX="708.0" layoutY="895.0" mnemonicParsing="false" onMouseClicked="#acceptAction" text="Accept">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button fx:id="reject_button" layoutX="957.0" layoutY="898.0" mnemonicParsing="false"
-                onMouseClicked="#rejectApplication" text="Reject">
+        <Button fx:id="rejectButton" layoutX="957.0" layoutY="898.0" mnemonicParsing="false" onMouseClicked="#rejectAction" text="Reject">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button fx:id="closeButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#closeWindow"
-                text="Back">
+        <Button fx:id="backButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#closeWindow" text="Back">
             <font>
                 <Font size="18.0" />
             </font></Button>
