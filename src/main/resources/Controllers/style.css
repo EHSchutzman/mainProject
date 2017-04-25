@@ -51,3 +51,35 @@ Rectangle {
 #anchor {
     -fx-background-color: #e6e6e6;
 }
+
+/* MenuBar stuff */
+
+#menuBarTitleRec, #menuBarButtonRec {
+    -fx-fill: #003A6C;
+    -fx-text-fill: #FFFFFF;
+}
+
+#pageTitle {
+    -fx-fill: #FFFFFF;
+}
+
+#menuBarSearchField {
+    -fx-background-color: #003A6C;
+    -fx-fill: #FFFFFF;
+}
+
+.menuButton {
+    -fx-border-style: none;
+    -fx-background-color: #003A6C;
+    -fx-padding: 0;
+    -fx-start-margin: 0;
+    -fx-end-margin: 0;
+    -fx-pref-height: 50px;
+    -fx-pref-width: 125px;
+    -fx-translate-y: -10px;
+    -fx-translate-x: -15px;
+}
+
+#menuPane > children > Label, #text {
+    -fx-text-fill: #FFFFFF;
+}
