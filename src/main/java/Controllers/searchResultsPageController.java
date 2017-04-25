@@ -23,37 +23,32 @@ public class searchResultsPageController extends UIController{
     private DBManager db = new DBManager();
     protected String search;
 
+    private ObservableList<AppRecord> observableList;
+
     @FXML
     public TableView<AppRecord> resultsTable;
-    @FXML
-    private Button return_to_search;
-    @FXML
-    private Button generate_csv_button; //TODO: make sure this works! naming convention!
     @FXML
     private TextField search_box;
     @FXML
     private CheckBox malt_beverage_checkbox, wine_checkbox, distilled_spirit_checkbox;
 
-    //@FXML
-    //protected void handleInlineSearch() throws SQLException {searchInlineCriteria();}
-
-    // TODO:Replace this with returnToMain???
-    @FXML
-    public void returnToSearch() throws IOException {
+    //TODO Find out what people want for the goofy wacky and zany COLA search page
+    public void displaySearchPage() throws IOException{
         Stage stage;
-        stage = (Stage) return_to_search.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("searchPage.fxml"));
+        stage=(Stage) loginButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
+        System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        searchPageController controller = loader.getController();
+        controller.init(super.main);
     }
 
-    @FXML
-    public void returnToMainPage() throws IOException{
-        super.returnToMainPage();
-    }
-
+    /**
+     * This function opens a pop up for the CSV display
+     * @throws Exception
+     */
     @FXML
     public void displayCSVOptionsPage() throws Exception {
         try {
@@ -68,13 +63,20 @@ public class searchResultsPageController extends UIController{
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
             stage.show();
+
             csvOptionsController controller = loader.getController();
             controller.init(super.main);
+            controller.passListOfForms(observableList); //use passListOfForms to give the list of forms to the csv generator.
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Function handles all the searching functionality
+     * @return
+     */
     @FXML
     ObservableList<AppRecord> handleInlineSearch() {
         try {
@@ -104,13 +106,24 @@ public class searchResultsPageController extends UIController{
             ObservableList<AppRecord> array = db.findLabels(searchParams, params);
             resultsTable.setItems(array);
             resultsTable.refresh();
+
+            observableList = array;
             return array;
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
+
+            observableList = null;
             return null;
         }
     }
+
+    /**
+     * Function displays a new window for viewing an approved form, passed a form object from double click on row.
+     * TODO Make sure that the function complies with new UI and things.
+     * @param form
+     */
 
      private void displayApprovedLabel(Form form) {
         try {

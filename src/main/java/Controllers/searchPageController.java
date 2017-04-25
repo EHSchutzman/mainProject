@@ -14,9 +14,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Created by Anthony on 4/20/2017.
+ * Status: needs work.
+ * TODO: this is currently not used anywhere. May need to move this to searchResultsPageController
+ * TODO: - once advanced options are created in UI
  */
-public class searchPageController {
+public class searchPageController extends UIController{
 
     //VARIABLES FOR SEARCH CRITERIA:
     //Date info

@@ -17,6 +17,7 @@ import java.io.IOException;
 /**
  * Status: incomplete.
  * TODO: clean code, WARNINGS, doxygen
+ * TODO: don't allow creation of agents/superagents?
  */
 public class createUserController extends UIController{
 
@@ -24,7 +25,7 @@ public class createUserController extends UIController{
     private TextField username, password, firstName, middleInitial, lastName, email, phoneNo;
     @FXML
     private ComboBox<String> authentication;
-    private ObservableList<String> user_types = FXCollections.observableArrayList("User","Agent","Applicant","SuperAgent");
+    private ObservableList<String> user_types = FXCollections.observableArrayList("User","Applicant","Agent","SuperAgent");
     @FXML
     public Label errorLabel;
 
@@ -33,7 +34,10 @@ public class createUserController extends UIController{
     /**
      * Initialize the authentication combo box
      */
-    void initializeComboBox() {authentication.getItems().addAll(user_types);}
+    void initializeComboBox() {
+        authentication.setItems(user_types);
+        authentication.setValue("User");
+    }
 
     @FXML
     public void createUserAction() throws IOException{
@@ -41,25 +45,23 @@ public class createUserController extends UIController{
         String loginNameText = username.getText();
         String passwordText = password.getText();
         String phoneNum = phoneNo.getText();
-        String firstName = this.firstName.getText();
+        String firstNameText = firstName.getText();
         String middleIn = middleInitial.getText();
-        String lastname = lastName.getText();
+        String lastNameText = lastName.getText();
         String combo = authentication.getValue();
 
-        int authLvl;
-        if (combo.equals("User")) {
-            authLvl = 0;
-        } else if (combo.equals("Applicant")) {
-            authLvl = 1;
-        } else if (combo.equals("Agent")) {
-            authLvl = 2;
-        } else {
-            authLvl = 3;
+        int authLvl = 0;
+        switch (combo) {
+            case "User": authLvl = 0; break;
+            case "Applicant": authLvl = 1; break;
+            case "Agent": authLvl = 2; break;
+            case "SuperAgent": authLvl = 3; break;
+            default: errorLabel.setText("An error occurred with the authentication level"); break;
         }
 
-        isAuthentic.createUser(firstName, middleIn, lastname, loginNameText, passwordText, emailText, phoneNum, authLvl);
+        isAuthentic.createUser(firstNameText, middleIn, lastNameText, loginNameText, passwordText, emailText, phoneNum, authLvl);
         try {
-            setDisplayToMainPage();
+            setDisplayToMainPage(); //TODO: maybe replace with returnToMainPage?
         } catch (Exception e) {
             e.printStackTrace();
         }
