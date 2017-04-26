@@ -15,25 +15,24 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Status: incomplete.
- * TODO: clean code, make sure there are no WARNINGS, rename Buttons, add Doxygen comments
+ * Status: complete, needs review.
+ * TODO: clean code, make sure there are no WARNINGS, add Doxygen comments
  */
 public class searchResultsPageController extends UIController{
-
-    private DBManager db = new DBManager();
-    protected String search;
-
-    private ObservableList<AppRecord> observableList;
 
     @FXML
     public TableView<AppRecord> resultsTable;
     @FXML
-    private TextField search_box;
+    private TextField searchBox;
     @FXML
-    private CheckBox malt_beverage_checkbox, wine_checkbox, distilled_spirit_checkbox;
+    private CheckBox maltBeverageCheckbox, wineCheckbox, distilledSpiritsCheckbox;
 
+    private DBManager dbManager = new DBManager();
+    private ObservableList<AppRecord> observableList;
+
+    // Remove this later?
     //TODO Find out what people want for the goofy wacky and zany COLA search page
-    public void displaySearchPage() throws IOException{
+    /*public void displaySearchPage() throws IOException{
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
@@ -43,14 +42,14 @@ public class searchResultsPageController extends UIController{
         stage.show();
         searchPageController controller = loader.getController();
         controller.init(super.main);
-    }
+    }*/
 
     /**
-     * This function opens a pop up for the CSV display
-     * @throws Exception
+     * This function opens a pop up for the CSV options
+     * @throws Exception - throws exception
      */
     @FXML
-    public void displayCSVOptionsPage() throws Exception {
+    public void displayCSVOptions() throws Exception {
         try {
             Stage stage = new Stage();
             stage.setTitle("CSV Options");
@@ -63,11 +62,10 @@ public class searchResultsPageController extends UIController{
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
             stage.show();
-
             csvOptionsController controller = loader.getController();
             controller.init(super.main);
-            controller.passListOfForms(observableList); //use passListOfForms to give the list of forms to the csv generator.
-
+            //use passListOfForms to give the list of forms to the csv generator.
+            controller.passListOfForms(observableList);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,16 +73,16 @@ public class searchResultsPageController extends UIController{
 
     /**
      * Function handles all the searching functionality
-     * @return
+     * @return - returns an ObservableList of AppRecords to be displayed in the table view
      */
     @FXML
-    ObservableList<AppRecord> handleInlineSearch() {
+    ObservableList<AppRecord> getSearchResults() {
         try {
             //Set all variables equal to input data
-            search = search_box.getText();
-            boolean isMalt = malt_beverage_checkbox.isSelected();
-            boolean isSpirit = distilled_spirit_checkbox.isSelected();
-            boolean isWine = wine_checkbox.isSelected();
+            String search = searchBox.getText();
+            boolean isMalt = maltBeverageCheckbox.isSelected();
+            boolean isSpirit = distilledSpiritsCheckbox.isSelected();
+            boolean isWine = wineCheckbox.isSelected();
             String params = " WHERE STATUS = 'Accepted' AND";
             if (isMalt || isSpirit || isWine) {
                 params += " (ALCOHOL_TYPE = ";
@@ -103,17 +101,14 @@ public class searchResultsPageController extends UIController{
                         "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + search + "%'))";
             }
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
-            ObservableList<AppRecord> array = db.findLabels(searchParams, params);
+            ObservableList<AppRecord> array = dbManager.findLabels(searchParams, params);
             resultsTable.setItems(array);
             resultsTable.refresh();
-
             observableList = array;
             return array;
-
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
-
             observableList = null;
             return null;
         }
@@ -122,10 +117,9 @@ public class searchResultsPageController extends UIController{
     /**
      * Function displays a new window for viewing an approved form, passed a form object from double click on row.
      * TODO Make sure that the function complies with new UI and things.
-     * @param form
+     * @param form - form to view
      */
-
-     private void displayApprovedLabel(Form form) {
+     private void displayInspectApprovedLabel(Form form) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -138,6 +132,7 @@ public class searchResultsPageController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             inspectApprovedLabelController controller = loader.getController();
+            controller.init(super.main);
             controller.setForm(form);
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,9 +154,9 @@ public class searchResultsPageController extends UIController{
                     fieldList.add("*");
                     // Get form form DB using selected row's ID
                     try {
-                        Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
+                        Form viewForm = dbManager.findSingleForm(rowData.getFormID(), fieldList);
                         // Open selected form in new window
-                        displayApprovedLabel(viewForm);
+                        displayInspectApprovedLabel(viewForm);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

@@ -16,12 +16,13 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 /**
- * Created by Anthony on 4/18/2017.
+ * Status: incomplete, needs work.
+ * TODO: make sure revisions checkboxes allow editable fields
  */
 public class reviseApplicationController extends UIController{
 
     @FXML
-    public Button back_button;
+    private Button back_button;
     @FXML
     public Button browse_button;
     @FXML
@@ -198,7 +199,11 @@ public class reviseApplicationController extends UIController{
 
         db.updateForm(updatedForm);
         System.out.println(form.getttb_id());
-        close_window();
+        try {
+            super.closeWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createReviseForm(Form form, ArrayList<Boolean> booleanArrayList) {
@@ -357,12 +362,4 @@ public class reviseApplicationController extends UIController{
         this.form = form;
     }
 
-    @FXML
-    public void close_window() {
-
-        // Close the window
-        Stage stage = (Stage) close_button.getScene().getWindow();
-        stage.close();
-
-    }
 }

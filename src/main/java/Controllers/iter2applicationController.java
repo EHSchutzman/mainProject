@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 /**
+ * Status: incomplete, needs fixing.
+ * TODO: need to make menu bar work first!
  * TODO: make this a popup?
  * TODO: no closeButton in fxml - no need to make it in this controller
  * TODO: - just make the onMouseClick = "closeWindow" and it will work! (UIController rocks!)
@@ -138,31 +140,26 @@ public class iter2applicationController extends UIController{
     private loginPageController lpc = new loginPageController();
     private Form form = new Form();
 
-    public void initializeComboBox() {
+    void initializeComboBox() {
         source_combobox.setItems(FXCollections.observableArrayList("Domestic", "Imported"));
         alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
     }
 
     public void createApplicantForm() {
-
         form.setttb_id(form.makeUniqueID());
         form.setrep_id(rep_id_text.getText());
         form.setpermit_no(permit_no_text.getText());
         form.setserial_no(serial_no_text.getText());
-
         // Initialize Source ChoiceBox and get value
         form.setSource(source_combobox.getValue().toString());
-
         // Initialize Alcohol Type ChoiceBox, get and set value
         form.setalcohol_type(alcohol_type_combobox.getValue().toString());
-
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
         option_1_checkbox = new CheckBox("Certificate of Label Approval");
         option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");
         option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
         option_4_checkbox = new CheckBox("Resubmission After Rejection");
-
         // Determine which checkboxes were selected
         // Make a temporary array to store the boolean values set them to the Form object, same with string array
         ArrayList<Boolean> tempBoolArray = form.getapplication_type();
@@ -181,7 +178,6 @@ public class iter2applicationController extends UIController{
         }
         form.setapplication_type(tempBoolArray);
         form.setapplication_type_text(tempStrArray);
-
         form.setbrand_name(brand_name_text.getText());
         form.setfanciful_name(fanciful_name_text.getText());
         //form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
@@ -192,13 +188,11 @@ public class iter2applicationController extends UIController{
         //form.setpH_level(Integer.parseInt(ph_level_text.getText()));
         form.setgrape_varietals(grape_varietals_text.getText());
         form.setwine_appellation(wine_appellation_text.getText());
-
         form.setapplicant_street(applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
         form.setapplicant_city(applicant_city_text.getText());
         form.setapplicant_state(applicant_state_text.getText());
         form.setapplicant_zip(applicant_zip_text.getText());
         form.setapplicant_country(applicant_country_text.getText());
-
         if (sameAsApplicantButton.isSelected()) {
             form.setmailing_address(form.getapplicant_street() + " " +
                     form.getapplicant_city() + " " + form.getapplicant_state() +
@@ -206,7 +200,6 @@ public class iter2applicationController extends UIController{
         } else {
             form.setmailing_address(mailing_addressText.getText());
         }
-
         form.setSignature(signature_text.getText());
         form.setphone_no(phone_no_text.getText());
         form.setEmail(email_text.getText());
@@ -216,7 +209,6 @@ public class iter2applicationController extends UIController{
     public void submitForm() throws IOException{
         createApplicantForm();
         int pH_level = 7;
-
 /*        if (rep_id_text.getText() == null) {
             errorLabel.setText("Please Fill in all fields");
             return;
