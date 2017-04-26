@@ -537,7 +537,7 @@ public class FormController {
         }
         if (booleanArrayList.get(6) == true && form.getalcohol_type().equals("Wine")) {
             ph_level_text.setDisable(false);
-            //ph_level_text.setEditable(true);
+            //phLevel.setEditable(true);
 
         }
         if (booleanArrayList.get(7) == true) {

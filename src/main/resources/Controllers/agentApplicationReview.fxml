@@ -75,18 +75,24 @@
                 <TextArea layoutX="26.0" layoutY="842.0" prefHeight="124.0" prefWidth="493.0" />
                 <Label layoutX="26.0" layoutY="813.0" text="Name and Address of Applicant Shown on Basic Permit, or Brewer's Notice" />
                 <ImageView fitHeight="407.0" fitWidth="344.0" layoutX="624.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
-                <TextArea layoutX="620.0" layoutY="457.0" prefHeight="264.0" prefWidth="352.0" />
-                <TextField layoutX="651.0" layoutY="767.0" prefHeight="31.0" prefWidth="303.0" promptText="Signature (Required)" />
-                <Label layoutX="580.0" layoutY="772.0" text="Signature" />
+                <TextArea layoutX="628.0" layoutY="565.0" prefHeight="264.0" prefWidth="352.0" />
+                <Group layoutX="628.0" layoutY="500.0">
+                    <children>
+                        <Label text="Show any Information that is Blown Branded, " />
+                        <Label layoutY="21.0" text="Or Embossed on the Container Only if " />
+                        <Label layoutY="42.0" text="It Does NOT Appear on the Labels Affixed Below " />
+                    </children>
+                </Group>
+                <TextField layoutX="649.0" layoutY="850.0" prefHeight="31.0" prefWidth="303.0" promptText="Signature (Required)" />
+                <Label layoutX="578.0" layoutY="855.0" text="Signature" />
                 <TextField layoutX="414.0" layoutY="295.0" promptText="Alcohol Source" />
                 <Label layoutX="356.0" layoutY="300.0" text="Source" />
                 <TextField layoutX="416.0" layoutY="256.0" promptText="Alcohol Type" />
                 <Label layoutX="355.0" layoutY="261.0" text="Type" />
-            <Label layoutX="619.0" layoutY="426.0" text="Commments:" />
-            <Button layoutX="612.0" layoutY="842.0" mnemonicParsing="false" text="Accept" />
-            <Button layoutX="707.0" layoutY="842.0" mnemonicParsing="false" text="Reject" />
-            <Button layoutX="796.0" layoutY="842.0" mnemonicParsing="false" text="Accept w/ Conditions" />
-            <Button layoutX="612.0" layoutY="904.0" mnemonicParsing="false" text="Forward" />
+                <Button layoutX="628.0" layoutY="896.0" mnemonicParsing="false" text="Accept" />
+                <Button layoutX="725.0" layoutY="896.0" mnemonicParsing="false" text="Reject" />
+                <Button layoutX="624.0" layoutY="935.0" mnemonicParsing="false" text="Forward" />
+                <Button layoutX="723.0" layoutY="935.0" mnemonicParsing="false" text="Accept With Conditions" />
             </children></AnchorPane>
     </content>
 </ScrollPane>
