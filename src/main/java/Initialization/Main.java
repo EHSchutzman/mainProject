@@ -59,21 +59,25 @@ public class Main extends Application {
     public void initRootLayout() {
         try {
             AnchorPane menuBar = getMenuBar();
+            BorderPane border = getBorderPane();
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
-            //System.out.println(loader.getLocation().getPath());
-            rootLayout = loader.load();
-            Scene scene = new Scene(root, 1000, 2000);
-            root.setTop(menuBar);
-            root.setBottom(rootLayout);
-            primaryStage.setScene(scene);
+            System.out.println(loader.getLocation().getPath());
+
+            ScrollPane pane = loader.load();
+            Scene scene = new Scene(border, 1000, 1000); //for some reason, if i delete this line it will not work
+            border.setTop(menuBar);
+            border.setCenter(pane);
+            primaryStage.setScene(border.getScene());
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
-            primaryStage.show();
-            // initialize mainPageController
             mainPageController controller = loader.getController();
+            controller.initSlideshow();
+            controller.startAnimation();
             controller.init(this);
+            primaryStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

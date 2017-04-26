@@ -35,13 +35,13 @@ public abstract class UIController {
     @FXML
     public void init(Main main) {
         this.main = main;
-        if(currentUserLabel != null) {
+        /*if(currentUserLabel != null) {
             if (main.userData == null || main.userData.getUserInformation().getUid() == null) {
                 currentUserLabel.setText("Not Logged In");
             } else {
                 currentUserLabel.setText(main.userData.getUserInformation().getUsername());
             }
-        }
+        }*/
     }
 
     /**
