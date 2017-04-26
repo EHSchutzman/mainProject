@@ -298,7 +298,7 @@ public class FormController {
 
         //TODO reference actual applicant search below, if need be
 
-        //main.userData.tempForm.setApplicantID(applicant_nameText.getText());
+        //mainData.userData.tempForm.setApplicantID(applicant_nameText.getText());
 
 
         /*
@@ -310,8 +310,8 @@ public class FormController {
 
     public void createAgentForm(Form form) {
         //TODO pull the applicant search from the DB
-        //System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
-        //System.out.println(main.userData.getUserInformation().getUsername());
+        //System.out.println(mainData.userData.getUserInformation().getAuthenticationLevel());
+        //System.out.println(mainData.userData.getUserInformation().getUsername());
         User currentUser = DBManager.findUser("user_id = \'" + form.getapplicant_id() + "\'");
         String name = currentUser.getFirstName() + " " + currentUser.getMiddleInitial() + " " + " " + currentUser.getLastName();
         applicant_name_text.setText(name);
@@ -537,7 +537,7 @@ public class FormController {
         }
         if (booleanArrayList.get(6) == true && form.getalcohol_type().equals("Wine")) {
             ph_level_text.setDisable(false);
-            //ph_level_text.setEditable(true);
+            //phLevel.setEditable(true);
 
         }
         if (booleanArrayList.get(7) == true) {
@@ -978,7 +978,7 @@ public class FormController {
             } else if (main.userData.getUserInformation().getAuthenticationLevel() >= 2) {
                 //set display to list of applications to review
             } else {
-                //you are not supposed to be here as a guest user, return to main page
+                //you are not supposed to be here as a guest user, return to mainData page
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1144,8 +1144,8 @@ public class FormController {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
-        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);
-        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Controllers/images/" + newFileName);
+        File destInSys = new File(System.getProperty("user.dir") + "/src/mainData/resources/Controllers/images/" + newFileName);
+        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/mainData/Controllers/images/" + newFileName);
         System.out.println(destInSys.getAbsolutePath());
         File destForJar = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {

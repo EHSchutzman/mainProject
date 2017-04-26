@@ -76,7 +76,7 @@ public class SearchController {
     TextField searchBox;
 
     @FXML
-    // Handle a search - effectively a "main" function for our program
+    // Handle a search - effectively a "mainData" function for our program
     protected void handleSearch() throws SQLException {
 
         System.out.println("Handles search!");

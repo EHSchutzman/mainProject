@@ -53,7 +53,7 @@ public class loginPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         createUserController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
         controller.initializeComboBox();
     }
 
@@ -74,7 +74,7 @@ public class loginPageController extends UIController{
         // Redirect to correct page if valid using returnToMainPage() from UIController
         if(user.getUsername() != null && user.getUsername().equals(name)){
             try {
-               super.main.userData.setUserInformation(user);
+               super.mainData.userData.setUserInformation(user);
                super.returnToMainPage();
             } catch (IOException e){
                 e.printStackTrace();

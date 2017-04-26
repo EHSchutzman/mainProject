@@ -28,7 +28,7 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         applicationStatusForApplicantController controller = loader.getController();
-        controller.init(super.main);
+        controller.init(super.mainData);
     }
 
     @FXML
@@ -41,7 +41,7 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         superAgentSearchUsersController controller = loader.getController();
-        controller.init(super.main);
+        controller.init(super.mainData);
         controller.initUserAuthenticationChoiceBox();
         controller.displayResults();
     }
@@ -57,6 +57,6 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         superAgentCreateAgentController controller = loader.getController();
-        controller.init(super.main);
+        controller.init(super.mainData);
     }
 }

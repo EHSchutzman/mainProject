@@ -27,15 +27,15 @@ public abstract class UIController {
     @FXML
     protected Hyperlink aboutLink; //TODO: keep either button or link
 
-    protected Main main = new Main();
+    protected Main mainData = new Main();
 
     /**
-     * Initializes main
-     * @param main - main class to be passed through pages
+     * Initializes mainData
+     * @param main - mainData class to be passed through pages
      */
     @FXML
     public void init(Main main) {
-        this.main = main;
+        this.mainData = main;
         if(currentUserLabel != null) {
             if (main.userData == null || main.userData.getUserInformation().getUid() == null) {
                 currentUserLabel.setText("Not Logged In");
@@ -81,7 +81,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         searchResultsPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
         controller.initApplicationTableView();
     }
 
@@ -100,7 +100,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         aboutPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
     /**
@@ -118,9 +118,9 @@ public abstract class UIController {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        main.userData.setUserInformation(new User());
+        mainData.userData.setUserInformation(new User());
         mainPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
     /**
@@ -139,7 +139,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         defaultUserMainPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
     /**
@@ -158,7 +158,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         applicantMainPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
     /**
@@ -177,7 +177,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         agentMainPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
     /**
@@ -196,17 +196,17 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         superAgentMainPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
     /**
-     * Redirects to correct main page depending on authentication
+     * Redirects to correct mainData page depending on authentication
      * Login user if logging in from loginPage.fxml
      * @throws IOException - throws exception
      */
     @FXML
     protected void returnToMainPage() throws IOException {
-        int auth = main.userData.getUserInformation().getAuthenticationLevel();
+        int auth = mainData.userData.getUserInformation().getAuthenticationLevel();
         switch (auth) {
             case 0: setDisplayToDefaultUserMainPage(); break;
             case 1: setDisplayToApplicantMainPage(); break;
@@ -238,7 +238,7 @@ public abstract class UIController {
      */
     @FXML
     public void logoutAction() throws IOException{
-        main.userData.setUserInformation(new User());
+        mainData.userData.setUserInformation(new User());
         Stage stage;
         stage=(Stage) logoutButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
@@ -246,7 +246,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         mainPageController controller = loader.getController();
-        controller.init(main);
+        controller.init(mainData);
     }
 
 }
