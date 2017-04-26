@@ -2,9 +2,11 @@ package Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -52,16 +54,24 @@ public class applicantMainPageController extends UIController{
         BorderPane borderPane = main.getBorderPane();
 
         FXMLLoader loader = new FXMLLoader();
+        URL iter2URL = getClass().getResource("iter2application.fxml");
         loader.setLocation(getClass().getResource("iter2application.fxml"));
         //System.out.println(loader.getLocation().getPath());
-        AnchorPane anchorPane = loader.load();
+        ScrollPane scrollPane = loader.load(iter2URL);
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
         borderPane.setTop(main.getMenuBar());
-        borderPane.setBottom(anchorPane);
+        borderPane.setCenter(scrollPane);
         stage.show();
+        Parent root = (Parent) loader.load();
+        iter2applicationController controller = loader.getController();
+        System.out.println(controller);
+        super.init(super.main);
+
+
+
     }
 
     @FXML

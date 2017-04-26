@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -53,18 +52,12 @@ public class mainPageController extends UIController {
      */
     @FXML
     private void setDisplayToLoginPage() throws IOException{
-        BorderPane borderPane = main.getBorderPane();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("loginPage.fxml"));
-        //System.out.println(loader.getLocation().getPath());
-        AnchorPane anchorPane = loader.load();
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
-        Scene scene = borderPane.getScene();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("loginPage.fxml"));
+        System.out.println(loader.getLocation().getPath());
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
-        borderPane.setBottom(anchorPane);
         stage.show();
         loginPageController controller = loader.getController();
         controller.init(super.main);

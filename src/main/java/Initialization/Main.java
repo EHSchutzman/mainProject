@@ -14,13 +14,12 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -44,6 +43,7 @@ public class Main extends Application {
     private AnchorPane rootLayout;
     public static BorderPane root = new BorderPane();
     public BorderPane getBorderPane(){
+        root.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         return root;
     }
     @Override
@@ -54,6 +54,7 @@ public class Main extends Application {
     public AnchorPane getMenuBar() throws IOException{
         URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
         AnchorPane menuBar = FXMLLoader.load(menuBarURL);
+        menuBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         return menuBar;
     }
     public void initRootLayout() {
@@ -64,9 +65,10 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
             //System.out.println(loader.getLocation().getPath());
             rootLayout = loader.load();
+            rootLayout.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
             Scene scene = new Scene(root, 1000, 2000);
             root.setTop(menuBar);
-            root.setBottom(rootLayout);
+            root.setCenter(rootLayout);
             primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);

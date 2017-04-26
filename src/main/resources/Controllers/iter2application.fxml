@@ -63,7 +63,7 @@
                 <TextField fx:id="email" layoutX="431.0" layoutY="338.0" prefHeight="31.0" prefWidth="156.0"
                            promptText="Email Address"/>
                 <Label layoutX="326.0" layoutY="343.0" text="Email Address"/>
-                <Group layoutX="634.0" layoutY="240.0">
+                <Group fx:id="wineInfo" visible="false" layoutX="634.0" layoutY="240.0">
                     <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="232.0" stroke="BLACK"
                                    strokeType="INSIDE" width="356.0"/>
@@ -87,7 +87,7 @@
                     </children>
                 </Group>
                 <CheckBox fx:id="sameAsApplicantBox" layoutX="26.0" layoutY="774.0" mnemonicParsing="false"
-                          text="Check if Mailing Address is Different"/>
+                          text="Check if Mailing Address is Different" onMouseClicked="#showSecondAddress"/>
                 <ImageView fx:id="label_image" fitHeight="199.0" fitWidth="344.0" layoutX="637.0" layoutY="29.0"
                            pickOnBounds="true" preserveRatio="true"/>
                 <Button fx:id="browse_button" layoutX="477.0" layoutY="56.0" mnemonicParsing="false"
@@ -118,16 +118,16 @@
                 <Label layoutX="31.0" layoutY="702.0" text="Zipcode"/>
                 <Group layoutX="27.0" layoutY="795.0">
                     <children>
-                        <TextField fx:id="otherStreet" layoutX="66.0" promptText="Street"/>
-                        <TextField fx:id="otherCity" layoutX="66.0" layoutY="40.0" promptText="City"/>
-                        <TextField fx:id="otherState" layoutX="66.0" layoutY="81.0" promptText="State"/>
-                        <TextField fx:id="otherZip" layoutX="66.0" layoutY="124.0" promptText="Zipcode"/>
-                        <TextField fx:id="otherCountry" layoutX="66.0" layoutY="163.0" promptText="Country"/>
-                        <Label layoutX="5.0" layoutY="5.0" text="Street"/>
-                        <Label layoutX="9.0" layoutY="45.0" text="City"/>
-                        <Label layoutX="5.0" layoutY="86.0" text="State"/>
-                        <Label layoutY="168.0" text="Country"/>
-                        <Label layoutY="129.0" text="Zipcode"/>
+                        <TextField fx:id="otherStreet" layoutX="66.0" visible="false" promptText="Street"/>
+                        <TextField fx:id="otherCity" visible="false" layoutX="66.0" layoutY="40.0" promptText="City"/>
+                        <TextField fx:id="otherState" visible="false" layoutX="66.0" layoutY="81.0" promptText="State"/>
+                        <TextField fx:id="otherZip" visible="false" layoutX="66.0" layoutY="124.0" promptText="Zipcode"/>
+                        <TextField fx:id="otherCountry" visible="false" layoutX="66.0" layoutY="163.0" promptText="Country"/>
+                        <Label fx:id="otherStreetLabel" visible="false" layoutX="5.0" layoutY="5.0" text="Street"/>
+                        <Label fx:id="otherCityLabel" visible="false" layoutX="9.0" layoutY="45.0" text="City"/>
+                        <Label fx:id="otherStateLabel" visible="false" layoutX="5.0" layoutY="86.0" text="State"/>
+                        <Label fx:id="otherCountryLabel" visible="false" layoutY="168.0" text="Country"/>
+                        <Label fx:id="otherZipcodeLabel" visible="false" layoutY="129.0" text="Zipcode"/>
                     </children>
                 </Group>
             </children>

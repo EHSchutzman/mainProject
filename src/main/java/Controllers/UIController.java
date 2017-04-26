@@ -84,6 +84,8 @@ public abstract class UIController {
      */
     @FXML
     protected void setDisplayToMainPage() throws IOException {
+        System.out.println("in setDisplayToNotLoggedIn");
+
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -104,6 +106,8 @@ public abstract class UIController {
      * @throws IOException - throws exception
      */
     private void setDisplayToDefaultUserMainPage() throws IOException {
+        System.out.println("in setDisplayToDefaultMainPoage");
+
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -123,7 +127,7 @@ public abstract class UIController {
      * @throws IOException - throws exception
      */
     private void setDisplayToApplicantMainPage() throws IOException {
-
+        System.out.println("in setDisplayToApplicantMainPoage");
         BorderPane pane = main.getBorderPane();
 
         Stage stage;
@@ -135,7 +139,7 @@ public abstract class UIController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
         Scene scene = pane.getScene();
         pane.setTop(main.getMenuBar());
-        pane.setBottom(loader.load());
+        pane.setCenter(loader.load());
         stage.setScene(scene);
         stage.show();
         applicantMainPageController controller = loader.getController();
@@ -148,6 +152,7 @@ public abstract class UIController {
      * @throws IOException - throws exception
      */
     private void setDisplayToAgentMainPage() throws IOException {
+        System.out.println("in setDisplayToAgentMainPoage");
 
         BorderPane pane = main.getBorderPane();
 
@@ -195,6 +200,8 @@ public abstract class UIController {
     @FXML
     protected void returnToMainPage() throws IOException {
         int auth = main.userData.getUserInformation().getAuthenticationLevel();
+        System.out.println(auth);
+
         switch (auth) {
             case 0: setDisplayToDefaultUserMainPage(); break;
             case 1: setDisplayToApplicantMainPage(); break;
