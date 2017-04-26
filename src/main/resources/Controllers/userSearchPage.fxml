@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
+         <children>
+            <TableView prefHeight="850.0" prefWidth="725.0">
+              <columns>
+                <TableColumn prefWidth="50.0" text="User ID" />
+                <TableColumn prefWidth="100.0" text="Username" />
+                  <TableColumn prefWidth="100.0" text="First Name" />
+                  <TableColumn prefWidth="50.0" text="Middle Initial" />
+                  <TableColumn prefWidth="100.0" text="Last Name" />
+                  <TableColumn prefWidth="100.0" text="Email" />
+                  <TableColumn prefWidth="100.0" text="Phone Number" />
+                  <TableColumn prefWidth="100.0" text="Authentication" />
+              </columns>
+            </TableView>
+            <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="233.0">
+               <panes>
+                  <TitledPane animated="false" text="Search Filters">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="15.0" layoutY="15.0" text="Filter By:" />
+                              <CheckBox layoutX="25.0" layoutY="35.0" mnemonicParsing="false" text="Username" />
+                              <CheckBox layoutX="25.0" layoutY="85.0" mnemonicParsing="false" text="Last Name" />
+                              <CheckBox layoutX="25.0" layoutY="60.0" mnemonicParsing="false" text="First Name" />
+                              <CheckBox layoutX="25.0" layoutY="110.0" mnemonicParsing="false" text="Email" />
+                              <Label layoutX="15.0" layoutY="150.0" text="Authentication Level:" />
+                              <CheckBox layoutX="25.0" layoutY="170.0" mnemonicParsing="false" text="Agent" />
+                              <CheckBox layoutX="25.0" layoutY="195.0" mnemonicParsing="false" text="Super Agent" />
+                              <CheckBox layoutX="24.0" layoutY="220.0" mnemonicParsing="false" text="Applicant" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+                  <TitledPane animated="false" text="Save Results">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextField layoutX="30.0" layoutY="140.0" prefHeight="25.0" prefWidth="189.0" />
+                              <Label layoutX="62.0" layoutY="14.0" text="CSV Format Options" />
+                              <RadioButton layoutX="15.0" layoutY="50.0" mnemonicParsing="false" text="Generate comma separated values" />
+                              <RadioButton layoutX="15.0" layoutY="80.0" mnemonicParsing="false" text="Generate tab separated values" />
+                              <RadioButton layoutX="15.0" layoutY="110.0" mnemonicParsing="false" text="Generate user specifiec separation:" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </panes>
+            </Accordion>
+         </children></AnchorPane>
+  </content>
+</ScrollPane>

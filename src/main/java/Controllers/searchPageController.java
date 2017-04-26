@@ -14,9 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Status: needs work.
- * TODO: this is currently not used anywhere. May need to move this to searchResultsPageController
- * TODO: - once advanced options are created in UI
+ * Created by Anthony on 4/20/2017.
  */
 public class searchPageController {
 
@@ -26,43 +24,48 @@ public class searchPageController {
     protected String to;
     //Name info
     protected String brand;
-    protected String product; //also known as fanciful search
+    protected String fanciful; //also known as fanciful search
     //Type info
     protected boolean isMalt;
     protected boolean isSpirit;
     protected boolean isWine;
 
-    //location code, also known as origin code
-    protected String origin;
+    //variables for storing location info
+    protected String stateInfo;
+    protected String countryInfo;
 
+    //Create DBManager object to perform database operations
     private DBManager db = new DBManager();
 
+    //Variables for JavaFX buttons
     @FXML
     private DatePicker dpDateRangeStart;
     @FXML
     private DatePicker dpDateRangeEnd;
     @FXML
-    private TextField brand_name_text;
+    private TextField brandName;
     @FXML
-    private TextField product_name_text;
+    private TextField fancifulName;
     @FXML
-    private CheckBox malt_beverage_checkbox;
+    private CheckBox maltBeverageCheckbox;
     @FXML
-    private CheckBox distilled_spirit_checkbox;
+    private CheckBox otherCheckbox;
     @FXML
-    private CheckBox wine_checkbox;
+    private CheckBox wineCheckbox;
     @FXML
-    private TextField state_text;
+    private TextField state;
+    @FXML
+    private TextField country;
     @FXML
     public TableView<AppRecord> resultsTable;
     @FXML
-    private Button search_button;
-    @FXML
     private Button return_to_main_button;
 
+    //Function that returns the user to the main page
     @FXML
     protected void returnToMain() throws IOException{
         Stage stage;
+        //@TODO use function from a menu bar controller to access buttons
         stage=(Stage) return_to_main_button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("mainPage.fxml"));
@@ -73,19 +76,12 @@ public class searchPageController {
 
     @FXML
     // Handle a search - effectively a "main" function for our program
-    protected void displaySearchResultsPage() throws IOException {
-        Stage stage;
-        stage=(Stage) search_button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("searchResultsPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-
+    protected void displayResults() throws IOException {
         // Display our new data in the TableView
         displayData(searchCriteria());
     }
 
+    //Populates the results table with data from the database
     protected void displayData(ObservableList<AppRecord> list) {
         try {
             resultsTable.setItems(list);
@@ -99,12 +95,13 @@ public class searchPageController {
             //Set all variables equal to input data
             from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            brand = brand_name_text.getText();
-            product = product_name_text.getText();
-            isMalt = malt_beverage_checkbox.isSelected();
-            isSpirit = distilled_spirit_checkbox.isSelected();
-            isWine = wine_checkbox.isSelected();
-            origin = state_text.getText();
+            brand = brandName.getText();
+            fanciful = fancifulName.getText();
+            isMalt = maltBeverageCheckbox.isSelected();
+            isSpirit = otherCheckbox.isSelected();
+            isWine = wineCheckbox.isSelected();
+            stateInfo = state.getText();
+            countryInfo = country.getText();
 
             String params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
 
@@ -136,19 +133,23 @@ public class searchPageController {
             ArrayList<String> brandArray = new ArrayList<>();
             ArrayList<String> productArray = new ArrayList<>();
             ArrayList<String> typeArray = new ArrayList<>();
-            ArrayList<String> originArray = new ArrayList<>();
+            ArrayList<String> countryArray = new ArrayList<>();
+            ArrayList<String> stateArray = new ArrayList<>();
 
             brandArray.add("BRAND_NAME");
             brandArray.add(brand);
             productArray.add("FANCIFUL_NAME");
-            productArray.add(product);
-            originArray.add("SOURCE");
-            originArray.add(origin);
+            productArray.add(fanciful);
+            countryArray.add("COUNTRY");
+            countryArray.add(countryInfo);
+            stateArray.add("STATE");
+            stateArray.add(stateInfo);
 
             searchParams.add(brandArray);
             searchParams.add(productArray);
             searchParams.add(typeArray);
-            searchParams.add(originArray);
+            searchParams.add(countryArray);
+            searchParams.add(stateArray);
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
             return arr;

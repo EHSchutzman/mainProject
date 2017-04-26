@@ -23,7 +23,7 @@ public class defaultUserMainPageController extends UIController{
     public void setDisplayToSearchPage() throws IOException{
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
