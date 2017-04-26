@@ -25,28 +25,6 @@ public class mainPageController extends UIController {
     @FXML
     private Hyperlink aboutLink;
 
-    @FXML
-    private void setDisplayToSearch() throws IOException{
-        Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
-        BorderPane root = super.main.getBorderPane();
-
-        URL searchPageURL = getClass().getResource("searchPage.fxml");
-        FXMLLoader loader = new FXMLLoader();
-        ScrollPane pane = loader.load(searchPageURL);
-        root.setTop(main.getMenuBar());
-        root.setBottom(pane);
-
-        Scene scene = root.getScene();
-        stage.setScene(root.getScene());
-        stage.show();
-        searchPageController controller = loader.getController();
-        super.init(super.main);
-        controller.initApplicationTableView();
-
-        System.out.println("Wow I actually worked");
-    }
-
 
     /**
      * Redirects to loginPage.fxml

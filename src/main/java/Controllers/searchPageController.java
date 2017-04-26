@@ -92,6 +92,11 @@ public class searchPageController extends UIController{
     */
 
     @FXML
+    public void initialize(){
+
+    }
+
+    @FXML
     // Handle a search - effectively a "main" function for our program
     protected void displayResults() throws IOException {
         // Display our new data in the TableView

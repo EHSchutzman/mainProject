@@ -58,6 +58,8 @@ public abstract class UIController {
         stage.show();
         searchPageController controller = loader.getController();
         controller.init(main);
+        controller.initApplicationTableView();
+        controller.simpleSearch();
     }
 
     /**
