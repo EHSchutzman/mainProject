@@ -34,7 +34,6 @@ public class csvOptionsController extends UIController{
     @FXML
     public void makeCSV() {
         DBManager manager = new DBManager();
-        System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
 
         manager.generateCSV(main.userData.getObservableList(), ",", ".csv");
     }

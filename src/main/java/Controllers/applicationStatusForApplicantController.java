@@ -18,7 +18,11 @@ import java.util.ArrayList;
 /**
  * Created by DanielKim on 4/16/2017.
  */
-public class applicationStatusForApplicantController {
+public class applicationStatusForApplicantController extends UIController {
+    @FXML
+    public void initialize(){
+       resultsTable.setItems(db.findForms(main.userData.getUserInformation()));
+    }
     @FXML
     private Button backButton;
     @FXML

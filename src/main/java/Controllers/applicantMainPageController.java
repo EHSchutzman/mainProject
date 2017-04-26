@@ -41,12 +41,21 @@ public class applicantMainPageController extends UIController{
 
     @FXML
     public void setDisplayToApplicationStatusForApplicant() throws IOException{
+        BorderPane borderPane = main.getBorderPane();
+
+        FXMLLoader loader = new FXMLLoader();
+        URL iter2URL = getClass().getResource("applicationStatusForApplicant.fxml");
+        loader.setLocation(getClass().getResource("applicationStatusForApplicant.fxml"));
+        //System.out.println(loader.getLocation().getPath());
+        AnchorPane pane = loader.load(iter2URL);
         Stage stage;
-        stage=(Stage) viewFormsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
-        Scene scene = new Scene(loader.load());
+        stage=(Stage) submissionButton.getScene().getWindow();
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(main.getMenuBar());
+        borderPane.setCenter(pane);
         stage.show();
+        Parent root = (Parent) loader.load();
     }
 
     @FXML
@@ -66,8 +75,6 @@ public class applicantMainPageController extends UIController{
         borderPane.setCenter(scrollPane);
         stage.show();
         Parent root = (Parent) loader.load();
-        iter2applicationController controller = loader.getController();
-        System.out.println(controller);
         super.init(super.main);
 
 

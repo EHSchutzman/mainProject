@@ -13,12 +13,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
@@ -35,7 +35,11 @@ public class iter2applicationController extends UIController {
     @FXML
     public void initialize(){
         createApplicantForm();
+        source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+        alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
     }
+
+
     @FXML
     public Button submit_button;
     public Button browse_button;
@@ -60,6 +64,11 @@ public class iter2applicationController extends UIController {
     public TextField phLevel;
     public TextField grapeVarietals;
     public TextField wineAppellation;
+    public Label vintageYearLabel;
+    public Label phLevelLabel;
+    public Label grapeVarietalsLabel;
+    public Label wineAppellationLabel;
+    public Rectangle wineRec;
 
     // CheckBoxes and TextFields for the Type of Application
     @FXML
@@ -97,7 +106,6 @@ public class iter2applicationController extends UIController {
     //Mailing Address
     @FXML
     public CheckBox sameAsApplicantBox;
-    public TextArea mailing_addressText;
     public TextField phoneNo;
     public TextField signature;
     public TextField email;
@@ -110,81 +118,19 @@ public class iter2applicationController extends UIController {
 
     //TODO Gut this funciton, it is never used and I need to do other things instead
     public void createApplicantForm() {
-
-
         form.setttb_id(form.makeUniqueID());
         ttbid.setText(form.getttb_id());
 
-//        form.setrep_id(repID.getText());
-//        form.setpermit_no(permitNO.getText());
-//        form.setserial_no(serialNO.getText());
-//
-//        // Initialize Source ChoiceBox and get value
-//        source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-//        form.setSource((String) source_combobox.getValue());
-//
-//        // Initialize Alcohol Type ChoiceBox, get and set value
-//        alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-//        form.setalcohol_type((String) alcohol_type_combobox.getValue());
-//
-//        // Initialize checkboxes
-//        // Type of Application Check Boxes and their corresponding TextFields
-//        option_1_checkbox = new CheckBox("Certificate of Label Approval");
-//        option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");
-//        option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
-//        option_4_checkbox = new CheckBox("Resubmission After Rejection");
-//
-//        // Determine which checkboxes were selected
-//        // Make a temporary array to store the boolean values set them to the Form object, same with string array
-//        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
-//        ArrayList<String> tempStrArray = form.getapplication_type_text();
-//        if (option_1_checkbox.isSelected()) {//choice 0
-//            tempBoolArray.set(0, true);
-//        } else if (option_2_checkbox.isSelected()) {
-//            tempStrArray.set(1, option_2_text.getText());
-//            tempBoolArray.set(1, true);
-//        } else if (option_3_checkbox.isSelected()) {
-//            tempStrArray.set(2, option_3_text.getText());
-//            tempBoolArray.set(2, true);
-//        } else if (option_4_checkbox.isSelected()) {
-//            tempStrArray.set(3, option_4_text.getText());
-//            tempBoolArray.set(3, true);
-//        }
-//        form.setapplication_type(tempBoolArray);
-//        form.setapplication_type_text(tempStrArray);
-//
-//        form.setbrand_name(brandName.getText());
-//        form.setfanciful_name(fancifulName.getText());
-//        //form.setalcohol_content(Double.parseDouble(alcoholContent.getText()));
-//        form.setFormula(formula.getText());
-//        form.setlabel_text(extraLabelInfo.getText());
-//        // Wines only
-//        form.setvintage_year(vintageYear.getText());
-//        //form.setpH_level(Integer.parseInt(phLevel.getText()));
-//        form.setgrape_varietals(grapeVarietals.getText());
-//        form.setwine_appellation(wineAppellation.getText());
-//
-//        form.setapplicant_street(applicantStreet.getText());
-//        form.setapplicant_city(applicantCity.getText());
-//        form.setapplicant_state(applicantState.getText());
-//        form.setapplicant_zip(applicantZip.getText());
-//        form.setapplicant_country(applicantCountry.getText());
-//
-//        if (sameAsApplicantBox.isSelected()) {
-//            form.setmailing_address(otherStreet.getText() + "\n" + otherCity.getText() + " " + otherState.getText()
-//                    + "," + otherZip.getText() + "\n" + otherCountry.getText());
-//        } else {
-//
-//        }
-//
-//        form.setSignature(signature.getText());
-//        form.setphone_no(phoneNo.getText());
-//        form.setEmail(email.getText());
+
+
     }
 
     @FXML
     public void submitForm() {
         int pH_level;
+        String grape_varietals = "";
+        String wine_appellation = "";
+        String vintage_year = "";
 //        String ttb_id = ttb_id_label.getText();
 
         String rep_id = repID.getText();
@@ -225,14 +171,17 @@ public class iter2applicationController extends UIController {
         String labeltext = extraLabelInfo.getText();
 
         // Wines only
-        String vintage_year = (vintageYear.getText());
-        if (source.equals("Wine")) {
+
+        if (source_combobox.getValue().toString().equalsIgnoreCase("Wine")) {
             pH_level = (Integer.parseInt(phLevel.getText()));
+             grape_varietals = (grapeVarietals.getText());
+             wine_appellation = (wineAppellation.getText());
+             vintage_year = (vintageYear.getText());
         } else {
+
             pH_level = -1;
         }
-        String grape_varietals = (grapeVarietals.getText());
-        String wine_appellation = (wineAppellation.getText());
+
 
         String applicant_street = (applicantStreet.getText());
         String applicant_city = (applicantCity.getText());
@@ -263,8 +212,8 @@ public class iter2applicationController extends UIController {
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
-//        db.persistForm(form);
-        System.out.println(form.getsubmit_date());
+        db.persistForm(form);
+//        System.out.println(form.getsubmit_date());
         //TODO return to applicant's application list page
     }
 
@@ -349,5 +298,37 @@ public class iter2applicationController extends UIController {
     }
 
 
+    @FXML
+    public void checkType(){
+        System.out.println("in checkType");
+        if(alcohol_type_combobox.getValue().toString().equalsIgnoreCase("Wine")){
+            wineRec.setVisible(true);
+            grapeVarietals.setVisible(true);
+            grapeVarietalsLabel.setVisible(true);
+            
+            wineAppellation.setVisible(true);
+            wineAppellationLabel.setVisible(true);
+            
+            phLevel.setVisible(true);
+            phLevelLabel.setVisible(true);
+            
+            vintageYear.setVisible(true);
+            vintageYearLabel.setVisible(true);
+        }
+        else{
+            wineRec.setVisible(false);
+            grapeVarietals.setVisible(false);
+            grapeVarietalsLabel.setVisible(false);
+
+            wineAppellation.setVisible(false);
+            wineAppellationLabel.setVisible(false);
+
+            phLevel.setVisible(false);
+            phLevelLabel.setVisible(false);
+
+            vintageYear.setVisible(false);
+            vintageYearLabel.setVisible(false);
+        }
+    }
 
 }
