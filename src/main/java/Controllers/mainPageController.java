@@ -61,20 +61,7 @@ public class mainPageController extends UIController {
         stage.show();
         loginPageController controller = loader.getController();
         controller.init(super.main);
+        controller.setActionOnEnter();
     }
 
-    /**
-     * Redirects to aboutPage.fxml
-     * @throws IOException - throws exception
-     */
-    @FXML
-    private void setDisplayToAboutPageTemp() throws IOException{
-        Stage stage;
-        Parent root;
-        stage=(Stage) aboutLink.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("aboutPage.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

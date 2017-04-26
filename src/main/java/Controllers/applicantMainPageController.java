@@ -18,6 +18,7 @@ import java.net.URL;
  * Created by DanielKim on 4/16/2017.
  */
 public class applicantMainPageController extends UIController{
+
     @FXML
     private Button searchButton;
     @FXML
@@ -39,6 +40,11 @@ public class applicantMainPageController extends UIController{
         stage.show();
     }
 
+    /**
+     * Redirects to iter2application.fxml
+     * TODO: fix the menu bar - throws nullPointer
+     * @throws IOException - throws exception
+     */
     @FXML
     public void setDisplayToApplicationStatusForApplicant() throws IOException{
         BorderPane borderPane = main.getBorderPane();

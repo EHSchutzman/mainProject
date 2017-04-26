@@ -6,8 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,9 +23,9 @@ public abstract class UIController {
     protected Label currentUserLabel, loginPageErrorLabel;
     @FXML
     protected Button returnToMainButton, closeButton, logoutButton, loginButton, backButton,
-    aboutButton, searchButton;
-    //@FXML
-    //protected Hyperlink aboutLink;
+    searchButton;
+    @FXML
+    protected Hyperlink aboutLink; //TODO: keep either button or link
 
     protected Main main = new Main();
 
@@ -45,6 +46,29 @@ public abstract class UIController {
     }
 
     /**
+     * So this function displays the confirmation message in a new window
+     * TODO Find out why the FXML window size is 299 by 204, it doesn't really make sense.
+     * @throws Exception
+     */
+    void displayConfirmationMessage() throws Exception {
+        try {
+            Stage stage = new Stage();
+            stage.setTitle("Action confirmation!");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("confirmationMessage.fxml"));
+            AnchorPane newWindow = loader.load();
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 299, 204);
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Redirects to searchResultsPage.fxml TODO: make sure this is correct
      * @throws IOException - throws exception
      */
@@ -52,12 +76,13 @@ public abstract class UIController {
     private void setDisplayToSearchPage() throws IOException{
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        searchPageController controller = loader.getController();
+        searchResultsPageController controller = loader.getController();
         controller.init(main);
+        controller.initApplicationTableView();
     }
 
     /**
@@ -68,8 +93,8 @@ public abstract class UIController {
     @FXML
     protected void setDisplayToAboutPage() throws IOException {
         Stage stage;
-        Button button = aboutButton;
-        stage=(Stage) button.getScene().getWindow();
+        //Button button = aboutButton;
+        stage=(Stage) aboutLink.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("aboutPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -84,8 +109,6 @@ public abstract class UIController {
      */
     @FXML
     protected void setDisplayToMainPage() throws IOException {
-        System.out.println("in setDisplayToNotLoggedIn");
-
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -95,7 +118,7 @@ public abstract class UIController {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        main.userData.setUserInformation(new User()); //TODO: check if this is correct
+        main.userData.setUserInformation(new User());
         mainPageController controller = loader.getController();
         controller.init(main);
     }
@@ -106,8 +129,6 @@ public abstract class UIController {
      * @throws IOException - throws exception
      */
     private void setDisplayToDefaultUserMainPage() throws IOException {
-        System.out.println("in setDisplayToDefaultMainPoage");
-
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -127,19 +148,13 @@ public abstract class UIController {
      * @throws IOException - throws exception
      */
     private void setDisplayToApplicantMainPage() throws IOException {
-        System.out.println("in setDisplayToApplicantMainPoage");
-        BorderPane pane = main.getBorderPane();
-
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage = (Stage) button.getScene().getWindow();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
-        Scene scene = pane.getScene();
-        pane.setTop(main.getMenuBar());
-        pane.setCenter(loader.load());
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
         applicantMainPageController controller = loader.getController();
@@ -152,22 +167,14 @@ public abstract class UIController {
      * @throws IOException - throws exception
      */
     private void setDisplayToAgentMainPage() throws IOException {
-        System.out.println("in setDisplayToAgentMainPoage");
-
-        BorderPane pane = main.getBorderPane();
-
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage = (Stage) button.getScene().getWindow();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("agentMainPage.fxml"));
-        Scene scene = pane.getScene();
-
+        Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        pane.setTop(main.getMenuBar());
-        pane.setBottom(loader.load());
         stage.show();
         agentMainPageController controller = loader.getController();
         controller.init(main);
@@ -200,8 +207,6 @@ public abstract class UIController {
     @FXML
     protected void returnToMainPage() throws IOException {
         int auth = main.userData.getUserInformation().getAuthenticationLevel();
-        System.out.println(auth);
-
         switch (auth) {
             case 0: setDisplayToDefaultUserMainPage(); break;
             case 1: setDisplayToApplicantMainPage(); break;

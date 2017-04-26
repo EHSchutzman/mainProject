@@ -75,9 +75,9 @@
                 <Font size="18.0" />
             </font>
         </CheckBox>
-      <Button fx:id="reviseButton" layoutX="99.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#displayApplicantRevisionForm" prefHeight="50.0" prefWidth="181.0" text="Revise" />
+      <Button fx:id="reviseButton" layoutX="99.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicantRevisionForm" prefHeight="50.0" prefWidth="181.0" text="Revise" />
         <Button fx:id="viewButton" layoutX="102.0" layoutY="283.0" mnemonicParsing="false"
-                onMouseClicked="#displayApplicantViewForm" prefHeight="50.0" prefWidth="181.0" text="View"/>
+                onMouseClicked="#setDisplayToApplicantViewForm" prefHeight="50.0" prefWidth="181.0" text="View"/>
         <Button fx:id="closeButton" layoutX="63.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#closeWindow"
                 prefHeight="46.0" prefWidth="93.0" text="Close"/>
         <Label fx:id="errorLabel" layoutX="344.0" layoutY="900.0" prefHeight="72.0" prefWidth="888.0">
