@@ -656,6 +656,9 @@ public class DBManager {
     }
 
 
+    // TODO: the commented line can be placed after the if - will fix the warning where the if is always true
+    // TODO: this throws an error to csvOptionsController where if you don't select a file path
+    // TODO: - and close the file chooser, the confirmation message still displays
     public void generateCSV(ObservableList<AppRecord> list, String separator, String extension) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -663,6 +666,7 @@ public class DBManager {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
         File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + extension);
         if (selectedFile != null) {
+            //File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + extension);
             try {
                 FileWriter fileWriter = new FileWriter(file, false);
                 System.out.println(file.getAbsolutePath());
@@ -704,7 +708,6 @@ public class DBManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 

@@ -727,8 +727,8 @@ public class Main extends Application {
             Stage stage = new Stage();
             //stage = (Stage) printable_version.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("testingForm.fxml"));
-            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/testingForm.fxml"));
+            loader.setLocation(getClass().getResource("printableVersion.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/printableVersion.fxml"));
             //System.out.println(loader.getLocation().toString());
             ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 700);

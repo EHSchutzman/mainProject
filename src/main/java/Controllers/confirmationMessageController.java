@@ -1,7 +1,8 @@
 package Controllers;
 
 /**
- * Created by eschutzman on 4/20/17.
+ * Status: complete.
+ * TODO: make sure of this
  */
 public class confirmationMessageController {
 }
