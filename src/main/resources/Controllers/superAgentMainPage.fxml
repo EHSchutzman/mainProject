@@ -21,7 +21,7 @@
             <Font size="36.0" />
          </font>
       </Label>
-       <Button fx:id="reviewLabelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="352.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#displayReviewApplication" text="Review Label Application" textAlignment="CENTER">
+       <Button fx:id="reviewLabelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="352.0" layoutY="326.0" mnemonicParsing="false" onMouseClicked="#setDisplayApplicationReview" text="Review Label Application" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
@@ -31,12 +31,12 @@
              <Font size="24.0" />
          </font>
       </Button>
-       <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="422.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#displayUserSearchPage" text="User Search">
+       <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="422.0" layoutY="190.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentSearchUsers" text="User Search">
          <font>
              <Font size="24.0" />
          </font>
       </Button>
-       <Button fx:id="createAgentButton" alignment="CENTER" contentDisplay="CENTER" layoutX="414.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#displayCreateAgentPage" text="Create Agent">
+       <Button fx:id="createAgentButton" alignment="CENTER" contentDisplay="CENTER" layoutX="414.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentCreateAgent" text="Create Agent">
          <font>
              <Font size="24.0" />
          </font>
