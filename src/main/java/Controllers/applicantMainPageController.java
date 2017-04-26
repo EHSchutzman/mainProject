@@ -5,9 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Created by DanielKim on 4/16/2017.
@@ -46,11 +49,18 @@ public class applicantMainPageController extends UIController{
 
     @FXML
     public void setDisplayToIter2application() throws IOException{
+        BorderPane borderPane = main.getBorderPane();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("iter2application.fxml"));
+        //System.out.println(loader.getLocation().getPath());
+        AnchorPane anchorPane = loader.load();
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("iter2application.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(main.getMenuBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
     }
 
@@ -64,4 +74,6 @@ public class applicantMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
     }
+
+
 }

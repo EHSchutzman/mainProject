@@ -5,18 +5,19 @@ import DBManager.DBManager;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.Date;
@@ -25,134 +26,80 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-
-/**
- * Created by Anthony on 4/18/2017.
- */
 public class iter2applicationController {
-
-    @FXML
-    public Button back_button;
+    
     @FXML
     public Button submit_button;
-    @FXML
     public Button browse_button;
-    @FXML
-    public TextField rep_id_text;
-    @FXML
-    public TextField permit_no_text;
-    @FXML
-    public TextField serial_no_text;
+    public TextField repID;
+    public TextField permitNO;
+    public TextField serialNO;
+    public Text ttbid;
 
     // Source and Alcohol Type ComboBoxes + their TextFields for Agent Review
     @FXML
     public ComboBox source_combobox;
-    @FXML
-    public TextField source_text;
-    @FXML
     public ComboBox alcohol_type_combobox;
-    @FXML
-    public TextField alcohol_type_text;
-
-    @FXML
-    public TextField brand_name_text;
-    @FXML
-    public TextField fanciful_name_text;
-    @FXML
-    public TextField alcohol_content_text;
-    @FXML
-    public TextField formula_text;
-
-    @FXML
-    public TextField label_text;
+    public TextField brandName;
+    public TextField fancifulName;
+    public TextField alcoholContent;
+    public TextField formula;
+    public TextArea extraLabelInfo;
 
     // Wine only
     @FXML
-    public TextField vintage_year_text;
-    @FXML
-    public TextField ph_level_text;
-    @FXML
-    public TextField grape_varietals_text;
-    @FXML
-    public TextField wine_appellation_text;
-
+    public TextField vintageYear;
+    public TextField phLevel;
+    public TextField grapeVarietals;
+    public TextField wineAppellation;
 
     // CheckBoxes and TextFields for the Type of Application
-    //
-    @FXML
+   @FXML
     public CheckBox option_1_checkbox;
-    @FXML
     public CheckBox option_2_checkbox;
-    @FXML
     public TextField option_2_text; //For sale in <state> only
-    @FXML
     public CheckBox option_3_checkbox;
-    @FXML
     public TextField option_3_text; //Bottle capacity before closure
-    @FXML
     public CheckBox option_4_checkbox;
-    @FXML
     public TextField option_4_text;
 
     // Applicant Info
     // Addresses
     // street1 and street2 correspond to applicant_street
     @FXML
-    public TextField applicant_street_1_text;
+    public TextField otherStreet;
+    public TextField otherCity;
+    public TextField otherState;
+    public TextField otherZip;
+    public TextField otherCountry;
     @FXML
-    public TextField applicant_street_2_text;
-    @FXML
-    public TextField applicant_city_text;
-    @FXML
-    public TextField applicant_state_text;
-    @FXML
-    public TextField applicant_zip_text;
-    @FXML
-    public TextField applicant_country_text;
+    public TextField applicantStreet;
+    public TextField applicantCity;
+    public TextField applicantState;
+    public TextField applicantZip;
+    public TextField applicantCountry;
+
     //Mailing Address
     @FXML
-    public RadioButton sameAsApplicantButton;
-    @FXML
+    public CheckBox sameAsApplicantBox;
     public TextArea mailing_addressText;
-    @FXML
-    public TextField mailing_name_text;
-    public TextField mailing_street_2_text;
-    public TextField mailing_street_1_text;
-    public TextField mailing_city_text;
-    public TextField mailing_zip_text;
-    public TextField mailing_country_text;
-    public TextField mailing_state_text;
-    @FXML
-    public TextField phone_no_text;
-    @FXML
-    public TextField signature_text;
-    @FXML
-    public TextField email_text;
-    @FXML
-    public TextArea address_text;
-    public TextField submit_date;
+    public TextField phoneNo;
+    public TextField signature;
+    public TextField email;
     public ImageView label_image;
 
     private DBManager db = new DBManager();
     private loginPageController lpc = new loginPageController();
     private Form form = new Form();
 
-    @FXML
-    public void setDisplayToApplicantMain() throws IOException{
-        Stage stage;
-        stage=(Stage) back_button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
+
 
     public void createApplicantForm() {
 
         form.setttb_id(form.makeUniqueID());
-        form.setrep_id(rep_id_text.getText());
-        form.setpermit_no(permit_no_text.getText());
-        form.setserial_no(serial_no_text.getText());
+        form.setrep_id(repID.getText());
+        form.setpermit_no(permitNO.getText());
+        form.setserial_no(serialNO.getText());
 
         // Initialize Source ChoiceBox and get value
         source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
@@ -188,34 +135,33 @@ public class iter2applicationController {
         form.setapplication_type(tempBoolArray);
         form.setapplication_type_text(tempStrArray);
 
-        form.setbrand_name(brand_name_text.getText());
-        form.setfanciful_name(fanciful_name_text.getText());
-        //form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
-        form.setFormula(formula_text.getText());
-        form.setlabel_text(label_text.getText());
+        form.setbrand_name(brandName.getText());
+        form.setfanciful_name(fancifulName.getText());
+        //form.setalcohol_content(Double.parseDouble(alcoholContent.getText()));
+        form.setFormula(formula.getText());
+        form.setlabel_text(extraLabelInfo.getText());
         // Wines only
-        form.setvintage_year(vintage_year_text.getText());
-        //form.setpH_level(Integer.parseInt(ph_level_text.getText()));
-        form.setgrape_varietals(grape_varietals_text.getText());
-        form.setwine_appellation(wine_appellation_text.getText());
+        form.setvintage_year(vintageYear.getText());
+        //form.setpH_level(Integer.parseInt(phLevel.getText()));
+        form.setgrape_varietals(grapeVarietals.getText());
+        form.setwine_appellation(wineAppellation.getText());
 
-        form.setapplicant_street(applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
-        form.setapplicant_city(applicant_city_text.getText());
-        form.setapplicant_state(applicant_state_text.getText());
-        form.setapplicant_zip(applicant_zip_text.getText());
-        form.setapplicant_country(applicant_country_text.getText());
+        form.setapplicant_street(applicantStreet.getText());
+        form.setapplicant_city(applicantCity.getText());
+        form.setapplicant_state(applicantState.getText());
+        form.setapplicant_zip(applicantZip.getText());
+        form.setapplicant_country(applicantCountry.getText());
 
-        if (sameAsApplicantButton.isSelected()) {
-            form.setmailing_address(form.getapplicant_street() + " " +
-                    form.getapplicant_city() + " " + form.getapplicant_state() +
-                    form.getapplicant_zip() + " " + form.getapplicant_country());
-        } else {
-            form.setmailing_address(mailing_addressText.getText());
+        if(sameAsApplicantBox.isSelected()){
+            form.setmailing_address(otherStreet.getText() + "\n" + otherCity.getText() +" " + otherState.getText()
+                    + "," + otherZip.getText() + "\n" + otherCountry.getText());
+        }else{
+
         }
 
-        form.setSignature(signature_text.getText());
-        form.setphone_no(phone_no_text.getText());
-        form.setEmail(email_text.getText());
+        form.setSignature(signature.getText());
+        form.setphone_no(phoneNo.getText());
+        form.setEmail(email.getText());
     }
 
     @FXML
@@ -224,9 +170,9 @@ public class iter2applicationController {
         int pH_level;
 //        String ttb_id = ttb_id_label.getText();
 
-        String rep_id = rep_id_text.getText();
-        String permit_no = permit_no_text.getText();
-        String serial_no = serial_no_text.getText();
+        String rep_id = repID.getText();
+        String permit_no = permitNO.getText();
+        String serial_no = serialNO.getText();
 
         String source = (String) source_combobox.getValue();
 
@@ -255,42 +201,39 @@ public class iter2applicationController {
             application_type.set(3, true);
         }
 
-        String brand_name = brand_name_text.getText();
-        String fanciful_name = (fanciful_name_text.getText());
-        Double alcohol_content = (Double.parseDouble(alcohol_content_text.getText()));
-        String formula = (formula_text.getText());
-        String labeltext = label_text.getText();
+        String brand_name = brandName.getText();
+        String fanciful_name = (fancifulName.getText());
+        Double alcohol_content = (Double.parseDouble(alcoholContent.getText()));
+        String formula = (this.formula.getText());
+        String labeltext = extraLabelInfo.getText();
 
         // Wines only
-        String vintage_year = (vintage_year_text.getText());
+        String vintage_year = (vintageYear.getText());
         if (source.equals("Wine")) {
-            pH_level = (Integer.parseInt(ph_level_text.getText()));
+            pH_level = (Integer.parseInt(phLevel.getText()));
         } else {
             pH_level = -1;
         }
-        String grape_varietals = (grape_varietals_text.getText());
-        String wine_appellation = (wine_appellation_text.getText());
+        String grape_varietals = (grapeVarietals.getText());
+        String wine_appellation = (wineAppellation.getText());
 
-        String applicant_street = (applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
-        String applicant_city = (applicant_city_text.getText());
-        String applicant_state = (applicant_state_text.getText());
-        String applicant_zip = (applicant_zip_text.getText());
-        String applicant_country = (applicant_country_text.getText());
+        String applicant_street = (applicantStreet.getText() );
+        String applicant_city = (applicantCity.getText());
+        String applicant_state = (applicantState.getText());
+        String applicant_zip = (applicantZip.getText());
+        String applicant_country = (applicantCountry.getText());
 
         String mailing_address;
-        if (sameAsApplicantButton.isSelected()) {
-            mailing_address = (applicant_street + " " +
-                    applicant_city + " " + applicant_state +
-                    applicant_zip + " " + applicant_country);
+        if (sameAsApplicantBox.isSelected()) {
+            mailing_address = "";
         } else {
-            mailing_address = (mailing_name_text.getText() + mailing_street_1_text.getText()
-                    + mailing_street_2_text.getText() + mailing_city_text.getText() + mailing_zip_text.getText()
-                    + mailing_country_text.getText() + mailing_state_text.getText());
+            mailing_address = (otherStreet.getText() + "\n" + otherCity.getText() +" " + otherState.getText()
+                    + "," + otherZip.getText() + "\n" + otherCountry.getText());
         }
 
-        String signature = (signature_text.getText());
-        String phone_no = (phone_no_text.getText());
-        String email = (email_text.getText());
+        String signature = (this.signature.getText());
+        String phone_no = (phoneNo.getText());
+        String email = (this.email.getText());
         Date submitdate = new Date(System.currentTimeMillis());
 
 
@@ -303,8 +246,8 @@ public class iter2applicationController {
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
-        db.persistForm(form);
-
+//        db.persistForm(form);
+        System.out.println(form.getsubmit_date());
         //TODO return to applicant's application list page
     }
 
@@ -343,9 +286,7 @@ public class iter2applicationController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-//        String path = getClass().getResource("images/").toExternalForm();
-//        System.out.println(path);
+        
         form.setlabel_image(newFileName);
         try {
             System.out.println("here");
@@ -359,10 +300,6 @@ public class iter2applicationController {
             e.printStackTrace();
         }
 
-
-        //        Image image = new Image(getClass().getResource("images/" + newFileName).toExternalForm());
-
-//        label_image.setImage(image);
 
     }
 }

@@ -216,13 +216,13 @@ public class reviseApplicationController {
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
         if (form.getalcohol_type().equals("Beer")) {
             alcohol_type_combobox.getSelectionModel().select(1);
-            //alcohol_content_text.setPromptText("Beer");
+            //alcoholContent.setPromptText("Beer");
         } else if (form.getalcohol_type().equals("Wine")) {
             alcohol_type_combobox.getSelectionModel().select(2);
-            //alcohol_content_text.setPromptText("Wine");
+            //alcoholContent.setPromptText("Wine");
         } else if (form.getalcohol_type().equals("Distilled Spirit")) {
             alcohol_type_combobox.getSelectionModel().select(3);
-            //alcohol_content_text.setPromptText("Distilled Spirit");
+            //alcoholContent.setPromptText("Distilled Spirit");
         }
 
         // Initialize checkboxes
