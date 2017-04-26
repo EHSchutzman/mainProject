@@ -76,11 +76,11 @@ public abstract class UIController {
     private void setDisplayToSearchPage() throws IOException{
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        searchResultsPageController controller = loader.getController();
+        searchPageController controller = loader.getController();
         controller.init(main);
         controller.initApplicationTableView();
     }
@@ -191,7 +191,7 @@ public abstract class UIController {
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage = (Stage) button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentMainPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentInitialPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
