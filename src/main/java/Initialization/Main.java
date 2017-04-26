@@ -201,7 +201,7 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             controller.createRevisionsMenu(this.userData.getForm(), this);
-            System.out.println("in main" + this.userData.getForm());
+            System.out.println("in mainData" + this.userData.getForm());
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -730,7 +730,7 @@ public class Main extends Application {
             //stage = (Stage) printable_version.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("printableVersion.fxml"));
-            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/printableVersion.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/mainData/Controllers/printableVersion.fxml"));
             //System.out.println(loader.getLocation().toString());
             ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 700);

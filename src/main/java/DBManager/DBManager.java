@@ -311,13 +311,16 @@ public class DBManager {
 
         if (user.getAuthenticationLevel() == 1) {
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("applicant_id= \'" + user.getUid() + "\'"));
+            System.out.println(query);
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("agent_id= \'" + user.getUid() + "\'"));
+            System.out.println(query);
 
         }
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 AgentRecord application = new AgentRecord();

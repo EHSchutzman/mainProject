@@ -2,7 +2,6 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.UserRecord;
-import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -167,7 +166,7 @@ public class superAgentSearchUsersController extends UIController {
             stage.getScene().setRoot(newWindow);
             stage.show();
             superAgentEditUserController controller = loader.getController();
-            controller.init(super.main);
+            controller.init(super.mainData);
             controller.setEditUser(user);
         } catch (IOException e){
             e.printStackTrace();

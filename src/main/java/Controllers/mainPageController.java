@@ -2,7 +2,6 @@ package Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -28,19 +27,19 @@ public class mainPageController extends UIController {
     private void setDisplayToSearch() throws IOException{
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
-        BorderPane root = super.main.getBorderPane();
+        BorderPane root = super.mainData.getBorderPane();
 
         URL searchPageURL = getClass().getResource("searchPage.fxml");
         FXMLLoader loader = new FXMLLoader();
         ScrollPane pane = loader.load(searchPageURL);
-        root.setTop(main.getMenuBar());
+        root.setTop(mainData.getMenuBar());
         root.setBottom(pane);
 
         Scene scene = root.getScene();
         stage.setScene(root.getScene());
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(super.main);
+        controller.init(super.mainData);
 
         System.out.println("FUCK ME USE THIS!");
     }
@@ -60,7 +59,7 @@ public class mainPageController extends UIController {
         stage.setScene(scene);
         stage.show();
         loginPageController controller = loader.getController();
-        controller.init(super.main);
+        controller.init(super.mainData);
         controller.setActionOnEnter();
     }
 

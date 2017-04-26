@@ -41,32 +41,30 @@ public class applicantMainPageController extends UIController{
     }
 
     /**
-     * Redirects to iter2application.fxml
-     * TODO: fix the menu bar - throws nullPointer
+     * Redirects to applicationStatusForApplicant.fxml
      * @throws IOException - throws exception
      */
     @FXML
     public void setDisplayToApplicationStatusForApplicant() throws IOException{
-        BorderPane borderPane = main.getBorderPane();
-
-        FXMLLoader loader = new FXMLLoader();
-        URL iter2URL = getClass().getResource("applicationStatusForApplicant.fxml");
-        loader.setLocation(getClass().getResource("applicationStatusForApplicant.fxml"));
-        //System.out.println(loader.getLocation().getPath());
-        AnchorPane pane = loader.load(iter2URL);
+        BorderPane pane = mainData.getBorderPane();
         Stage stage;
-        stage=(Stage) submissionButton.getScene().getWindow();
-        Scene scene = borderPane.getScene();
+        stage=(Stage) viewFormsButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
+        System.out.println(loader.getLocation().getPath());
+        Scene scene = pane.getScene();
+        pane.setTop(mainData.getMenuBar());
+        pane.setCenter(loader.load());
         stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
-        borderPane.setCenter(pane);
         stage.show();
-        Parent root = (Parent) loader.load();
+        applicationStatusForApplicantController controller = loader.getController();
+        controller.init(super.mainData);
+        controller.initApplicationStatusTableView();
     }
+
 
     @FXML
     public void setDisplayToIter2application() throws IOException{
-        BorderPane borderPane = main.getBorderPane();
+        BorderPane borderPane = mainData.getBorderPane();
 
         FXMLLoader loader = new FXMLLoader();
         URL iter2URL = getClass().getResource("iter2application.fxml");
@@ -77,11 +75,11 @@ public class applicantMainPageController extends UIController{
         stage=(Stage) submissionButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
+        borderPane.setTop(mainData.getMenuBar());
         borderPane.setCenter(scrollPane);
         stage.show();
         Parent root = (Parent) loader.load();
-        super.init(super.main);
+        super.init(super.mainData);
 
 
 

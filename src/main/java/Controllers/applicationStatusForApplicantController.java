@@ -40,7 +40,7 @@ public class applicationStatusForApplicantController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             revisionsMenuController controller = loader.getController();
-            controller.init(super.main);
+            controller.init(super.mainData);
             controller.createRevisionsMenu(form);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,8 @@ public class applicationStatusForApplicantController extends UIController{
     @FXML
     public void initApplicationStatusTableView(){
         ObservableList<AgentRecord> olAR;
-        olAR = dbManager.findForms(main.userData.getUserInformation());
+        System.out.println(mainData.userData.getUserInformation().getEmail());
+        olAR = dbManager.findForms(mainData.userData.getUserInformation());
         resultsTable.setItems(olAR);
         resultsTable.refresh();
 

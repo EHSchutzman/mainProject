@@ -73,7 +73,7 @@ public class searchPageController extends UIController{
     @FXML
     private Button return_to_main_button;
 
-    //Function that returns the user to the main page
+    //Function that returns the user to the mainData page
     @FXML
     protected void returnToMain() throws IOException{
         Stage stage;
@@ -87,7 +87,7 @@ public class searchPageController extends UIController{
     }
 
     @FXML
-    // Handle a search - effectively a "main" function for our program
+    // Handle a search - effectively a "mainData" function for our program
     protected void displayResults() throws IOException {
         // Display our new data in the TableView
         //displayData(searchCriteria());

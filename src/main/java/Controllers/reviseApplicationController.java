@@ -330,8 +330,8 @@ public class reviseApplicationController extends UIController{
         }
 
  //       applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
-        email_text.setText(main.userData.getUserInformation().getEmail());
-        phone_no_text.setText(main.userData.getUserInformation().getPhoneNo());
+        email_text.setText(mainData.userData.getUserInformation().getEmail());
+        phone_no_text.setText(mainData.userData.getUserInformation().getPhoneNo());
 
         //@TODO: Put on UI
         //submit_date.setText(form.getsubmit_date().toString());

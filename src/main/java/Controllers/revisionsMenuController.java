@@ -39,7 +39,7 @@ public class revisionsMenuController extends UIController{
         stage.setScene(scene);
         stage.show();
         reviseApplicationController controller = loader.getController();
-        controller.init(super.main);
+        controller.init(super.mainData);
         controller.createReviseForm(form, boolArray);
     }
 

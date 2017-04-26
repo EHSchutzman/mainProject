@@ -208,7 +208,7 @@ public class iter2applicationController extends UIController {
         form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, label_image.getId(), submitdate, signature, "Pending", null, lpc.getUser().getUid(), null, null,
+                labeltext, label_image.getId(), submitdate, signature, "Pending", null, mainData.userData.getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
@@ -245,7 +245,7 @@ public class iter2applicationController extends UIController {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
-        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);
+        File destInSys = new File(System.getProperty("user.dir") + "/src/mainData/resources/Controllers/images/" + newFileName);
         try {
             Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
 
@@ -256,7 +256,7 @@ public class iter2applicationController extends UIController {
         form.setlabel_image(newFileName);
         try {
             System.out.println("here");
-            String path = (System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);
+            String path = (System.getProperty("user.dir") + "/src/mainData/resources/Controllers/images/" + newFileName);
             File file = new File(path);
             String localURL = file.toURI().toURL().toString();
             Image image = new Image(localURL);
@@ -279,6 +279,7 @@ public class iter2applicationController extends UIController {
             otherZipcodeLabel.setVisible(true);
             otherCityLabel.setVisible(true);
             otherCountry.setVisible(true);
+            otherCountryLabel.setVisible(true);
             otherZip.setVisible(true);
             otherState.setVisible(true);
             otherStreet.setVisible(true);
@@ -290,6 +291,7 @@ public class iter2applicationController extends UIController {
             otherZipcodeLabel.setVisible(false);
             otherCityLabel.setVisible(false);
             otherCountry.setVisible(false);
+            otherCountryLabel.setVisible(true);
             otherZip.setVisible(false);
             otherState.setVisible(false);
             otherStreet.setVisible(false);
