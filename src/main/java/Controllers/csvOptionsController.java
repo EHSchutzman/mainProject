@@ -40,16 +40,6 @@ public class csvOptionsController extends UIController{
     }
 
     @FXML
-    public void makeColon1() {
-        manager.generateCSV(observableList, ":", ".txt");
-        try {
-            displayConfirmationMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     public void makeColon() {
         ObservableList<AppRecord> observer = observableList;
         String appID;
@@ -107,7 +97,7 @@ public class csvOptionsController extends UIController{
 
         }
         System.out.println(observableList.get(0).getBrandName());
-        manager.generateCSV(observableList, ":", ".txt");
+        dbManager.generateCSV(observableList, ":", ".txt");
 
     }
     /**
