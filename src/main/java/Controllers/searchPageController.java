@@ -135,6 +135,7 @@ public class searchPageController extends UIController{
             }*/
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
             ObservableList<AppRecord> array = db.findLabels(searchParams, params);
+            System.out.println(array);
             resultsTable.setItems(array);
             resultsTable.refresh();
             return array;

@@ -41,10 +41,10 @@ public class mainPageController extends UIController {
         stage.setScene(root.getScene());
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(super.main);
+        super.init(super.main);
         controller.initApplicationTableView();
 
-        System.out.println("FUCK ME USE THIS!");
+        System.out.println("Wow I actually worked");
     }
 
 
