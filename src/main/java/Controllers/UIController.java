@@ -8,10 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Status: incomplete.
@@ -75,32 +78,17 @@ public abstract class UIController {
     @FXML
     private void setDisplayToSearchPage() throws IOException{
         Stage stage;
+        BorderPane root = main.getBorderPane();
         stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
-        Scene scene = new Scene(loader.load());
+        URL searchPageURL = getClass().getResource("searchPage.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        ScrollPane pane = loader.load(searchPageURL);
+        root.setTop(main.getMenuBar());
+        root.setBottom(pane);
+        Scene scene = root.getScene();
         stage.setScene(scene);
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(main);
-        controller.initApplicationTableView();
-    }
-
-    /**
-     * Redirects to aboutPage.fxml
-     * @throws IOException - throws exception
-     * TODO: implement this!
-     */
-    @FXML
-    protected void setDisplayToAboutPage() throws IOException {
-        Stage stage;
-        //Button button = aboutButton;
-        stage=(Stage) aboutLink.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("aboutPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        aboutPageController controller = loader.getController();
-        controller.init(main);
     }
 
     /**
@@ -110,17 +98,21 @@ public abstract class UIController {
     @FXML
     protected void setDisplayToMainPage() throws IOException {
         Stage stage;
+        BorderPane root = main.getBorderPane();
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage=(Stage) button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
+        URL mainPageURL = getClass().getResource("mainPage.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane pane = loader.load(mainPageURL);
+        root.setTop(main.getMenuBar());
+        root.setBottom(pane);
+        Scene scene = root.getScene();
         stage.setScene(scene);
         stage.show();
         main.userData.setUserInformation(new User());
         mainPageController controller = loader.getController();
-        controller.init(main);
     }
 
     /**
@@ -128,18 +120,23 @@ public abstract class UIController {
      * Used in returnToMainPage()
      * @throws IOException - throws exception
      */
-    private void setDisplayToDefaultUserMainPage() throws IOException {
+    protected void setDisplayToDefaultUserMainPage() throws IOException {
         Stage stage;
+        BorderPane root = main.getBorderPane();
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
-        stage = (Stage) button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("defaultUserMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
+        stage=(Stage) button.getScene().getWindow();
+        URL defaultUserMainPageURL = getClass().getResource("defaultUserMainPage.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane pane = loader.load(defaultUserMainPageURL);
+        root.setTop(main.getMenuBar());
+        root.setBottom(pane);
+        Scene scene = root.getScene();
         stage.setScene(scene);
         stage.show();
-        defaultUserMainPageController controller = loader.getController();
-        controller.init(main);
+        main.userData.setUserInformation(new User());
+        mainPageController controller = loader.getController();
     }
 
     /**
@@ -147,7 +144,7 @@ public abstract class UIController {
      * Used in returnToMainPage()
      * @throws IOException - throws exception
      */
-    private void setDisplayToApplicantMainPage() throws IOException {
+    protected void setDisplayToApplicantMainPage() throws IOException {
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -166,7 +163,7 @@ public abstract class UIController {
      * Used in returnToMainPage()
      * @throws IOException - throws exception
      */
-    private void setDisplayToAgentMainPage() throws IOException {
+    protected void setDisplayToAgentMainPage() throws IOException {
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -185,7 +182,7 @@ public abstract class UIController {
      * Used in returnToMainPage()
      * @throws IOException - throws exception
      */
-    private void setDisplayToSuperAgentMainPage() throws IOException {
+    protected void setDisplayToSuperAgentMainPage() throws IOException {
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
@@ -221,6 +218,7 @@ public abstract class UIController {
                 break;
         }
     }
+
 
     /**
      * Closes current window

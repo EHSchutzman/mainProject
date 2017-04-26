@@ -93,7 +93,8 @@ public class searchPageController extends UIController{
 
     @FXML
     public void initialize(){
-
+        super.init(main);
+        initApplicationTableView();
     }
 
     @FXML
@@ -121,9 +122,9 @@ public class searchPageController extends UIController{
             boolean isMalt = simpleMaltBeverageCheckbox.isSelected();
             boolean isSpirit = simpleOtherCheckbox.isSelected();
             boolean isWine = simpleWineCheckbox.isSelected();
-            String params = " WHERE STATUS = 'Accepted' AND";
+            String params = " WHERE STATUS = 'Accepted'";
             if (isMalt || isSpirit || isWine) {
-                params += " (ALCOHOL_TYPE = ";
+                params += " AND (ALCOHOL_TYPE = ";
                 if (isWine) {params += "'Wine'";}
                 if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
                 if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
