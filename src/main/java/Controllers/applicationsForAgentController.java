@@ -97,7 +97,8 @@ public class applicationsForAgentController extends UIController{
 
             agentApplicationReviewController controller = loader.getController();
             controller.init(super.main);
-            controller.setReviewForm(form);
+            controller.setReviewForm(application);
+            controller.setLabels();
 
         } catch (IOException e){
             e.printStackTrace();
