@@ -14,11 +14,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Created by Anthony on 4/20/2017.
+ * Status: needs work.
+ * TODO: this is currently not used anywhere. May need to move this to searchResultsPageController
+ * TODO: - once advanced options are created in UI
  */
-public class searchPageController {
+public class searchPageController extends UIController{
 
     //VARIABLES FOR SEARCH CRITERIA:
+    //Search bar info
+    protected String searchBarContent;
     //Date info
     protected String from;
     protected String to;
@@ -39,6 +43,8 @@ public class searchPageController {
 
     //Variables for JavaFX buttons
     @FXML
+    private TextField searchBar;
+    @FXML
     private DatePicker dpDateRangeStart;
     @FXML
     private DatePicker dpDateRangeEnd;
@@ -47,11 +53,17 @@ public class searchPageController {
     @FXML
     private TextField fancifulName;
     @FXML
-    private CheckBox maltBeverageCheckbox;
+    private CheckBox simpleMaltBeverageCheckbox;
     @FXML
-    private CheckBox otherCheckbox;
+    private CheckBox simpleOtherCheckbox;
     @FXML
-    private CheckBox wineCheckbox;
+    private CheckBox simpleWineCheckbox;
+    @FXML
+    private CheckBox advMaltBeverageCheckbox;
+    @FXML
+    private CheckBox advOtherCheckbox;
+    @FXML
+    private CheckBox advWineCheckbox;
     @FXML
     private TextField state;
     @FXML
@@ -78,7 +90,7 @@ public class searchPageController {
     // Handle a search - effectively a "main" function for our program
     protected void displayResults() throws IOException {
         // Display our new data in the TableView
-        displayData(searchCriteria());
+        //displayData(searchCriteria());
     }
 
     //Populates the results table with data from the database
@@ -90,18 +102,51 @@ public class searchPageController {
         }
     }
 
-    protected ObservableList<AppRecord> searchCriteria() {
+    @FXML
+    ObservableList<AppRecord> handleInlineSearch() {
         try {
             //Set all variables equal to input data
-            from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            searchBarContent = searchBar.getText();
+            boolean isMalt = advMaltBeverageCheckbox.isSelected();
+            boolean isSpirit = advOtherCheckbox.isSelected();
+            boolean isWine = advWineCheckbox.isSelected();
+            String params = " WHERE STATUS = 'Accepted' AND";
+            if (isMalt || isSpirit || isWine) {
+                params += " (ALCOHOL_TYPE = ";
+                if (isWine) {params += "'Wine'";}
+                if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
+                if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
+                if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
+                if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
+                params += ")";
+            }
+            if (isMalt || isSpirit || isWine) {
+                params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent +
+                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
+            } else {
+                params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent +
+                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
+            }
+            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
+            ObservableList<AppRecord> array = db.findLabels(searchParams, params);
+            resultsTable.setItems(array);
+            resultsTable.refresh();
+            return array;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not build a query from search criteria.");
+            return null;
+        }
+    }
+
+    protected ObservableList<AppRecord> simpleSearch() {
+        try {
+            //Set all variables equal to input data
             brand = brandName.getText();
             fanciful = fancifulName.getText();
-            isMalt = maltBeverageCheckbox.isSelected();
-            isSpirit = otherCheckbox.isSelected();
-            isWine = wineCheckbox.isSelected();
-            stateInfo = state.getText();
-            countryInfo = country.getText();
+            isMalt = simpleMaltBeverageCheckbox.isSelected();
+            isSpirit = simpleOtherCheckbox.isSelected();
+            isWine = simpleWineCheckbox.isSelected();
 
             String params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
 

@@ -12,20 +12,6 @@
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
          <children>
-            <TableView prefHeight="850.0" prefWidth="725.0">
-              <columns>
-                  <TableColumn prefWidth="75.0" text="Applicant Name" />
-                <TableColumn prefWidth="75.0" text="Form ID" />
-                <TableColumn prefWidth="75.0" text="Permit No." />
-                  <TableColumn prefWidth="75.0" text="Serial No." />
-                  <TableColumn prefWidth="75.0" text="Completed Date" />
-                  <TableColumn prefWidth="75.0" text="Fanciful Name" />
-                  <TableColumn prefWidth="75.0" text="Brand Name" />
-                  <TableColumn prefWidth="75.0" text="Country" />
-                  <TableColumn prefWidth="41.0" text="State" />
-                  <TableColumn prefWidth="81.0" text="Alcohol Type" />
-              </columns>
-            </TableView>
             <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="200.0">
                <panes>
                   <TitledPane animated="false" text="Simple Filters">
@@ -69,6 +55,28 @@
                   </TitledPane>
                </panes>
             </Accordion>
+            <ScrollPane prefHeight="830.0" prefWidth="725.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
+                     <children>
+                        <TableView layoutY="-10.0" prefHeight="850.0" prefWidth="1000.0">
+                          <columns>
+                              <TableColumn prefWidth="100.0" text="Applicant Name" />
+                            <TableColumn prefWidth="100.0" text="Form ID" />
+                            <TableColumn prefWidth="100.0" text="Permit No." />
+                              <TableColumn prefWidth="100.0" text="Serial No." />
+                              <TableColumn prefWidth="100.0" text="Completed Date" />
+                              <TableColumn prefWidth="100.0" text="Fanciful Name" />
+                              <TableColumn prefWidth="100.0" text="Brand Name" />
+                              <TableColumn prefWidth="100.0" text="Country" />
+                              <TableColumn prefWidth="100.0" text="State" />
+                              <TableColumn prefWidth="100.0" text="Alcohol Type" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
          </children></AnchorPane>
   </content>
 </ScrollPane>

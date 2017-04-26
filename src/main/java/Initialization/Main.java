@@ -252,7 +252,7 @@ public class Main extends Application {
         try {
             //System.out.println("Hiiiiii");
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("searchResultsPage.fxml"));
+            loader.setLocation(getClass().getResource("searchPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
