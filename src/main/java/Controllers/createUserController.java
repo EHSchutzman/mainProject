@@ -15,8 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Status: incomplete.
- * TODO: clean code, WARNINGS, doxygen
+ * Status: complete, needs verification.
  * TODO: don't allow creation of agents/superagents?
  */
 public class createUserController extends UIController{
@@ -39,6 +38,10 @@ public class createUserController extends UIController{
         authentication.setValue("User");
     }
 
+    /**
+     * Creates a user using the Authentication entity
+     * @throws IOException - throws exception
+     */
     @FXML
     public void createUserAction() throws IOException{
         String emailText = email.getText();
@@ -61,9 +64,10 @@ public class createUserController extends UIController{
 
         isAuthentic.createUser(firstNameText, middleIn, lastNameText, loginNameText, passwordText, emailText, phoneNum, authLvl);
         try {
-            setDisplayToMainPage(); //TODO: maybe replace with returnToMainPage?
+            setDisplayToMainPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

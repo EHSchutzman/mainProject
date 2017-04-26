@@ -7,13 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 /**
- * Status: needs review.
- * TODO: doxygen, fix all WARNINGS
+ * Status: complete.
  */
 public class loginPageController extends UIController{
 
@@ -23,7 +24,21 @@ public class loginPageController extends UIController{
     private Button createUserButton;
 
     private Authentication isAuthentic = new Authentication();
-    public User user = new User();
+    private User user = new User();
+
+    /**
+     * Allows ENTER key press when focused on password text field to call loginAction.
+     * Allows ENTER key press when focused on loginButton to fire loginAction.
+     */
+    void setActionOnEnter() {
+        password.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode() == KeyCode.ENTER) {
+                loginButton.fire();
+                event.consume();
+            }
+        });
+        loginButton.defaultButtonProperty().bind(loginButton.focusedProperty());
+    }
 
     /**
      * Redirects to createUser.fxml
@@ -76,15 +91,6 @@ public class loginPageController extends UIController{
     private void clearFields(){
         username.clear();
         password.clear();
-    }
-
-    /**
-     * Getter for user
-     * @return returns user field
-     * TODO: figure out why we need this
-     */
-    public User getUser() {
-        return this.user;
     }
 
 }

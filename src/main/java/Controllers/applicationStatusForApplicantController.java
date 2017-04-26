@@ -1,24 +1,22 @@
 package Controllers;
 
 import AgentWorkflow.AgentRecord;
-import DatabaseSearch.AppRecord;
-import Form.Form;
 import DBManager.DBManager;
-import UserAccounts.User;
-import javafx.collections.FXCollections;
+import Form.Form;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by DanielKim on 4/16/2017.
+ * Status: complete, needs review
  */
 public class applicationStatusForApplicantController extends UIController{
 
@@ -27,7 +25,7 @@ public class applicationStatusForApplicantController extends UIController{
     @FXML
     private TableView resultsTable;
 
-    private DBManager db = new DBManager();
+    private DBManager dbManager = new DBManager();
 
     @FXML
     private void setDisplayToRevisionsMenu(Form form) {
@@ -43,7 +41,7 @@ public class applicationStatusForApplicantController extends UIController{
             stage.show();
             revisionsMenuController controller = loader.getController();
             controller.init(super.main);
-            controller.createRevisionsMenu(form,main);
+            controller.createRevisionsMenu(form);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,8 +49,8 @@ public class applicationStatusForApplicantController extends UIController{
 
     @FXML
     public void initApplicationStatusTableView(){
-        ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
-        olAR = db.findForms(main.userData.getUserInformation());
+        ObservableList<AgentRecord> olAR;
+        olAR = dbManager.findForms(main.userData.getUserInformation());
         resultsTable.setItems(olAR);
         resultsTable.refresh();
 
@@ -66,7 +64,7 @@ public class applicationStatusForApplicantController extends UIController{
                     fieldList.add("*");
                     // Get form form DB using selected row's ID
                     try {
-                        Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
+                        Form viewForm = dbManager.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
                         setDisplayToRevisionsMenu(viewForm);
                     } catch (Exception e) {

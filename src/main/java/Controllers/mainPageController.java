@@ -2,24 +2,19 @@ package Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 /**
- * Status: needs review.
- * TODO: change about link to button? - have a function setDisplayToAboutPage in UIController
+ * Status: complete.
  */
 public class mainPageController extends UIController {
 
     @FXML
-    private Button loginButton; // This is a different loginButton from UIController's? double check
-    @FXML
-    private Hyperlink aboutLink;
+    private Button loginButton;
 
     /**
      * Redirects to loginPage.fxml
@@ -36,20 +31,7 @@ public class mainPageController extends UIController {
         stage.show();
         loginPageController controller = loader.getController();
         controller.init(super.main);
+        controller.setActionOnEnter();
     }
 
-    /**
-     * Redirects to aboutPage.fxml
-     * @throws IOException - throws exception
-     */
-    @FXML
-    private void setDisplayToAboutPageTemp() throws IOException{
-        Stage stage;
-        Parent root;
-        stage=(Stage) aboutLink.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("aboutPage.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

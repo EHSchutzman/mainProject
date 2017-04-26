@@ -1,23 +1,21 @@
 package Controllers;
 
 import DBManager.DBManager;
+import Form.Form;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-import Form.Form;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Created by James Corse on 4/25/17.
+ * Status: complete, needs review
+ * TODO: review this
  */
 public class agentApplicationReviewController extends UIController{
-    private Form form = new Form();
-    private DBManager dbManager = new DBManager();
+
+    //TODO: clean up code, doxygen, gather up fxml fields, make neater
     @FXML
     private TextArea approval_comments_text;
     @FXML
@@ -120,11 +118,14 @@ public class agentApplicationReviewController extends UIController{
     public TextField submit_date;
     public ImageView label_image;
 
-    public void setReviewForm(Form form){
+    private Form form = new Form();
+    private DBManager dbManager = new DBManager();
+
+    void setReviewForm(Form form){
         this.form = form;
     }
 
-    public void setLabels(){
+    void setLabels(){
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
         if (form.getSource().equals("Imported")) {
@@ -134,7 +135,6 @@ public class agentApplicationReviewController extends UIController{
             //source_combobox.getSelectionModel().select(1);
             source_text.setPromptText("Domestic");
         }
-
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
         System.out.println("creating the form" + form.getalcohol_type());
@@ -148,7 +148,6 @@ public class agentApplicationReviewController extends UIController{
             //alcohol_type_combobox.getSelectionModel().select(3);
             alcohol_type_text.setText("Distilled Spirits");
         }
-
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
         option_1_checkbox = new CheckBox("Certificate of Label Approval");
@@ -220,21 +219,31 @@ public class agentApplicationReviewController extends UIController{
         email_text.setText(form.getEmail());
     }
 
+    //TODO: change approval_comments in DB to approve/reject comments (make up a better name)
+
+    /**
+     * Sets form status to APPROVED, adds approval comments and closes window
+     * TODO: change Accepted to APPROVED
+     * @throws IOException - throws exception
+     */
     @FXML
     public void acceptAction() throws IOException{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Accepted");
         dbManager.updateForm(form);
-
         closeWindow();
     }
 
+    /**
+     * Sets form status to REJECTED and closes window
+     * TODO: change Rejected to REJECTED
+     * @throws IOException - throws exception
+     */
     @FXML
     public void rejectAction() throws IOException{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Rejected");
         dbManager.updateForm(form);
-
         closeWindow();
     }
 }

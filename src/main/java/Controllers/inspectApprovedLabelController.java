@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import java.io.File;
 
 /**
- * Status: incomplete.
+ * Status: complete, needs small fixing.
  * TODO: clean code, make sure there are no WARNINGS
  */
 public class inspectApprovedLabelController extends UIController{
@@ -40,14 +40,14 @@ public class inspectApprovedLabelController extends UIController{
             Stage stage;
             stage = (Stage) printableVersionButton.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("testingForm.fxml"));
+            loader.setLocation(getClass().getResource("printableVersion.fxml"));
             ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 700);
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
             stage.show();
-            testingFormController controller = loader.getController();
+            printableVersionController controller = loader.getController();
             controller.setForm(form);
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,6 +83,7 @@ public class inspectApprovedLabelController extends UIController{
         } else if (form.getalcohol_type().equals("Distilled Spirits")) {
             alcohol_type.setText("Distilled Spirits");
         }
+        // TODO: get this working correctly?
         // Set type of application
         /*option_1_checkbox = new CheckBox("Certificate of Label Approval");
         option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");

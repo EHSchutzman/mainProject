@@ -19,13 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Created by James Corse on 4/25/17.
+ * Status: complete, needs review
+ * TODO: review this
  */
 public class applicationsForAgentController extends UIController{
+
     @FXML
     private TableView resultsTable;
     private ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
-    private Form form = new Form();
     private DBManager dbManager = new DBManager();
 
     @FXML
@@ -81,8 +82,6 @@ public class applicationsForAgentController extends UIController{
             AnchorPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-
-
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1500, 1000);

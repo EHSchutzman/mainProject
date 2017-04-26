@@ -1,11 +1,8 @@
 package Controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 /**
- * Created by eschutzman on 4/20/17.
+ * Status: complete.
+ * TODO: make sure of this
  */
 public class confirmationMessageController extends UIController{
 
