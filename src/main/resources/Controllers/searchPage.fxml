@@ -19,9 +19,9 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:" />
-                              <CheckBox layoutX="25.0" layoutY="30.0" mnemonicParsing="false" text="Beer" />
-                              <CheckBox layoutX="85.0" layoutY="30.0" mnemonicParsing="false" text="Wine" />
-                              <CheckBox layoutX="25.0" layoutY="50.0" mnemonicParsing="false" text="Other" />
+                              <CheckBox fx:id="simpleMaltBeverageCheckbox" layoutX="25.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Beer" />
+                              <CheckBox fx:id="simpleWineCheckbox" layoutX="85.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Wine" />
+                              <CheckBox fx:id="simpleOtherCheckbox" layoutX="25.0" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Other" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -44,9 +44,9 @@
                               <Label layoutX="15.0" layoutY="255.0" text="To:" />
                               <Label layoutX="15.0" layoutY="310.0" text="Country:" />
                               <Label layoutX="15.0" layoutY="355.0" text="State:" />
-                              <CheckBox fx:id="maltBeverageCheckbox" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" text="Beer" />
-                              <CheckBox fx:id="otherCheckbox" layoutX="85.0" layoutY="140.0" mnemonicParsing="false" text="Wine" />
-                              <CheckBox fx:id="wineCheckbox" layoutX="25.0" layoutY="160.0" mnemonicParsing="false" text="Other" />
+                              <CheckBox fx:id="advMaltBeverageCheckbox" layoutX="25.0" layoutY="140.0" mnemonicParsing="false" text="Beer" />
+                              <CheckBox fx:id="advOtherCheckbox" layoutX="85.0" layoutY="140.0" mnemonicParsing="false" text="Wine" />
+                              <CheckBox fx:id="advWineCheckbox" layoutX="25.0" layoutY="160.0" mnemonicParsing="false" text="Other" />
                            </children>
                         </AnchorPane>
                      </content>

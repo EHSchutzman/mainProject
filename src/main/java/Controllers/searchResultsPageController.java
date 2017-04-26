@@ -44,77 +44,19 @@ public class searchResultsPageController extends UIController{
      * This function opens a pop up for the CSV display
      * @throws Exception
      */
-    @FXML
-    public void displayCSVOptionsPage() throws Exception {
-        try {
-            Stage stage = new Stage();
-            stage.setTitle("CSV Options");
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("csvOptions.fxml"));
-            AnchorPane newWindow = loader.load();
-            Scene scene = new Scene(newWindow, 600, 400);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setFullScreen(false);
-            stage.getScene().setRoot(newWindow);
-            stage.show();
-            csvOptionsController controller = loader.getController();
-            controller.init(super.main);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * Function handles all the searching functionality
      * @return
      */
 
-     private void displayApprovedLabel(Form form) {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
-            AnchorPane newWindow = loader.load();
-            Scene scene = new Scene(newWindow, 1500, 1000);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setFullScreen(false);
-            stage.getScene().setRoot(newWindow);
-            stage.show();
-            inspectApprovedLabelController controller = loader.getController();
-            controller.setForm(form);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      * Monitors user double click on results table
      */
-    void initApplicationTableView() {
-        resultsTable.setItems(null);
-        resultsTable.setRowFactory(tv -> {
-            TableRow<AppRecord> row = new TableRow<>();
-            // Open window if row double-clicked
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    AppRecord rowData = row.getItem();
-                    ArrayList<String> fieldList = new ArrayList<>();
-                    fieldList.add("*");
-                    // Get form form DB using selected row's ID
-                    try {
-                        Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
-                        // Open selected form in new window
-                        displayApprovedLabel(viewForm);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-            return row;
-        });
-    }
+
 
 }
 

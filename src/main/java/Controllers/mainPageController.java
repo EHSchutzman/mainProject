@@ -41,6 +41,7 @@ public class mainPageController extends UIController {
         stage.show();
         searchPageController controller = loader.getController();
         controller.init(super.main);
+        controller.initApplicationTableView();
 
         System.out.println("FUCK ME USE THIS!");
     }
