@@ -66,10 +66,10 @@ public class Main extends Application {
             System.out.println(loader.getLocation().getPath());
 
             ScrollPane pane = loader.load();
-            Scene scene = new Scene(border, 1000, 1000); //for some reason, if i delete this line it will not work
+            Scene scene = new Scene(border, 1000, 1000);
             border.setTop(menuBar);
-            border.setCenter(pane);
-            primaryStage.setScene(border.getScene());
+            border.setBottom(pane);
+            primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
             mainPageController controller = loader.getController();

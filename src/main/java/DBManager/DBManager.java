@@ -380,7 +380,7 @@ public class DBManager {
                 String formula = rs.getString("formula");
                 String phone_no = rs.getString("phone_no");
                 String email = rs.getString("email");
-                String label_text = rs.getString("extraLabelInfo");
+                String label_text = "";//rs.getString("extraLabelInfo");
                 String label_image = rs.getString("label_image");
                 Date submit_date = rs.getDate("submit_date");
                 String signature = rs.getString("signature");

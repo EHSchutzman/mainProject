@@ -74,7 +74,7 @@ public class mainPageController extends UIController {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("loginPage.fxml"));
-        //System.out.println(loader.getLocation().getPath());
+        System.out.println(loader.getLocation().getPath());
         AnchorPane anchorPane = loader.load();
         Stage stage;
         stage=(Stage) loginButton.getScene().getWindow();
@@ -116,11 +116,11 @@ public class mainPageController extends UIController {
         System.out.println(imageArrayList.get(2).getImage().isError());
         imageArrayList.get(2).setFitWidth(500);
         imageArrayList.get(2).setFitHeight(500);
-        imageArrayList.add(new ImageView("file:images/CLARITAS.jpg"));
+        imageArrayList.add(new ImageView("file:images/founders.jpg"));
         System.out.println(imageArrayList.get(3).getImage().isError());
         imageArrayList.get(3).setFitWidth(500);
         imageArrayList.get(3).setFitHeight(500);
-        imageArrayList.add(new ImageView("file:images/DEAD NUTS.jpg"));
+        imageArrayList.add(new ImageView("file:images/FALORNI.jpg"));
         System.out.println(imageArrayList.get(4).getImage().isError());
         imageArrayList.get(4).setFitWidth(500);
         imageArrayList.get(4).setFitHeight(500);
@@ -171,7 +171,19 @@ public class mainPageController extends UIController {
         //add timeLine
         Timeline anim = new Timeline(keyFrames.toArray(new KeyFrame[imageArrayList.size()]));
 
+        loginButton.setOnMouseClicked(event -> {
+            System.out.println("stopping anim");
+            if (event.getClickCount() == 1) {
+                anim.stop();
+                try {
+                    setDisplayToLoginPage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         anim.setCycleCount(Timeline.INDEFINITE);
         anim.playFromStart();
+
     }
 }
