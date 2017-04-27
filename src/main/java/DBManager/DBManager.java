@@ -22,11 +22,11 @@ import java.util.ArrayList;
  */
 public class DBManager {
 
+    private Main main;
     //INSERT FUNCTIONS:
 
     /**
      * Persists a user into the database
-     * TODO: add .replace("'", "''") to all sql fields to be able to include ' char in strings
      *
      * @param user - user to persist
      * @return returns true if persist is successful, false otherwise
@@ -36,15 +36,14 @@ public class DBManager {
         ArrayList<String> fields = new ArrayList<>();
         fields.add("\'" + user.getUid() + "\'");
         fields.add("" + user.getAuthenticationLevel() + "");
-        fields.add("\'" + user.getUsername().replace("'", "''") + "\'");
-        fields.add("\'" + user.getPassword().replace("'", "''") + "\'"); //TODO: add password regex checking
-        fields.add("\'" + user.getEmail() + "\'"); //TODO: do we need .replace for emails? maybe add valid email checking
-        fields.add("\'" + user.getPhoneNo() + "\'"); //TODO: add valid phone number checking
-        fields.add("\'" + user.getFirstName().replace("'", "''") + "\'");
-        fields.add("\'" + user.getMiddleInitial().replace("'", "''") + "\'");
-        fields.add("\'" + user.getLastName().replace("'", "''") + "\'");
+        fields.add("\'" + user.getUsername() + "\'");
+        fields.add("\'" + user.getPassword() + "\'");
+        fields.add("\'" + user.getEmail() + "\'");
+        fields.add("\'" + user.getPhoneNo() + "\'");
+        fields.add("\'" + user.getFirstName() + "\'");
+        fields.add("\'" + user.getMiddleInitial() + "\'");
+        fields.add("\'" + user.getLastName() + "\'");
         String queryString = queryBuilder.createInsertStatement("USERS", fields);
-        //System.out.println(queryString); For testing purposes
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -52,7 +51,7 @@ public class DBManager {
             stmt.close();
             connection.close();
             return true;
-        } catch (SQLIntegrityConstraintViolationException se) { // TODO: What is this?
+        } catch (SQLIntegrityConstraintViolationException se) {
             return false;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -74,28 +73,28 @@ public class DBManager {
         String submit_date = formatter.format(form.getsubmit_date());
 
         fields.add("\'" + form.getttb_id() + "\'");
-        fields.add("\'" + form.getrep_id() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getpermit_no() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getSource() + "\'"); // valid already checked?
-        fields.add("\'" + form.getserial_no() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getalcohol_type() + "\'"); // valid already checked?
-        fields.add("\'" + form.getbrand_name().replace("'", "''") + "\'");
-        fields.add("\'" + form.getfanciful_name().replace("'", "''") + "\'");
-        fields.add("" + form.getalcohol_content() + ""); //TODO: check valid
-        fields.add("\'" + form.getapplicant_street().replace("'", "''") + "\'");
-        fields.add("\'" + form.getapplicant_city().replace("'", "''") + "\'");
-        fields.add("\'" + form.getapplicant_zip() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getapplicant_state().replace("'", "''") + "\'");
-        fields.add("\'" + form.getapplicant_country().replace("'", "''") + "\'");
-        fields.add("\'" + form.getmailing_address().replace("'", "''") + "\'");
-        fields.add("\'" + form.getformula() + "\'"); // What is this?
-        fields.add("\'" + form.getphone_no() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getEmail() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getlabel_text().replace("'", "''") + "\'");
-        fields.add("\'" + form.getlabel_image() + "\'"); //TODO: can this have ' in filename?
+        fields.add("\'" + form.getrep_id() + "\'");
+        fields.add("\'" + form.getpermit_no() + "\'");
+        fields.add("\'" + form.getSource() + "\'");
+        fields.add("\'" + form.getserial_no() + "\'");
+        fields.add("\'" + form.getalcohol_type() + "\'");
+        fields.add("\'" + form.getbrand_name() + "\'");
+        fields.add("\'" + form.getfanciful_name() + "\'");
+        fields.add("" + form.getalcohol_content() + "");
+        fields.add("\'" + form.getapplicant_street() + "\'");
+        fields.add("\'" + form.getapplicant_city() + "\'");
+        fields.add("\'" + form.getapplicant_zip() + "\'");
+        fields.add("\'" + form.getapplicant_state() + "\'");
+        fields.add("\'" + form.getapplicant_country() + "\'");
+        fields.add("\'" + form.getmailing_address() + "\'");
+        fields.add("\'" + form.getformula() + "\'");
+        fields.add("\'" + form.getphone_no() + "\'");
+        fields.add("\'" + form.getEmail() + "\'");
+        fields.add("\'" + form.getlabel_text() + "\'");
+        fields.add("\'" + form.getlabel_image() + "\'");
         fields.add("\'" + submit_date + "\'");
-        fields.add("\'" + form.getSignature() + "\'"); //TODO: check valid
-        fields.add("\'" + form.getStatus() + "\'"); //TODO: check valid
+        fields.add("\'" + form.getSignature() + "\'");
+        fields.add("\'" + form.getStatus() + "\'");
         fields.add("NULL");
         fields.add("\'" + form.getapplicant_id() + "\'");
         fields.add("NULL");
@@ -165,7 +164,6 @@ public class DBManager {
 
             stmt.close();
             connection.close();
-            System.out.println("Form persisted");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

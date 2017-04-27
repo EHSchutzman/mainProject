@@ -25,68 +25,48 @@ import java.text.SimpleDateFormat;
 public class csvOptionsController extends UIController{
 
     @FXML
+    private Button close_button, user_specified_button, tab_separated_button, comma_separated_button;
+
+    @FXML
     private TextField user_specified_value_text;
 
-    private ObservableList<AppRecord> observableList;
 
-    private DBManager manager = new DBManager();
-
-
-    /**
-     * Use function upon initialization to pass a list of forms to the CSV controller
-     * See SearchResultsPageController.displayCSVOptionsPage() for first use.
-     * @param listOfForms
-     */
-    void passListOfForms(ObservableList<AppRecord> listOfForms){
-        this.observableList = listOfForms;
-    }
-
-    /**
-     * Function makes a csv file out of observable list in this controller.
-     */
     @FXML
     public void makeCSV() {
-        manager.generateCSV(observableList, ",", ".csv");
-        try {
-            displayConfirmationMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        DBManager manager = new DBManager();
+        System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
+
+        manager.generateCSV(main.userData.getObservableList(), ",", ".csv");
     }
 
-    /**
-     * Function makes a tab delimited format text file out of observable list in this controller.
-     */
     @FXML
     public void makeTab() {
-        manager.generateCSV(observableList, "\t", ".txt");
-        try {
-            displayConfirmationMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        DBManager manager = new DBManager();
+        manager.generateCSV(main.userData.getObservableList(), "\t", ".txt");
     }
 
-    /**
-     * Function passes a parameter from the fxml file and sets the delimiter to this character, then exports text file.
-     */
     @FXML
     public void makeUserSpecified() {
+        DBManager manager = new DBManager();
         String separator = user_specified_value_text.getText();
-        manager.generateCSV(observableList, separator, ".txt");
+        manager.generateCSV(main.userData.getObservableList(), separator, ".txt");
+    }
+
+
+    @FXML
+    public void closeApplication() {
+
+        // Close the window
+        Stage stage = (Stage) close_button.getScene().getWindow();
+        stage.close();
+
+        // Display confirmation message
         try {
-            displayConfirmationMessage();
+            //displayConfirmationMessage();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-    /**
-     * So this function displays the confirmation message in a new window
-     * TODO Find out why the FXML window size is 299 by 204, it doesn't really make sense.
-     * @throws Exception
-     */
 
     public void displayConfirmationMessage() throws Exception {
         try {

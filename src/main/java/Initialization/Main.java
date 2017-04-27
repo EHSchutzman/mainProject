@@ -18,12 +18,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -37,23 +42,31 @@ public class Main extends Application {
     public Data userData = new Data(new User());
     private Stage primaryStage;
     private AnchorPane rootLayout;
-
+    public static BorderPane root = new BorderPane();
+    public BorderPane getBorderPane(){
+        return root;
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
-
+    public AnchorPane getMenuBar() throws IOException{
+        URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
+        AnchorPane menuBar = FXMLLoader.load(menuBarURL);
+        return menuBar;
+    }
     public void initRootLayout() {
         try {
+            AnchorPane menuBar = getMenuBar();
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
             //System.out.println(loader.getLocation().getPath());
             rootLayout = loader.load();
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout, 1000, 500);
-            scene.getStylesheets().add(getClass().getResource("../Controllers/general.css").toExternalForm());
+            Scene scene = new Scene(root, 1000, 2000);
+            root.setTop(menuBar);
+            root.setBottom(rootLayout);
             primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
@@ -77,7 +90,7 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
@@ -99,8 +112,8 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("loginPage.fxml"));
             AnchorPane page = loader.load();
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            rootLayout.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -170,7 +183,7 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
             AnchorPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             stage.setTitle("Revisions Menu Page");
 
@@ -202,7 +215,7 @@ public class Main extends Application {
             primaryStage.setTitle("Form Page");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -225,7 +238,7 @@ public class Main extends Application {
             primaryStage.setTitle("Search");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             SearchController controller = loader.getController();
             controller.setDisplay(this);
@@ -238,12 +251,12 @@ public class Main extends Application {
         try {
             //System.out.println("Hiiiiii");
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("searchResultsPage.fxml"));
+            loader.setLocation(getClass().getResource("searchPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Results");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -268,7 +281,7 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
             AnchorPane newWindow = loader.load();
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -300,7 +313,7 @@ public class Main extends Application {
             primaryStage.setTitle("Create User Page");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -323,7 +336,7 @@ public class Main extends Application {
 
             AnchorPane page = loader.load();
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
             primaryStage.setTitle("Agent Main Page");
@@ -351,7 +364,7 @@ public class Main extends Application {
             primaryStage.setTitle("Applicant Page");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -375,7 +388,7 @@ public class Main extends Application {
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -452,7 +465,7 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             controller.ApplyDisplay(this);
 
@@ -471,7 +484,7 @@ public class Main extends Application {
             primaryStage.setTitle("Workflow Results");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -498,7 +511,7 @@ public class Main extends Application {
             primaryStage.setTitle("Applicant Forms");
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
 
@@ -570,7 +583,7 @@ public class Main extends Application {
     public void setDisplayToSuperAgentMain() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("superAgentMainPage.fxml"));
+            loader.setLocation(getClass().getResource("superAgentInitialPage.fxml"));
             AnchorPane page = loader.load();
             primaryStage.setTitle("Super Agent Main");
             primaryStage.getScene().setRoot(page);
@@ -647,7 +660,7 @@ public class Main extends Application {
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 600, 400);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             stage.setScene(scene);
 
@@ -672,7 +685,7 @@ public class Main extends Application {
             AnchorPane newWindow = loader.load();
 
             Scene scene = new Scene(newWindow, 1500, 1000);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             stage.setScene(scene);
             stage.setFullScreen(false);
@@ -695,7 +708,7 @@ public class Main extends Application {
             AnchorPane newWindow = loader.load();
 
             Scene scene = new Scene(newWindow, 1500, 1000);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             stage.setScene(scene);
             stage.setFullScreen(false);
