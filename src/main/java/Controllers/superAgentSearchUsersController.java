@@ -2,6 +2,7 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.UserRecord;
+import UserAccounts.AuthenticationController;
 import UserAccounts.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

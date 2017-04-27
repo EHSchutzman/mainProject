@@ -247,4 +247,3 @@ public class agentApplicationReviewController extends UIController{
         closeWindow();
     }
 }
-

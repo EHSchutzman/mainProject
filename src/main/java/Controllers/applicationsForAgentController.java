@@ -5,12 +5,15 @@ import java.util.ArrayList;
 
 import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
+import DatabaseSearch.AppRecord;
 import Form.*;
+import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -77,7 +80,7 @@ public class applicationsForAgentController extends UIController{
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            AnchorPane newWindow = loader.load();
+            ScrollPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 

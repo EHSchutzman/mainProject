@@ -52,8 +52,6 @@ public class Main extends Application {
         }
     }
     public BorderPane getBorderPane(){
-
-        root.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         return root;
     }
     @Override
@@ -64,28 +62,29 @@ public class Main extends Application {
     public AnchorPane getMenuBar() throws IOException{
         URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
         AnchorPane menuBar = FXMLLoader.load(menuBarURL);
-        menuBar.setBackground(new Background(new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
         return menuBar;
     }
     public void initRootLayout() {
         try {
             AnchorPane menuBar = getMenuBar();
+            BorderPane border = getBorderPane();
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
             //System.out.println(loader.getLocation().getPath());
             rootLayout = loader.load();
-            rootLayout.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
             Scene scene = new Scene(root, 1000, 2000);
             root.setTop(menuBar);
-            root.setCenter(rootLayout);
+            root.setBottom(rootLayout);
             primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
-            primaryStage.show();
-            // initialize mainPageController
             mainPageController controller = loader.getController();
+            controller.initSlideshow();
+            controller.startAnimation();
             controller.init(this);
+            primaryStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
