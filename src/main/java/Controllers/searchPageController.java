@@ -46,7 +46,7 @@ public class searchPageController extends UIController{
     //Create DBManager object to perform database operations
     private DBManager db = new DBManager();
 
-    private menuBarController mbc = new menuBarController();
+    private menuBarController mbc = menuBarSingleton.getInstance().getMenuBarController();
 
     //Variables for JavaFX buttons
     @FXML
@@ -122,7 +122,7 @@ public class searchPageController extends UIController{
 
     @FXML
     private void simpleSearch() {
-        displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
+       // displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
     }
 
     @FXML

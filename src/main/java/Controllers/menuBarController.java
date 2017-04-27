@@ -91,5 +91,10 @@ public class menuBarController extends UIController {
     @FXML
     public void search(){
         System.out.println("searching and search controller is" + searchPageController);
+
+    }
+
+    public TextField getSearchBar(){
+        return this.searchBar;
     }
 }

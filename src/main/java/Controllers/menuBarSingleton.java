@@ -15,6 +15,7 @@ public class menuBarSingleton {
     private static menuBarSingleton menuBarObj;
 
     private AnchorPane menuBar;
+    private menuBarController menuBarController;
     private menuBarSingleton(){}
 
 
@@ -47,6 +48,7 @@ public class menuBarSingleton {
         Parent searchRoot = searchLoader.load();
         AnchorPane menuBar = (AnchorPane) menuRoot;
         menuBarController menuBarController = (menuBarController) menuLoader.getController();
+        this.menuBarController = menuBarController;
         searchPageController searchPageController = (searchPageController) searchLoader.getController();
 
 
@@ -58,6 +60,9 @@ public class menuBarSingleton {
     }
     public AnchorPane getBar(){
         return this.menuBar;
+    }
+    public menuBarController getMenuBarController(){
+        return this.menuBarController;
     }
 
 }
