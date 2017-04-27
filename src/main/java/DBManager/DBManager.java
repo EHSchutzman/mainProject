@@ -741,5 +741,106 @@ public class DBManager {
         }
         return null;
     }
+
+    public boolean persistUpgrade(String userID, String saUsername, int authentication, String status){
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ArrayList<String> fields = new ArrayList<>();
+        fields.add("\'" + userID + "\'");
+        String saID = "";
+        try{
+            String saString = queryBuilder.createSelectStatement("USERS", "user_id", "username = '" + saUsername + "'");
+            Connection saConnect = TTB_database.connect();
+            Statement saStatement = saConnect.createStatement();
+            ResultSet saResultSet = saStatement.executeQuery(saString);
+            while (saResultSet.next()) {
+                saID = saResultSet.getString("user_id");
+            }
+            saResultSet.close();
+            saStatement.close();
+            saConnect.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+        fields.add("\'" + saID + "\'");
+        fields.add("" + authentication);
+        fields.add("\'" + status + "\'");
+
+        String queryString = queryBuilder.createInsertStatement("USERUPGRADE", fields);
+        System.out.println(queryString);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(queryString);
+            statement.close();
+            connection.close();
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+    public ArrayList<String> findUpgradeRequest(String uID) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ArrayList<String> list = new ArrayList<>();
+        String queryString = queryBuilder.createSelectStatement("USERUPGRADE", "*", "user_id = '" + uID + "'");
+        String saName = "";
+        System.out.println(queryString);
+        try {
+            String innerQuery = queryBuilder.createSelectStatement("USERS", "username", "user_id = '" + uID + "'");
+            System.out.println(innerQuery);
+            Connection inner = TTB_database.connect();
+            Statement innerStatement = inner.createStatement();
+            ResultSet innerRS = innerStatement.executeQuery(innerQuery);
+            while(innerRS.next()){
+                saName = innerRS.getString("username");
+            }
+            innerRS.close();
+            innerStatement.close();
+            inner.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(queryString);
+            while (rs.next()) {
+                list.add(saName);
+                list.add(rs.getString("requested_authentication"));
+                list.add(rs.getString("request_status"));
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return list;
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public boolean dropUpgradeRequest(String uID) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String queryString = queryBuilder.createDropStatement("USERUPGRADE", "user_id = '" + uID + "'");
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(queryString);
+            statement.close();
+            connection.close();
+            return true;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
 

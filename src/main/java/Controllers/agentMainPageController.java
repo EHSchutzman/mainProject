@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class agentMainPageController extends UIController{
     @FXML
-    private Button submissionButton;
+    private Button submissionButton, upgradeButton;
 
 
     /**
@@ -36,5 +36,18 @@ public class agentMainPageController extends UIController{
         controller.displayResults();
     }
 
+    @FXML
+    public void setDisplayToUserUpgradeForm() throws IOException{
+        Stage stage;
+        stage=(Stage) upgradeButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("userUpgradeForm.fxml"));
+        System.out.println(loader.getLocation().getPath());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+        userUpgradeFormController controller = loader.getController();
+        controller.init(super.main);
+        controller.updateUpgradeInfo();
+    }
 }
 
