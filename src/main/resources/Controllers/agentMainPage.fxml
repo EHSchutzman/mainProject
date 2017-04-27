@@ -32,7 +32,7 @@
          <font>
             <Font size="24.0" />
          </font></Button>
-      <Hyperlink fx:id="aboutLink" layoutX="932.0" layoutY="459.0" onMouseClicked="#setDisplayToAboutPage" text="About" textAlignment="CENTER" underline="true">
+      <Hyperlink fx:id="aboutLink" layoutX="932.0" layoutY="459.0" text="About" textAlignment="CENTER" underline="true">
          <font>
             <Font size="16.0" />
          </font>
