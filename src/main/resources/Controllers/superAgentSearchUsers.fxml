@@ -16,8 +16,8 @@
                 <Font size="36.0"/>
             </font>
         </Label>
-        <Button fx:id="return_to_main_button" layoutX="17.0" layoutY="20.0" mnemonicParsing="false"
-                onMouseClicked="#returnToMain" text="Return To Main">
+        <Button fx:id="returnToMainButton" layoutX="17.0" layoutY="20.0" mnemonicParsing="false"
+                onMouseClicked="#returnToMainPage" text="Return To Main">
             <font>
                 <Font size="18.0"/>
             </font>

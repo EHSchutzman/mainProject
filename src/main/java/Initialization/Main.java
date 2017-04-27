@@ -2,6 +2,7 @@ package Initialization;
 
 import AgentWorkflow.WorkflowController;
 import Controllers.ActionController;
+import Controllers.UIController;
 import Controllers.mainPageController;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
@@ -14,11 +15,13 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +44,14 @@ public class Main extends Application {
     private AnchorPane rootLayout;
     public static BorderPane root = new BorderPane();
 
-    public BorderPane getBorderPane() {
+    public static void main(String[] args) {
+        try {
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public BorderPane getBorderPane(){
         return root;
     }
     @Override
@@ -49,8 +59,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
-
-    public AnchorPane getMenuBar() throws IOException {
+    public AnchorPane getMenuBar() throws IOException{
         URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
         AnchorPane menuBar = FXMLLoader.load(menuBarURL);
         return menuBar;
@@ -58,6 +67,7 @@ public class Main extends Application {
     public void initRootLayout() {
         try {
             AnchorPane menuBar = getMenuBar();
+            BorderPane border = getBorderPane();
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
@@ -69,10 +79,12 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
-            primaryStage.show();
-            // initialize mainPageController
             mainPageController controller = loader.getController();
+            controller.initSlideshow();
+            controller.startAnimation();
             controller.init(this);
+            primaryStage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -432,14 +444,7 @@ public class Main extends Application {
         }
 
     }
-    public static void main(String[] args) {
-        try {
 
-           launch(args);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void setDisplayToApplicantApply() throws Exception {
 
@@ -726,8 +731,8 @@ public class Main extends Application {
             Stage stage = new Stage();
             //stage = (Stage) printable_version.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("testingForm.fxml"));
-            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/testingForm.fxml"));
+            loader.setLocation(getClass().getResource("printableVersion.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/printableVersion.fxml"));
             //System.out.println(loader.getLocation().toString());
             ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 700);

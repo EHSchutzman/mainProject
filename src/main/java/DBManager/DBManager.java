@@ -311,13 +311,16 @@ public class DBManager {
 
         if (user.getAuthenticationLevel() == 1) {
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("applicant_id= \'" + user.getUid() + "\'"));
+            System.out.println(query);
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("agent_id= \'" + user.getUid() + "\'"));
+            System.out.println(query);
 
         }
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 AgentRecord application = new AgentRecord();
@@ -380,7 +383,7 @@ public class DBManager {
                 String formula = rs.getString("formula");
                 String phone_no = rs.getString("phone_no");
                 String email = rs.getString("email");
-                String label_text = rs.getString("label_text");
+                String label_text = "";//rs.getString("extraLabelInfo");
                 String label_image = rs.getString("label_image");
                 Date submit_date = rs.getDate("submit_date");
                 String signature = rs.getString("signature");
@@ -592,9 +595,9 @@ public class DBManager {
         }
 
         if (form.getlabel_text() != null) {
-            fields.add("label_text=" + "\'" + form.getlabel_text() + "\'");
+            fields.add("extraLabelInfo=" + "\'" + form.getlabel_text() + "\'");
         } else {
-            fields.add("label_text= NULL");
+            fields.add("extraLabelInfo= NULL");
         }
         if (form.getlabel_image() != null) {
             fields.add("label_image=" + "\'" + form.getlabel_image() + "\'");
@@ -656,6 +659,9 @@ public class DBManager {
     }
 
 
+    // TODO: the commented line can be placed after the if - will fix the warning where the if is always true
+    // TODO: this throws an error to csvOptionsController where if you don't select a file path
+    // TODO: - and close the file chooser, the confirmation message still displays
     public void generateCSV(ObservableList<AppRecord> list, String separator, String extension) {
         DirectoryChooser dc = new DirectoryChooser();
         dc.setInitialDirectory(new File(System.getProperty("user.dir")));
@@ -663,6 +669,7 @@ public class DBManager {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
         File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + extension);
         if (selectedFile != null) {
+            //File file = new File(selectedFile.getPath() + "/" + "labelResults" + dateFormat.format(new Date(System.currentTimeMillis())) + extension);
             try {
                 FileWriter fileWriter = new FileWriter(file, false);
                 System.out.println(file.getAbsolutePath());
@@ -704,7 +711,6 @@ public class DBManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     }
 

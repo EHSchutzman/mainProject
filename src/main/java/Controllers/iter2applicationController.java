@@ -1,22 +1,26 @@
 package Controllers;
 
-import DBManager.DBManager;
 import Form.Form;
+import DBManager.DBManager;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.Date;
@@ -26,207 +30,116 @@ import java.util.ArrayList;
 
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
-/**
- * Created by Anthony on 4/18/2017.
- */
-public class iter2applicationController {
+public class iter2applicationController extends UIController {
+    private String uid;
+    @FXML
+    public void initialize(){
+        createApplicantForm();
+        super.init(main);
+        source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+        alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
+    }
+    public void setUID(String uid){
+        System.out.println("UID SENT IS " + uid);
+        this.uid = uid;
+    }
 
     @FXML
-    public Button back_button;
-    @FXML
     public Button submit_button;
-    @FXML
     public Button browse_button;
-    @FXML
-    public TextField rep_id_text;
-    @FXML
-    public TextField permit_no_text;
-    @FXML
-    public TextField serial_no_text;
+    public TextField repID;
+    public TextField permitNO;
+    public TextField serialNO;
+    public Text ttbid;
 
     // Source and Alcohol Type ComboBoxes + their TextFields for Agent Review
     @FXML
     public ComboBox source_combobox;
-    @FXML
-    public TextField source_text;
-    @FXML
     public ComboBox alcohol_type_combobox;
-    @FXML
-    public TextField alcohol_type_text;
-
-    @FXML
-    public TextField brand_name_text;
-    @FXML
-    public TextField fanciful_name_text;
-    @FXML
-    public TextField alcohol_content_text;
-    @FXML
-    public TextField formula_text;
-
-    @FXML
-    public TextField label_text;
+    public TextField brandName;
+    public TextField fancifulName;
+    public TextField alcoholContent;
+    public TextField formula;
+    public TextArea extraLabelInfo;
 
     // Wine only
     @FXML
-    public TextField vintage_year_text;
-    @FXML
-    public TextField ph_level_text;
-    @FXML
-    public TextField grape_varietals_text;
-    @FXML
-    public TextField wine_appellation_text;
-
+    public TextField vintageYear;
+    public TextField phLevel;
+    public TextField grapeVarietals;
+    public TextField wineAppellation;
+    public Label vintageYearLabel;
+    public Label phLevelLabel;
+    public Label grapeVarietalsLabel;
+    public Label wineAppellationLabel;
+    public Rectangle wineRec;
 
     // CheckBoxes and TextFields for the Type of Application
-    //
     @FXML
     public CheckBox option_1_checkbox;
-    @FXML
     public CheckBox option_2_checkbox;
-    @FXML
     public TextField option_2_text; //For sale in <state> only
-    @FXML
     public CheckBox option_3_checkbox;
-    @FXML
     public TextField option_3_text; //Bottle capacity before closure
-    @FXML
     public CheckBox option_4_checkbox;
-    @FXML
     public TextField option_4_text;
 
     // Applicant Info
     // Addresses
     // street1 and street2 correspond to applicant_street
     @FXML
-    public TextField applicant_street_1_text;
+    public TextField otherStreet;
+    public TextField otherCity;
+    public TextField otherState;
+    public TextField otherZip;
+    public TextField otherCountry;
+    public Label otherCityLabel;
+    public Label otherStateLabel;
+    public Label otherZipcodeLabel;
+    public Label otherCountryLabel;
+    public Label otherStreetLabel;
+
+
     @FXML
-    public TextField applicant_street_2_text;
-    @FXML
-    public TextField applicant_city_text;
-    @FXML
-    public TextField applicant_state_text;
-    @FXML
-    public TextField applicant_zip_text;
-    @FXML
-    public TextField applicant_country_text;
+    public TextField applicantStreet;
+    public TextField applicantCity;
+    public TextField applicantState;
+    public TextField applicantZip;
+    public TextField applicantCountry;
+
     //Mailing Address
     @FXML
-    public RadioButton sameAsApplicantButton;
-    @FXML
-    public TextArea mailing_addressText;
-    @FXML
-    public TextField mailing_name_text;
-    public TextField mailing_street_2_text;
-    public TextField mailing_street_1_text;
-    public TextField mailing_city_text;
-    public TextField mailing_zip_text;
-    public TextField mailing_country_text;
-    public TextField mailing_state_text;
-    @FXML
-    public TextField phone_no_text;
-    @FXML
-    public TextField signature_text;
-    @FXML
-    public TextField email_text;
-    @FXML
-    public TextArea address_text;
-    public TextField submit_date;
+    public CheckBox sameAsApplicantBox;
+    public TextField phoneNo;
+    public TextField signature;
+    public TextField email;
     public ImageView label_image;
+    public Group wineInfo;
 
     private DBManager db = new DBManager();
     private loginPageController lpc = new loginPageController();
     private Form form = new Form();
 
-    @FXML
-    public void setDisplayToApplicantMain() throws IOException {
-        Stage stage;
-        stage = (Stage) back_button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    //TODO Gut this funciton, it is never used and I need to do other things instead
     public void createApplicantForm() {
-
         form.setttb_id(form.makeUniqueID());
-        form.setrep_id(rep_id_text.getText());
-        form.setpermit_no(permit_no_text.getText());
-        form.setserial_no(serial_no_text.getText());
+        ttbid.setText(form.getttb_id());
 
-        // Initialize Source ChoiceBox and get value
-        source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-        form.setSource((String) source_combobox.getValue());
 
-        // Initialize Alcohol Type ChoiceBox, get and set value
-        alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        form.setalcohol_type((String) alcohol_type_combobox.getValue());
 
-        // Initialize checkboxes
-        // Type of Application Check Boxes and their corresponding TextFields
-        option_1_checkbox = new CheckBox("Certificate of Label Approval");
-        option_2_checkbox = new CheckBox("Certificate of Exemption from Label Approval");
-        option_3_checkbox = new CheckBox("Distinctive Liquor Bottle Approval");
-        option_4_checkbox = new CheckBox("Resubmission After Rejection");
-
-        // Determine which checkboxes were selected
-        // Make a temporary array to store the boolean values set them to the Form object, same with string array
-        ArrayList<Boolean> tempBoolArray = form.getapplication_type();
-        ArrayList<String> tempStrArray = form.getapplication_type_text();
-        if (option_1_checkbox.isSelected()) {//choice 0
-            tempBoolArray.set(0, true);
-        } else if (option_2_checkbox.isSelected()) {
-            tempStrArray.set(1, option_2_text.getText());
-            tempBoolArray.set(1, true);
-        } else if (option_3_checkbox.isSelected()) {
-            tempStrArray.set(2, option_3_text.getText());
-            tempBoolArray.set(2, true);
-        } else if (option_4_checkbox.isSelected()) {
-            tempStrArray.set(3, option_4_text.getText());
-            tempBoolArray.set(3, true);
-        }
-        form.setapplication_type(tempBoolArray);
-        form.setapplication_type_text(tempStrArray);
-
-        form.setbrand_name(brand_name_text.getText());
-        form.setfanciful_name(fanciful_name_text.getText());
-        //form.setalcohol_content(Double.parseDouble(alcohol_content_text.getText()));
-        form.setFormula(formula_text.getText());
-        form.setlabel_text(label_text.getText());
-        // Wines only
-        form.setvintage_year(vintage_year_text.getText());
-        //form.setpH_level(Integer.parseInt(ph_level_text.getText()));
-        form.setgrape_varietals(grape_varietals_text.getText());
-        form.setwine_appellation(wine_appellation_text.getText());
-
-        form.setapplicant_street(applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
-        form.setapplicant_city(applicant_city_text.getText());
-        form.setapplicant_state(applicant_state_text.getText());
-        form.setapplicant_zip(applicant_zip_text.getText());
-        form.setapplicant_country(applicant_country_text.getText());
-
-        if (sameAsApplicantButton.isSelected()) {
-            form.setmailing_address(form.getapplicant_street() + " " +
-                    form.getapplicant_city() + " " + form.getapplicant_state() +
-                    form.getapplicant_zip() + " " + form.getapplicant_country());
-        } else {
-            form.setmailing_address(mailing_addressText.getText());
-        }
-
-        form.setSignature(signature_text.getText());
-        form.setphone_no(phone_no_text.getText());
-        form.setEmail(email_text.getText());
     }
 
     @FXML
     public void submitForm() {
-        createApplicantForm();
         int pH_level;
+        String grape_varietals = "";
+        String wine_appellation = "";
+        String vintage_year = "";
 //        String ttb_id = ttb_id_label.getText();
 
-        String rep_id = rep_id_text.getText();
-        String permit_no = permit_no_text.getText();
-        String serial_no = serial_no_text.getText();
+        String rep_id = repID.getText();
+        String permit_no = permitNO.getText();
+        String serial_no = serialNO.getText();
 
         String source = (String) source_combobox.getValue();
 
@@ -255,42 +168,42 @@ public class iter2applicationController {
             application_type.set(3, true);
         }
 
-        String brand_name = brand_name_text.getText();
-        String fanciful_name = (fanciful_name_text.getText());
-        Double alcohol_content = (Double.parseDouble(alcohol_content_text.getText()));
-        String formula = (formula_text.getText());
-        String labeltext = label_text.getText();
+        String brand_name = brandName.getText();
+        String fanciful_name = (fancifulName.getText());
+        Double alcohol_content = (Double.parseDouble(alcoholContent.getText()));
+        String formula = (this.formula.getText());
+        String labeltext = extraLabelInfo.getText();
 
         // Wines only
-        String vintage_year = (vintage_year_text.getText());
-        if (source.equals("Wine")) {
-            pH_level = (Integer.parseInt(ph_level_text.getText()));
+
+        if (source_combobox.getValue().toString().equalsIgnoreCase("Wine")) {
+            pH_level = (Integer.parseInt(phLevel.getText()));
+             grape_varietals = (grapeVarietals.getText());
+             wine_appellation = (wineAppellation.getText());
+             vintage_year = (vintageYear.getText());
         } else {
+
             pH_level = -1;
         }
-        String grape_varietals = (grape_varietals_text.getText());
-        String wine_appellation = (wine_appellation_text.getText());
 
-        String applicant_street = (applicant_street_1_text.getText() + " " + applicant_street_2_text.getText());
-        String applicant_city = (applicant_city_text.getText());
-        String applicant_state = (applicant_state_text.getText());
-        String applicant_zip = (applicant_zip_text.getText());
-        String applicant_country = (applicant_country_text.getText());
+
+        String applicant_street = (applicantStreet.getText());
+        String applicant_city = (applicantCity.getText());
+        String applicant_state = (applicantState.getText());
+        String applicant_zip = (applicantZip.getText());
+        String applicant_country = (applicantCountry.getText());
 
         String mailing_address;
-        if (sameAsApplicantButton.isSelected()) {
-            mailing_address = (applicant_street + " " +
-                    applicant_city + " " + applicant_state +
-                    applicant_zip + " " + applicant_country);
+        if (sameAsApplicantBox.isSelected()) {
+            mailing_address = "";
         } else {
-            mailing_address = (mailing_name_text.getText() + mailing_street_1_text.getText()
-                    + mailing_street_2_text.getText() + mailing_city_text.getText() + mailing_zip_text.getText()
-                    + mailing_country_text.getText() + mailing_state_text.getText());
+            mailing_address = (otherStreet.getText() + "\n" + otherCity.getText() + " " + otherState.getText()
+                    + "," + otherZip.getText() + "\n" + otherCountry.getText());
         }
 
-        String signature = (signature_text.getText());
-        String phone_no = (phone_no_text.getText());
-        String email = (email_text.getText());
+        String signature = (this.signature.getText());
+        String phone_no = (phoneNo.getText());
+        String email = (this.email.getText());
         Date submitdate = new Date(System.currentTimeMillis());
 
 
@@ -299,12 +212,12 @@ public class iter2applicationController {
         form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, label_image.getId(), submitdate, signature, "Pending", null, lpc.getUser().getUid(), null, null,
+                labeltext, label_image.getId(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
         db.persistForm(form);
-
+//        System.out.println(form.getsubmit_date());
         //TODO return to applicant's application list page
     }
 
@@ -344,8 +257,6 @@ public class iter2applicationController {
             e.printStackTrace();
         }
 
-//        String path = getClass().getResource("images/").toExternalForm();
-//        System.out.println(path);
         form.setlabel_image(newFileName);
         try {
             System.out.println("here");
@@ -360,9 +271,72 @@ public class iter2applicationController {
         }
 
 
-        //        Image image = new Image(getClass().getResource("images/" + newFileName).toExternalForm());
-
-//        label_image.setImage(image);
-
     }
+
+    @FXML
+    public void showSecondAddress() {
+        System.out.println("Showing second address");
+        if (sameAsApplicantBox.isSelected()) {
+            otherCityLabel.setVisible(true);
+            otherStateLabel.setVisible(true);
+            otherStreetLabel.setVisible(true);
+            otherZipcodeLabel.setVisible(true);
+            otherCityLabel.setVisible(true);
+            otherCountry.setVisible(true);
+            otherCountryLabel.setVisible(true);
+            otherZip.setVisible(true);
+            otherState.setVisible(true);
+            otherStreet.setVisible(true);
+            otherCity.setVisible(true);
+        } else {
+            otherCityLabel.setVisible(false);
+            otherStateLabel.setVisible(false);
+            otherStreetLabel.setVisible(false);
+            otherZipcodeLabel.setVisible(false);
+            otherCityLabel.setVisible(false);
+            otherCountry.setVisible(false);
+            otherCountryLabel.setVisible(true);
+            otherZip.setVisible(false);
+            otherState.setVisible(false);
+            otherStreet.setVisible(false);
+            otherCity.setVisible(false);
+        }
+    }
+
+
+    @FXML
+    public void checkType(){
+        System.out.println("in checkType");
+        if(alcohol_type_combobox.getValue().toString().equalsIgnoreCase("Wine")){
+            wineRec.setVisible(true);
+            grapeVarietals.setVisible(true);
+            grapeVarietalsLabel.setVisible(true);
+            
+            wineAppellation.setVisible(true);
+            wineAppellationLabel.setVisible(true);
+            
+            phLevel.setVisible(true);
+            phLevelLabel.setVisible(true);
+            
+            vintageYear.setVisible(true);
+            vintageYearLabel.setVisible(true);
+        }
+        else{
+            wineRec.setVisible(false);
+            grapeVarietals.setVisible(false);
+            grapeVarietalsLabel.setVisible(false);
+
+            wineAppellation.setVisible(false);
+            wineAppellationLabel.setVisible(false);
+
+            phLevel.setVisible(false);
+            phLevelLabel.setVisible(false);
+
+            vintageYear.setVisible(false);
+            vintageYearLabel.setVisible(false);
+        }
+    }
+
+
+
 }

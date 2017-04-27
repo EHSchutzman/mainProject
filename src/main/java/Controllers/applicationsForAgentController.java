@@ -13,19 +13,21 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Created by James Corse on 4/25/17.
+ * Status: complete, needs review
+ * TODO: review this
  */
 public class applicationsForAgentController extends UIController{
+
     @FXML
     private TableView resultsTable;
     private ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
-    private Form form = new Form();
     private DBManager dbManager = new DBManager();
 
     @FXML
@@ -78,11 +80,9 @@ public class applicationsForAgentController extends UIController{
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            AnchorPane newWindow = loader.load();
+            ScrollPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-
-
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1500, 1000);
@@ -97,7 +97,8 @@ public class applicationsForAgentController extends UIController{
 
             agentApplicationReviewController controller = loader.getController();
             controller.init(super.main);
-            controller.setReviewForm(form);
+            controller.setReviewForm(application);
+            controller.setLabels();
 
         } catch (IOException e){
             e.printStackTrace();
