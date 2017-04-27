@@ -22,6 +22,11 @@ public class applicantMainPageController extends UIController{
     @FXML
     private Button viewFormsButton, submissionButton;
 
+    @FXML
+    public void initialize(){
+        super.init(main);
+    }
+
     /**
      * Redirects to applicationStatusForApplicant.fxml
      * @throws IOException - throws exception

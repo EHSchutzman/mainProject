@@ -41,6 +41,11 @@ public class agentMainPageController extends UIController{
 
 
     @FXML
+    public void initialize(){
+        super.init(main);
+    }
+
+    @FXML
     private Button submissionButton;
 
     /**

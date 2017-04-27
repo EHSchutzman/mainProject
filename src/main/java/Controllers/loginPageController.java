@@ -26,11 +26,6 @@ public class loginPageController extends UIController{
     private Authentication isAuthentic = new Authentication();
     private User user = new User();
 
-    @FXML
-    public void initialize(){
-        super.init(main);
-    }
-
     /**
      * Allows ENTER key press when focused on password text field to call loginAction.
      * Allows ENTER key press when focused on loginButton to fire loginAction.
@@ -75,12 +70,13 @@ public class loginPageController extends UIController{
         // Check if valid user
         if(isAuthentic.authenticate()) {
             user = isAuthentic.getFoundUser();
+            System.out.println(user);
         }
         // Redirect to correct page if valid using returnToMainPage() from UIController
         if(user.getUsername() != null && user.getUsername().equals(name)){
             try {
-               super.main.userData.setUserInformation(user);
-               super.returnToMainPage();
+               main.userData.setUserInformation(user);
+               returnToMainPage();
             } catch (IOException e){
                 e.printStackTrace();
             }

@@ -16,6 +16,11 @@ import java.io.IOException;
 public class superAgentMainPageController extends UIController{
 
     @FXML
+    public void initialize(){
+        super.init(main);
+    }
+
+    @FXML
     private Button reviewLabelButton, userSearchButton, createAgentButton;
 
     @FXML

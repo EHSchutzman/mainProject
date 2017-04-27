@@ -40,6 +40,9 @@ public class searchPageController extends UIController{
     protected String stateInfo;
     protected String countryInfo;
 
+    //For exporting to CSV
+    private ObservableList<AppRecord> observableList;
+
     //Create DBManager object to perform database operations
     private DBManager db = new DBManager();
 
@@ -76,6 +79,9 @@ public class searchPageController extends UIController{
     public TableView<AppRecord> resultsTable;
     @FXML
     private Button return_to_main_button;
+    @FXML
+    private TextField userSpecifiedValueText;
+
 /*
     //Function that returns the user to the main page
     @FXML
@@ -107,6 +113,7 @@ public class searchPageController extends UIController{
     //Populates the results table with data from the database
     protected void displayData(ObservableList<AppRecord> list) {
         try {
+            resultsTable.refresh();
             resultsTable.setItems(list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,54 +121,23 @@ public class searchPageController extends UIController{
     }
 
     @FXML
-    ObservableList<AppRecord> simpleSearch() {
-        try {
-            //Set all variables equal to input data
-            //searchBar = mbc.getSearchBar();
-            //searchBarContent = searchBar.getText();
-            boolean isMalt = simpleMaltBeverageCheckbox.isSelected();
-            boolean isSpirit = simpleOtherCheckbox.isSelected();
-            boolean isWine = simpleWineCheckbox.isSelected();
-            String params = " WHERE STATUS = 'Accepted'";
-            if (isMalt || isSpirit || isWine) {
-                params += " AND (ALCOHOL_TYPE = ";
-                if (isWine) {params += "'Wine'";}
-                if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
-                if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
-                if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
-                if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
-                params += ")";
-            }/*
-            if (isMalt || isSpirit || isWine) {
-                params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent +
-                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
-            } else {
-                params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent +
-                        "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
-            }*/
-            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
-            ObservableList<AppRecord> array = db.findLabels(searchParams, params);
-            System.out.println(array);
-            resultsTable.setItems(array);
-            resultsTable.refresh();
-            return array;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Could not build a query from search criteria.");
-            return null;
-        }
+    private void simpleSearch() {
+        displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
     }
 
+    @FXML
     protected ObservableList<AppRecord> advancedSearch() {
         try {
             //Set all variables equal to input data
             brand = brandName.getText();
             fanciful = fancifulName.getText();
-            isMalt = simpleMaltBeverageCheckbox.isSelected();
-            isSpirit = simpleOtherCheckbox.isSelected();
-            isWine = simpleWineCheckbox.isSelected();
+            isMalt = advMaltBeverageCheckbox.isSelected();
+            isSpirit = advOtherCheckbox.isSelected();
+            isWine = advWineCheckbox.isSelected();
 
-            String params = "APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
+            String params = " WHERE STATUS = 'Accepted'";
+
+            params += " AND APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
 
             boolean firstCheck = false;
 
@@ -174,17 +150,17 @@ public class searchPageController extends UIController{
                 firstCheck = true;
             }
             if (isSpirit && !firstCheck) {
-                params += "'Distilled Spirit'";
+                params += "'Distilled Spirits'";
                 firstCheck = true;
             } else if (isSpirit && firstCheck) {
-                params += " OR ALCOHOL_TYPE = 'Distilled Spirit'";
+                params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
             }
 
             if (isMalt && !firstCheck) {
-                params += "'Malted Beverages'";
+                params += "'Malt Beverages'";
                 firstCheck = true;
             } else if (isMalt && firstCheck) {
-                params += " OR ALCOHOL_TYPE = 'Malted Beverages'";
+                params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
             }
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
@@ -259,5 +235,52 @@ public class searchPageController extends UIController{
             });
             return row;
         });
+    }
+
+
+    //CSV OPTIONS:
+
+    void passListOfForms(ObservableList<AppRecord> listOfForms){
+        this.observableList = listOfForms;
+    }
+
+    /**
+     * Function makes a csv file out of observable list in this controller.
+     */
+    @FXML
+    public void makeCSV() {
+        db.generateCSV(observableList, ",", ".csv");
+        try {
+            displayConfirmationMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Function makes a tab delimited format text file out of observable list in this controller.
+     */
+    @FXML
+    public void makeTab() {
+        db.generateCSV(observableList, "\t", ".txt");
+        try {
+            displayConfirmationMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Function passes a parameter from the fxml file and sets the delimiter to this character, then exports text file.
+     */
+    @FXML
+    public void makeUserSpecified() {
+        String separator = userSpecifiedValueText.getText();
+        db.generateCSV(observableList, separator, ".txt");
+        try {
+            displayConfirmationMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
