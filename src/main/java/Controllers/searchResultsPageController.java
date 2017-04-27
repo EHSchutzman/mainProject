@@ -41,7 +41,7 @@ public class searchResultsPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(super.mainData);
+        controller.init(super.main);
     }*/
 
     /**
@@ -63,7 +63,7 @@ public class searchResultsPageController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             csvOptionsController controller = loader.getController();
-            controller.init(super.mainData);
+            controller.init(super.main);
             //use passListOfForms to give the list of forms to the csv generator.
             controller.passListOfForms(observableList);
         } catch (IOException e) {
@@ -132,7 +132,7 @@ public class searchResultsPageController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             inspectApprovedLabelController controller = loader.getController();
-            controller.init(super.mainData);
+            controller.init(super.main);
             controller.setForm(form);
         } catch (Exception e) {
             e.printStackTrace();

@@ -28,6 +28,6 @@ public class aboutPageController extends UIController {
         stage.setScene(scene);
         stage.show();
         mainPageController controller = loader.getController();
-        controller.init(super.mainData);
+        controller.init(super.main);
     }
 }

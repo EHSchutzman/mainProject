@@ -88,7 +88,7 @@ public class WorkflowController {
 //        // Query for individual application
 //        // Fill Form object with query information
 //        // Pass form to new window
-//        //mainData.displayWorkflowApplication(form);
+//        //main.displayWorkflowApplication(form);
 //        //createAgentForm(form);
 //
 //    }
@@ -102,7 +102,7 @@ public class WorkflowController {
 //
 //        //@TODO: Refresh the TableView's contents
 //            // Update our resultset???
-//        setDisplay2(this.mainData, resultsList);
+//        setDisplay2(this.main, resultsList);
 //        //resultsTable.refresh();
 //
 //    }
@@ -125,8 +125,8 @@ public class WorkflowController {
         this.displayResults();  // Display TableView Results
     }
 
-//    public void setDisplay2(Main mainData, ObservableList<AgentRecord> rl) {
-//        this.mainData = mainData;
+//    public void setDisplay2(Main main, ObservableList<AgentRecord> rl) {
+//        this.main = main;
 //        this.displayResults(rl);  // Display TableView Results
 //    }
 

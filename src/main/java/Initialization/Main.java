@@ -2,6 +2,7 @@ package Initialization;
 
 import AgentWorkflow.WorkflowController;
 import Controllers.ActionController;
+import Controllers.UIController;
 import Controllers.mainPageController;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
@@ -42,7 +43,16 @@ public class Main extends Application {
     private Stage primaryStage;
     private AnchorPane rootLayout;
     public static BorderPane root = new BorderPane();
+
+    public static void main(String[] args) {
+        try {
+            launch(args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public BorderPane getBorderPane(){
+
         root.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         return root;
     }
@@ -201,7 +211,7 @@ public class Main extends Application {
 
             FormController controller = loader.getController();
             controller.createRevisionsMenu(this.userData.getForm(), this);
-            System.out.println("in mainData" + this.userData.getForm());
+            System.out.println("in main" + this.userData.getForm());
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -435,14 +445,7 @@ public class Main extends Application {
         }
 
     }
-    public static void main(String[] args) {
-        try {
 
-           launch(args);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void setDisplayToApplicantApply() throws Exception {
 
@@ -730,7 +733,7 @@ public class Main extends Application {
             //stage = (Stage) printable_version.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("printableVersion.fxml"));
-            //loader.setLocation(getClass().getResource("../../../resources/mainData/Controllers/printableVersion.fxml"));
+            //loader.setLocation(getClass().getResource("../../../resources/main/Controllers/printableVersion.fxml"));
             //System.out.println(loader.getLocation().toString());
             ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 700);

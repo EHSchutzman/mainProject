@@ -70,7 +70,7 @@ public class superAgentEditUserController extends UIController{
                 stage = (Stage) edit_user_button.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader();
                 //loader.setLocation(getClass().getResource("editUserConfirmationMessage.fxml"));
-                loader.setLocation(getClass().getResource("../../../resources/mainData/Controllers/confirmationMessage.fxml"));
+                loader.setLocation(getClass().getResource("../../../resources/main/Controllers/confirmationMessage.fxml"));
                 //System.out.println(loader.getLocation().toString());
                 Scene scene = new Scene(loader.load());
                 stage.setScene(scene);

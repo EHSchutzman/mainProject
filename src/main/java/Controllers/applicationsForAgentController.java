@@ -31,8 +31,8 @@ public class applicationsForAgentController extends UIController{
     public void displayResults() {
 
         //@TODO: Get 10 batch assignments from the DB Manager
-        System.out.println(mainData.userData.getUserInformation().getAuthenticationLevel());
-        olAR = dbManager.pullFormBatch(mainData.userData.getUserInformation());
+        System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
+        olAR = dbManager.pullFormBatch(main.userData.getUserInformation());
         System.out.println(olAR);
         // Query for batch
         // Display batch in table
@@ -93,7 +93,7 @@ public class applicationsForAgentController extends UIController{
             stage.show();
 
             agentApplicationReviewController controller = loader.getController();
-            controller.init(super.mainData);
+            controller.init(super.main);
             controller.setReviewForm(application);
             controller.setLabels();
 

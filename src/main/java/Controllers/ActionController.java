@@ -60,7 +60,7 @@ public class ActionController {
 
     //@FXML
     //public void displayReviseApplication(){
-    //    mainData.setDisplayToReviewApplicaiton();
+    //    main.setDisplayToReviewApplicaiton();
     //}
 
     @FXML

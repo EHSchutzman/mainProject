@@ -30,7 +30,7 @@ public class agentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         applicationsForAgentController controller = loader.getController();
-        controller.init(super.mainData);
+        controller.init(super.main);
         controller.displayResults();
     }
 

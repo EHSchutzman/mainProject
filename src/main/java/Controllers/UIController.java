@@ -27,15 +27,18 @@ public abstract class UIController {
     @FXML
     protected Hyperlink aboutLink; //TODO: keep either button or link
 
-    protected Main mainData = new Main();
+    protected Main main = new Main();
 
+    public void setMain(Main main){
+        this.main = main;
+    }
     /**
-     * Initializes mainData
-     * @param main - mainData class to be passed through pages
+     * Initializes main
+     * @param main - main class to be passed through pages
      */
     @FXML
     public void init(Main main) {
-        this.mainData = main;
+        this.main = main;
         if(currentUserLabel != null) {
             if (main.userData == null || main.userData.getUserInformation().getUid() == null) {
                 currentUserLabel.setText("Not Logged In");
@@ -81,7 +84,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         searchResultsPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
         controller.initApplicationTableView();
     }
 
@@ -100,7 +103,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         aboutPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
     /**
@@ -118,9 +121,9 @@ public abstract class UIController {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        mainData.userData.setUserInformation(new User());
+        main.userData.setUserInformation(new User());
         mainPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
     /**
@@ -139,7 +142,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         defaultUserMainPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
     /**
@@ -158,7 +161,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         applicantMainPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
     /**
@@ -177,7 +180,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         agentMainPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
     /**
@@ -196,17 +199,17 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         superAgentMainPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
     /**
-     * Redirects to correct mainData page depending on authentication
+     * Redirects to correct main page depending on authentication
      * Login user if logging in from loginPage.fxml
      * @throws IOException - throws exception
      */
     @FXML
     protected void returnToMainPage() throws IOException {
-        int auth = mainData.userData.getUserInformation().getAuthenticationLevel();
+        int auth = main.userData.getUserInformation().getAuthenticationLevel();
         switch (auth) {
             case 0: setDisplayToDefaultUserMainPage(); break;
             case 1: setDisplayToApplicantMainPage(); break;
@@ -238,7 +241,7 @@ public abstract class UIController {
      */
     @FXML
     public void logoutAction() throws IOException{
-        mainData.userData.setUserInformation(new User());
+        main.userData.setUserInformation(new User());
         Stage stage;
         stage=(Stage) logoutButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
@@ -246,7 +249,7 @@ public abstract class UIController {
         stage.setScene(scene);
         stage.show();
         mainPageController controller = loader.getController();
-        controller.init(mainData);
+        controller.init(main);
     }
 
 }

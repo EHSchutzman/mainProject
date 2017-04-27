@@ -153,7 +153,7 @@ public class AuthenticationController {
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 2){
                 System.out.println("user has authentication lvl 2");
                 main.setDisplayToAgentMain();
-                //set display to agent mainData page
+                //set display to agent main page
             }
             else if(isAuthentic.getFoundUser().getAuthenticationLevel() == 3){
                 System.out.println("user has authentication lvl 3");
@@ -240,7 +240,7 @@ public class AuthenticationController {
                 stage = (Stage) edit_user_button.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader();
                 //loader.setLocation(getClass().getResource("editUserConfirmationMessage.fxml"));
-                loader.setLocation(getClass().getResource("../../../resources/mainData/Controllers/confirmationMessage.fxml"));
+                loader.setLocation(getClass().getResource("../../../resources/main/Controllers/confirmationMessage.fxml"));
                 //System.out.println(loader.getLocation().toString());
                 Scene scene = new Scene(loader.load());
                 stage.setScene(scene);

@@ -166,7 +166,7 @@ public class superAgentSearchUsersController extends UIController {
             stage.getScene().setRoot(newWindow);
             stage.show();
             superAgentEditUserController controller = loader.getController();
-            controller.init(super.mainData);
+            controller.init(super.main);
             controller.setEditUser(user);
         } catch (IOException e){
             e.printStackTrace();

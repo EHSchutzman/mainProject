@@ -27,19 +27,19 @@ public class mainPageController extends UIController {
     private void setDisplayToSearch() throws IOException{
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
-        BorderPane root = super.mainData.getBorderPane();
+        BorderPane root = super.main.getBorderPane();
 
         URL searchPageURL = getClass().getResource("searchPage.fxml");
         FXMLLoader loader = new FXMLLoader();
         ScrollPane pane = loader.load(searchPageURL);
-        root.setTop(mainData.getMenuBar());
+        root.setTop(main.getMenuBar());
         root.setBottom(pane);
 
         Scene scene = root.getScene();
         stage.setScene(root.getScene());
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(super.mainData);
+        controller.init(super.main);
 
         System.out.println("FUCK ME USE THIS!");
     }
@@ -59,7 +59,7 @@ public class mainPageController extends UIController {
         stage.setScene(scene);
         stage.show();
         loginPageController controller = loader.getController();
-        controller.init(super.mainData);
+        controller.init(super.main);
         controller.setActionOnEnter();
     }
 

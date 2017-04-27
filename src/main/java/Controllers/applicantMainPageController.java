@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -46,40 +45,43 @@ public class applicantMainPageController extends UIController{
      */
     @FXML
     public void setDisplayToApplicationStatusForApplicant() throws IOException{
-        BorderPane pane = mainData.getBorderPane();
+        BorderPane pane = main.getBorderPane();
         Stage stage;
         stage=(Stage) viewFormsButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = pane.getScene();
-        pane.setTop(mainData.getMenuBar());
+        pane.setTop(main.getMenuBar());
         pane.setCenter(loader.load());
         stage.setScene(scene);
         stage.show();
         applicationStatusForApplicantController controller = loader.getController();
-        controller.init(super.mainData);
+        controller.init(super.main);
         controller.initApplicationStatusTableView();
     }
 
 
     @FXML
     public void setDisplayToIter2application() throws IOException{
-        BorderPane borderPane = mainData.getBorderPane();
+        BorderPane borderPane = main.getBorderPane();
 
         FXMLLoader loader = new FXMLLoader();
         URL iter2URL = getClass().getResource("iter2application.fxml");
-        loader.setLocation(getClass().getResource("iter2application.fxml"));
+        loader.setLocation(iter2URL);
         //System.out.println(loader.getLocation().getPath());
-        ScrollPane scrollPane = loader.load(iter2URL);
+        ScrollPane scrollPane = loader.load();
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
-        borderPane.setTop(mainData.getMenuBar());
+        borderPane.setTop(main.getMenuBar());
         borderPane.setCenter(scrollPane);
         stage.show();
-        Parent root = (Parent) loader.load();
-        super.init(super.mainData);
+        iter2applicationController controller = loader.getController();
+        System.out.println(controller);
+        controller.init(main);
+        controller.initialize();
+
 
 
 
