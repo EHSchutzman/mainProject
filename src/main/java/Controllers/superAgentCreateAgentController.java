@@ -44,3 +44,4 @@ public class superAgentCreateAgentController extends UIController {
             e.printStackTrace();
         }
     }
+}

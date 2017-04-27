@@ -83,36 +83,4 @@ public class superAgentEditUserController extends UIController {
             edit_errorLabel.setText("User with the edited username/email already exists");
         }
     }
-
-}
-
-    // When super agent presses edit button
-    @FXML
-    public void editUserAction() {
-        User user = dbManager.findUser("user_id='" + edit_user_id_text.getText() + "'");
-        User editUser = new User(user.getUid(), edit_username_text.getText(), user.getPassword(),
-                edit_first_name_text.getText(), edit_middle_initial_text.getText(), edit_last_name_text.getText(),
-                edit_email_text.getText(), edit_phone_number_text.getText(), Integer.parseInt(edit_user_type_combobox.getValue()));
-        boolean editSuccess = dbManager.updateUser(editUser);
-        System.out.println(editSuccess);
-        if (editSuccess) {
-            // go to success page
-            try {
-                Stage stage;
-                stage = (Stage) edit_user_button.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader();
-                //loader.setLocation(getClass().getResource("editUserConfirmationMessage.fxml"));
-                loader.setLocation(getClass().getResource("../../../resources/main/Controllers/confirmationMessage.fxml"));
-                //System.out.println(loader.getLocation().toString());
-                Scene scene = new Scene(loader.load());
-                stage.setScene(scene);
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            // set error label
-            edit_errorLabel.setText("User with the edited username/email already exists");
-        }
-    }
 }

@@ -104,11 +104,7 @@ public class Authentication {
         this.foundUser = manager.findUser("username = \'" + this.getUsername() + "\'" + " AND password = \'" + this.getPassword() + "\'");
 
         // Validate that we have indeed found a user
-        if (getFoundUser() != null && getFoundUser().getAuthenticationLevel() >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return getFoundUser() != null && getFoundUser().getAuthenticationLevel() >= 0;
     }
 
 }
