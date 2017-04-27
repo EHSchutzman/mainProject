@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +18,7 @@ import java.net.URL;
  */
 public class menuBarController extends UIController {
 
+    private searchPageController searchPageController;
     //Variables to hold the appropriate FXML buttons and fields
     @FXML
     private Button backButton;
@@ -31,6 +31,11 @@ public class menuBarController extends UIController {
     @FXML
     private TextField searchBar;
 
+
+    public void setSearchPageController(searchPageController controller){
+        this.searchPageController = controller;
+
+    }
     @FXML
     private void setDisplayToLoginPage() throws IOException {
         String loginStatus = loginButton.getText();
@@ -41,7 +46,7 @@ public class menuBarController extends UIController {
             URL loginPageURL = getClass().getResource("loginPage.fxml");
             FXMLLoader loader = new FXMLLoader();
             AnchorPane pane = loader.load(loginPageURL);
-            root.setTop(main.getMenuBar());
+            root.setTop(menuBarSingleton.getInstance().getBar());
             root.setBottom(pane);
             Scene scene = root.getScene();
             stage.setScene(scene);
@@ -56,7 +61,7 @@ public class menuBarController extends UIController {
             URL mainPageURL = getClass().getResource("mainPage.fxml");
             FXMLLoader loader = new FXMLLoader();
             AnchorPane pane = loader.load(mainPageURL);
-            root.setTop(main.getMenuBar());
+            root.setTop(menuBarSingleton.getInstance().getBar());
             root.setBottom(pane);
             Scene scene = root.getScene();
             stage.setScene(scene);
@@ -75,11 +80,16 @@ public class menuBarController extends UIController {
         URL aboutPageURL = getClass().getResource("aboutPage.fxml");
         FXMLLoader loader = new FXMLLoader();
         AnchorPane pane = loader.load(aboutPageURL);
-        root.setTop(main.getMenuBar());
+        root.setTop(menuBarSingleton.getInstance().getBar());
         root.setBottom(pane);
         Scene scene = root.getScene();
         stage.setScene(scene);
         stage.show();
         loginPageController controller = loader.getController();
+    }
+
+    @FXML
+    public void search(){
+        System.out.println("searching and search controller is" + searchPageController);
     }
 }

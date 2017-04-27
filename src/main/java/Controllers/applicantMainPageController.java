@@ -53,11 +53,15 @@ public class applicantMainPageController extends UIController{
         URL iter2applicationURL = getClass().getResource("iter2application.fxml");
         FXMLLoader loader = new FXMLLoader();
         ScrollPane pane = loader.load(iter2applicationURL);
-        root.setTop(main.getMenuBar());
+        root.setTop(menuBarSingleton.getInstance().getBar());
         root.setBottom(pane);
+
+
         Scene scene = root.getScene();
         stage.setScene(root.getScene());
         stage.show();
+
+
         iter2applicationController controller = loader.getController();
         controller.init(super.main);
         controller.initializeComboBox();

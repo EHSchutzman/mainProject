@@ -18,10 +18,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * The SearchController will read and store data from the UI search page and pass it to the query builder in order to form an SQL query.
+ * The searchPageController will read and store data from the UI search page and pass it to the query builder in order to form an SQL query.
  * Note: all attributes are stored as strings in the database except for IDs.
  */
-public class SearchController {
+public class searchPageController {
 
     private Main main;
     // Database information

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Status: needs work.
- * TODO: this is currently not used anywhere. May need to move this to searchResultsPageController
+ * TODO: this is currently not used anywhere. May need to move this to searchPageController
  * TODO: - once advanced options are created in UI
  */
 public class searchPageController extends UIController{

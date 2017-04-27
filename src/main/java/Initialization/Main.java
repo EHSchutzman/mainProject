@@ -1,11 +1,10 @@
 package Initialization;
 
 import AgentWorkflow.WorkflowController;
-import Controllers.ActionController;
-import Controllers.mainPageController;
+import Controllers.*;
+import Controllers.searchPageController;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
-import DatabaseSearch.SearchController;
 import Form.Form;
 import Form.FormController;
 import UserAccounts.AuthenticationController;
@@ -14,14 +13,12 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,32 +38,32 @@ public class Main extends Application {
 
     public Data userData = new Data(new User());
     private Stage primaryStage;
-    private AnchorPane rootLayout;
+    private ScrollPane rootLayout;
+    private AnchorPane menuBar;
     public static BorderPane root = new BorderPane();
-    public BorderPane getBorderPane(){
+
+    public BorderPane getBorderPane() {
         return root;
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
-    public AnchorPane getMenuBar() throws IOException{
-        URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
-        AnchorPane menuBar = FXMLLoader.load(menuBarURL);
-        return menuBar;
-    }
+
     public void initRootLayout() {
         try {
-            AnchorPane menuBar = getMenuBar();
+            AnchorPane menuBar = menuBarSingleton.getInstance().getBar();
+            System.out.println(menuBar);
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
             //System.out.println(loader.getLocation().getPath());
-            rootLayout = loader.load();
+            AnchorPane pane = loader.load();
             Scene scene = new Scene(root, 1000, 2000);
             root.setTop(menuBar);
-            root.setBottom(rootLayout);
+            root.setBottom(pane);
             primaryStage.setScene(scene);
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
@@ -95,7 +92,6 @@ public class Main extends Application {
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
-
             ActionController controller = loader.getController();
             controller.setDisplay(this);
             controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
@@ -114,7 +110,6 @@ public class Main extends Application {
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 
 
             primaryStage.setTitle("Login Page");
@@ -165,7 +160,7 @@ public class Main extends Application {
                 System.out.println("Image loaded");
                 controller.label_image.setImage(image);
                 System.out.println("displaying image");
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -200,7 +195,7 @@ public class Main extends Application {
             FormController controller = loader.getController();
             controller.createRevisionsMenu(this.userData.getForm(), this);
             System.out.println("in main" + this.userData.getForm());
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -216,7 +211,6 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 
 
             FormController controller = loader.getController();
@@ -240,14 +234,15 @@ public class Main extends Application {
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
-            SearchController controller = loader.getController();
+            DatabaseSearch.searchPageController controller = loader.getController();
             controller.setDisplay(this);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void displaySearchResultsPage(ObservableList<AppRecord> list) throws Exception{
+
+    public void displaySearchResultsPage(ObservableList<AppRecord> list) throws Exception {
         try {
             //System.out.println("Hiiiiii");
             FXMLLoader loader = new FXMLLoader();
@@ -259,19 +254,18 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
-
-            SearchController controller = loader.getController();
+            DatabaseSearch.searchPageController controller = loader.getController();
             controller.setDisplay2(this, list);
 
             controller.resultsTable.setItems(list);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     // Currently attempting to open in a new page
-    public void displayWorkflowApplication(Form application) throws Exception{
+    public void displayWorkflowApplication(Form application) throws Exception {
         try {
 
             Stage stage = new Stage();
@@ -282,7 +276,6 @@ public class Main extends Application {
             AnchorPane newWindow = loader.load();
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 
 
             // Show the scene containing the root layout.
@@ -300,7 +293,7 @@ public class Main extends Application {
 
             controller.setDisplay2(this, application);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -314,7 +307,6 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 
 
             AuthenticationController controller = loader.getController();
@@ -367,8 +359,6 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
-
-
             ActionController controller = loader.getController();
             controller.setDisplay(this);
             controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
@@ -378,6 +368,7 @@ public class Main extends Application {
         }
 
     }
+
     public void setDisplayToMain() {
 
         try {
@@ -391,8 +382,6 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
-
-
             ActionController controller = loader.getController();
             controller.setDisplay(this);
             controller.currentUserLabel.setText(this.userData.getUserInformation().getFirstName());
@@ -403,7 +392,7 @@ public class Main extends Application {
 
     }
 
-    public void setDisplayToAgentReview(){
+    public void setDisplayToAgentReview() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
@@ -412,7 +401,6 @@ public class Main extends Application {
             primaryStage.setTitle("Main Page");
             primaryStage.getScene().setRoot(page);
             primaryStage.getScene().getStylesheets().add(getClass().getResource("agentApplicationReview.css").toExternalForm());
-
 
 
             FormController controller = loader.getController();
@@ -433,10 +421,10 @@ public class Main extends Application {
         }
 
     }
+
     public static void main(String[] args) {
         try {
-
-           launch(args);
+            launch(args);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -487,7 +475,6 @@ public class Main extends Application {
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 
-
             WorkflowController controller = loader.getController();
             controller.setDisplay(this);
 /*
@@ -512,7 +499,6 @@ public class Main extends Application {
             primaryStage.getScene().setRoot(page);
             rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             primaryStage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-
 
 
             FormController controller = loader.getController();
@@ -550,7 +536,7 @@ public class Main extends Application {
             stage.getScene().setRoot(newWindow);
             stage.show();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -602,7 +588,7 @@ public class Main extends Application {
             AnchorPane page = loader.load();
             primaryStage.setTitle("Search Users");
             primaryStage.getScene().setRoot(page);
-            SearchController controller = loader.getController();
+            DatabaseSearch.searchPageController controller = loader.getController();
             controller.initUserAuthenticationChoiceBox();
             controller.setDisplayUsers(this);
         } catch (IOException e) {
@@ -642,7 +628,7 @@ public class Main extends Application {
             AuthenticationController controller = loader.getController();
             controller.setDisplay2(this, user);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -669,7 +655,7 @@ public class Main extends Application {
 
             stage.getScene().setRoot(newWindow);
             stage.show();
-            SearchController controller = loader.getController();
+            DatabaseSearch.searchPageController controller = loader.getController();
             controller.setDisplay(this);
 
         } catch (IOException e) {
@@ -700,7 +686,7 @@ public class Main extends Application {
         }
     }
 
-    public void displayApprovedLabelUser(Form form){
+    public void displayApprovedLabelUser(Form form) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -722,6 +708,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
     public void setDisplayToPrintableVersion() {
         try {
             Stage stage = new Stage();
