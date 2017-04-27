@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Status: complete, needs review
  */
-public class applicationStatusForApplicantController extends UIController{
+public class applicationStatusForApplicantController extends UIController {
 
     @FXML
     private Label errorLabel;
@@ -48,7 +48,7 @@ public class applicationStatusForApplicantController extends UIController{
     }
 
     @FXML
-    public void initApplicationStatusTableView(){
+    public void initApplicationStatusTableView() {
         ObservableList<AgentRecord> olAR;
         System.out.println(main.userData.getUserInformation().getEmail());
         olAR = dbManager.findForms(main.userData.getUserInformation());

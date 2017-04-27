@@ -7,11 +7,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -86,11 +89,21 @@ public class searchResultsPageController extends UIController{
             String params = " WHERE STATUS = 'Accepted' AND";
             if (isMalt || isSpirit || isWine) {
                 params += " (ALCOHOL_TYPE = ";
-                if (isWine) {params += "'Wine'";}
-                if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
-                if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
-                if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
-                if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
+                if (isWine) {
+                    params += "'Wine'";
+                }
+                if (isSpirit && !isWine) {
+                    params += "'Distilled Spirits'";
+                }
+                if (isSpirit && isWine) {
+                    params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
+                }
+                if (isMalt && !(isWine || isSpirit)) {
+                    params += "'Malt Beverages'";
+                }
+                if (isMalt && (isWine || isSpirit)) {
+                    params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
+                }
                 params += ")";
             }
             if (isMalt || isSpirit || isWine) {
@@ -117,9 +130,10 @@ public class searchResultsPageController extends UIController{
     /**
      * Function displays a new window for viewing an approved form, passed a form object from double click on row.
      * TODO Make sure that the function complies with new UI and things.
+     *
      * @param form - form to view
      */
-     private void displayInspectApprovedLabel(Form form) {
+    private void displayInspectApprovedLabel(Form form) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();

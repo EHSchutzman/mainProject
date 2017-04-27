@@ -39,7 +39,7 @@ public class superAgentMainPageController extends UIController{
     @FXML
     public void setDisplayApplicationReview() throws IOException {
         Stage stage;
-        stage=(Stage) reviewLabelButton.getScene().getWindow();
+        stage = (Stage) reviewLabelButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());
@@ -52,7 +52,7 @@ public class superAgentMainPageController extends UIController{
     @FXML
     public void setDisplayToSuperAgentSearchUsers() throws IOException {
         Stage stage;
-        stage=(Stage) userSearchButton.getScene().getWindow();
+        stage = (Stage) userSearchButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentSearchUsers.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());
@@ -68,7 +68,7 @@ public class superAgentMainPageController extends UIController{
     @FXML
     public void setDisplayToSuperAgentCreateAgent() throws IOException {
         Stage stage;
-        stage=(Stage) createAgentButton.getScene().getWindow();
+        stage = (Stage) createAgentButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentCreateAgent.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());

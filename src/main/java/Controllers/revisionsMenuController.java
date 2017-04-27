@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Status: incomplete, needs review.
  * TODO: make sure this works!
  */
-public class revisionsMenuController extends UIController{
+public class revisionsMenuController extends UIController {
 
     @FXML
     private CheckBox revision1_checkbox, revision2_checkbox, revision3_checkbox, revision4_checkbox,
@@ -33,7 +33,7 @@ public class revisionsMenuController extends UIController{
     @FXML
     public void setDisplayToApplicantRevisionForm() throws IOException {
         Stage stage;
-        stage=(Stage) reviseButton.getScene().getWindow();
+        stage = (Stage) reviseButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reviseApplication.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -45,13 +45,14 @@ public class revisionsMenuController extends UIController{
 
     /**
      * Redirects to inspectApprovedLabel.fxml - pop up
+     *
      * @throws IOException - throws exception
      */
     @FXML
     public void setDisplayToApplicantViewForm() throws IOException {
         try {
             Stage stage;
-            stage=(Stage) viewButton.getScene().getWindow();
+            stage = (Stage) viewButton.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
             AnchorPane newWindow = loader.load();

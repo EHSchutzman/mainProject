@@ -15,11 +15,10 @@
 .button:hover {
     -fx-background-color: #004179;
 }
+
 .button:pressed {
     -fx-background-color: #004699;
 }
-
-
 
 /* Labels */
 
@@ -28,13 +27,10 @@
     -fx-font-size: 14;
 }
 
-
 #welcome {
     -fx-text-fill: #CDCDCD;
     -fx-font-size: 40px;
 }
-
-
 
 /* Drop Shadow Rectangle */
 
@@ -42,17 +38,16 @@
     -fx-effect: dropshadow(gaussian, black, 10, 0.1, 0, 0);
 }
 
-
 /* Search Bar */
 
 .text-field {
-    -fx-background-color: black , #003A6C , #003A6C;
+    -fx-background-color: black, #003A6C, #003A6C;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
     -fx-text-fill: #CDCDCD;
 }
 
 .text-field:focused {
-    -fx-background-color: black , #003A6C , #003A6C;
+    -fx-background-color: black, #003A6C, #003A6C;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
     -fx-text-fill: #CDCDCD;
 }

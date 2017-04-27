@@ -20,9 +20,10 @@ public class csvOptionsController extends UIController{
     /**
      * Use function upon initialization to pass a list of forms to the CSV controller
      * See SearchResultsPageController.displayCSVOptions() for first use.
+     *
      * @param listOfForms - ObservableList to be downloaded as csv
      */
-    void passListOfForms(ObservableList<AppRecord> listOfForms){
+    void passListOfForms(ObservableList<AppRecord> listOfForms) {
         this.observableList = listOfForms;
     }
 

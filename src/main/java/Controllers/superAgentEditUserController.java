@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  * Status:
  * TODO: review this
  */
-public class superAgentEditUserController extends UIController{
+public class superAgentEditUserController extends UIController {
 
     @FXML
     private TextField edit_user_id_text;
@@ -83,6 +83,7 @@ public class superAgentEditUserController extends UIController{
             edit_errorLabel.setText("User with the edited username/email already exists");
         }
     }
+
 }
 
     // When super agent presses edit button

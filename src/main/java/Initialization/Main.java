@@ -2,7 +2,6 @@ package Initialization;
 
 import AgentWorkflow.WorkflowController;
 import Controllers.ActionController;
-import Controllers.UIController;
 import Controllers.mainPageController;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
@@ -15,13 +14,11 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +48,8 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    public BorderPane getBorderPane(){
+
+    public BorderPane getBorderPane() {
         return root;
     }
     @Override
@@ -59,7 +57,8 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
-    public AnchorPane getMenuBar() throws IOException{
+
+    public AnchorPane getMenuBar() throws IOException {
         URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
         AnchorPane menuBar = FXMLLoader.load(menuBarURL);
         return menuBar;

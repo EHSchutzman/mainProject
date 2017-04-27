@@ -2,11 +2,9 @@ package DBManager; /**
  * Created by WilsonWong on 3/19/2017.
  */
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class TTB_database {

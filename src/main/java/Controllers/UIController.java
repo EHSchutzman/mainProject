@@ -10,7 +10,6 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,13 +24,13 @@ public abstract class UIController {
     protected Label currentUserLabel, loginPageErrorLabel;
     @FXML
     protected Button returnToMainButton, closeButton, logoutButton, loginButton, backButton,
-    searchButton;
+            searchButton;
     @FXML
     protected Hyperlink aboutLink; //TODO: keep either button or link
 
     protected Main main = new Main();
 
-    public void setMain(Main main){
+    public void setMain(Main main) {
         this.main = main;
     }
     /**
@@ -53,6 +52,7 @@ public abstract class UIController {
     /**
      * So this function displays the confirmation message in a new window
      * TODO Find out why the FXML window size is 299 by 204, it doesn't really make sense.
+     *
      * @throws Exception
      */
     void displayConfirmationMessage() throws Exception {
@@ -99,7 +99,7 @@ public abstract class UIController {
     protected void setDisplayToAboutPage() throws IOException {
         Stage stage;
         //Button button = aboutButton;
-        stage=(Stage) aboutLink.getScene().getWindow();
+        stage = (Stage) aboutLink.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("aboutPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -234,8 +234,12 @@ public abstract class UIController {
 
         Stage stage;
         Button button = returnToMainButton;
-        if(button == null) {button = backButton;}
-        if(button == null) {button = loginButton;}
+        if (button == null) {
+            button = backButton;
+        }
+        if (button == null) {
+            button = loginButton;
+        }
         stage = (Stage) button.getScene().getWindow();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentInitialPage.fxml"));

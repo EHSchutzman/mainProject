@@ -121,11 +121,11 @@ public class agentApplicationReviewController extends UIController{
     private Form form = new Form();
     private DBManager dbManager = new DBManager();
 
-    void setReviewForm(Form form){
+    void setReviewForm(Form form) {
         this.form = form;
     }
 
-    void setLabels(){
+    void setLabels() {
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
         if (form.getSource().equals("Imported")) {
@@ -224,6 +224,7 @@ public class agentApplicationReviewController extends UIController{
     /**
      * Sets form status to APPROVED, adds approval comments and closes window
      * TODO: change Accepted to APPROVED
+     *
      * @throws IOException - throws exception
      */
     @FXML

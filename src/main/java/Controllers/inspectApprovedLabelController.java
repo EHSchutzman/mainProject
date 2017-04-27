@@ -1,8 +1,8 @@
 package Controllers;
 
 import DBManager.DBManager;
-import UserAccounts.User;
 import Form.Form;
+import UserAccounts.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

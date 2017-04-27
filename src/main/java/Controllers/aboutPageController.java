@@ -20,7 +20,7 @@ public class aboutPageController extends UIController {
     // TODO: fix this to returnToMainPage
     // For now, just returns to mainPage.fxml onMouseClick
     @FXML
-    void timeOutBack() throws IOException{
+    void timeOutBack() throws IOException {
         Stage stage;
         stage = (Stage) anchorPane.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
