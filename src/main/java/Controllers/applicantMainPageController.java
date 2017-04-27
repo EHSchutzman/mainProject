@@ -27,7 +27,7 @@ public class applicantMainPageController extends UIController{
     @FXML
     public void setDisplayToSearchPage() throws IOException {
         Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
+        stage = (Stage) searchButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -55,10 +55,10 @@ public class applicantMainPageController extends UIController{
     }
 
     @FXML
-    public void logoutAction() throws IOException{
+    public void logoutAction() throws IOException {
         //TODO: Logout user first
         Stage stage;
-        stage=(Stage) logOutButton.getScene().getWindow();
+        stage = (Stage) logOutButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

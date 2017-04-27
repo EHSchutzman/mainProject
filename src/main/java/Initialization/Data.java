@@ -1,11 +1,11 @@
 package Initialization;
+
 import DatabaseSearch.AppRecord;
 import Form.Form;
-import UserAccounts.*;
+import UserAccounts.User;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
-
 import java.util.ArrayList;
 
 public class Data {

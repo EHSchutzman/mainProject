@@ -1,7 +1,7 @@
 package Controllers;
 
-import Form.Form;
 import DBManager.DBManager;
+import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -138,9 +138,9 @@ public class iter2applicationController {
     private Form form = new Form();
 
     @FXML
-    public void setDisplayToApplicantMain() throws IOException{
+    public void setDisplayToApplicantMain() throws IOException {
         Stage stage;
-        stage=(Stage) back_button.getScene().getWindow();
+        stage = (Stage) back_button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);

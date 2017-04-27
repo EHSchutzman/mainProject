@@ -25,9 +25,9 @@ public class mainPageController extends UIController {
     private Hyperlink aboutLink;
 
     @FXML
-    private void setDisplayToSearch() throws IOException{
+    private void setDisplayToSearch() throws IOException {
         Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
+        stage = (Stage) searchButton.getScene().getWindow();
         BorderPane root = super.main.getBorderPane();
 
         URL searchPageURL = getClass().getResource("searchPage.fxml");

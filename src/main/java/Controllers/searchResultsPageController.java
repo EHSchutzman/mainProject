@@ -3,7 +3,6 @@ package Controllers;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import Form.Form;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**

@@ -190,7 +190,7 @@ public class reviseApplicationController {
 
         Date date = new Date(0);
         Date submitdate = new Date(System.currentTimeMillis());
-        Form form = new Form(toRevise.getttb_id(), rep_id_text.getText(), permit_no_text.getText(), (String)source_combobox.getValue(), serial_no_text.getText(), (String)alcohol_type_combobox.getValue(),
+        Form form = new Form(toRevise.getttb_id(), rep_id_text.getText(), permit_no_text.getText(), (String) source_combobox.getValue(), serial_no_text.getText(), (String) alcohol_type_combobox.getValue(),
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
                 labeltext, label_image.getId(), submitdate, signature, "pending", "agent_id", "applicant_id", null, null,

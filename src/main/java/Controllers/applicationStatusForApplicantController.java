@@ -1,15 +1,18 @@
 package Controllers;
 
+import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import Form.Form;
-import DBManager.DBManager;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -104,7 +107,7 @@ public class applicationStatusForApplicantController {
         stage.show();
     }
 
-    public Form getForm(){
+    public Form getForm() {
         return viewForm;
     }
 }

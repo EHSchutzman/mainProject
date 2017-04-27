@@ -19,9 +19,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +40,8 @@ public class Main extends Application {
     private Stage primaryStage;
     private AnchorPane rootLayout;
     public static BorderPane root = new BorderPane();
-    public BorderPane getBorderPane(){
+
+    public BorderPane getBorderPane() {
         return root;
     }
     @Override
@@ -51,7 +49,8 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         initRootLayout();
     }
-    public AnchorPane getMenuBar() throws IOException{
+
+    public AnchorPane getMenuBar() throws IOException {
         URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
         AnchorPane menuBar = FXMLLoader.load(menuBarURL);
         return menuBar;

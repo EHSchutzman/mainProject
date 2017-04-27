@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -113,11 +112,21 @@ public class searchPageController extends UIController{
             String params = " WHERE STATUS = 'Accepted' AND";
             if (isMalt || isSpirit || isWine) {
                 params += " (ALCOHOL_TYPE = ";
-                if (isWine) {params += "'Wine'";}
-                if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
-                if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
-                if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
-                if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
+                if (isWine) {
+                    params += "'Wine'";
+                }
+                if (isSpirit && !isWine) {
+                    params += "'Distilled Spirits'";
+                }
+                if (isSpirit && isWine) {
+                    params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
+                }
+                if (isMalt && !(isWine || isSpirit)) {
+                    params += "'Malt Beverages'";
+                }
+                if (isMalt && (isWine || isSpirit)) {
+                    params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
+                }
                 params += ")";
             }
             if (isMalt || isSpirit || isWine) {

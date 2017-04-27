@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentMainPageController">
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-       <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="396.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Database Search">
+       <Button fx:id="searchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="396.0" layoutY="120.0"
+               mnemonicParsing="false" onMouseClicked="#displaySearchPage" text="Database Search">
          <font>
             <Font size="24.0" />
          </font>
@@ -29,7 +27,8 @@
             <Font size="24.0" />
          </font>
       </Button>
-       <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="395.0" mnemonicParsing="false" onMouseClicked="#logoutAction" text="Log Out" textAlignment="CENTER">
+       <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="CENTER" layoutX="441.0" layoutY="395.0"
+               mnemonicParsing="false" onMouseClicked="#logoutAction" text="Log Out" textAlignment="CENTER">
          <font>
              <Font size="24.0" />
          </font>
