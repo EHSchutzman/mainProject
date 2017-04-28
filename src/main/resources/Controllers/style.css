@@ -2,10 +2,13 @@
 
 Button {
     -fx-background-color: #003A6C;
+    /*-fx-background-color: #6C98EF;*/
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-padding: 15px;
+
+    -fx-effect: dropshadow(gaussian, #353535, 2, 0.0, 0, 3);
 }
 
 Label {
@@ -16,7 +19,7 @@ Label {
 TextField {
     -fx-text-fill: #111111;
     -fx-font-size: 16px;
-    -fx-background-color: #FAFAFA, #111111, #FAFAFA;
+    -fx-background-color: #F4F4F4, #111111, #F4F4F4;
     -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, -3 -1 2 -1;
 }
 
@@ -29,7 +32,7 @@ TableView {
 .column-header,
 TableView .column-header .filler,
 TableView .column-header-background .filler {
-    -fx-background-color: #FAFAFA;
+    -fx-background-color: #F4F4F4;
 }
 
 Button:hover {
@@ -109,6 +112,16 @@ CheckBox .box {
 }
 
 /***** CLASSES *****/
+
+.titleBox {
+    -fx-fill: #003A6C;
+    -fx-text-fill: #FFFFFF;
+}
+
+.titleText {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 36px;
+}
 
 .primaryButton {
 
