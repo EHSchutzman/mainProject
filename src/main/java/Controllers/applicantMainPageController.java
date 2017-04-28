@@ -1,5 +1,6 @@
 package Controllers;
 
+import DBManager.DBManager;
 import Form.Form;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -39,7 +40,7 @@ public class applicantMainPageController extends UIController{
     int count = 0;
     int i = 0;
 
-    private loginPageController lpc = new loginPageController();
+    private DBManager dbManager = new DBManager();
 
     @FXML
     private HBox imagebox;
@@ -93,6 +94,7 @@ public class applicantMainPageController extends UIController{
                 String rep_id = inputs.get(0);
                 String permit_no = inputs.get(1);
                 String source = inputs.get(2);
+                System.out.println("this is source: " + source);
                 String serial_no = inputs.get(3);
                 String alcohol_type = inputs.get(4);
                 String brand_name = inputs.get(5);
@@ -128,7 +130,8 @@ public class applicantMainPageController extends UIController{
                 String vintage_year = null;
                 String grape_varietals = null;
                 String wine_appellation = null;
-                if (source.equals("Wine")) {
+                if (alcohol_type.equals("Wine")) {
+                    System.out.println("we here");
                     vintage_year = inputs.get(19);
                     pH_level = (Integer.parseInt(inputs.get(20)));
                     grape_varietals = inputs.get(21);
@@ -151,24 +154,23 @@ public class applicantMainPageController extends UIController{
                 if (inputs.get(23).equals("1")) {//Certificate of Label Approval
                     application_type.set(0, true);
                 }
-                if (i >= 25) {
 
-                    if (inputs.get(24).equals("2")) {//Certificate of Exemption from Label Approval
-                        application_type_text.set(1, inputs.get(25)); //For Sale in: (State abbrv.)
-                        application_type.set(1, true);
-                    }
+
+                if (inputs.get(23).equals("2")) {//Certificate of Exemption from Label Approval
+                    application_type_text.set(1, inputs.get(24)); //For Sale in: (State abbrv.)
+                    application_type.set(1, true);
                 }
-                if (i >= 27) {
-                    if (inputs.get(26).equals("3")) {//Distinctive Bottle Approval, Total Bottle
-                        application_type_text.set(2, inputs.get(27)); //Capacity Before Closure
-                        application_type.set(2, true);
-                    }
+
+
+                if (inputs.get(23).equals("3")) {//Distinctive Bottle Approval, Total Bottle
+                    application_type_text.set(2, inputs.get(24)); //Capacity Before Closure
+                    application_type.set(2, true);
                 }
-                if (i >= 28) {
-                    if (inputs.get(28).equals("4")) {//Resubmission After Rejection
-                        application_type_text.set(3, inputs.get(29)); //TTB ID
-                        application_type.set(3, true);
-                    }
+
+
+                if (inputs.get(23).equals("4")) {//Resubmission After Rejection
+                    application_type_text.set(3, inputs.get(24)); //TTB ID
+                    application_type.set(3, true);
                 }
 
                 /*
@@ -191,9 +193,10 @@ public class applicantMainPageController extends UIController{
                         null);
 
                 System.out.println(form.getapplication_type());
+                System.out.println(form.getapplication_type_text());
+                System.out.println(form.getvintage_year());
                 System.out.println(form.getmailing_address());
-                System.out.println(lpc.getUser().getUid());
-                //db.persistForm(form);
+                dbManager.persistForm(form);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -205,43 +208,46 @@ public class applicantMainPageController extends UIController{
 
     }
 
+    /**
+     * Redirects to applicationStatusForApplicant.fxml
+     * @throws IOException - throws exception
+     */
     @FXML
     public void setDisplayToApplicationStatusForApplicant() throws IOException{
         Stage stage;
         stage=(Stage) viewFormsButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
+        System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+        applicationStatusForApplicantController controller = loader.getController();
+        controller.init(super.main);
+        controller.initApplicationStatusTableView();
     }
 
+    /**
+     * Redirects to iter2application.fxml
+     * TODO: fix the menu bar - throws nullPointer
+     * @throws IOException - throws exception
+     */
     @FXML
     public void setDisplayToIter2application() throws IOException{
-        BorderPane borderPane = main.getBorderPane();
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("iter2application.fxml"));
-        //System.out.println(loader.getLocation().getPath());
-        ScrollPane anchorPane = loader.load();
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
-        Scene scene = borderPane.getScene();
-        stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
-        borderPane.setBottom(anchorPane);
+        BorderPane root = super.main.getBorderPane();
+        URL iter2applicationURL = getClass().getResource("iter2application.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        ScrollPane pane = loader.load(iter2applicationURL);
+        root.setTop(main.getMenuBar());
+        root.setBottom(pane);
+        Scene scene = root.getScene();
+        stage.setScene(root.getScene());
         stage.show();
+        iter2applicationController controller = loader.getController();
+        controller.init(super.main);
+        controller.initializeComboBox();
     }
-
-    /*@FXML
-    public void logoutAction() throws IOException{
-        //TODO: Logout user first
-        Stage stage;
-        stage=(Stage) logOutButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-    }*/
 
     public void initSlideshow() {
         // load the images
