@@ -60,11 +60,13 @@ public class applicationsForAgentController extends UIController{
 
                         //Joe's patented bug fix.
                         //olAR.remove(rowData);
+                        // Open selected form in new window
+                        displayWorkflowApplication(viewForm);
+
                         rowData.setStatus("Action Taken");
 
                         resultsTable.refresh();
-                        // Open selected form in new window
-                        displayWorkflowApplication(viewForm);
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -103,13 +105,16 @@ public class applicationsForAgentController extends UIController{
 
             agentApplicationReviewController controller = loader.getController();
             controller.init(super.main);
-            controller.setReviewForm(form);
+            controller.setReviewForm(application);
 
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        } catch (IOException e){e.printStackTrace();}
     }
 
+    /**
+     * Function refreshes the table, would ultimately be called on actions in secondary window.
+     */
     @FXML
-    public void refreshTable(){resultsTable.refresh();}
+    public void refreshTable(){
+        displayResults();
+    }
 }

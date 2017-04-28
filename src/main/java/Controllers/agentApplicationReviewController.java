@@ -30,6 +30,7 @@ public class agentApplicationReviewController extends UIController{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Accepted");
         dbManager.updateForm(form);
+        System.out.println("accepted form");
 
         closeWindow();
     }
@@ -39,6 +40,7 @@ public class agentApplicationReviewController extends UIController{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Rejected");
         dbManager.updateForm(form);
+        System.out.println("rejected form");
 
         closeWindow();
     }
