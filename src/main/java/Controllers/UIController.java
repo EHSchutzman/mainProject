@@ -77,18 +77,20 @@ public abstract class UIController {
      */
     @FXML
     private void setDisplayToSearchPage() throws IOException{
-        Stage stage;
-        BorderPane root = main.getBorderPane();
-        stage=(Stage) searchButton.getScene().getWindow();
-        URL searchPageURL = getClass().getResource("searchPage.fxml");
+        BorderPane borderPane = main.getBorderPane();
         FXMLLoader loader = new FXMLLoader();
-        ScrollPane pane = loader.load(searchPageURL);
-        root.setTop(menuBarSingleton.getInstance().getBar());
-        root.setBottom(pane);
-        Scene scene = root.getScene();
+        loader.setLocation(getClass().getResource("searchPage.fxml"));
+        ScrollPane anchorPane = loader.load();
+        Stage stage;
+        stage=(Stage) searchButton.getScene().getWindow();
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
         searchPageController controller = loader.getController();
+        controller.init(main);
+        controller.initApplicationTableView();
     }
 
     /**
@@ -97,22 +99,23 @@ public abstract class UIController {
      */
     @FXML
     protected void setDisplayToMainPage() throws IOException {
+        BorderPane borderPane = main.getBorderPane();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("mainPage.fxml"));
+        AnchorPane anchorPane = loader.load();
         Stage stage;
-        BorderPane root = main.getBorderPane();
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage=(Stage) button.getScene().getWindow();
-        URL mainPageURL = getClass().getResource("mainPage.fxml");
-        FXMLLoader loader = new FXMLLoader();
-        AnchorPane pane = loader.load(mainPageURL);
-        root.setTop(menuBarSingleton.getInstance().getBar());
-        root.setBottom(pane);
-        Scene scene = root.getScene();
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
         main.userData.setUserInformation(new User());
         mainPageController controller = loader.getController();
+        controller.init(main);
     }
 
     /**

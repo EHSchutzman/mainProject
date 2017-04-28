@@ -97,19 +97,6 @@ public class searchPageController extends UIController{
     }
     */
 
-    @FXML
-    public void initialize(){
-        super.init(main);
-        initApplicationTableView();
-    }
-
-    @FXML
-    // Handle a search - effectively a "main" function for our program
-    protected void displayResults() throws IOException {
-        // Display our new data in the TableView
-        //displayData(searchCriteria());
-    }
-
     //Populates the results table with data from the database
     protected void displayData(ObservableList<AppRecord> list) {
         try {
@@ -122,7 +109,7 @@ public class searchPageController extends UIController{
 
     @FXML
     private void simpleSearch() {
-       // displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
+       displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
     }
 
     @FXML

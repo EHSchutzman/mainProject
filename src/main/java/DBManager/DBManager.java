@@ -380,7 +380,7 @@ public class DBManager {
                 String formula = rs.getString("formula");
                 String phone_no = rs.getString("phone_no");
                 String email = rs.getString("email");
-                String label_text = rs.getString("extraLabelInfo");
+//                String label_text = rs.getString("extraLabelInfo");
                 String label_image = rs.getString("label_image");
                 Date submit_date = rs.getDate("submit_date");
                 String signature = rs.getString("signature");
@@ -416,7 +416,7 @@ public class DBManager {
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type,
                         brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                         applicant_zip, applicant_country, mailing_address, formula, phone_no,
-                        email, label_text, label_image, submit_date, signature, status,
+                        email, "", label_image, submit_date, signature, status,
                         agent_id, applicant_id, approved_date, expiration_date, vintage_year,
                         ph_level, grape_varietals, wine_appellation, application_type, application_type_text, approval_comments);
             }
