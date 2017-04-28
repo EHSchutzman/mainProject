@@ -26,6 +26,11 @@ public class loginPageController extends UIController{
     private Authentication isAuthentic = new Authentication();
     private User user = new User();
 
+    @FXML
+    public void initialize(){
+        super.init(main);
+    }
+
     /**
      * Allows ENTER key press when focused on password text field to call loginAction.
      * Allows ENTER key press when focused on loginButton to fire loginAction.
