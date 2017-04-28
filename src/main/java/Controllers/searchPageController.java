@@ -115,64 +115,100 @@ public class searchPageController extends UIController{
     @FXML
     protected ObservableList<AppRecord> advancedSearch() {
         try {
+            String params = "";
+
             //Set all variables equal to input data
-            brand = brandName.getText();
-            fanciful = fancifulName.getText();
+            if(dpDateRangeStart.getValue() != null) {
+                from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            }
+            if (dpDateRangeEnd.getValue() != null) {
+                to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+            }
+            if (brandName.getText() != null) {
+                brand = brandName.getText();
+            }
+            if (fancifulName.getText() != null) {
+                fanciful = fancifulName.getText();
+            }
             isMalt = advMaltBeverageCheckbox.isSelected();
             isSpirit = advOtherCheckbox.isSelected();
             isWine = advWineCheckbox.isSelected();
+            if (state.getText() != null) {
+                stateInfo = state.getText();
+            }
+            if (country.getText() != null) {
+                countryInfo = country.getText();
+            }
 
-            String params = " WHERE STATUS = 'Accepted'";
+            params += " STATUS = \'Accepted\' ";
 
-            params += " AND APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
+            if (dpDateRangeStart.getValue() != null && dpDateRangeEnd.getValue() != null) {
+                params += "AND APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
+            }
 
             boolean firstCheck = false;
 
             if (isMalt || isSpirit || isWine) {
+                params += " AND (ALCOHOL_TYPE = ";
 
-                params += " AND ALCOHOL_TYPE = ";
-            }
-            if (isWine) {
-                params += "'Wine'";
-                firstCheck = true;
-            }
-            if (isSpirit && !firstCheck) {
-                params += "'Distilled Spirits'";
-                firstCheck = true;
-            } else if (isSpirit && firstCheck) {
-                params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";
-            }
+                if (isWine) {
+                    params += "\'Wine\'";
+                    firstCheck = true;
+                }
+                if (isSpirit && !firstCheck) {
+                    params += "\'Distilled Spirits\'";
+                    firstCheck = true;
+                } else if (isSpirit && firstCheck) {
+                    params += " OR ALCOHOL_TYPE = \'Distilled Spirit\'";
+                }
+                if (isMalt && !firstCheck) {
+                    params += "\'Malt Beverages\'";
+                    firstCheck = true;
+                } else if (isMalt && firstCheck) {
+                    params += " OR ALCOHOL_TYPE = \'Malt Beverages\'";
+                }
+                params += ")";
 
-            if (isMalt && !firstCheck) {
-                params += "'Malt Beverages'";
-                firstCheck = true;
-            } else if (isMalt && firstCheck) {
-                params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
             }
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
             ArrayList<String> brandArray = new ArrayList<>();
-            ArrayList<String> productArray = new ArrayList<>();
+            ArrayList<String> fancifulArray = new ArrayList<>();
             ArrayList<String> typeArray = new ArrayList<>();
-            ArrayList<String> countryArray = new ArrayList<>();
             ArrayList<String> stateArray = new ArrayList<>();
+            ArrayList<String> countryArray = new ArrayList<>();
+            ArrayList<String> statusArray = new ArrayList<>();
 
-            brandArray.add("BRAND_NAME");
-            brandArray.add(brand);
-            productArray.add("FANCIFUL_NAME");
-            productArray.add(fanciful);
-            countryArray.add("COUNTRY");
-            countryArray.add(countryInfo);
-            stateArray.add("STATE");
-            stateArray.add(stateInfo);
+            if(brand != null) {
+                brandArray.add("BRAND_NAME");
+                brandArray.add(brand);
+                searchParams.add(brandArray);
+            }
+            if(fanciful != null) {
+                fancifulArray.add("FANCIFUL_NAME");
+                fancifulArray.add(fanciful);
+                searchParams.add(fancifulArray);
+            }
+            if(stateInfo != null) {
+                stateArray.add("STATE");
+                stateArray.add(stateInfo);
+                searchParams.add(stateArray);
+            }
+            if(countryInfo != null) {
+                countryArray.add("COUNTRY");
+                countryArray.add(countryInfo);
+                searchParams.add(countryArray);
+            }
 
-            searchParams.add(brandArray);
-            searchParams.add(productArray);
+            searchParams.add(statusArray);
+
             searchParams.add(typeArray);
-            searchParams.add(countryArray);
-            searchParams.add(stateArray);
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            System.out.println("OBSERVABLE LIST IS " + arr);
+            main.userData.setObservableList(arr);
+            System.out.println("MAIN HAS" + main.userData.getObservableList());
+            displayData(arr);
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
