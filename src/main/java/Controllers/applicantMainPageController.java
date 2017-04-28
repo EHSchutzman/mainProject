@@ -85,22 +85,9 @@ public class applicantMainPageController extends UIController{
                 List<String> lines = Files.readAllLines(path, Charset.defaultCharset());
                 for (String line : lines) {
                     i = 0;
-                    //inputStream.useDelimiter(",");
                     String[] tokens = line.split(",");
                     System.out.println("tokens: " + tokens);
-                    /*
-                    while (inputStream.hasNext()) {
-                        //read single line, put in string
-                        inputs.add(i, inputStream.next());
-                        i++;
-                        System.out.println(inputs);
-                    }
-                    */
-
-
-                    //start saving the fields in local variables to then construct a form object
                     int pH_level;
-
 
                     String rep_id = tokens[0];
                     String permit_no = tokens[1];

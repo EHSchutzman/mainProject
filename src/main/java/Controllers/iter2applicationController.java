@@ -433,43 +433,43 @@ public class iter2applicationController extends UIController{
             option_4_checkbox.setSelected(true);
         }
 
-        rep_id_text.setText(form.getrep_id());
-        permit_no_text.setText(form.getpermit_no());
-        serial_no_text.setText(form.getserial_no());
-        brand_name_text.setText(form.getbrand_name());
-        fanciful_name_text.setText(form.getfanciful_name());
-        alcohol_content_text.setText(String.valueOf(form.getalcohol_content()));
-        formula_text.setText(form.getFormula());
-        label_text.setText(form.getlabel_text());
+        repID.setText(form.getrep_id());
+        permitNO.setText(form.getpermit_no());
+        serialNO.setText(form.getserial_no());
+        brandName.setText(form.getbrand_name());
+        fancifulName.setText(form.getfanciful_name());
+        alcoholContent.setText(String.valueOf(form.getalcohol_content()));
+        formula.setText(form.getFormula());
+        extraLabelInfo.setText(form.getlabel_text());
         // Wines only
         if (form.getalcohol_type().equals("Wine")) {
-            vintage_year_text.setText(form.getvintage_year());
-            ph_level_text.setText(String.valueOf(form.getpH_level()));
-            grape_varietals_text.setText(form.getgrape_varietals());
-            wine_appellation_text.setText(form.getwine_appellation());
+            vintageYear.setText(form.getvintage_year());
+            phLevel.setText(String.valueOf(form.getpH_level()));
+            grapeVarietals.setText(form.getgrape_varietals());
+            wineAppellation.setText(form.getwine_appellation());
         } else {
-            vintage_year_text.setText(null);
-            ph_level_text.setText(null);
-            grape_varietals_text.setText(null);
-            wine_appellation_text.setText(null);
+            vintageYear.setText(null);
+            phLevel.setText(null);
+            grapeVarietals.setText(null);
+            wineAppellation.setText(null);
         }
 
-        //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
-        /*applicant_street_1_text.setPromptText(form.getapplicant_street());
-        applicant_city_text.setPromptText(form.getapplicant_city());
-        applicant_state_text.setPromptText(form.getapplicant_state());
-        applicant_zip_text.setPromptText(form.getapplicant_zip());
-        applicant_country_text.setPromptText(form.getapplicant_country());*/
+        applicantStreet.setText(form.getapplicant_street());
+        applicantCity.setText(form.getapplicant_city());
+        applicantState.setText(form.getapplicant_state());
+        applicantZip.setText(form.getapplicant_zip());
+        applicantCountry.setText(form.getapplicant_country());
 
-        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+        //address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
+        //TODO The database stores the mailing address as one String. However, we need to display it in different parts. I used the TODO to bring attention to this because yellow is an eye catching color
         //mailing_addressText.setPromptText(form.getmailing_address());
         DBManager manager = new DBManager();
         System.out.println("NAME IS THIS");
         System.out.println(manager.findUsersName(form.getapplicant_id()));
-        signature_text.setText(form.getSignature());
-        phone_no_text.setText(form.getphone_no());
-        email_text.setText(form.getEmail());
+        signature.setText(form.getSignature());
+        phoneNo.setText(form.getphone_no());
+        email.setText(form.getEmail());
     }
 
     @FXML
