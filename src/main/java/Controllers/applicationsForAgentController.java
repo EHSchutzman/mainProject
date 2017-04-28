@@ -49,13 +49,19 @@ public class applicationsForAgentController extends UIController{
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     AgentRecord rowData = row.getItem();
 
+                    System.out.println(rowData);
+
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
 
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = dbManager.findSingleForm(rowData.getIDNo(), fieldList);
-                        olAR.remove(rowData);
+
+                        //Joe's patented bug fix.
+                        //olAR.remove(rowData);
+                        rowData.setStatus("Action Taken");
+
                         resultsTable.refresh();
                         // Open selected form in new window
                         displayWorkflowApplication(viewForm);
@@ -103,4 +109,7 @@ public class applicationsForAgentController extends UIController{
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void refreshTable(){resultsTable.refresh();}
 }
