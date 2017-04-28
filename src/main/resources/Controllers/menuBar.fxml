@@ -8,18 +8,18 @@
     <children>
         <AnchorPane id="anchor" layoutY="50.0" prefHeight="150.0" prefWidth="1000.0">
             <children>
-                <Rectangle fx:id="menuBarTitleRec" arcHeight="5.0" arcWidth="5.0" fill="#003A6C" height="150.0"
-                           stroke="#111111" strokeType="INSIDE" width="1000.0"/>
+                <Rectangle fx:id="menuBarTitleRec" arcHeight="5.0" arcWidth="5.0" height="150.0" strokeType="INSIDE"
+                           width="1000.0"/>
             </children>
         </AnchorPane>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
-                <Rectangle fx:id="menuBarButtonRec" arcHeight="5.0" arcWidth="5.0" fill="#003A6C" height="50.0"
-                           stroke="TRANSPARENT" strokeType="INSIDE" width="1000.0"/>
+                <Rectangle fx:id="menuBarButtonRec" arcHeight="5.0" arcWidth="5.0" height="50.0" stroke="TRANSPARENT"
+                           strokeType="INSIDE" width="1000.0"/>
             </children>
         </AnchorPane>
-        <GridPane prefHeight="50.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                  AnchorPane.topAnchor="0.0">
+        <GridPane id="menuGridPane" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="1000.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.83441162109375" minWidth="10.0" prefWidth="107.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="341.4334182739258" minWidth="10.0" prefWidth="294.0" />
@@ -33,23 +33,25 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Button maxHeight="49.5" maxWidth="108.0" minWidth="49.0" mnemonicParsing="false" prefWidth="112.0"
-                        text="BACK" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                <Button maxHeight="49.5" maxWidth="94.0" minWidth="49.0" mnemonicParsing="false" prefWidth="112.0"
-                        text="SEARCH" GridPane.columnIndex="2" GridPane.halignment="CENTER"
-                        GridPane.valignment="CENTER"/>
-                <Button maxHeight="49.5" maxWidth="94.0" minWidth="49.0" mnemonicParsing="false" prefWidth="112.0"
-                        text="LOGOUT" GridPane.columnIndex="3" GridPane.halignment="CENTER"
-                        GridPane.valignment="CENTER"/>
-                <Button maxHeight="49.5" maxWidth="94.0" minWidth="49.0" mnemonicParsing="false" prefWidth="112.0"
-                        text="ABOUT" GridPane.columnIndex="6" GridPane.halignment="CENTER"/>
-                <Label alignment="CENTER" text="CURRENT USER:" GridPane.columnIndex="4" GridPane.halignment="CENTER"
+                <Button styleClass="menuButton" maxWidth="108.0" minWidth="49.0" mnemonicParsing="false"
+                        prefHeight="50.0" prefWidth="112.0" text="BACK" GridPane.halignment="CENTER"/>
+                <Button styleClass="menuButton" id="menuSearchButton" maxWidth="94.0" minWidth="49.0"
+                        mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="SEARCH"
+                        GridPane.columnIndex="2" GridPane.halignment="CENTER"/>
+                <Button styleClass="menuButton" maxWidth="94.0" minWidth="49.0" mnemonicParsing="false"
+                        prefHeight="50.0" prefWidth="112.0" text="LOGOUT" GridPane.columnIndex="3"
+                        GridPane.halignment="CENTER"/>
+                <Button styleClass="menuButton" maxWidth="94.0" minWidth="49.0" mnemonicParsing="false"
+                        prefHeight="50.0" prefWidth="112.0" text="ABOUT" GridPane.columnIndex="6"
+                        GridPane.halignment="CENTER"/>
+                <Label styleClass="menuLabel" alignment="CENTER" text="CURRENT USER:" GridPane.columnIndex="4"
+                       GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                <Label styleClass="menuLabel" text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER"
                        GridPane.valignment="CENTER"/>
-                <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
-                <TextField maxWidth="250.0" prefHeight="27.0" prefWidth="147.0" promptText="Search..."
+                <TextField id="menuSearch" maxWidth="275.0" prefHeight="27.0" prefWidth="275.0" promptText="Search..."
                            GridPane.columnIndex="1" GridPane.halignment="CENTER">
                     <font>
-                        <Font name="Helvetica Neue" size="13.0"/>
+                        <Font size="13.0"/>
                     </font>
                 </TextField>
             </children>
@@ -62,10 +64,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label id="welcome" text="WELCOME TO THE TTB DATABSE SYSTEM" textAlignment="CENTER"
+                <Label id="pageTitle" text="WELCOME TO THE TTB DATABASE SYSTEM" textAlignment="CENTER"
                        GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                        <Font name="Helvetica Neue" size="13.0"/>
+                        <Font size="13.0"/>
                     </font></Label>
             </children>
         </GridPane>

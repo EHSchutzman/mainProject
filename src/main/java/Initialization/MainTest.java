@@ -15,7 +15,7 @@ public class MainTest extends Application {
     public void start(Stage primaryStage) throws Exception {
         //FXMLLoader loader = new FXMLLoader();
         //loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/Controllers/iter2application.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Controllers/menuBar.fxml"));
         primaryStage.setTitle("Under Construction...");
         Scene scene = new Scene(root, 1000, 1000);
         scene.getStylesheets().add(getClass().getResource("/Controllers/style.css").toExternalForm());
