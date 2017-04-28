@@ -35,7 +35,11 @@ public abstract class UIController {
      */
     @FXML
     public void init(Main main) {
+        System.out.println("In init " + main);
+        System.out.println("In init before: " + main.userData.getUserInformation().getUid());
         this.mainData = main;
+        System.out.println("Controller: " + this);
+        System.out.println("In init after: " + main.userData.getUserInformation().getUid());
         if(currentUserLabel != null) {
             if (main.userData == null || main.userData.getUserInformation().getUid() == null) {
                 currentUserLabel.setText("Not Logged In");

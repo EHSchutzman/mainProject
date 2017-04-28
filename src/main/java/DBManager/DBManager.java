@@ -3,6 +3,7 @@ package DBManager;
 import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.UserRecord;
+import DatabaseSearch.SuperAgentAppRecord;
 import Form.Form;
 import Initialization.Main;
 import UserAccounts.User;
@@ -137,6 +138,7 @@ public class DBManager {
             typeofapplication3.add("\'" + form.getapplication_type_text().get(2) + "\'");
         }
         String queryString = queryBuilder.createInsertStatement("FORMS", fields);
+        System.out.println(queryString);
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
@@ -302,6 +304,72 @@ public class DBManager {
         return null;
     }
 
+    public ObservableList<SuperAgentAppRecord> findLabelsForSuperAgent(ArrayList<ArrayList<String>> filters) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String fields = "ttb_id, applicant_id, agent_id, fanciful_name, brand_name, alcohol_type, status";
+        String formsQuery = queryBuilder.createLikeStatement1("APP.FORMS", fields, filters);
+        System.out.println("formsQuery: " + formsQuery);
+        ObservableList<SuperAgentAppRecord> ol = FXCollections.observableArrayList();
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(formsQuery);
+            while (rs.next()) {
+                String ttbID = rs.getString("ttb_id");
+                String applicantID = rs.getString("applicant_id");
+                String agent_ID = rs.getString("agent_id");
+                String fancifulName = rs.getString("fanciful_name");
+                String brandName = rs.getString("brand_name");
+                String alcoholType = rs.getString("alcohol_type");
+                String status = rs.getString("status");
+
+                // Nested query
+                String applicantNameQuery = queryBuilder.createSelectStatement("USERS", "username", "user_id='" + applicantID + "'");
+                String agentNameQuery = queryBuilder.createSelectStatement("USERS", "username", "user_id='" + agent_ID + "'");
+                String applicantName = "";
+                String agentName = "";
+                System.out.println(applicantNameQuery);
+                System.out.println(agentNameQuery);
+                try {
+                    Connection innerConnection = TTB_database.connect();
+                    Statement innerStatement = innerConnection.createStatement();
+                    ResultSet innerResultSet = innerStatement.executeQuery(applicantNameQuery);
+                    while (innerResultSet.next()) {
+                        applicantName = innerResultSet.getString("username");
+                    }
+                    innerResultSet.close();
+                    ResultSet innerResultSet2 = innerStatement.executeQuery(agentNameQuery);
+                    while (innerResultSet2.next()) {
+                        agentName = innerResultSet2.getString("username");
+                    }
+                    innerStatement.close();
+                    innerConnection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+                SuperAgentAppRecord appRecord = new SuperAgentAppRecord();
+                appRecord.setTtbID(ttbID);
+                appRecord.setAgentName(agentName);
+                appRecord.setFancifulName(fancifulName);
+                appRecord.setBrandName(brandName);
+                appRecord.setTypeID(alcoholType);
+                appRecord.setStatus(status);
+                appRecord.setApplicantName(applicantName);
+
+                ol.add(appRecord);
+            }
+            rs.close();
+            stmt.close();
+            connection.close();
+            return ol;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public ObservableList<AgentRecord> findForms(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
@@ -383,7 +451,7 @@ public class DBManager {
                 String formula = rs.getString("formula");
                 String phone_no = rs.getString("phone_no");
                 String email = rs.getString("email");
-                String label_text = rs.getString("extraLabelInfo");
+                String label_text = rs.getString("label_text");
                 String label_image = rs.getString("label_image");
                 Date submit_date = rs.getDate("submit_date");
                 String signature = rs.getString("signature");
@@ -459,6 +527,40 @@ public class DBManager {
             statement.close();
             connection.close();
             return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<User> findUsers(String options) {
+        System.out.println(options);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ArrayList<User> users = new ArrayList<>();
+            while (rs.next()) {
+                User user = new User();
+                String user_id = rs.getString("user_id");
+                int authentication = rs.getInt("authentication");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                user = new User(user_id, username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
+                users.add(user);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return users;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -595,9 +697,9 @@ public class DBManager {
         }
 
         if (form.getlabel_text() != null) {
-            fields.add("extraLabelInfo=" + "\'" + form.getlabel_text() + "\'");
+            fields.add("label_text=" + "\'" + form.getlabel_text() + "\'");
         } else {
-            fields.add("extraLabelInfo= NULL");
+            fields.add("label_text= NULL");
         }
         if (form.getlabel_image() != null) {
             fields.add("label_image=" + "\'" + form.getlabel_image() + "\'");

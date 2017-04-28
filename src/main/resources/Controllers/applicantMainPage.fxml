@@ -28,7 +28,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="logInButton" contentDisplay="CENTER" layoutX="447.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#logoutAction" text="Log Out">
+      <Button fx:id="logoutButton" contentDisplay="CENTER" layoutX="447.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#logoutAction" text="Log Out">
          <font>
             <Font size="24.0" />
          </font>

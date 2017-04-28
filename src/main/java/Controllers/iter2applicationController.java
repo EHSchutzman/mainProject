@@ -2,6 +2,7 @@ package Controllers;
 
 import Form.Form;
 import DBManager.DBManager;
+import Initialization.Main;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -32,13 +33,21 @@ import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 public class iter2applicationController extends UIController {
 
+    private Main main = new Main();
+    private String uid = "";
+
     @FXML
     public void initialize(){
+        super.init(super.mainData);
+        this.main = super.mainData;
+        this.uid = this.main.userData.getUserInformation().getUid();
+        System.out.println("uiduiduiduiduid: " + uid);
+        System.out.println("disprint3time?: " + this.main.userData.getUserInformation().getUid());
+        System.out.println("whydisprint3time?; " + super.mainData.userData.getUserInformation().getUid());
         createApplicantForm();
         source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
         alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
     }
-
 
     @FXML
     public Button submit_button;
@@ -113,20 +122,19 @@ public class iter2applicationController extends UIController {
     public Group wineInfo;
 
     private DBManager db = new DBManager();
-    private loginPageController lpc = new loginPageController();
     private Form form = new Form();
+
 
     //TODO Gut this funciton, it is never used and I need to do other things instead
     public void createApplicantForm() {
         form.setttb_id(form.makeUniqueID());
         ttbid.setText(form.getttb_id());
-
-
-
     }
 
     @FXML
     public void submitForm() {
+        System.out.println("AAAAAAAAAAAA: " + uid);
+        System.out.println("YOOOO " + this.main.userData.getUserInformation().getUid());
         int pH_level;
         String grape_varietals = "";
         String wine_appellation = "";
@@ -193,7 +201,7 @@ public class iter2applicationController extends UIController {
         if (sameAsApplicantBox.isSelected()) {
             mailing_address = "";
         } else {
-            mailing_address = (otherStreet.getText() + "\n" + otherCity.getText() + " " + otherState.getText()
+            mailing_address = (otherStreet.getText() + "\n" + otherCity.getText() + "," + otherState.getText()
                     + "," + otherZip.getText() + "\n" + otherCountry.getText());
         }
 
@@ -202,13 +210,13 @@ public class iter2applicationController extends UIController {
         String email = (this.email.getText());
         Date submitdate = new Date(System.currentTimeMillis());
 
-
+        System.out.println("Uid: " + super.mainData.userData.getUserInformation().getUid());
         //TODO Update image when adding image display things
         //TODO check if label_image.getId() pulls right value
         form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, label_image.getId(), submitdate, signature, "Pending", null, mainData.userData.getUserInformation().getUid(), null, null,
+                labeltext, label_image.getId(), submitdate, signature, "Pending", null, super.mainData.userData.getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 

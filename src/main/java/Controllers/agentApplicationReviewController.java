@@ -2,12 +2,17 @@ package Controllers;
 
 import DBManager.DBManager;
 import Form.Form;
+import UserAccounts.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Status: complete, needs review
@@ -117,6 +122,11 @@ public class agentApplicationReviewController extends UIController{
     public TextArea address_text;
     public TextField submit_date;
     public ImageView label_image;
+
+    @FXML
+    public TextField forwardAgentUsername;
+    @FXML
+    public Button forwardButton;
 
     private Form form = new Form();
     private DBManager dbManager = new DBManager();
@@ -230,6 +240,14 @@ public class agentApplicationReviewController extends UIController{
     public void acceptAction() throws IOException{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Accepted");
+        Date now = new Date(Calendar.getInstance().getTimeInMillis());
+        form.setapproved_date(now);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 15);
+        Date expire = new Date(calendar.getTimeInMillis());
+        System.out.println("Now: " + now);
+        System.out.println("Expire: " + expire);
+        form.setexpiration_date(expire);
         dbManager.updateForm(form);
         closeWindow();
     }
@@ -246,5 +264,22 @@ public class agentApplicationReviewController extends UIController{
         dbManager.updateForm(form);
         closeWindow();
     }
+
+    @FXML
+    private void forwardAction() throws Exception {
+        String agentUsername = forwardAgentUsername.getText();
+        if(agentUsername != null && !agentUsername.isEmpty()) {
+            User forwardAgent = dbManager.findUser("username='" + forwardAgentUsername.getText() + "'");
+            if(forwardAgent != null && forwardAgent.getUid() != null && forwardAgent.getAuthenticationLevel() == 2) {
+                form.setagent_id(forwardAgent.getUid());
+                dbManager.updateForm(form);
+                super.displayConfirmationMessage();
+            } else {
+                // set errorlabel
+            }
+        }
+    }
+
+
 }
 

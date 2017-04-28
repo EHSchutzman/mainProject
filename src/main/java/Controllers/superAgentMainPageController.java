@@ -16,7 +16,7 @@ import java.io.IOException;
 public class superAgentMainPageController extends UIController{
 
     @FXML
-    private Button reviewLabelButton, userSearchButton, createAgentButton;
+    private Button reviewLabelButton, userSearchButton, createAgentButton, searchApplicationsButton;
 
     @FXML
     public void setDisplayApplicationReview() throws IOException {
@@ -58,5 +58,19 @@ public class superAgentMainPageController extends UIController{
         stage.show();
         superAgentCreateAgentController controller = loader.getController();
         controller.init(super.mainData);
+    }
+
+    @FXML
+    private void setDisplayToSuperAgentSearchApplications() throws IOException {
+        Stage stage;
+        stage=(Stage) searchApplicationsButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentSearchApplications.fxml"));
+        System.out.println(loader.getLocation().getPath());
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
+        stage.show();
+        superAgentSearchApplicationsController controller = loader.getController();
+        controller.init(super.mainData);
+        controller.initsuperAgentApplicationTableView();
     }
 }

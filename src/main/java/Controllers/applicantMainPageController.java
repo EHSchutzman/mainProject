@@ -68,9 +68,11 @@ public class applicantMainPageController extends UIController{
 
         FXMLLoader loader = new FXMLLoader();
         URL iter2URL = getClass().getResource("iter2application.fxml");
-        loader.setLocation(getClass().getResource("iter2application.fxml"));
+        //loader.setLocation(getClass().getResource("iter2application.fxml"));
+        loader.setLocation(iter2URL);
         //System.out.println(loader.getLocation().getPath());
-        ScrollPane scrollPane = loader.load(iter2URL);
+        ScrollPane scrollPane = loader.load();
+        System.out.println("LOADER: " + super.mainData.userData.getUserInformation().getUid());
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
@@ -78,15 +80,17 @@ public class applicantMainPageController extends UIController{
         borderPane.setTop(mainData.getMenuBar());
         borderPane.setCenter(scrollPane);
         stage.show();
-        Parent root = (Parent) loader.load();
-        super.init(super.mainData);
-
-
-
+        //Parent root = (Parent) loader.load();
+        System.out.println("UID here her here: " + super.mainData.userData.getUserInformation().getUid());
+        iter2applicationController iter2applicationController = loader.getController();
+        System.out.println("UID HERE AFTER: " + super.mainData.userData.getUserInformation().getUid());
+        System.out.println("CONTROLLER HERE: " + iter2applicationController);
+        iter2applicationController.init(super.mainData);
+        iter2applicationController.initialize();
     }
 
     @FXML
-    public void logoutAction() throws IOException{
+    public void logoutAction1() throws IOException{
         //TODO: Logout user first
         Stage stage;
         stage=(Stage) logOutButton.getScene().getWindow();

@@ -54,7 +54,7 @@ public class applicationsForAgentController extends UIController{
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = dbManager.findSingleForm(rowData.getIDNo(), fieldList);
-                        olAR.remove(rowData);
+                        //olAR.remove(rowData);
                         resultsTable.refresh();
                         // Open selected form in new window
                         displayWorkflowApplication(viewForm);
