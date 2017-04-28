@@ -27,6 +27,10 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,7 @@ public class applicantMainPageController extends UIController{
     ArrayList<ImageView> imageArrayList = new ArrayList<>();
     int count = 0;
     int i = 0;
+    int index = 0;
 
     private DBManager dbManager = new DBManager();
 
@@ -71,132 +76,122 @@ public class applicantMainPageController extends UIController{
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files (.csv)", "*.csv"));
         File selectedFile = fc.showOpenDialog(null);
 
+        Path path = FileSystems.getDefault().getPath(selectedFile.getPath());
 
         if (selectedFile != null) {
             try {
-                System.out.println("we here bois");
                 //String path = selectedFile.getPath();
                 Scanner inputStream = new Scanner(selectedFile);
-                inputStream.useDelimiter(",");
-                while(inputStream.hasNext()){
-                    //read single line, put in string
-                    inputs.add(i, inputStream.next());
-                    i++;
-                    System.out.println(inputs);
+                List<String> lines = Files.readAllLines(path, Charset.defaultCharset());
+                for (String line : lines) {
+                    i = 0;
+                    //inputStream.useDelimiter(",");
+                    String[] tokens = line.split(",");
+                    System.out.println("tokens: " + tokens);
+                    /*
+                    while (inputStream.hasNext()) {
+                        //read single line, put in string
+                        inputs.add(i, inputStream.next());
+                        i++;
+                        System.out.println(inputs);
+                    }
+                    */
 
+
+                    //start saving the fields in local variables to then construct a form object
+                    int pH_level;
+
+
+                    String rep_id = tokens[0];
+                    String permit_no = tokens[1];
+                    String source = tokens[2];
+                    System.out.println("this is source: " + source);
+                    String serial_no = tokens[3];
+                    String alcohol_type = tokens[4];
+                    String brand_name = tokens[5];
+                    String fanciful_name = tokens[6];
+                    Double alcohol_content = Double.parseDouble(tokens[7]);
+                    String applicant_street = tokens[8];
+                    String applicant_city = tokens[9];
+                    String applicant_state = tokens[10];
+                    String applicant_zip = tokens[11];
+                    String applicant_country = tokens[12];
+
+                    String mailing_address;
+                    if (tokens[13].equals("NA") || tokens[13].equals(" ")) {
+                        mailing_address = applicant_street + "\n" + applicant_city + " " + applicant_state
+                                + "," + applicant_zip + "\n" + applicant_country;
+                    } else {
+                        mailing_address = tokens[13];
+                    }
+
+                    String formula = tokens[14];
+                    String phone_no = tokens[15];
+                    String email = tokens[16];
+                    String labeltext = tokens[17];
+                    //label image here
+                    Date submitdate = new Date(System.currentTimeMillis()); //wil not be overwritten probably
+                    String signature = tokens[18];
+
+                    // Wines only
+                    String vintage_year = null;
+                    String grape_varietals = null;
+                    String wine_appellation = null;
+                    if (alcohol_type.equals("Wine")) {
+                        System.out.println("we here");
+                        vintage_year = tokens[19];
+                        pH_level = (Integer.parseInt(tokens[20]));
+                        grape_varietals = tokens[21];
+                        wine_appellation = tokens[22];
+                    } else {
+                        pH_level = -1;
+                    }
+
+                    // Determine which checkboxes were selected
+                    // Make a temporary array to store the boolean values set them to the Form object, same with string array
+                    ArrayList<Boolean> application_type = new ArrayList<Boolean>();
+                    for (int i = 0; i < 5; i++) {
+                        application_type.add(false);
+                    }
+                    ArrayList<String> application_type_text = new ArrayList<String>();
+                    for (int i = 0; i < 5; i++) {
+                        application_type_text.add(null);
+                    }
+
+                    if (tokens[23].equals("1")) {//Certificate of Label Approval
+                        application_type.set(0, true);
+                    }
+
+                    if (tokens[23].equals("2")) {//Certificate of Exemption from Label Approval
+                        application_type_text.set(1, tokens[24]); //For Sale in: (State abbrv.)
+                        application_type.set(1, true);
+                    }
+
+                    if (tokens[23].equals("3")) {//Distinctive Bottle Approval, Total Bottle
+                        application_type_text.set(2, tokens[24]); //Capacity Before Closure
+                        application_type.set(2, true);
+                    }
+
+                    if (tokens[23].equals("4")) {//Resubmission After Rejection
+                        application_type_text.set(3, tokens[24]); //TTB ID
+                        application_type.set(3, true);
+                    }
+
+                    Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
+                            brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
+                            applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
+                            labeltext, null, submitdate, signature, "Incomplete", null, super.main.userData.getUserInformation().getUid(),
+                            null, null, vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
+                            null);
+
+                    System.out.println("app type: " + form.getapplication_type());
+                    System.out.println("app type text: " + form.getapplication_type_text());
+                    System.out.println("vintage year: " + vintage_year);
+                    System.out.println("mailing address: " + form.getmailing_address());
+                    System.out.println("alcohol type: " + alcohol_type);
+                    dbManager.persistForm(form);
                 }
-                // after loop, close scanner
                 inputStream.close();
-
-                //start saving the fields in local variables to then construct a form object
-                int pH_level;
-
-                String rep_id = inputs.get(0);
-                String permit_no = inputs.get(1);
-                String source = inputs.get(2);
-                System.out.println("this is source: " + source);
-                String serial_no = inputs.get(3);
-                String alcohol_type = inputs.get(4);
-                String brand_name = inputs.get(5);
-                String fanciful_name = inputs.get(6);
-                Double alcohol_content = Double.parseDouble(inputs.get(7));
-                String applicant_street = inputs.get(8);
-                String applicant_city = inputs.get(9);
-                String applicant_state = inputs.get(10);
-                String applicant_zip = inputs.get(11);
-                String applicant_country = inputs.get(12);
-
-                String mailing_address;
-                if (inputs.get(13).equals("NA") || inputs.get(13).equals(" ")) {
-                    mailing_address = applicant_street + "\n" + applicant_city +" " + applicant_state
-                            + "," + applicant_zip + "\n" + applicant_country;
-                } else {
-                    mailing_address = inputs.get(13);
-                }
-
-                String formula = inputs.get(14);
-                String phone_no = inputs.get(15);
-                String email = inputs.get(16);
-                String labeltext = inputs.get(17);
-                //label image here
-                Date submitdate = new Date(System.currentTimeMillis()); //wil not be overwritten probably
-                String signature = inputs.get(18);
-                /*
-                * TODO continue parsing the CSV
-                * TODO we will have to modify the iter2application and applicantresults controllers to bring up incomplete forms marked as "Incomplete"
-                 */
-
-                // Wines only
-                String vintage_year = null;
-                String grape_varietals = null;
-                String wine_appellation = null;
-                if (alcohol_type.equals("Wine")) {
-                    System.out.println("we here");
-                    vintage_year = inputs.get(19);
-                    pH_level = (Integer.parseInt(inputs.get(20)));
-                    grape_varietals = inputs.get(21);
-                    wine_appellation = inputs.get(22);
-                } else {
-                    pH_level = -1;
-                }
-
-                // Determine which checkboxes were selected
-                // Make a temporary array to store the boolean values set them to the Form object, same with string array
-                ArrayList<Boolean> application_type = new ArrayList<Boolean>();
-                for (int i = 0; i < 5; i++) {
-                    application_type.add(false);
-                }
-                ArrayList<String> application_type_text = new ArrayList<String>();
-                for (int i = 0; i < 5; i++) {
-                    application_type_text.add(null);
-                }
-
-                if (inputs.get(23).equals("1")) {//Certificate of Label Approval
-                    application_type.set(0, true);
-                }
-
-
-                if (inputs.get(23).equals("2")) {//Certificate of Exemption from Label Approval
-                    application_type_text.set(1, inputs.get(24)); //For Sale in: (State abbrv.)
-                    application_type.set(1, true);
-                }
-
-
-                if (inputs.get(23).equals("3")) {//Distinctive Bottle Approval, Total Bottle
-                    application_type_text.set(2, inputs.get(24)); //Capacity Before Closure
-                    application_type.set(2, true);
-                }
-
-
-                if (inputs.get(23).equals("4")) {//Resubmission After Rejection
-                    application_type_text.set(3, inputs.get(24)); //TTB ID
-                    application_type.set(3, true);
-                }
-
-                /*
-                String ttb_id(auto-generated), String rep_id(0), String permit_no(1), String source(2), String serial_no(3), String alcohol_type(4),
-                String brand_name(5), String fanciful_name(6), double alcohol_content(7), String applicant_street(8), String applicant_city(9),
-                String applicant_state(10), String applicant_zip(11), String applicant_country(12), String mailing_address(13), String formula(14),
-                String phone_no(15), String email(16), String label_text(17), String label_image(no), Date submit_date(auto-generated), String signature(18),
-                String status(Incomplete), String agent_id(null), String applicant_id(getuserid), Date approved_date(null), Date expiration_date(null),
-                String vintage_year(19), int pH_level(20), String grape_varietals(21), String wine_appellation(22),
-                ArrayList<Boolean> application_type: Cert. of Approval_1(23), Cert. of Exemption_2(24), Distinctive Bottle_3(26), Resubmission_4(28)
-                ArrayList<String> application_type_text: Cert of Exemption_text(25), Bottle Capacity(27), TTB_ID(29)
-                String approval_comments(null)
-                */
-
-                Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
-                        brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
-                        applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                        labeltext, null, submitdate, signature, "Incomplete", null, super.main.userData.getUserInformation().getUid(),
-                        null, null, vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
-                        null);
-
-                System.out.println(form.getapplication_type());
-                System.out.println(form.getapplication_type_text());
-                System.out.println(form.getvintage_year());
-                System.out.println(form.getmailing_address());
-                dbManager.persistForm(form);
 
             } catch (Exception e) {
                 e.printStackTrace();
