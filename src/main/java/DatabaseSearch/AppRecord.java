@@ -13,6 +13,8 @@ public class AppRecord {
     private final SimpleStringProperty completedDate = new SimpleStringProperty("");
     private final SimpleStringProperty fancifulName = new SimpleStringProperty("");
     private final SimpleStringProperty brandName = new SimpleStringProperty("");
+    private final SimpleStringProperty country = new SimpleStringProperty("");
+    private final SimpleStringProperty state = new SimpleStringProperty("");
     //private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
     private final SimpleStringProperty status = new SimpleStringProperty("");
@@ -20,21 +22,20 @@ public class AppRecord {
     private final SimpleStringProperty ttbID = new SimpleStringProperty("");
 
     public AppRecord() {
-        this("", "", "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status, String applicantID, String ttbID) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String country, String state, String typeID) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
         setCompletedDate(completedDate);
         setFancifulName(fancifulName);
         setBrandName(brandName);
+        setCountry(country);
+        setState(state);
         //setOriginCode(originCode);
         setTypeID(typeID);
-        setStatus(status);
-        setApplicantID(applicantID);
-        setTtbID(ttbID);
     }
 
     public String getTtbID() {
@@ -120,6 +121,14 @@ public class AppRecord {
     public void setBrandName(String brandName) {
         this.brandName.set(brandName);
     }
+
+    public void setCountry(String country) { this.country.set(country); }
+
+    public String getCountry() { return country.get(); }
+
+    public void setState(String state) { this.state.set(state); }
+
+    public String getState() { return state.get(); }
 
 //    public String getOriginCode() {
 //        return originCode.get();

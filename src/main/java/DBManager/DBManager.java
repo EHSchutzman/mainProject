@@ -283,13 +283,13 @@ public class DBManager {
                 application.setFormID(ttbID);
                 application.setPermitNo(permitNo);
                 application.setSerialNo(serialNo);
-                application.setBrandName(brandName);
                 application.setFancifulName(fancifulName);
+                application.setBrandName(brandName);
+                application.setCountry("");
+                application.setState("");
                 application.setTypeID(alcoholType);
-                application.setTtbID(ttbID);
-                ol.add(application);
                 application.setCompletedDate(approvedDate);
-                application.setTtbID(ttbID);
+                ol.add(application);
             }
 
             rs.close();

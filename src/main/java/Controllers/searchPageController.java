@@ -2,11 +2,13 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
+import Form.Form;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,6 +43,8 @@ public class searchPageController extends UIController{
     //Create DBManager object to perform database operations
     private DBManager db = new DBManager();
 
+    private menuBarController mbc = new menuBarController();
+
     //Variables for JavaFX buttons
     @FXML
     private TextField searchBar;
@@ -72,7 +76,7 @@ public class searchPageController extends UIController{
     public TableView<AppRecord> resultsTable;
     @FXML
     private Button return_to_main_button;
-
+/*
     //Function that returns the user to the main page
     @FXML
     protected void returnToMain() throws IOException{
@@ -84,6 +88,13 @@ public class searchPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+    }
+    */
+
+    @FXML
+    public void initialize(){
+        super.init(main);
+        initApplicationTableView();
     }
 
     @FXML
@@ -103,32 +114,34 @@ public class searchPageController extends UIController{
     }
 
     @FXML
-    ObservableList<AppRecord> handleInlineSearch() {
+    ObservableList<AppRecord> simpleSearch() {
         try {
             //Set all variables equal to input data
-            searchBarContent = searchBar.getText();
-            boolean isMalt = advMaltBeverageCheckbox.isSelected();
-            boolean isSpirit = advOtherCheckbox.isSelected();
-            boolean isWine = advWineCheckbox.isSelected();
-            String params = " WHERE STATUS = 'Accepted' AND";
+            //searchBar = mbc.getSearchBar();
+            //searchBarContent = searchBar.getText();
+            boolean isMalt = simpleMaltBeverageCheckbox.isSelected();
+            boolean isSpirit = simpleOtherCheckbox.isSelected();
+            boolean isWine = simpleWineCheckbox.isSelected();
+            String params = " WHERE STATUS = 'Accepted'";
             if (isMalt || isSpirit || isWine) {
-                params += " (ALCOHOL_TYPE = ";
+                params += " AND (ALCOHOL_TYPE = ";
                 if (isWine) {params += "'Wine'";}
                 if (isSpirit && !isWine) {params += "'Distilled Spirits'";}
                 if (isSpirit && isWine){params += " OR ALCOHOL_TYPE = 'Distilled Spirits'";}
                 if (isMalt && !(isWine || isSpirit)) {params += "'Malt Beverages'";}
                 if (isMalt && (isWine || isSpirit)) {params += " OR ALCOHOL_TYPE = 'Malt Beverages'";}
                 params += ")";
-            }
+            }/*
             if (isMalt || isSpirit || isWine) {
                 params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent +
                         "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
             } else {
                 params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent +
                         "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
-            }
+            }*/
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
             ObservableList<AppRecord> array = db.findLabels(searchParams, params);
+            System.out.println(array);
             resultsTable.setItems(array);
             resultsTable.refresh();
             return array;
@@ -139,7 +152,7 @@ public class searchPageController extends UIController{
         }
     }
 
-    protected ObservableList<AppRecord> simpleSearch() {
+    protected ObservableList<AppRecord> advancedSearch() {
         try {
             //Set all variables equal to input data
             brand = brandName.getText();
@@ -203,5 +216,48 @@ public class searchPageController extends UIController{
             System.out.println("Could not build a query from search criteria.");
             return null;
         }
+    }
+
+    private void displayApprovedLabel(Form form) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
+            AnchorPane newWindow = loader.load();
+            Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            inspectApprovedLabelController controller = loader.getController();
+            controller.setForm(form);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    void initApplicationTableView() {
+        resultsTable.setItems(null);
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AppRecord> row = new TableRow<>();
+            // Open window if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AppRecord rowData = row.getItem();
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
+                    // Get form form DB using selected row's ID
+                    try {
+                        Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
+                        // Open selected form in new window
+                        displayApprovedLabel(viewForm);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row;
+        });
     }
 }
