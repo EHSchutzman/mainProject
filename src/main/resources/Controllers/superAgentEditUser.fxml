@@ -8,9 +8,12 @@
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentEditUserController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" layoutX="551.0" layoutY="129.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" width="1500.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        <Rectangle styleClass="titleBox" arcHeight="5.0" arcWidth="5.0" height="100.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         <TextField fx:id="edit_username_text" layoutX="289.0" layoutY="171.0" promptText="Username">
             <font>
                 <Font size="18.0"/>
@@ -59,7 +62,7 @@
                 <Font size="24.0"/>
             </font>
         </Button>
-        <Label layoutX="459.0" layoutY="24.0" text="Edit User">
+        <Label styleClass="titleText" layoutX="459.0" layoutY="24.0" text="Edit User">
             <font>
                 <Font size="36.0"/>
             </font>

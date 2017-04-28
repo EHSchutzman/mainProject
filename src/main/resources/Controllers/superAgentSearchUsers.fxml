@@ -8,10 +8,13 @@
 <AnchorPane prefHeight="548.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentSearchUsersController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="160.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="150.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Label fx:id="pageLabel" layoutX="398.0" layoutY="16.0" text="Search Users">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" layoutX="551.0" layoutY="129.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="160.0" width="1500.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        <Rectangle styleClass="titleBox" arcHeight="5.0" arcWidth="5.0" height="150.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        <Label styleClass="titleText" fx:id="pageLabel" layoutX="398.0" layoutY="16.0" text="Search Users">
             <font>
                 <Font size="36.0"/>
             </font>
