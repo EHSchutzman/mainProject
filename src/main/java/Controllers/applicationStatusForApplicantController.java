@@ -2,6 +2,7 @@ package Controllers;
 
 import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
+import DatabaseSearch.AppRecord;
 import Form.Form;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,14 +21,16 @@ import java.util.ArrayList;
 /**
  * Status: complete, needs review
  */
-public class applicationStatusForApplicantController extends UIController {
+public class applicationStatusForApplicantController extends UIController{
 
     @FXML
     private Label errorLabel;
     @FXML
     private TableView resultsTable;
 
-    private DBManager dbManager = new DBManager();
+    private DBManager db = new DBManager();
+    private Form viewForm;
+    private Stage primaryStage;
 
     @FXML
     private void setDisplayToRevisionsMenu(Form form) {
@@ -37,7 +40,6 @@ public class applicationStatusForApplicantController extends UIController {
             loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
             AnchorPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1500, 1000);
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
@@ -54,7 +56,7 @@ public class applicationStatusForApplicantController extends UIController {
     public void initApplicationStatusTableView() {
         ObservableList<AgentRecord> olAR;
         System.out.println(menuBarSingleton.getInstance().getGlobalData().getUserInformation().getEmail());
-        olAR = dbManager.findForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation());
+        olAR = db.findForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation());
         resultsTable.setItems(olAR);
         resultsTable.refresh();
 
@@ -68,9 +70,15 @@ public class applicationStatusForApplicantController extends UIController {
                     fieldList.add("*");
                     // Get form form DB using selected row's ID
                     try {
-                        Form viewForm = dbManager.findSingleForm(rowData.getIDNo(), fieldList);
+
+                        Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
-                        setDisplayToRevisionsMenu(viewForm);
+                        if(viewForm.getStatus().equals("Incomplete")) {
+                            System.out.println("before displaying incomplete app: " + viewForm.getrep_id());
+                            displayIncompleteApplication(viewForm);
+                        } else {
+                            setDisplayToRevisionsMenu(viewForm);
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -80,6 +88,36 @@ public class applicationStatusForApplicantController extends UIController {
         });
     }
 
+    public void displayIncompleteApplication(Form application) throws Exception{
+        try {
 
+            Stage stage = new Stage();
+            stage.setTitle("Incomplete Application");
 
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("iter2application.fxml"));
+            ScrollPane newWindow = loader.load();
+            //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(newWindow, 1500, 1000);
+
+            stage.setScene(scene);
+            // Debugger works better when full screen is off
+            stage.setFullScreen(false);
+
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+
+            iter2applicationController controller = loader.getController();
+            controller.init(super.main);
+            controller.setReviewForm(application);
+            controller.initializeComboBox();
+            controller.createIncompleteForm();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
