@@ -76,6 +76,9 @@ public class loginPageController extends UIController{
         if(user.getUsername() != null && user.getUsername().equals(name)){
             try {
                menuBarSingleton.getInstance().getGlobalData().setUserInformation(user);
+               menuBarController controller = menuBarSingleton.getInstance().getMenuBarController();
+               controller.loginButton.setText("LOGOUT");
+               controller.currentUserLabel.setText(menuBarSingleton.getInstance().getGlobalData().getUserInformation().getFirstName());
                returnToMainPage();
             } catch (IOException e){
                 e.printStackTrace();

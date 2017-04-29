@@ -56,23 +56,23 @@ public class superAgentMainPageController extends UIController{
 
         stage.show();
         superAgentSearchPendingController controller = menuBarSingleton.getInstance().getSuperAgentSearchPendingController();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(2);
 
 
     }
 
     @FXML
     public void setDisplayToSuperAgentSearchUsers() throws IOException {
+        BorderPane pane = main.getBorderPane();
         Stage stage;
         stage=(Stage) userSearchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentSearchUsers.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        superAgentSearchUsersController controller = loader.getController();
-        controller.init(super.main);
-        controller.initUserAuthenticationChoiceBox();
+
+        stage.setScene(pane.getScene());
+        pane.setCenter(menuBarSingleton.getInstance().getSuperAgentSearchUsersPane());
+        superAgentSearchUsersController controller = menuBarSingleton.getInstance().getSuperAgentSearchUsersController();
         controller.displayResults();
+
     }
 
     // TODO: change to createUser page? is this what we really want?

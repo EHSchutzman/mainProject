@@ -8,21 +8,54 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" fx:controller="Controllers.superAgentSearchUsersController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
          <children>
-            <TableView prefHeight="850.0" prefWidth="725.0">
-              <columns>
-                <TableColumn prefWidth="78.0" text="User ID" />
-                <TableColumn prefWidth="110.0" text="Username" />
-                  <TableColumn prefWidth="94.0" text="First Name" />
-                  <TableColumn prefWidth="54.0" text="Middle Initial" />
-                  <TableColumn prefWidth="92.0" text="Last Name" />
-                  <TableColumn prefWidth="100.0" text="Email" />
-                  <TableColumn prefWidth="122.0" text="Phone Number" />
-                  <TableColumn minWidth="0.0" prefWidth="74.0" text="Authentication" />
-              </columns>
+            <TableView fx:id="resultsTableUsers" prefHeight="850.0" prefWidth="725.0">
+                <columns>
+                    <TableColumn fx:id="UserIDCol" prefWidth="120.0" text="User ID">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="userID"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="UsernameCol" prefWidth="120.0" text="Username">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="username"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="firstNameCol" prefWidth="120.0" text="First Name">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="firstName"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="middleInitialCol" prefWidth="120.0" text="Middle Initial">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="middleInitial"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="lastNameCol" prefWidth="100.0" text="Last Name">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="lastName"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="emailCol" prefWidth="100.0" text="Email">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="email"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="phoneNumberCol" prefWidth="142.0" text="Phone Number">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="phoneNumber"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="authenticationCol" prefWidth="144.0" text="Authentication">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="authentication"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
             </TableView>
             <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="233.0">
                <panes>

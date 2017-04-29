@@ -41,7 +41,7 @@
             <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="LOGIN" GridPane.columnIndex="3" onMouseClicked="#setDisplayToLoginPage" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="aboutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="ABOUT" GridPane.columnIndex="6" onMouseClicked="#setDisplayToAboutPage" GridPane.halignment="CENTER" />
             <Label alignment="CENTER" text="CURRENT USER:" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Label text="Label" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label fx:id="currentUserLabel" text="Not Logged In" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
          </children>
       </GridPane>
       <GridPane layoutY="50.0" prefHeight="150.0" prefWidth="1000.0">

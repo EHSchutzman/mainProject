@@ -2,6 +2,7 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
+import UserAccounts.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,43 +28,46 @@ public class menuBarController extends UIController {
     private int searchType; //can be 0: approved forms, 1: pending apps, 2: users and this will determine the type of search called
 
     @FXML
-    private Button backButton;
+    public Button backButton;
     @FXML
-    private Button searchButton;
+    public Button searchButton;
     @FXML
-    private Button loginButton;
+    public Button loginButton;
     @FXML
-    private Button aboutButton;
+    public Button aboutButton;
     @FXML
-    private TextField searchBar;
+    public TextField searchBar;
 
     DBManager db = new DBManager();
 
-    public void setOnSearchPage(Boolean b){
+    public void setOnSearchPage(Boolean b) {
         this.onSearchPage = b;
     }
-    public Boolean getOnSearchPage(){
-        return this.onSearchPage ;
+
+    public Boolean getOnSearchPage() {
+        return this.onSearchPage;
     }
-    public void setSearchType(int type){
+
+    public void setSearchType(int type) {
         this.searchType = type;
     }
-    public int getSearchType(){
+
+    public int getSearchType() {
         return this.searchType;
     }
 
 
     @FXML
-    private void barSetDisplayToMainPage() throws IOException{
+    private void barSetDisplayToMainPage() throws IOException {
         super.returnToMainPage();
     }
 
 
     //todo set search type and global search flags
-    private void setDisplayToSearchResultsPage(ObservableList<AppRecord> list){
+    private void setDisplayToSearchResultsPage(ObservableList<AppRecord> list) {
         BorderPane pane = main.getBorderPane();
         Stage stage;
-        stage=(Stage) backButton.getScene().getWindow();
+        stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
 
         pane.setTop(menuBarSingleton.getInstance().getBar());
@@ -72,74 +76,41 @@ public class menuBarController extends UIController {
             controller.resultsTable.setItems(menuBarSingleton.getInstance().getGlobalData().getObservableList());
             controller.resultsTable.refresh();
             ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPagePane();
-            pane.setCenter(searchPage);
+            pane.setLeft(searchPage);
             stage.setScene(pane.getScene());
             stage.show();
             setSearchType(0);
             setOnSearchPage(true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
     private void setDisplayToLoginPage() throws IOException {
-            String loginStatus = loginButton.getText();
-        if (loginStatus.equals("LOGIN")) {
+        String loginStatus = loginButton.getText();
+        setOnSearchPage(false);
+        if (!currentUserLabel.getText().equalsIgnoreCase("Not Logged In")) {
+            System.out.println("Trying to logout");
+            currentUserLabel.setText("Not Logged In");
+            loginButton.setText("LOGIN");
+            menuBarSingleton.getInstance().getGlobalData().setUserInformation(null);
+            super.returnToMainPage();
+        } else {
+            System.out.println("Trying to log in");
             BorderPane borderPane = main.getBorderPane();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("loginPage.fxml"));
             AnchorPane anchorPane = loader.load();
             Stage stage;
-            stage=(Stage) loginButton.getScene().getWindow();
+            stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = borderPane.getScene();
             stage.setScene(scene);
             borderPane.setTop(menuBarSingleton.getInstance().getBar());
-            borderPane.setBottom(anchorPane);
+            borderPane.setLeft(anchorPane);
             stage.show();
-            loginPageController controller = loader.getController();
-            controller.init(main);
-            loginButton.setText("LOGOUT");
-        } else {
-            BorderPane borderPane = main.getBorderPane();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("mainPage.fxml"));
-            AnchorPane anchorPane = loader.load();
-            Stage stage;
-            stage=(Stage) loginButton.getScene().getWindow();
-            Scene scene = borderPane.getScene();
-            stage.setScene(scene);
-            borderPane.setTop(menuBarSingleton.getInstance().getBar());
-            borderPane.setBottom(anchorPane);
-            stage.show();
-            mainPageController controller = loader.getController();
-            controller.init(main);
-            loginButton.setText("LOGIN");
         }
     }
-
-    /**
-     * Redirects to searchResultsPage.fxml TODO: make sure this is correct
-     * @throws IOException - throws exception
-     */
-//    @FXML
-//    private void setDisplayToSearchFromOffPage() throws IOException{
-//        BorderPane borderPane = main.getBorderPane();
-//        FXMLLoader loader = new FXMLLoader();
-//        loader.setLocation(getClass().getResource("searchPage.fxml"));
-//        ScrollPane anchorPane = loader.load();
-//        Stage stage;
-//        stage=(Stage) searchButton.getScene().getWindow();
-//        Scene scene = borderPane.getScene();
-//        stage.setScene(scene);
-//        borderPane.setTop(menuBarSingleton.getInstance().getBar());
-//        borderPane.setBottom(anchorPane);
-//        stage.show();
-//        searchPageController controller = loader.getController();
-//        controller.init(main);
-//        controller.initApplicationTableView();
-//        controller.displayData(main.userData.getObservableList());
-//    }
 
 
     @FXML
@@ -149,7 +120,7 @@ public class menuBarController extends UIController {
         loader.setLocation(getClass().getResource("aboutPage.fxml"));
         AnchorPane anchorPane = loader.load();
         Stage stage;
-        stage=(Stage) aboutButton.getScene().getWindow();
+        stage = (Stage) aboutButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
         borderPane.setTop(menuBarSingleton.getInstance().getBar());
@@ -180,6 +151,7 @@ public class menuBarController extends UIController {
             System.out.println("Could not build a query from search criteria.");
         }
     }
+
     @FXML
     private void searchFromOnPage() {
         //Set all variables equal to input data
@@ -203,7 +175,7 @@ public class menuBarController extends UIController {
     }
 
     @FXML
-    public ObservableList<AppRecord> simpleSearch(boolean isMalt, boolean isWine, boolean isSpirit){
+    public ObservableList<AppRecord> simpleSearch(boolean isMalt, boolean isWine, boolean isSpirit) {
         try {
             //Set all variables equal to input data
             String searchBarContent = searchBar.getText();
@@ -259,19 +231,21 @@ public class menuBarController extends UIController {
      * searchType can be 0:approved forms, 1: all applications, 2: users
      */
     @FXML
-    public void searchProgram(){
-        if(this.onSearchPage){
-            if(this.searchType == 0){
+    public void searchProgram() {
+        if (this.onSearchPage) {
+            if (this.searchType == 0) {
                 System.out.println("searching forms");
                 searchFromOnPage();
                 //call userSearch
-            }else if(this.searchType == 1){
+            } else if (this.searchType == 1) {
+                System.out.println("searching pending applications");
                 //call applicationSearch
-            }else if(this.searchType == 2){
+            } else if (this.searchType == 2) {
+                System.out.println("searching users");
                 //call form search
             }
 
-        }else{
+        } else {
 
         }
     }
