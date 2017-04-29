@@ -83,8 +83,8 @@ public class Main extends Application {
             // Debugger works better when full screen is off
             primaryStage.setFullScreen(false);
             mainPageController controller = loader.getController();
-            controller.initSlideshow();
-            controller.startAnimation();
+            controller.slideshow.initSlideshow(controller.imagebox);
+            controller.slideshow.startAnimation(controller.imagebox);
             controller.init(this);
             primaryStage.show();
 

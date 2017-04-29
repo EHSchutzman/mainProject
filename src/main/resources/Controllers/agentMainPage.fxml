@@ -11,7 +11,7 @@
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;">
          <children>
-            <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="28.0" mnemonicParsing="false" text="Review Label Application">
+            <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="360.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicationsForAgent" text="Review Label Application">
                <font>
                   <Font size="24.0" />
                </font>

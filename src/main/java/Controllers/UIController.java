@@ -141,8 +141,8 @@ public abstract class UIController {
         stage.show();
         menuBarSingleton.getInstance().getGlobalData().setUserInformation(new User()); //TODO: check if this is correct
         mainPageController controller = loader.getController();
-        controller.initSlideshow();
-        controller.startAnimation();
+        controller.slideshow.initSlideshow(controller.imagebox);
+        controller.slideshow.startAnimation(controller.imagebox);
         controller.init(main);
     }
 
@@ -168,8 +168,8 @@ public abstract class UIController {
         stage.setScene(scene);
         defaultUserMainPageController controller = loader.getController();
         controller.init(main);
-        controller.initSlideshow();
-        controller.startAnimation();
+        controller.slideshow.initSlideshow(controller.imagebox);
+        controller.slideshow.startAnimation(controller.imagebox);
         stage.show();
     }
 
@@ -196,8 +196,8 @@ public abstract class UIController {
         stage.show();
         applicantMainPageController controller = loader.getController();
         controller.init(main);
-        controller.initSlideshow();
-        controller.startAnimation();
+        controller.slideshow.initSlideshow(controller.imagebox);
+        controller.slideshow.startAnimation(controller.imagebox);
         stage.show();
     }
 
@@ -225,8 +225,8 @@ public abstract class UIController {
         stage.show();
         agentMainPageController controller = loader.getController();
         controller.init(main);
-        controller.initSlideshow();
-        controller.startAnimation();
+        controller.slideshow.initSlideshow(controller.imagebox);
+        controller.slideshow.startAnimation(controller.imagebox);
         stage.show();
 
     }
@@ -253,8 +253,8 @@ public abstract class UIController {
         pane.setBottom(loader.load());
         superAgentMainPageController controller = loader.getController();
         controller.init(main);
-        controller.initSlideshow();
-        controller.startAnimation();
+        controller.slideshow.initSlideshow(controller.imagebox);
+        controller.slideshow.startAnimation(controller.imagebox);
         stage.show();
     }
 

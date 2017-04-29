@@ -7,22 +7,21 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentMainPageController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;">
          <children>
-             <Button fx:id="reviewLabelButton" onMouseClicked="#setDisplayToSuperAgentSearchPending" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="54.0" mnemonicParsing="false" prefWidth="315.0" text="Search Pending Applications" textAlignment="CENTER">
+             <Button fx:id="reviewLabelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentSearchPending" prefWidth="315.0" text="Search Pending Applications" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-             <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="16.0" mnemonicParsing="false" text="Search Users">
+             <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="16.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentSearchUsers" text="Search Users">
                <font>
                    <Font size="24.0" />
                </font>
             </Button>
-             <Button fx:id="createAgentButton" alignment="CENTER" contentDisplay="CENTER" layoutX="543.0" layoutY="11.0" mnemonicParsing="false" text="Create Agent">
+             <Button fx:id="createAgentButton" alignment="CENTER" contentDisplay="CENTER" layoutX="543.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentCreateAgent" text="Create Agent">
                <font>
                    <Font size="24.0" />
                </font>

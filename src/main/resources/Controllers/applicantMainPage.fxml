@@ -11,7 +11,7 @@
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;">
          <children>
-            <Button fx:id="viewFormsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="676.0" mnemonicParsing="false" text="View Submitted Forms">
+            <Button fx:id="viewFormsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="240.0" layoutY="676.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicationStatusForApplicant" text="View Submitted Forms">
                <font>
                   <Font size="24.0" />
                </font>
@@ -19,7 +19,7 @@
             <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="790.0" stroke="WHITE" strokeType="INSIDE" width="250.0" y="-7.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="820.0" stroke="WHITE" strokeType="INSIDE" width="250.0" x="750.0" y="-21.0" />
-            <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="533.0" layoutY="676.0" mnemonicParsing="false" text="Submit New Form">
+            <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="533.0" layoutY="676.0" mnemonicParsing="false" onMouseClicked="#setDisplayToIter2application" text="Submit New Form">
                <font>
                   <Font size="24.0" />
                </font>
