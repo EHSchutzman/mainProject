@@ -71,7 +71,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
                      <children>
-                        <TableView fx:id="resultsTable" prefHeight="830.0" prefWidth="1000.0">
+                        <TableView fx:id="resultsTable" onMouseEntered="#refreshView" prefHeight="830.0" prefWidth="1000.0">
                           <columns>
                             <TableColumn prefWidth="100.0" text="Form ID" />
                             <TableColumn prefWidth="100.0" text="Permit No." />

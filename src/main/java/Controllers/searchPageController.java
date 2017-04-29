@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * TODO: this is currently not used anywhere. May need to move this to searchPageController
  * TODO: - once advanced options are created in UI
  */
-public class searchPageController extends UIController{
+public class searchPageController extends UIController {
 
     //VARIABLES FOR SEARCH CRITERIA:
     //Search bar info
@@ -97,6 +97,10 @@ public class searchPageController extends UIController{
     }
     */
 
+    @FXML
+    public void initialize() {
+        initApplicationTableView();
+    }
 
     //Populates the results table with data from the database
     protected void displayData(ObservableList<AppRecord> list) {
@@ -110,7 +114,7 @@ public class searchPageController extends UIController{
 
     @FXML
     private void simpleSearch() {
-       displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
+        displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
     }
 
     @FXML
@@ -119,7 +123,7 @@ public class searchPageController extends UIController{
             String params = "";
 
             //Set all variables equal to input data
-            if(dpDateRangeStart.getValue() != null) {
+            if (dpDateRangeStart.getValue() != null) {
                 from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
             }
             if (dpDateRangeEnd.getValue() != null) {
@@ -180,22 +184,22 @@ public class searchPageController extends UIController{
             ArrayList<String> countryArray = new ArrayList<>();
             ArrayList<String> statusArray = new ArrayList<>();
 
-            if(brand != null) {
+            if (brand != null) {
                 brandArray.add("BRAND_NAME");
                 brandArray.add(brand);
                 searchParams.add(brandArray);
             }
-            if(fanciful != null) {
+            if (fanciful != null) {
                 fancifulArray.add("FANCIFUL_NAME");
                 fancifulArray.add(fanciful);
                 searchParams.add(fancifulArray);
             }
-            if(stateInfo != null) {
+            if (stateInfo != null) {
                 stateArray.add("STATE");
                 stateArray.add(stateInfo);
                 searchParams.add(stateArray);
             }
-            if(countryInfo != null) {
+            if (countryInfo != null) {
                 countryArray.add("COUNTRY");
                 countryArray.add(countryInfo);
                 searchParams.add(countryArray);
@@ -264,7 +268,7 @@ public class searchPageController extends UIController{
 
     //CSV OPTIONS:
 
-    void passListOfForms(ObservableList<AppRecord> listOfForms){
+    void passListOfForms(ObservableList<AppRecord> listOfForms) {
         this.observableList = listOfForms;
     }
 
@@ -306,5 +310,11 @@ public class searchPageController extends UIController{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void refreshView(){
+        System.out.println("Refreshing");
+        resultsTable.refresh();
     }
 }

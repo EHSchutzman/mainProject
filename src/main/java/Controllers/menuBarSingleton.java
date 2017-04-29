@@ -60,7 +60,6 @@ public class menuBarSingleton {
         menuBarController.setSearchPageController(searchPageController);
 
         this.menuBar = menuBar;
-        initializeSearchController();
 
     }
     public void initializeSearchController(){
@@ -87,9 +86,9 @@ public class menuBarSingleton {
         return this.menuBarController;
     }
     public searchPageController getSearchPageController(){
-        if(menuBarObj == null) {
+        if(menuBarObj.searchPageController == null) {
             try {
-                initializeMenuBar();
+                initializeSearchController();
             }catch (Exception e){
                 e.printStackTrace();
             }

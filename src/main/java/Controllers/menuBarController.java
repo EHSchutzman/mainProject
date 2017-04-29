@@ -61,12 +61,13 @@ public class menuBarController extends UIController {
 
         pane.setTop(menuBarSingleton.getInstance().getBar());
         try {
+            searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
+            controller.resultsTable.setItems(menuBarSingleton.getInstance().getGlobalData().getObservableList());
+            controller.resultsTable.refresh();
             ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPane();
             pane.setCenter(searchPage);
             stage.setScene(pane.getScene());
             stage.show();
-            searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
-            controller.displayData(menuBarSingleton.getInstance().getGlobalData().getObservableList());
         }catch (Exception e){
             e.printStackTrace();
         }
