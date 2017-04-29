@@ -1,19 +1,14 @@
 package Controllers;
 
-import Form.Form;
 import DBManager.DBManager;
+import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -33,13 +28,14 @@ import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 public class iter2applicationController extends UIController {
     private String uid;
     @FXML
-    public void initialize(){
+    public void initialize() {
         createApplicantForm();
         super.init(main);
         source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
         alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
     }
-    public void setUID(String uid){
+
+    public void setUID(String uid) {
         System.out.println("UID SENT IS " + uid);
         this.uid = uid;
     }
@@ -178,9 +174,9 @@ public class iter2applicationController extends UIController {
 
         if (source_combobox.getValue().toString().equalsIgnoreCase("Wine")) {
             pH_level = (Integer.parseInt(phLevel.getText()));
-             grape_varietals = (grapeVarietals.getText());
-             wine_appellation = (wineAppellation.getText());
-             vintage_year = (vintageYear.getText());
+            grape_varietals = (grapeVarietals.getText());
+            wine_appellation = (wineAppellation.getText());
+            vintage_year = (vintageYear.getText());
         } else {
 
             pH_level = -1;
@@ -305,23 +301,22 @@ public class iter2applicationController extends UIController {
 
 
     @FXML
-    public void checkType(){
+    public void checkType() {
         System.out.println("in checkType");
-        if(alcohol_type_combobox.getValue().toString().equalsIgnoreCase("Wine")){
+        if (alcohol_type_combobox.getValue().toString().equalsIgnoreCase("Wine")) {
             wineRec.setVisible(true);
             grapeVarietals.setVisible(true);
             grapeVarietalsLabel.setVisible(true);
-            
+
             wineAppellation.setVisible(true);
             wineAppellationLabel.setVisible(true);
-            
+
             phLevel.setVisible(true);
             phLevelLabel.setVisible(true);
-            
+
             vintageYear.setVisible(true);
             vintageYearLabel.setVisible(true);
-        }
-        else{
+        } else {
             wineRec.setVisible(false);
             grapeVarietals.setVisible(false);
             grapeVarietalsLabel.setVisible(false);
@@ -336,7 +331,6 @@ public class iter2applicationController extends UIController {
             vintageYearLabel.setVisible(false);
         }
     }
-
 
 
 }

@@ -32,7 +32,7 @@ public class loginPageController extends UIController{
      */
     void setActionOnEnter() {
         password.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.ENTER) {
                 loginButton.fire();
                 event.consume();
             }

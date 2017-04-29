@@ -318,6 +318,7 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println("QUERY IS " + query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 AgentRecord application = new AgentRecord();

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Status: complete, needs reimplementation.
  * TODO: clean code, add functionality, need UI to make pages first (COMMUNICATE!), make sure there are no WARNINGS
  */
-public class printableVersionController extends UIController{
+public class printableVersionController extends UIController {
 
     @FXML
     private AnchorPane anchorPane;
@@ -60,14 +60,14 @@ public class printableVersionController extends UIController{
         mailing_second_line2.setText("");
         mailing_third_line1.setText("");
         mailing_third_line2.setText("");
-        if(form.getSource().equals("Domestic")) {
+        if (form.getSource().equals("Domestic")) {
             domesticCheck.setSelected(true);
         } else {
             importedCheck.setSelected(true);
         }
-        if(form.getalcohol_type().equals("Wine")) {
+        if (form.getalcohol_type().equals("Wine")) {
             wineCheck.setSelected(true);
-        } else if(form.getalcohol_type().equals("Malt Beverages")) {
+        } else if (form.getalcohol_type().equals("Malt Beverages")) {
             maltBeverageCheck.setSelected(true);
         } else {
             distilledSpiritsCheck.setSelected(true);
@@ -76,11 +76,11 @@ public class printableVersionController extends UIController{
         submit_date.setText(form.getsubmit_date().toString());
         signature.setText(form.getSignature());
         applicant_name.setText(form.getapplicant_id()); // TODO: add query for getting search
-        if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(0)) {
+        if (!form.getapplication_type().isEmpty() && form.getapplication_type().get(0)) {
             cert_label_approval.setSelected(true);
-        } else if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(1)) {
+        } else if (!form.getapplication_type().isEmpty() && form.getapplication_type().get(1)) {
             cert_exemption.setSelected(true);
-        } else if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(2)) {
+        } else if (!form.getapplication_type().isEmpty() && form.getapplication_type().get(2)) {
             cert_distinctive.setSelected(true);
         } else {
             cert_resubmission.setSelected(true);
@@ -91,7 +91,7 @@ public class printableVersionController extends UIController{
     public void saveAsPng() {
         WritableImage image = anchorPane.snapshot(new SnapshotParameters(), null);
         // TODO: probably use a file chooser here, make disabled checkboxes more visible/change this?
-        File file = new File(System.getProperty("user.dir") + "/form_" + ttb_id.getText() +".png");
+        File file = new File(System.getProperty("user.dir") + "/form_" + ttb_id.getText() + ".png");
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
         } catch (IOException e) {

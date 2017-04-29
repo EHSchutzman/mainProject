@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Status: incomplete, needs work.
  * TODO: make sure revisions checkboxes allow editable fields
  */
-public class reviseApplicationController extends UIController{
+public class reviseApplicationController extends UIController {
 
     @FXML
     private Button back_button;
@@ -329,7 +329,7 @@ public class reviseApplicationController extends UIController{
 
         }
 
- //       applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
+        //       applicant_name_text.setText(manager.findUsersName(form.getapplicant_id()));
         email_text.setText(main.userData.getUserInformation().getEmail());
         phone_no_text.setText(main.userData.getUserInformation().getPhoneNo());
 

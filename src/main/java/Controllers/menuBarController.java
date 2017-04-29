@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -87,7 +88,7 @@ public class menuBarController extends UIController {
     }
 
     @FXML
-    private void setDisplayToLoginPage() throws IOException {
+    private void loginAction() throws IOException {
         String loginStatus = loginButton.getText();
         setOnSearchPage(false);
         if (!currentUserLabel.getText().equalsIgnoreCase("Not Logged In")) {
@@ -114,20 +115,21 @@ public class menuBarController extends UIController {
 
 
     @FXML
-    protected void setDisplayToAboutPage() throws IOException {
-        BorderPane borderPane = main.getBorderPane();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("aboutPage.fxml"));
-        AnchorPane anchorPane = loader.load();
-        Stage stage;
-        stage = (Stage) aboutButton.getScene().getWindow();
-        Scene scene = borderPane.getScene();
-        stage.setScene(scene);
-        borderPane.setTop(menuBarSingleton.getInstance().getBar());
-        borderPane.setBottom(anchorPane);
-        stage.show();
-        aboutPageController controller = loader.getController();
-        controller.init(main);
+    protected void barSetDisplayToAboutPage() throws IOException {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            AnchorPane newWindow = loader.load(getClass().getResource("aboutPage.fxml"));
+            Scene scene = new Scene(newWindow, 500, 800);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+            aboutPageController controller = loader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

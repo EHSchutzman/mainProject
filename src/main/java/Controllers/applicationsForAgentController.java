@@ -1,13 +1,9 @@
 package Controllers;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
-import Form.*;
-import UserAccounts.User;
+import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +14,9 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by James Corse on 4/25/17.

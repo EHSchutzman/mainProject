@@ -8,14 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -46,7 +42,7 @@ public class applicantMainPageController extends UIController{
     @FXML
     public void setDisplayToSearchPage() throws IOException {
         Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
+        stage = (Stage) searchButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
@@ -60,10 +56,11 @@ public class applicantMainPageController extends UIController{
 
     /**
      * Redirects to applicationStatusForApplicant.fxml
+     *
      * @throws IOException - throws exception
      */
     @FXML
-    public void setDisplayToApplicationStatusForApplicant() throws IOException{
+    public void setDisplayToApplicationStatusForApplicant() throws IOException {
         BorderPane pane = main.getBorderPane();
         Stage stage;
         stage=(Stage) viewFormsButton.getScene().getWindow();
@@ -71,17 +68,19 @@ public class applicantMainPageController extends UIController{
         System.out.println(loader.getLocation().getPath());
         Scene scene = pane.getScene();
         pane.setTop(menuBarSingleton.getInstance().getBar());
-        pane.setCenter(loader.load());
+        pane.setLeft(menuBarSingleton.getInstance().getApplicationsForApplicantPane());
         stage.setScene(scene);
         stage.show();
-        applicationStatusForApplicantController controller = loader.getController();
-        controller.init(super.main);
+        applicationStatusForApplicantController controller = menuBarSingleton.getInstance().getApplicationStatusForApplicantController();
+        menuBarController menuBarController = menuBarSingleton.getInstance().getMenuBarController();
+        menuBarController.setOnSearchPage(true);
+        menuBarController.setSearchType(1);
         controller.initApplicationStatusTableView();
     }
 
 
     @FXML
-    public void setDisplayToIter2application() throws IOException{
+    public void setDisplayToIter2application() throws IOException {
         BorderPane borderPane = main.getBorderPane();
 
         FXMLLoader loader = new FXMLLoader();
@@ -107,8 +106,6 @@ public class applicantMainPageController extends UIController{
         System.out.println(controller);
         controller.init(main);
         controller.initialize();
-
-
 
 
     }

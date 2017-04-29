@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentCreateAgentController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" layoutX="551.0" layoutY="129.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" width="1500.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" styleClass="titleBox" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
         <TextField fx:id="username" layoutX="257.0" layoutY="158.0" promptText="Login Name">
             <font>
                 <Font size="18.0" />
@@ -22,17 +22,20 @@
                 <Font size="18.0" />
             </font>
         </PasswordField>
-        <TextField fx:id="firstName" layoutX="257.0" layoutY="211.0" prefHeight="35.0" prefWidth="193.0" promptText="First Name">
+        <TextField fx:id="firstName" layoutX="257.0" layoutY="211.0" prefHeight="35.0" prefWidth="193.0"
+                   promptText="First Name">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <TextField fx:id="middleInitial" layoutX="476.0" layoutY="211.0" prefHeight="35.0" prefWidth="62.0" promptText="M. I.">
+        <TextField fx:id="middleInitial" layoutX="476.0" layoutY="211.0" prefHeight="35.0" prefWidth="62.0"
+                   promptText="M. I.">
             <font>
                 <Font size="18.0" />
             </font>
         </TextField>
-        <TextField fx:id="lastName" layoutX="567.0" layoutY="211.0" prefHeight="35.0" prefWidth="186.0" promptText="Last Name">
+        <TextField fx:id="lastName" layoutX="567.0" layoutY="211.0" prefHeight="35.0" prefWidth="186.0"
+                   promptText="Last Name">
             <font>
                 <Font size="18.0" />
             </font>
@@ -47,17 +50,19 @@
                 <Font size="18.0" />
             </font>
         </TextField>
-        <Button fx:id="createUserButton" layoutX="421.0" layoutY="370.0" mnemonicParsing="false" onMouseClicked="#createUserAction" text="Create Agent">
+        <Button fx:id="createUserButton" layoutX="421.0" layoutY="370.0" mnemonicParsing="false"
+                onMouseClicked="#createUserAction" text="Create Agent">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button fx:id="returnToMainButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Return To Main">
+        <Button fx:id="returnToMainButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false"
+                onMouseClicked="#returnToMainPage" text="Return To Main">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Label layoutX="355.0" layoutY="24.0" text="Create New Agent">
+        <Label layoutX="354.0" layoutY="23.0" styleClass="titleText" text="Create New Agent">
             <font>
                 <Font size="36.0" />
             </font>

@@ -8,17 +8,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Status: complete, needs review
  */
-public class applicationStatusForApplicantController extends UIController{
+public class applicationStatusForApplicantController extends UIController {
 
     @FXML
     private Label errorLabel;
@@ -35,6 +37,7 @@ public class applicationStatusForApplicantController extends UIController{
             loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
             AnchorPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
@@ -48,10 +51,10 @@ public class applicationStatusForApplicantController extends UIController{
     }
 
     @FXML
-    public void initApplicationStatusTableView(){
+    public void initApplicationStatusTableView() {
         ObservableList<AgentRecord> olAR;
-        System.out.println(main.userData.getUserInformation().getEmail());
-        olAR = dbManager.findForms(main.userData.getUserInformation());
+        System.out.println(menuBarSingleton.getInstance().getGlobalData().getUserInformation().getEmail());
+        olAR = dbManager.findForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation());
         resultsTable.setItems(olAR);
         resultsTable.refresh();
 
@@ -76,4 +79,7 @@ public class applicationStatusForApplicantController extends UIController{
             return row;
         });
     }
+
+
+
 }
