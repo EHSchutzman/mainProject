@@ -22,10 +22,11 @@ public class superAgentCreateAgentController extends UIController {
 
     /**
      * Creates a user using the Authentication entity
+     *
      * @throws IOException - throws exception
      */
     @FXML
-    public void createUserAction() throws IOException{
+    public void createUserAction() throws IOException {
         String emailText = email.getText();
         String loginNameText = username.getText();
         String passwordText = password.getText();
@@ -43,3 +44,5 @@ public class superAgentCreateAgentController extends UIController {
             e.printStackTrace();
         }
     }
+}
+

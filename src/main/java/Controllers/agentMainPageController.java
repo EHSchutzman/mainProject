@@ -27,31 +27,21 @@ import java.util.List;
  * TODO: review this
  */
 public class agentMainPageController extends UIController{
+    /**
+     * Redirects to applicationsForAgent.fxml
+     * @throws IOException - throws exception
+     */
+
+
+    @FXML
+    public void initialize(){
+        super.init(main);
+    }
     ArrayList<ImageView> imageArrayList = new ArrayList<>();
     int count = 0;
 
     @FXML
     private HBox imagebox;
-    @FXML
-    private Button submissionButton;
-
-    /**
-     * Redirects to applicationsForAgent.fxml
-     * @throws IOException - throws exception
-     */
-    @FXML
-    public void setDisplayToApplicationsForAgent() throws IOException {
-        Stage stage;
-        stage=(Stage) submissionButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationsForAgent.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        applicationsForAgentController controller = loader.getController();
-        controller.init(super.main);
-        controller.displayResults();
-    }
-
     @FXML
     private Button submissionButton;
 
@@ -156,8 +146,7 @@ public class agentMainPageController extends UIController{
         anim.setCycleCount(Timeline.INDEFINITE);
         anim.playFromStart();
     }
-}
-
 
 }
+
 

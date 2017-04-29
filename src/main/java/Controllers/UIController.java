@@ -79,11 +79,18 @@ public abstract class UIController {
      */
     @FXML
     private void setDisplayToSearchPage() throws IOException{
+        BorderPane borderPane = main.getBorderPane();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("searchPage.fxml"));
+        ScrollPane anchorPane = loader.load();
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
         Scene scene = new Scene(loader.load());
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
         searchResultsPageController controller = loader.getController();
         controller.init(main);
@@ -106,6 +113,9 @@ public abstract class UIController {
         stage.show();
         aboutPageController controller = loader.getController();
         controller.init(main);
+        searchPageController controller = loader.getController();
+        controller.init(main);
+        controller.initApplicationTableView();
     }
 
     /**
@@ -114,14 +124,21 @@ public abstract class UIController {
      */
     @FXML
     protected void setDisplayToMainPage() throws IOException {
+        BorderPane borderPane = main.getBorderPane();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("mainPage.fxml"));
+        AnchorPane anchorPane = loader.load();
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage=(Stage) button.getScene().getWindow();
+        Scene scene = borderPane.getScene();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
         main.userData.setUserInformation(new User()); //TODO: check if this is correct
         mainPageController controller = loader.getController();
@@ -142,6 +159,13 @@ public abstract class UIController {
         stage = (Stage) button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("defaultUserMainPage.fxml"));
         Scene scene = new Scene(loader.load());
+        stage=(Stage) button.getScene().getWindow();
+        URL defaultUserMainPageURL = getClass().getResource("defaultUserMainPage.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane pane = loader.load(defaultUserMainPageURL);
+        root.setTop(menuBarSingleton.getInstance().getBar());
+        root.setBottom(pane);
+        Scene scene = root.getScene();
         stage.setScene(scene);
         defaultUserMainPageController controller = loader.getController();
         controller.init(main);

@@ -29,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by DanielKim on 4/16/2017.
+ * Status: mostly done, needs some work.
+ * TODO: make sure things work properly, add doxygen
  */
 public class applicantMainPageController extends UIController{
     ArrayList<ImageView> imageArrayList = new ArrayList<>();
@@ -50,6 +51,11 @@ public class applicantMainPageController extends UIController{
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    public void initialize(){
+        super.init(main);
     }
 
     /**
@@ -86,11 +92,23 @@ public class applicantMainPageController extends UIController{
         ScrollPane scrollPane = loader.load();
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
+        BorderPane root = super.main.getBorderPane();
+        URL iter2applicationURL = getClass().getResource("iter2application.fxml");
+        FXMLLoader loader = new FXMLLoader();
+        ScrollPane pane = loader.load(iter2applicationURL);
+        root.setTop(menuBarSingleton.getInstance().getBar());
+        root.setBottom(pane);
+
+
+        Scene scene = root.getScene();
+        stage.setScene(root.getScene());
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
         borderPane.setCenter(scrollPane);
         stage.show();
+
+
         iter2applicationController controller = loader.getController();
         System.out.println(controller);
         controller.init(main);
