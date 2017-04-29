@@ -1,84 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
-         <children>
-            <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="200.0">
-               <panes>
-                  <TitledPane animated="false" text="Simple Filters">
+<?import javafx.scene.layout.AnchorPane?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
+            <children>
+                <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="200.0">
+                    <panes>
+                        <TitledPane animated="false" text="Simple Filters">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:"/>
+                                        <CheckBox layoutX="25.0" layoutY="30.0" mnemonicParsing="false" text="Beer"/>
+                                        <CheckBox layoutX="85.0" layoutY="30.0" mnemonicParsing="false" text="Wine"/>
+                                        <CheckBox layoutX="25.0" layoutY="50.0" mnemonicParsing="false" text="Other"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Advanced Filters">
+                            <content>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <TextField layoutX="15.0" layoutY="35.0" prefHeight="25.0" prefWidth="195.0"/>
+                                        <TextField layoutX="15.0" layoutY="85.0" prefHeight="25.0" prefWidth="195.0"/>
+                                        <DatePicker layoutX="15.0" layoutY="225.0" prefHeight="25.0" prefWidth="195.0"/>
+                                        <DatePicker layoutX="15.0" layoutY="275.0" prefHeight="25.0" prefWidth="195.0"/>
+                                        <TextField layoutX="15.0" layoutY="330.0" prefHeight="25.0" prefWidth="195.0"/>
+                                        <TextField layoutX="16.0" layoutY="375.0" prefHeight="25.0" prefWidth="195.0"/>
+                                        <Label layoutX="15.0" layoutY="15.0" text="Brand Name:"/>
+                                        <Label layoutX="15.0" layoutY="65.0" text="Fanciful Name:"/>
+                                        <Label layoutX="15.0" layoutY="125.0" text="Alcohol Type:"/>
+                                        <Label layoutX="15.0" layoutY="187.0" text="Date Completed:"/>
+                                        <Label layoutX="15.0" layoutY="205.0" text="From:"/>
+                                        <Label layoutX="15.0" layoutY="255.0" text="To:"/>
+                                        <Label layoutX="15.0" layoutY="310.0" text="Country:"/>
+                                        <Label layoutX="15.0" layoutY="355.0" text="State:"/>
+                                        <CheckBox layoutX="25.0" layoutY="140.0" mnemonicParsing="false" text="Beer"/>
+                                        <CheckBox layoutX="85.0" layoutY="140.0" mnemonicParsing="false" text="Wine"/>
+                                        <CheckBox layoutX="25.0" layoutY="160.0" mnemonicParsing="false" text="Other"/>
+                                        <Label layoutX="15.0" layoutY="410.0" text="Applicant Name:"/>
+                                        <TextField layoutX="15.0" layoutY="430.0" prefHeight="25.0" prefWidth="195.0"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+                <ScrollPane prefHeight="830.0" prefWidth="725.0">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:" />
-                              <CheckBox layoutX="25.0" layoutY="30.0" mnemonicParsing="false" text="Beer" />
-                              <CheckBox layoutX="85.0" layoutY="30.0" mnemonicParsing="false" text="Wine" />
-                              <CheckBox layoutX="25.0" layoutY="50.0" mnemonicParsing="false" text="Other" />
-                           </children>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
+                            <children>
+                                <TableView layoutY="-10.0" prefHeight="850.0" prefWidth="1000.0">
+                                    <columns>
+                                        <TableColumn prefWidth="100.0" text="Applicant Name"/>
+                                        <TableColumn prefWidth="100.0" text="Form ID"/>
+                                        <TableColumn prefWidth="100.0" text="Permit No."/>
+                                        <TableColumn prefWidth="100.0" text="Serial No."/>
+                                        <TableColumn prefWidth="100.0" text="Completed Date"/>
+                                        <TableColumn prefWidth="100.0" text="Fanciful Name"/>
+                                        <TableColumn prefWidth="100.0" text="Brand Name"/>
+                                        <TableColumn prefWidth="100.0" text="Country"/>
+                                        <TableColumn prefWidth="100.0" text="State"/>
+                                        <TableColumn prefWidth="100.0" text="Alcohol Type"/>
+                                    </columns>
+                                </TableView>
+                            </children>
                         </AnchorPane>
                     </content>
-                  </TitledPane>
-                <TitledPane animated="false" text="Advanced Filters">
-                     <content>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TextField layoutX="15.0" layoutY="35.0" prefHeight="25.0" prefWidth="195.0" />
-                              <TextField layoutX="15.0" layoutY="85.0" prefHeight="25.0" prefWidth="195.0" />
-                              <DatePicker layoutX="15.0" layoutY="225.0" prefHeight="25.0" prefWidth="195.0" />
-                              <DatePicker layoutX="15.0" layoutY="275.0" prefHeight="25.0" prefWidth="195.0" />
-                              <TextField layoutX="15.0" layoutY="330.0" prefHeight="25.0" prefWidth="195.0" />
-                              <TextField layoutX="16.0" layoutY="375.0" prefHeight="25.0" prefWidth="195.0" />
-                              <Label layoutX="15.0" layoutY="15.0" text="Brand Name:" />
-                              <Label layoutX="15.0" layoutY="65.0" text="Fanciful Name:" />
-                              <Label layoutX="15.0" layoutY="125.0" text="Alcohol Type:" />
-                              <Label layoutX="15.0" layoutY="187.0" text="Date Completed:" />
-                              <Label layoutX="15.0" layoutY="205.0" text="From:" />
-                              <Label layoutX="15.0" layoutY="255.0" text="To:" />
-                              <Label layoutX="15.0" layoutY="310.0" text="Country:" />
-                              <Label layoutX="15.0" layoutY="355.0" text="State:" />
-                              <CheckBox layoutX="25.0" layoutY="140.0" mnemonicParsing="false" text="Beer" />
-                              <CheckBox layoutX="85.0" layoutY="140.0" mnemonicParsing="false" text="Wine" />
-                              <CheckBox layoutX="25.0" layoutY="160.0" mnemonicParsing="false" text="Other" />
-                              <Label layoutX="15.0" layoutY="410.0" text="Applicant Name:" />
-                              <TextField layoutX="15.0" layoutY="430.0" prefHeight="25.0" prefWidth="195.0" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </TitledPane>
-               </panes>
-            </Accordion>
-            <ScrollPane prefHeight="830.0" prefWidth="725.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
-                     <children>
-                        <TableView layoutY="-10.0" prefHeight="850.0" prefWidth="1000.0">
-                          <columns>
-                              <TableColumn prefWidth="100.0" text="Applicant Name" />
-                            <TableColumn prefWidth="100.0" text="Form ID" />
-                            <TableColumn prefWidth="100.0" text="Permit No." />
-                              <TableColumn prefWidth="100.0" text="Serial No." />
-                              <TableColumn prefWidth="100.0" text="Completed Date" />
-                              <TableColumn prefWidth="100.0" text="Fanciful Name" />
-                              <TableColumn prefWidth="100.0" text="Brand Name" />
-                              <TableColumn prefWidth="100.0" text="Country" />
-                              <TableColumn prefWidth="100.0" text="State" />
-                              <TableColumn prefWidth="100.0" text="Alcohol Type" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-         </children></AnchorPane>
-  </content>
+                </ScrollPane>
+            </children>
+        </AnchorPane>
+    </content>
 </ScrollPane>

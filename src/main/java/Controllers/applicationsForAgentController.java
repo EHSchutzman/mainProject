@@ -90,7 +90,6 @@ public class applicationsForAgentController extends UIController{
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
 
-
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1500, 1000);
 
@@ -108,14 +107,16 @@ public class applicationsForAgentController extends UIController{
             controller.setLabels();
             controller.setReviewForm(application);
 
-        } catch (IOException e){e.printStackTrace();}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Function refreshes the table, would ultimately be called on actions in secondary window.
      */
     @FXML
-    public void refreshTable(){
+    public void refreshTable() {
         displayResults();
     }
 }

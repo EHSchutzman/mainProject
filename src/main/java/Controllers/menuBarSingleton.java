@@ -59,14 +59,14 @@ public class menuBarSingleton {
         this.menuBarController = menuBarController;
 
 
-
         System.out.println("MENU BAR CONTROLLER " + menuBarController);
         System.out.println("SEARCHPAGE CONTROLLER " + searchPageController);
 
         this.menuBar = menuBar;
 
     }
-    public void initializeFormsSearchController(){
+
+    public void initializeFormsSearchController() {
         URL searchPageURL = getClass().getResource("/Controllers/searchPage.fxml");
         FXMLLoader searchLoader = new FXMLLoader();
         searchLoader.setLocation(searchPageURL);
@@ -77,7 +77,7 @@ public class menuBarSingleton {
 
             searchPageController searchPageController = (searchPageController) searchLoader.getController();
             this.searchPageController = searchPageController;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -86,14 +86,15 @@ public class menuBarSingleton {
         return this.menuBar;
     }
 
-    public menuBarController getMenuBarController(){
+    public menuBarController getMenuBarController() {
         return this.menuBarController;
     }
-    public searchPageController getSearchPageController(){
-        if(menuBarObj.searchPageController == null) {
+
+    public searchPageController getSearchPageController() {
+        if (menuBarObj.searchPageController == null) {
             try {
                 initializeFormsSearchController();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -110,7 +111,7 @@ public class menuBarSingleton {
         return this.globalData;
     }
 
-    public ScrollPane getSearchPagepPane(){
+    public ScrollPane getSearchPagepPane() {
         return this.searchPagepPane;
     }
 

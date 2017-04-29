@@ -34,7 +34,7 @@ public class superAgentMainPageController extends UIController{
     private HBox imagebox;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         super.init(main);
     }
 

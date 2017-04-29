@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -312,7 +312,7 @@ public class searchPageController extends UIController {
     }
 
     @FXML
-    public void refreshView(){
+    public void refreshView() {
         System.out.println("Refreshing");
         resultsTable.refresh();
     }

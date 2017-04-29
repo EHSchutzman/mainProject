@@ -159,7 +159,7 @@ public abstract class UIController {
         if(button == null) {button = loginButton;}
         stage = (Stage) button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("defaultUserMainPage.fxml"));
-        stage=(Stage) button.getScene().getWindow();
+        stage = (Stage) button.getScene().getWindow();
         URL defaultUserMainPageURL = getClass().getResource("defaultUserMainPage.fxml");
         AnchorPane pane = loader.load(defaultUserMainPageURL);
         root.setTop(menuBarSingleton.getInstance().getBar());

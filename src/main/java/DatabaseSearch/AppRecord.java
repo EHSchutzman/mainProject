@@ -122,13 +122,21 @@ public class AppRecord {
         this.brandName.set(brandName);
     }
 
-    public void setCountry(String country) { this.country.set(country); }
+    public void setCountry(String country) {
+        this.country.set(country);
+    }
 
-    public String getCountry() { return country.get(); }
+    public String getCountry() {
+        return country.get();
+    }
 
-    public void setState(String state) { this.state.set(state); }
+    public void setState(String state) {
+        this.state.set(state);
+    }
 
-    public String getState() { return state.get(); }
+    public String getState() {
+        return state.get();
+    }
 
 //    public String getOriginCode() {
 //        return originCode.get();

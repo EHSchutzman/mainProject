@@ -39,31 +39,34 @@ public class menuBarController extends UIController {
 
     DBManager db = new DBManager();
 
-    public void setOnSearchPage(Boolean b){
+    public void setOnSearchPage(Boolean b) {
         this.onSearchPage = b;
     }
-    public Boolean getOnSearchPage(){
-        return this.onSearchPage ;
+
+    public Boolean getOnSearchPage() {
+        return this.onSearchPage;
     }
-    public void setSearchType(int type){
+
+    public void setSearchType(int type) {
         this.searchType = type;
     }
-    public int getSearchType(){
+
+    public int getSearchType() {
         return this.searchType;
     }
 
 
     @FXML
-    private void barSetDisplayToMainPage() throws IOException{
+    private void barSetDisplayToMainPage() throws IOException {
         super.returnToMainPage();
     }
 
 
     //todo set search type and global search flags
-    private void setDisplayToSearchResultsPage(ObservableList<AppRecord> list){
+    private void setDisplayToSearchResultsPage(ObservableList<AppRecord> list) {
         BorderPane pane = main.getBorderPane();
         Stage stage;
-        stage=(Stage) backButton.getScene().getWindow();
+        stage = (Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
 
         pane.setTop(menuBarSingleton.getInstance().getBar());
@@ -77,21 +80,21 @@ public class menuBarController extends UIController {
             stage.show();
             setSearchType(0);
             setOnSearchPage(true);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
     private void setDisplayToLoginPage() throws IOException {
-            String loginStatus = loginButton.getText();
+        String loginStatus = loginButton.getText();
         if (loginStatus.equals("LOGIN")) {
             BorderPane borderPane = main.getBorderPane();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("loginPage.fxml"));
             AnchorPane anchorPane = loader.load();
             Stage stage;
-            stage=(Stage) loginButton.getScene().getWindow();
+            stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = borderPane.getScene();
             stage.setScene(scene);
             borderPane.setTop(menuBarSingleton.getInstance().getBar());
@@ -106,7 +109,7 @@ public class menuBarController extends UIController {
             loader.setLocation(getClass().getResource("mainPage.fxml"));
             AnchorPane anchorPane = loader.load();
             Stage stage;
-            stage=(Stage) loginButton.getScene().getWindow();
+            stage = (Stage) loginButton.getScene().getWindow();
             Scene scene = borderPane.getScene();
             stage.setScene(scene);
             borderPane.setTop(menuBarSingleton.getInstance().getBar());
@@ -120,6 +123,7 @@ public class menuBarController extends UIController {
 
     /**
      * Redirects to searchResultsPage.fxml TODO: make sure this is correct
+     *
      * @throws IOException - throws exception
      */
 //    @FXML
@@ -140,8 +144,6 @@ public class menuBarController extends UIController {
 //        controller.initApplicationTableView();
 //        controller.displayData(main.userData.getObservableList());
 //    }
-
-
     @FXML
     protected void setDisplayToAboutPage() throws IOException {
         BorderPane borderPane = main.getBorderPane();
@@ -149,7 +151,7 @@ public class menuBarController extends UIController {
         loader.setLocation(getClass().getResource("aboutPage.fxml"));
         AnchorPane anchorPane = loader.load();
         Stage stage;
-        stage=(Stage) aboutButton.getScene().getWindow();
+        stage = (Stage) aboutButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
         borderPane.setTop(menuBarSingleton.getInstance().getBar());
@@ -182,7 +184,7 @@ public class menuBarController extends UIController {
     }
 
     @FXML
-    public ObservableList<AppRecord> simpleSearch(boolean isMalt, boolean isWine, boolean isSpirit){
+    public ObservableList<AppRecord> simpleSearch(boolean isMalt, boolean isWine, boolean isSpirit) {
         try {
             //Set all variables equal to input data
             String searchBarContent = searchBar.getText();
@@ -238,18 +240,18 @@ public class menuBarController extends UIController {
      * searchType can be 0:approved forms, 1: all applications, 2: users
      */
     @FXML
-    public void searchProgram(){
-        if(this.onSearchPage){
-            if(this.searchType == 0){
+    public void searchProgram() {
+        if (this.onSearchPage) {
+            if (this.searchType == 0) {
                 System.out.println("searching forms");
                 //call userSearch
-            }else if(this.searchType == 1){
+            } else if (this.searchType == 1) {
                 //call applicationSearch
-            }else if(this.searchType == 2){
+            } else if (this.searchType == 2) {
                 //call form search
             }
 
-        }else{
+        } else {
 
         }
     }

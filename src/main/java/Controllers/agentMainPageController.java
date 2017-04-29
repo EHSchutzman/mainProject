@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,12 +30,13 @@ import java.util.List;
 public class agentMainPageController extends UIController{
     /**
      * Redirects to applicationsForAgent.fxml
+     *
      * @throws IOException - throws exception
      */
 
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         super.init(main);
     }
     ArrayList<ImageView> imageArrayList = new ArrayList<>();

@@ -75,8 +75,8 @@ public class loginPageController extends UIController{
         // Redirect to correct page if valid using returnToMainPage() from UIController
         if(user.getUsername() != null && user.getUsername().equals(name)){
             try {
-               main.userData.setUserInformation(user);
-               returnToMainPage();
+                main.userData.setUserInformation(user);
+                returnToMainPage();
             } catch (IOException e){
                 e.printStackTrace();
             }

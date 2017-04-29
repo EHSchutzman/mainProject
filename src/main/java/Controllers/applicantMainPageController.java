@@ -50,7 +50,7 @@ public class applicantMainPageController extends UIController{
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         super.init(main);
     }
 
