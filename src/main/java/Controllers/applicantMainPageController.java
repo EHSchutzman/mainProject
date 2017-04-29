@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by DanielKim on 4/16/2017.
+ * Status: mostly done, needs some work.
+ * TODO: make sure things work properly, add doxygen
  */
 public class applicantMainPageController extends UIController{
     ArrayList<ImageView> imageArrayList = new ArrayList<>();
@@ -48,6 +49,11 @@ public class applicantMainPageController extends UIController{
         stage.show();
     }
 
+    @FXML
+    public void initialize(){
+        super.init(main);
+    }
+
     /**
      * Redirects to applicationStatusForApplicant.fxml
      *
@@ -61,7 +67,7 @@ public class applicantMainPageController extends UIController{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = pane.getScene();
-        pane.setTop(main.getMenuBar());
+        pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setCenter(loader.load());
         stage.setScene(scene);
         stage.show();
@@ -79,15 +85,21 @@ public class applicantMainPageController extends UIController{
         URL iter2URL = getClass().getResource("iter2application.fxml");
         loader.setLocation(iter2URL);
         //System.out.println(loader.getLocation().getPath());
-        ScrollPane anchorPane = loader.load();
-        ScrollPane scrollPane = loader.load();
+
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
-        Scene scene = borderPane.getScene();
-        stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
-        borderPane.setCenter(scrollPane);
+
+        BorderPane root = super.main.getBorderPane();
+        ScrollPane pane = loader.load();
+
+        root.setTop(menuBarSingleton.getInstance().getBar());
+
+
+        root.setBottom(pane);
+        stage.setScene(root.getScene());
         stage.show();
+
+
         iter2applicationController controller = loader.getController();
         System.out.println(controller);
         controller.init(main);

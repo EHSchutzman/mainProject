@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -27,30 +29,41 @@ import java.util.List;
  * TODO: review this
  */
 public class agentMainPageController extends UIController{
+    /**
+     * Redirects to applicationsForAgent.fxml
+     * @throws IOException - throws exception
+     */
+
+
+    @FXML
+    public void initialize(){
+        super.init(main);
+    }
     ArrayList<ImageView> imageArrayList = new ArrayList<>();
     int count = 0;
 
     @FXML
     private HBox imagebox;
-
     @FXML
     private Button submissionButton;
 
     /**
      * Redirects to applicationsForAgent.fxml
-     *
      * @throws IOException - throws exception
      */
     @FXML
     public void setDisplayToApplicationsForAgent() throws IOException {
+        BorderPane pane = main.getBorderPane();
+
         Stage stage;
         stage = (Stage) submissionButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationsForAgent.fxml"));
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+        stage.setScene(pane.getScene());
+        pane.setCenter(loader.load());
         stage.show();
         applicationsForAgentController controller = loader.getController();
-        controller.init(super.main);
+        System.out.println(controller);
+        super.init(super.main);
         controller.displayResults();
     }
 

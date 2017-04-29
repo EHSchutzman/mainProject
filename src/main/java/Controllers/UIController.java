@@ -8,11 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+
+import static Initialization.Main.root;
 
 /**
  * Status: incomplete.
@@ -79,11 +83,16 @@ public abstract class UIController {
      */
     @FXML
     private void setDisplayToSearchPage() throws IOException{
+        BorderPane borderPane = main.getBorderPane();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("searchPage.fxml"));
+        ScrollPane anchorPane = loader.load();
         Stage stage;
         stage=(Stage) searchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("searchResultsPage.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
         searchResultsPageController controller = loader.getController();
         controller.init(main);
@@ -104,8 +113,10 @@ public abstract class UIController {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
-        aboutPageController controller = loader.getController();
+
+        searchPageController controller = loader.getController();
         controller.init(main);
+        controller.initApplicationTableView();
     }
 
     /**
@@ -114,17 +125,24 @@ public abstract class UIController {
      */
     @FXML
     protected void setDisplayToMainPage() throws IOException {
+        BorderPane borderPane = main.getBorderPane();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("mainPage.fxml"));
+        ScrollPane anchorPane = loader.load();
         Stage stage;
         Button button = returnToMainButton;
         if(button == null) {button = backButton;}
         if(button == null) {button = loginButton;}
         stage=(Stage) button.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainPage.fxml"));
-        Scene scene = new Scene(loader.load());
+        Scene scene = borderPane.getScene();
         stage.setScene(scene);
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+        borderPane.setBottom(anchorPane);
         stage.show();
         main.userData.setUserInformation(new User()); //TODO: check if this is correct
         mainPageController controller = loader.getController();
+        controller.initSlideshow();
+        controller.startAnimation();
         controller.init(main);
     }
 
@@ -141,7 +159,12 @@ public abstract class UIController {
         if(button == null) {button = loginButton;}
         stage = (Stage) button.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("defaultUserMainPage.fxml"));
-        Scene scene = new Scene(loader.load());
+        stage=(Stage) button.getScene().getWindow();
+        URL defaultUserMainPageURL = getClass().getResource("defaultUserMainPage.fxml");
+        AnchorPane pane = loader.load(defaultUserMainPageURL);
+        root.setTop(menuBarSingleton.getInstance().getBar());
+        root.setBottom(pane);
+        Scene scene = root.getScene();
         stage.setScene(scene);
         defaultUserMainPageController controller = loader.getController();
         controller.init(main);
@@ -167,7 +190,7 @@ public abstract class UIController {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicantMainPage.fxml"));
         Scene scene = pane.getScene();
-        pane.setTop(main.getMenuBar());
+        pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setBottom(loader.load());
         stage.setScene(scene);
         stage.show();
@@ -197,7 +220,7 @@ public abstract class UIController {
         Scene scene = pane.getScene();
 
         stage.setScene(scene);
-        pane.setTop(main.getMenuBar());
+        pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setBottom(loader.load());
         stage.show();
         agentMainPageController controller = loader.getController();
@@ -246,7 +269,7 @@ public abstract class UIController {
         Scene scene = pane.getScene();
 
         stage.setScene(scene);
-        pane.setTop(main.getMenuBar());
+        pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setBottom(loader.load());
         superAgentMainPageController controller = loader.getController();
         controller.init(main);

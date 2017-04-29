@@ -65,6 +65,7 @@ public class superAgentEditUserController extends UIController {
         System.out.println(editSuccess);
         if (editSuccess) {
             // go to success page
+            System.out.println("We here");
             try {
                 Stage stage;
                 stage = (Stage) edit_user_button.getScene().getWindow();
@@ -73,6 +74,8 @@ public class superAgentEditUserController extends UIController {
                 loader.setLocation(getClass().getResource("../../../resources/main/Controllers/confirmationMessage.fxml"));
                 //System.out.println(loader.getLocation().toString());
                 Scene scene = new Scene(loader.load());
+                System.out.println("We here");
+
                 stage.setScene(scene);
                 stage.show();
             } catch (Exception e) {

@@ -48,8 +48,8 @@ public class defaultUserMainPageController extends UIController{
 
         URL searchPageURL = getClass().getResource("searchPage.fxml");
         FXMLLoader loader = new FXMLLoader();
-        ScrollPane pane = FXMLLoader.load(searchPageURL);
-        root.setTop(main.getMenuBar());
+        ScrollPane pane = loader.load(searchPageURL);
+        root.setTop(menuBarSingleton.getInstance().getBar());
         root.setBottom(pane);
 
         Scene scene = root.getScene();

@@ -17,14 +17,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Status: complete, needs review
- * TODO: review this
+ * Created by James Corse on 4/25/17.
  */
 public class applicationsForAgentController extends UIController{
 
     @FXML
     private TableView resultsTable;
     private ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
+    private Form form = new Form();
     private DBManager dbManager = new DBManager();
 
     @FXML
@@ -48,16 +48,24 @@ public class applicationsForAgentController extends UIController{
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     AgentRecord rowData = row.getItem();
 
+                    System.out.println(rowData);
+
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
 
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = dbManager.findSingleForm(rowData.getIDNo(), fieldList);
-                        olAR.remove(rowData);
-                        resultsTable.refresh();
+
+                        //Joe's patented bug fix.
+                        //olAR.remove(rowData);
                         // Open selected form in new window
                         displayWorkflowApplication(viewForm);
+
+                        rowData.setStatus("Action Taken");
+
+                        resultsTable.refresh();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -81,6 +89,8 @@ public class applicationsForAgentController extends UIController{
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
+
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1500, 1000);
 
@@ -96,9 +106,16 @@ public class applicationsForAgentController extends UIController{
             controller.init(super.main);
             controller.setReviewForm(application);
             controller.setLabels();
+            controller.setReviewForm(application);
 
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        } catch (IOException e){e.printStackTrace();}
+    }
+
+    /**
+     * Function refreshes the table, would ultimately be called on actions in secondary window.
+     */
+    @FXML
+    public void refreshTable(){
+        displayResults();
     }
 }

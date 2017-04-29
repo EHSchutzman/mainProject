@@ -10,7 +10,7 @@ import java.sql.ResultSet;
  * Created by Leo on 4/4/2017.
  */
 public class SearchControllerTest {
-    SearchController sc = new SearchController();
+    searchPageController sc = new searchPageController();
     ResultSet rs;
 
 //    @Test

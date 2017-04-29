@@ -10,12 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Status: complete, needs review
- * TODO: review this
+ * Created by James Corse on 4/25/17.
  */
 public class agentApplicationReviewController extends UIController{
-
-    //TODO: clean up code, doxygen, gather up fxml fields, make neater
+    private Form form = new Form();
+    private DBManager dbManager = new DBManager();
     @FXML
     private TextArea approval_comments_text;
     @FXML
@@ -232,6 +231,8 @@ public class agentApplicationReviewController extends UIController{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Accepted");
         dbManager.updateForm(form);
+        System.out.println("accepted form");
+
         closeWindow();
     }
 
@@ -245,6 +246,9 @@ public class agentApplicationReviewController extends UIController{
         form.setapproval_comments(approval_comments_text.getText());
         form.setStatus("Rejected");
         dbManager.updateForm(form);
+        System.out.println("rejected form");
+
         closeWindow();
     }
 }
+
