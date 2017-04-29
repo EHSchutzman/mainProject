@@ -25,6 +25,8 @@ public class menuBarController extends UIController {
 
     private searchPageController searchPageController;
     //Variables to hold the appropriate FXML buttons and fields
+    private Boolean onSearchPage = false;
+
     @FXML
     private Button backButton;
     @FXML
@@ -39,9 +41,35 @@ public class menuBarController extends UIController {
     DBManager db = new DBManager();
 
 
+    public Boolean getOnSearchPage(){
+        return this.onSearchPage ;
+    }
     public void setSearchPageController(searchPageController controller){
         this.searchPageController = controller;
 
+    }
+
+    @FXML
+    private void barSetDisplayToMainPage() throws IOException{
+        super.returnToMainPage();
+    }
+    private void setDisplayToSearchResultsPage(ObservableList<AppRecord> list){
+        BorderPane pane = main.getBorderPane();
+        Stage stage;
+        stage=(Stage) backButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader();
+
+        pane.setTop(menuBarSingleton.getInstance().getBar());
+        try {
+            ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPane();
+            pane.setCenter(searchPage);
+            stage.setScene(pane.getScene());
+            stage.show();
+            searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
+            controller.displayData(menuBarSingleton.getInstance().getGlobalData().getObservableList());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -84,24 +112,24 @@ public class menuBarController extends UIController {
      * Redirects to searchResultsPage.fxml TODO: make sure this is correct
      * @throws IOException - throws exception
      */
-    @FXML
-    private void setDisplayToSearchFromOffPage() throws IOException{
-        BorderPane borderPane = main.getBorderPane();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("searchPage.fxml"));
-        ScrollPane anchorPane = loader.load();
-        Stage stage;
-        stage=(Stage) searchButton.getScene().getWindow();
-        Scene scene = borderPane.getScene();
-        stage.setScene(scene);
-        borderPane.setTop(menuBarSingleton.getInstance().getBar());
-        borderPane.setBottom(anchorPane);
-        stage.show();
-        searchPageController controller = loader.getController();
-        controller.init(main);
-        controller.initApplicationTableView();
-        controller.displayData(searchFromOffPage());
-    }
+//    @FXML
+//    private void setDisplayToSearchFromOffPage() throws IOException{
+//        BorderPane borderPane = main.getBorderPane();
+//        FXMLLoader loader = new FXMLLoader();
+//        loader.setLocation(getClass().getResource("searchPage.fxml"));
+//        ScrollPane anchorPane = loader.load();
+//        Stage stage;
+//        stage=(Stage) searchButton.getScene().getWindow();
+//        Scene scene = borderPane.getScene();
+//        stage.setScene(scene);
+//        borderPane.setTop(menuBarSingleton.getInstance().getBar());
+//        borderPane.setBottom(anchorPane);
+//        stage.show();
+//        searchPageController controller = loader.getController();
+//        controller.init(main);
+//        controller.initApplicationTableView();
+//        controller.displayData(main.userData.getObservableList());
+//    }
 
 
     @FXML
@@ -122,7 +150,7 @@ public class menuBarController extends UIController {
     }
 
     @FXML
-    private ObservableList<AppRecord> searchFromOffPage() {
+    private void searchFromOffPage() {
         //Set all variables equal to input data
         String searchBarContent = searchBar.getText();
         try {
@@ -132,14 +160,14 @@ public class menuBarController extends UIController {
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
-            System.out.println("ARR IS " + arr);
-            main.userData.setObservableList(arr);
-            System.out.println("USERDATA IS " + main.userData.getObservableList());
-            return arr;
+
+            menuBarSingleton.getInstance().getGlobalData().setObservableList(arr);
+            System.out.println("ARR IS " + menuBarSingleton.getInstance().getGlobalData().getObservableList());
+
+            setDisplayToSearchResultsPage(arr);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
-            return null;
         }
     }
 
@@ -191,6 +219,16 @@ public class menuBarController extends UIController {
             e.printStackTrace();
             System.out.println("Could not build a query from search criteria.");
             return null;
+        }
+    }
+    @FXML
+    public void searchProgram(){
+        if(this.onSearchPage){
+            //call reactive search
+        }else{
+            searchFromOffPage();
+
+            //set search page flag
         }
     }
 }

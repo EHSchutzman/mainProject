@@ -76,6 +76,7 @@ public class Main extends Application {
             //System.out.println(loader.getLocation().getPath());
             ScrollPane pane = loader.load();
             Scene scene = new Scene(root, 1000, 2000);
+            scene.getStylesheets().add(getClass().getResource("/Controllers/style.css").toExternalForm());
             root.setTop(menuBar);
             root.setBottom(pane);
             primaryStage.setScene(scene);
@@ -445,13 +446,6 @@ public class Main extends Application {
 
     }
 
-    public static void main(String[] args) {
-        try {
-            launch(args);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public void setDisplayToApplicantApply() throws Exception {

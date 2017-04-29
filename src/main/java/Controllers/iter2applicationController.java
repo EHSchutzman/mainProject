@@ -118,12 +118,12 @@ public class iter2applicationController extends UIController {
 
     private DBManager db = new DBManager();
     private loginPageController lpc = new loginPageController();
-    private Form form = new Form();
+    private Form stroedForm = new Form();
 
     //TODO Gut this funciton, it is never used and I need to do other things instead
     public void createApplicantForm() {
-        form.setttb_id(form.makeUniqueID());
-        ttbid.setText(form.getttb_id());
+        stroedForm.setttb_id(stroedForm.makeUniqueID());
+        ttbid.setText(stroedForm.getttb_id());
 
 
 
@@ -209,15 +209,15 @@ public class iter2applicationController extends UIController {
 
         //TODO Update image when adding image display things
         //TODO check if label_image.getId() pulls right value
-        form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
+        Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, label_image.getId(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
+                labeltext, stroedForm.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
         db.persistForm(form);
-//        System.out.println(form.getsubmit_date());
+//        System.out.println(stroedForm.getsubmit_date());
         //TODO return to applicant's application list page
     }
 
@@ -257,7 +257,7 @@ public class iter2applicationController extends UIController {
             e.printStackTrace();
         }
 
-        form.setlabel_image(newFileName);
+        stroedForm.setlabel_image(newFileName);
         try {
             System.out.println("here");
             String path = (System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);

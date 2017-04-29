@@ -1,7 +1,9 @@
 package Controllers;
 
+import Initialization.Data;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -14,18 +16,23 @@ public class menuBarSingleton {
 
     private static menuBarSingleton menuBarObj;
 
+    private Data globalData;
     private AnchorPane menuBar;
     private menuBarController menuBarController;
-    private menuBarSingleton(){}
+    private searchPageController searchPageController;
+    private ScrollPane searchPane;
+
+    private menuBarSingleton() {
+    }
 
 
-    public static menuBarSingleton getInstance(){
-        if(menuBarObj == null){
+    public static menuBarSingleton getInstance() {
+        if (menuBarObj == null) {
             System.out.println("making new");
             menuBarObj = new menuBarSingleton();
             try {
                 menuBarObj.initializeMenuBar();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -34,35 +41,74 @@ public class menuBarSingleton {
 
     }
 
-    private void initializeMenuBar() throws IOException{
+    private void initializeMenuBar() throws IOException {
         URL menuBarURL = getClass().getResource("/Controllers/menuBar.fxml");
-        URL searchPageURL = getClass().getResource("/Controllers/searchPage.fxml");
-
+        this.globalData = new Data();
 
         FXMLLoader menuLoader = new FXMLLoader();
         menuLoader.setLocation(menuBarURL);
-        FXMLLoader searchLoader = new FXMLLoader();
-        searchLoader.setLocation(searchPageURL);
-
         Parent menuRoot = menuLoader.load();
-        Parent searchRoot = searchLoader.load();
+
         AnchorPane menuBar = (AnchorPane) menuRoot;
         menuBarController menuBarController = (menuBarController) menuLoader.getController();
         this.menuBarController = menuBarController;
-        searchPageController searchPageController = (searchPageController) searchLoader.getController();
+
 
 
         System.out.println("MENU BAR CONTROLLER " + menuBarController);
         System.out.println("SEARCHPAGE CONTROLLER " + searchPageController);
         menuBarController.setSearchPageController(searchPageController);
+
         this.menuBar = menuBar;
+        initializeSearchController();
 
     }
-    public AnchorPane getBar(){
+    public void initializeSearchController(){
+        URL searchPageURL = getClass().getResource("/Controllers/searchPage.fxml");
+        FXMLLoader searchLoader = new FXMLLoader();
+        searchLoader.setLocation(searchPageURL);
+        try {
+            Parent searchRoot = searchLoader.load();
+            ScrollPane searchPane = (ScrollPane) searchRoot;
+            this.searchPane = searchPane;
+
+            searchPageController searchPageController = (searchPageController) searchLoader.getController();
+            this.searchPageController = searchPageController;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public AnchorPane getBar() {
         return this.menuBar;
     }
+
     public menuBarController getMenuBarController(){
         return this.menuBarController;
+    }
+    public searchPageController getSearchPageController(){
+        if(menuBarObj == null) {
+            try {
+                initializeMenuBar();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return this.searchPageController;
+    }
+
+    public Data getGlobalData() {
+        if (menuBarObj == null) {
+            menuBarSingleton.getInstance();
+        } else {
+
+
+        }
+        return this.globalData;
+    }
+
+    public ScrollPane getSearchPane(){
+        return this.searchPane;
     }
 
 }

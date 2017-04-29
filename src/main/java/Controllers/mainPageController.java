@@ -51,7 +51,7 @@ public class mainPageController extends UIController {
         URL searchPageURL = getClass().getResource("searchPage.fxml");
         FXMLLoader loader = new FXMLLoader();
         ScrollPane pane = loader.load(searchPageURL);
-        root.setTop(main.getMenuBar());
+        root.setTop(menuBarSingleton.getInstance().getBar());
         root.setBottom(pane);
 
         Scene scene = root.getScene();
@@ -80,7 +80,7 @@ public class mainPageController extends UIController {
         stage=(Stage) loginButton.getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
-        borderPane.setTop(main.getMenuBar());
+        borderPane.setTop(menuBarSingleton.getInstance().getBar());
         borderPane.setBottom(anchorPane);
         stage.show();
         loginPageController controller = loader.getController();

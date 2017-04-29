@@ -12,6 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextField?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.menuBarController">
    <children>
       <AnchorPane id="anchor" layoutY="50.0" prefHeight="150.0" prefWidth="1000.0">
@@ -34,8 +35,8 @@
          </rowConstraints>
          <children>
             <Rectangle fx:id="menuBarButtonRec" arcHeight="5.0" arcWidth="5.0" fill="#003A6C" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1000.0" />
-            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="BACK" GridPane.halignment="CENTER" onMouseClicked="#returnToMainPage" GridPane.valignment="CENTER" />
-            <Button fx:id="searchButton" onMouseClicked="#setDisplayToSearchFromOffPage" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="SEARCH" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="BACK" GridPane.halignment="CENTER" onMouseClicked="#barSetDisplayToMainPage" GridPane.valignment="CENTER" />
+            <Button fx:id="searchButton" onMouseClicked="#searchFromOffPage" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="SEARCH" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <TextField fx:id="searchBar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Button fx:id="loginButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="LOGIN" GridPane.columnIndex="3" onMouseClicked="#setDisplayToLoginPage" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="aboutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="112.0" text="ABOUT" GridPane.columnIndex="6" onMouseClicked="#setDisplayToAboutPage" GridPane.halignment="CENTER" />

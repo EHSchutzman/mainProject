@@ -97,6 +97,7 @@ public class searchPageController extends UIController{
     }
     */
 
+
     //Populates the results table with data from the database
     protected void displayData(ObservableList<AppRecord> list) {
         try {

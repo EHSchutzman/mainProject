@@ -70,7 +70,7 @@ public class applicantMainPageController extends UIController{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = pane.getScene();
-        pane.setTop(main.getMenuBar());
+        pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setCenter(loader.load());
         stage.setScene(scene);
         stage.show();
@@ -88,24 +88,18 @@ public class applicantMainPageController extends UIController{
         URL iter2URL = getClass().getResource("iter2application.fxml");
         loader.setLocation(iter2URL);
         //System.out.println(loader.getLocation().getPath());
-        ScrollPane anchorPane = loader.load();
-        ScrollPane scrollPane = loader.load();
+
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
+
         BorderPane root = super.main.getBorderPane();
-        URL iter2applicationURL = getClass().getResource("iter2application.fxml");
-        FXMLLoader loader = new FXMLLoader();
-        ScrollPane pane = loader.load(iter2applicationURL);
+        ScrollPane pane = loader.load();
+
         root.setTop(menuBarSingleton.getInstance().getBar());
+
+
         root.setBottom(pane);
-
-
-        Scene scene = root.getScene();
         stage.setScene(root.getScene());
-        Scene scene = borderPane.getScene();
-        stage.setScene(scene);
-        borderPane.setTop(menuBarSingleton.getInstance().getBar());
-        borderPane.setCenter(scrollPane);
         stage.show();
 
 
