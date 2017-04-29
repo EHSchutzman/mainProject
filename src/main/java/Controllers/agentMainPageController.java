@@ -53,19 +53,18 @@ public class agentMainPageController extends UIController{
      */
     @FXML
     public void setDisplayToApplicationsForAgent() throws IOException {
-        BorderPane pane = main.getBorderPane();
 
+        BorderPane pane = main.getBorderPane();
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationsForAgent.fxml"));
         stage.setScene(pane.getScene());
-        pane.setCenter(loader.load());
-        stage.show();
-        applicationsForAgentController controller = loader.getController();
-        System.out.println(controller);
-        super.init(super.main);
+        pane.setCenter(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
+        applicationsForAgentController controller = menuBarSingleton.getInstance().getApplicationsForAgentController();
         controller.displayResults();
+        stage.show();
     }
+
+
 
     public void initSlideshow() {
         // load the images

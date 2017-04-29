@@ -31,11 +31,15 @@ public class applicationsForAgentController extends UIController{
     private DBManager dbManager = new DBManager();
 
     @FXML
+    public void initialize(){
+        initApplicationTableView();
+    }
+    @FXML
     public void displayResults() {
 
         //@TODO: Get 10 batch assignments from the DB Manager
-        System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
-        olAR = dbManager.pullFormBatch(main.userData.getUserInformation());
+        System.out.println("USER INFO IS" + menuBarSingleton.getInstance().getGlobalData().getUserInformation().getAuthenticationLevel());
+        olAR = dbManager.pullFormBatch(menuBarSingleton.getInstance().getGlobalData().getUserInformation());
         System.out.println(olAR);
         // Query for batch
         // Display batch in table
@@ -88,7 +92,7 @@ public class applicationsForAgentController extends UIController{
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            ScrollPane newWindow = loader.load();
+            AnchorPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
@@ -119,6 +123,25 @@ public class applicationsForAgentController extends UIController{
      */
     @FXML
     public void refreshTable(){
+
         displayResults();
     }
+    void initApplicationTableView() {
+        resultsTable.setItems(null);
+        resultsTable.setRowFactory(tv -> {
+            TableRow<AppRecord> row = new TableRow<>();
+            // Open window if row double-clicked
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    AppRecord rowData = row.getItem();
+                    ArrayList<String> fieldList = new ArrayList<>();
+                    fieldList.add("*");
+                    // Get form form DB using selected row's ID
+
+                }
+            });
+            return row;
+        });
+    }
+    
 }

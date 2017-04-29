@@ -8,7 +8,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.applicationsForAgentController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
          <children>
@@ -59,19 +60,29 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
                      <children>
-                        <TableView layoutY="-10.0" prefHeight="850.0" prefWidth="1000.0">
-                          <columns>
-                              <TableColumn prefWidth="100.0" text="Applicant Name" />
-                            <TableColumn prefWidth="100.0" text="Form ID" />
-                            <TableColumn prefWidth="100.0" text="Permit No." />
-                              <TableColumn prefWidth="100.0" text="Serial No." />
-                              <TableColumn prefWidth="100.0" text="Completed Date" />
-                              <TableColumn prefWidth="100.0" text="Fanciful Name" />
-                              <TableColumn prefWidth="100.0" text="Brand Name" />
-                              <TableColumn prefWidth="100.0" text="Country" />
-                              <TableColumn prefWidth="100.0" text="State" />
-                              <TableColumn prefWidth="100.0" text="Alcohol Type" />
-                          </columns>
+                        <TableView fx:id="resultsTable" layoutY="-10.0" prefHeight="850.0" prefWidth="1000.0">
+                            <columns>
+                                <TableColumn fx:id="IDNoCol" prefWidth="250.0" text="ID No.">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="IDNo"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="nameCol" prefWidth="250.0" text="Name">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="name"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="dateCol" prefWidth="250.0" text="Date">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="date"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                                <TableColumn fx:id="statusCol" prefWidth="220.0" text="Status">
+                                    <cellValueFactory>
+                                        <PropertyValueFactory property="status"/>
+                                    </cellValueFactory>
+                                </TableColumn>
+                            </columns>
                         </TableView>
                      </children>
                   </AnchorPane>

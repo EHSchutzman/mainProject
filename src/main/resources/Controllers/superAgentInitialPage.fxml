@@ -12,12 +12,12 @@
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;">
          <children>
-             <Button fx:id="reviewLabelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="54.0" mnemonicParsing="false" prefWidth="315.0" text="Review Label Application" textAlignment="CENTER">
+             <Button fx:id="reviewLabelButton" onMouseClicked="#setDisplayToSuperAgentSearchPending" alignment="CENTER" contentDisplay="CENTER" layoutX="337.0" layoutY="54.0" mnemonicParsing="false" prefWidth="315.0" text="Search Pending Applications" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-             <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="16.0" mnemonicParsing="false" text="User Search">
+             <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="254.0" layoutY="16.0" mnemonicParsing="false" text="Search Users">
                <font>
                    <Font size="24.0" />
                </font>

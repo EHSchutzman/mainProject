@@ -380,8 +380,8 @@ public class DBManager {
                 String formula = rs.getString("formula");
                 String phone_no = rs.getString("phone_no");
                 String email = rs.getString("email");
-//                String label_text = rs.getString("extraLabelInfo");
-                String label_text = "";//rs.getString("extraLabelInfo");
+//                String label_text = rs.getString("label_text");
+                String label_text = "";//rs.getString("label_text");
                 String label_image = rs.getString("label_image");
                 Date submit_date = rs.getDate("submit_date");
                 String signature = rs.getString("signature");
@@ -593,9 +593,9 @@ public class DBManager {
         }
 
         if (form.getlabel_text() != null) {
-            fields.add("extraLabelInfo=" + "\'" + form.getlabel_text() + "\'");
+            fields.add("label_text=" + "\'" + form.getlabel_text() + "\'");
         } else {
-            fields.add("extraLabelInfo= NULL");
+            fields.add("label_text= NULL");
         }
         if (form.getlabel_image() != null) {
             fields.add("label_image=" + "\'" + form.getlabel_image() + "\'");
@@ -638,6 +638,7 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
+            System.out.println("QUERY IS " + queryString);
             stmt.executeUpdate(queryString);
             if (!wine.isEmpty()) {
                 System.out.println("Updating wine");

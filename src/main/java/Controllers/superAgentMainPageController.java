@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -42,16 +43,21 @@ public class superAgentMainPageController extends UIController{
     private Button reviewLabelButton, userSearchButton, createAgentButton;
 
     @FXML
-    public void setDisplayApplicationReview() throws IOException {
+    public void setDisplayToSuperAgentSearchPending() throws IOException {
+        BorderPane pane = main.getBorderPane();
         Stage stage;
+
         stage=(Stage) reviewLabelButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+
+
+
+        stage.setScene(pane.getScene());
+        pane.setCenter(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
+
         stage.show();
-        applicationStatusForApplicantController controller = loader.getController();
-        controller.init(super.main);
+        superAgentSearchPendingController controller = menuBarSingleton.getInstance().getSuperAgentSearchPendingController();
+
+
     }
 
     @FXML
@@ -82,6 +88,19 @@ public class superAgentMainPageController extends UIController{
         superAgentCreateAgentController controller = loader.getController();
         controller.init(super.main);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void initSlideshow() {
         // load the images
@@ -157,7 +176,7 @@ public class superAgentMainPageController extends UIController{
             if (event.getClickCount() == 1) {
                 anim.stop();
                 try {
-                    setDisplayApplicationReview();
+                    setDisplayToSuperAgentSearchPending();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

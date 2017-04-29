@@ -71,7 +71,7 @@ public class menuBarController extends UIController {
             searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
             controller.resultsTable.setItems(menuBarSingleton.getInstance().getGlobalData().getObservableList());
             controller.resultsTable.refresh();
-            ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPagepPane();
+            ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPagePane();
             pane.setCenter(searchPage);
             stage.setScene(pane.getScene());
             stage.show();
@@ -180,6 +180,27 @@ public class menuBarController extends UIController {
             System.out.println("Could not build a query from search criteria.");
         }
     }
+    @FXML
+    private void searchFromOnPage() {
+        //Set all variables equal to input data
+        String searchBarContent = searchBar.getText();
+        try {
+            String params = " WHERE STATUS = 'Accepted' AND";
+            params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
+
+            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
+
+            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+
+            menuBarSingleton.getInstance().getGlobalData().setObservableList(arr);
+            System.out.println("ARR IS " + menuBarSingleton.getInstance().getGlobalData().getObservableList());
+            searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
+            controller.displayData(arr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not build a query from search criteria.");
+        }
+    }
 
     @FXML
     public ObservableList<AppRecord> simpleSearch(boolean isMalt, boolean isWine, boolean isSpirit){
@@ -242,6 +263,7 @@ public class menuBarController extends UIController {
         if(this.onSearchPage){
             if(this.searchType == 0){
                 System.out.println("searching forms");
+                searchFromOnPage();
                 //call userSearch
             }else if(this.searchType == 1){
                 //call applicationSearch
