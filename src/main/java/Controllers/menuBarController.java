@@ -2,7 +2,6 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
-import UserAccounts.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -23,9 +21,10 @@ import java.util.ArrayList;
  */
 public class menuBarController extends UIController {
 
-    private searchPageController searchPageController;
     //Variables to hold the appropriate FXML buttons and fields
-    private Boolean onSearchPage = false;
+
+    private Boolean onSearchPage = false; //Set this to true if we are switching to be on a search page to enable the reactive search
+    private int searchType; //can be 0: approved forms, 1: pending apps, 2: users and this will determine the type of search called
 
     @FXML
     private Button backButton;
@@ -40,19 +39,27 @@ public class menuBarController extends UIController {
 
     DBManager db = new DBManager();
 
-
+    public void setOnSearchPage(Boolean b){
+        this.onSearchPage = b;
+    }
     public Boolean getOnSearchPage(){
         return this.onSearchPage ;
     }
-    public void setSearchPageController(searchPageController controller){
-        this.searchPageController = controller;
-
+    public void setSearchType(int type){
+        this.searchType = type;
     }
+    public int getSearchType(){
+        return this.searchType;
+    }
+
 
     @FXML
     private void barSetDisplayToMainPage() throws IOException{
         super.returnToMainPage();
     }
+
+
+    //todo set search type and global search flags
     private void setDisplayToSearchResultsPage(ObservableList<AppRecord> list){
         BorderPane pane = main.getBorderPane();
         Stage stage;
@@ -64,10 +71,12 @@ public class menuBarController extends UIController {
             searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
             controller.resultsTable.setItems(menuBarSingleton.getInstance().getGlobalData().getObservableList());
             controller.resultsTable.refresh();
-            ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPane();
+            ScrollPane searchPage = menuBarSingleton.getInstance().getSearchPagepPane();
             pane.setCenter(searchPage);
             stage.setScene(pane.getScene());
             stage.show();
+            setSearchType(0);
+            setOnSearchPage(true);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -222,14 +231,26 @@ public class menuBarController extends UIController {
             return null;
         }
     }
+
+    /**
+     * This is the onkeypressed function for the search bar, it checks the onSearchPage flag to see if we want
+     * to dynamically search and what type, of search
+     * searchType can be 0:approved forms, 1: all applications, 2: users
+     */
     @FXML
     public void searchProgram(){
         if(this.onSearchPage){
-            //call reactive search
-        }else{
-            searchFromOffPage();
+            if(this.searchType == 0){
+                System.out.println("searching forms");
+                //call userSearch
+            }else if(this.searchType == 1){
+                //call applicationSearch
+            }else if(this.searchType == 2){
+                //call form search
+            }
 
-            //set search page flag
+        }else{
+
         }
     }
 }

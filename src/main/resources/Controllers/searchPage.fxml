@@ -8,6 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.searchPageController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
@@ -72,17 +73,40 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
                      <children>
                         <TableView fx:id="resultsTable" onMouseEntered="#refreshView" prefHeight="830.0" prefWidth="1000.0">
-                          <columns>
-                            <TableColumn prefWidth="100.0" text="Form ID" />
-                            <TableColumn prefWidth="100.0" text="Permit No." />
-                              <TableColumn prefWidth="100.0" text="Serial No." />
-                              <TableColumn prefWidth="100.0" text="Completed Date" />
-                              <TableColumn prefWidth="100.0" text="Fanciful Name" />
-                              <TableColumn prefWidth="100.0" text="Brand Name" />
-                              <TableColumn prefWidth="100.0" text="Country" />
-                              <TableColumn prefWidth="100.0" text="State" />
-                              <TableColumn prefWidth="100.0" text="Alcohol Type" />
-                          </columns>
+                            <columns>
+                            <TableColumn fx:id="formIDCol" prefWidth="120.0" text="Form ID">
+                                <cellValueFactory><PropertyValueFactory property="formID" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="permitNoCol" prefWidth="120.0" text="Permit No.">
+                                <cellValueFactory><PropertyValueFactory property="permitNo" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="serialNoCol" prefWidth="120.0" text="Serial No.">
+                                <cellValueFactory><PropertyValueFactory property="serialNo" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="completedDateCol" prefWidth="140.0" text="Completed Date">
+                                <cellValueFactory><PropertyValueFactory property="completedDate" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="fancifulNameCol" prefWidth="125.0" text="Fanciful Name">
+                                <cellValueFactory><PropertyValueFactory property="fancifulName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="brandNameCol" prefWidth="120.0" text="Brand Name">
+                                <cellValueFactory><PropertyValueFactory property="brandName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="originCol" prefWidth="100.0" text="Origin">
+                                <cellValueFactory><PropertyValueFactory property="originCode" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="typeIDCol" prefWidth="123.66668701171875" text="Type ID">
+                                <cellValueFactory><PropertyValueFactory property="typeID" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
                         </TableView>
                      </children>
                   </AnchorPane>

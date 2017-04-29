@@ -13,6 +13,7 @@ import java.net.URL;
  * Created by eschutzman on 4/27/17.
  */
 public class menuBarSingleton {
+    //TODO Add different search controllers and give them initializations
 
     private static menuBarSingleton menuBarObj;
 
@@ -20,7 +21,11 @@ public class menuBarSingleton {
     private AnchorPane menuBar;
     private menuBarController menuBarController;
     private searchPageController searchPageController;
-    private ScrollPane searchPane;
+    private superAgentSearchUsersController superAgentSearchUsersController;
+    private applicationStatusForApplicantController applicationStatusForApplicantController;
+    private ScrollPane applicationsForApplicantPane;
+    private ScrollPane superAgentSearchUsersPane;
+    private ScrollPane searchPagepPane;
 
     private menuBarSingleton() {
     }
@@ -57,19 +62,18 @@ public class menuBarSingleton {
 
         System.out.println("MENU BAR CONTROLLER " + menuBarController);
         System.out.println("SEARCHPAGE CONTROLLER " + searchPageController);
-        menuBarController.setSearchPageController(searchPageController);
 
         this.menuBar = menuBar;
 
     }
-    public void initializeSearchController(){
+    public void initializeFormsSearchController(){
         URL searchPageURL = getClass().getResource("/Controllers/searchPage.fxml");
         FXMLLoader searchLoader = new FXMLLoader();
         searchLoader.setLocation(searchPageURL);
         try {
             Parent searchRoot = searchLoader.load();
             ScrollPane searchPane = (ScrollPane) searchRoot;
-            this.searchPane = searchPane;
+            this.searchPagepPane = searchPane;
 
             searchPageController searchPageController = (searchPageController) searchLoader.getController();
             this.searchPageController = searchPageController;
@@ -88,7 +92,7 @@ public class menuBarSingleton {
     public searchPageController getSearchPageController(){
         if(menuBarObj.searchPageController == null) {
             try {
-                initializeSearchController();
+                initializeFormsSearchController();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -106,8 +110,8 @@ public class menuBarSingleton {
         return this.globalData;
     }
 
-    public ScrollPane getSearchPane(){
-        return this.searchPane;
+    public ScrollPane getSearchPagepPane(){
+        return this.searchPagepPane;
     }
 
 }
