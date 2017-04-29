@@ -13,8 +13,6 @@ import java.util.ArrayList;
  * Created by James Corse on 4/25/17.
  */
 public class agentApplicationReviewController extends UIController{
-    private Form form = new Form();
-    private DBManager dbManager = new DBManager();
     @FXML
     private TextArea approval_comments_text;
     @FXML
