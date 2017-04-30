@@ -76,7 +76,7 @@ public class superAgentMainPageController extends UIController{
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             AnchorPane newWindow = loader.load(getClass().getResource("superAgentUpgradeRequests.fxml"));
-            Scene scene = new Scene(newWindow, 1000, 1000);
+            Scene scene = new Scene(newWindow, 1000, 850);
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);

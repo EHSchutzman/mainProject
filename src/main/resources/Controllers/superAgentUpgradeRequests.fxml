@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentUpgradeRequestsController">
+<AnchorPane prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.superAgentUpgradeRequestsController">
    <children>
-      <Label contentDisplay="CENTER" layoutX="168.0" layoutY="62.0" text="User Authentication Upgrade Requests">
+       <Label contentDisplay="CENTER" layoutX="192.0" layoutY="38.0" styleClass="normalTitle"
+              text="User Authentication Upgrade Requests">
          <font>
-            <Font name="System Bold" size="36.0" />
+             <Font size="36.0"/>
          </font>
       </Label>
-      <Button fx:id="closeButton" layoutX="51.0" layoutY="46.0" onMouseClicked="#closeWindow" mnemonicParsing="false"  text="Back">
+       <Button fx:id="closeButton" layoutX="51.0" layoutY="46.0" mnemonicParsing="false" onMouseClicked="#closeWindow"
+               text="Back">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <TableView fx:id="resultsTable" layoutX="67.0" layoutY="228.0" prefHeight="688.0" prefWidth="860.0">
+       <TableView fx:id="resultsTable" layoutX="71.0" layoutY="115.0" prefHeight="688.0" prefWidth="860.0">
         <columns>
-          <TableColumn minWidth="430.0" prefWidth="75.0" text="User ID" >
+            <TableColumn minWidth="430.0" prefWidth="75.0" text="User ID">
             <cellValueFactory><PropertyValueFactory property="userID" />
             </cellValueFactory>
           </TableColumn>
-          <TableColumn minWidth="430.0" prefWidth="75.0" text="Requested Authentication" >
+            <TableColumn minWidth="430.0" prefWidth="75.0" text="Requested Authentication">
             <cellValueFactory><PropertyValueFactory property="requestedAuthentication" />
             </cellValueFactory>
           </TableColumn>

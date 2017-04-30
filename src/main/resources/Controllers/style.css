@@ -135,6 +135,15 @@ CheckBox .box {
 
 }
 
+.normalTitle {
+    -fx-font-size: 36px;
+}
+
+.errorLabel {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
 /* Drop Shadow Rectangle */
 
 

@@ -5,15 +5,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
-
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.defaultUserMainPageController">
+<?import javafx.scene.text.Font?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.defaultUserMainPageController">
     <content>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
             <children>
                 <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" layoutX="750.0" layoutY="-21.0" width="250.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutY="-7.0" width="250.0" />
-            <Button fx:id="upgradeButton" onMouseClicked="#setDisplayToUserUpgradeForm" layoutX="280.0" layoutY="655.0" mnemonicParsing="false" text="Request Role Change" />
+                <Button fx:id="upgradeButton" layoutX="414.0" layoutY="656.0" mnemonicParsing="false"
+                        onMouseClicked="#setDisplayToUserUpgradeForm" text="Request Role Change">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
             </children>
         </AnchorPane>
     </content>

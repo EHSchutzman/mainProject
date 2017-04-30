@@ -3,8 +3,6 @@ package Controllers;
 import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
 import DatabaseSearch.UpgradeUserRecord;
-import DatabaseSearch.UserRecord;
-import Form.Form;
 import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,10 +14,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by jamescorse on 4/28/17.
@@ -65,7 +59,7 @@ public class superAgentUpgradeRequestsController extends UIController {
         stage.setTitle("Upgrade User Approval");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentUpgradeReview.fxml"));
         AnchorPane newWindow = loader.load();
-        Scene scene = new Scene(newWindow,1000,500);
+        Scene scene = new Scene(newWindow, 600, 400);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
         stage.setFullScreen(false);
