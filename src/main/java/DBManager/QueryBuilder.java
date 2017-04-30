@@ -125,4 +125,10 @@ public class QueryBuilder {
         System.out.println("2" + query);
         return query;
     }
+
+    public String createDropStatement(String tableName, String options) {
+        String query = "delete from " + tableName + " where " + options;
+        System.out.println(query);
+        return query;
+    }
 }

@@ -218,16 +218,8 @@ public class applicantMainPageController extends UIController{
         menuBarController.setOnSearchPage(true);
         menuBarController.setSearchType(1);
         controller.initApplicationStatusTableView();
-        slideshow.stopAnimation();
-
     }
 
-
-    /**
-     * Redirects to iter2application.fxml
-     * TODO: fix the menu bar - throws nullPointer
-     * @throws IOException - throws exception
-     */
     @FXML
     public void setDisplayToIter2application() throws IOException {
         BorderPane borderPane = main.getBorderPane();
