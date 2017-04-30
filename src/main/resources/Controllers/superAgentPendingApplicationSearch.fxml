@@ -18,7 +18,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentSearchPendingController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentPendingApplicationSearchController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
          <children>
@@ -74,10 +74,6 @@
                             </TableColumn>
                             <TableColumn fx:id="brandNameCol" prefWidth="120.0" text="Brand Name">
                                 <cellValueFactory><PropertyValueFactory property="brandName" />
-                                </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn fx:id="originCol" prefWidth="100.0" text="Origin">
-                                <cellValueFactory><PropertyValueFactory property="originCode" />
                                 </cellValueFactory>
                             </TableColumn>
                             <TableColumn fx:id="typeIDCol" prefWidth="123.66668701171875" text="Type ID">

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by eschutzman on 4/29/17.
  */
-public class superAgentSearchPendingController extends UIController {
+public class superAgentPendingApplicationSearchController extends UIController {
     //VARIABLES FOR SEARCH CRITERIA:
     //Search bar info
     protected String searchBarContent;

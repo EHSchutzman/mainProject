@@ -52,14 +52,12 @@ public class superAgentMainPageController extends UIController{
 
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
-        superAgentSearchPendingController controller = menuBarSingleton.getInstance().getSuperAgentSearchPendingController();
+        superAgentPendingApplicationSearchController controller = menuBarSingleton.getInstance().getSuperAgentPendingApplicationSearchController();
         System.out.println(controller);
         controller.initApplicationTableView();
         controller.simpleSearch();
         menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
         menuBarSingleton.getInstance().getMenuBarController().setSearchType(1);
-
-
 
     }
 

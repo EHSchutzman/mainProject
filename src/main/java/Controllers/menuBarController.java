@@ -175,7 +175,7 @@ public class menuBarController extends UIController {
 
             menuBarSingleton.getInstance().getGlobalData().setObservableListApp(arr);
             System.out.println("ARR IS " + menuBarSingleton.getInstance().getGlobalData().getObservableListApp());
-            superAgentSearchPendingController controller = menuBarSingleton.getInstance().getSuperAgentSearchPendingController();
+            superAgentPendingApplicationSearchController controller = menuBarSingleton.getInstance().getSuperAgentPendingApplicationSearchController();
             controller.displayData(arr);
         } catch (Exception e) {
             e.printStackTrace();
