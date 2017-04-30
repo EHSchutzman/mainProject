@@ -36,7 +36,7 @@ public class mainPageController extends UIController {
     @FXML
     private Button loginButton; // This is a different loginButton from UIController's? double check
     @FXML
-    public HBox imagebox;
+    private HBox imagebox;
     @FXML
     private Hyperlink aboutLink;
 
@@ -75,7 +75,7 @@ public class mainPageController extends UIController {
         System.out.println(loader.getLocation().getPath());
         AnchorPane anchorPane = loader.load();
         Stage stage;
-        stage=(Stage) loginButton.getScene().getWindow();
+        stage=(Stage) menuBarSingleton.getInstance().getMenuBarController().getLoginButton().getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
         borderPane.setTop(menuBarSingleton.getInstance().getBar());

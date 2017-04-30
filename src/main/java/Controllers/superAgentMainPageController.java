@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -24,6 +25,31 @@ public class superAgentMainPageController extends UIController{
     @FXML
     private Button reviewLabelButton, userSearchButton, createAgentButton, viewUpgrades;
 
+    public void initialize(){
+        super.init(main);
+    }
+
+    @FXML
+    private Button reviewLabelButton, userSearchButton, createAgentButton;
+
+    @FXML
+    public void setDisplayToSuperAgentSearchPending() throws IOException {
+        BorderPane pane = main.getBorderPane();
+        Stage stage;
+        stage=(Stage) reviewLabelButton.getScene().getWindow();
+
+
+
+        stage.setScene(pane.getScene());
+        pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
+        superAgentPendingApplicationSearchController controller = menuBarSingleton.getInstance().getSuperAgentPendingApplicationSearchController();
+        System.out.println(controller);
+        controller.initApplicationTableView();
+        controller.simpleSearch();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(1);
+
+    }
 
     @FXML
     public void setDisplayToSuperAgentSearchUsers() throws IOException {
@@ -36,8 +62,16 @@ public class superAgentMainPageController extends UIController{
         stage.show();
         superAgentSearchUsersController controller = loader.getController();
         controller.initUserAuthenticationChoiceBox();
+
+        stage.setScene(pane.getScene());
+        pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchUsersPane());
+        superAgentSearchUsersController controller = menuBarSingleton.getInstance().getSuperAgentSearchUsersController();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(2);
         controller.displayResults();
         slideshow.stopAnimation();
+        System.out.println("Controller is" + controller);
+        controller.searchUsers();
 
     }
 

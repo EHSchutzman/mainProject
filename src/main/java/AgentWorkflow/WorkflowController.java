@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class WorkflowController {
 
     private Main main;
-    private ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
+   // private ObservableList<AppRecord> olAR = FXCollections.observableArrayList();
     private Form application = new Form();
     public DBManager db = new DBManager();
 
@@ -37,11 +37,11 @@ public class WorkflowController {
 
         //@TODO: Get 10 batch assignments from the DB Manager
         System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
-        olAR = db.pullFormBatch(main.userData.getUserInformation());
-        System.out.println(olAR);
+        //olAR = db.pullFormBatch(main.userData.getUserInformation());
+        //System.out.println(olAR);
             // Query for batch
             // Display batch in table
-        resultsTable.setItems(olAR);
+       // resultsTable.setItems(olAR);
 
         // This block monitors the user's interaction with the tableview,
         //  determining when they double-click a row
@@ -59,7 +59,7 @@ public class WorkflowController {
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
-                        olAR.remove(rowData);
+                        //olAR.remove(rowData);
                         resultsTable.refresh();
                         // Open selected form in new window
                         main.displayWorkflowApplication(viewForm);

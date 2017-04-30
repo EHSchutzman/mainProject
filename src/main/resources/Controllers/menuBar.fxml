@@ -48,7 +48,7 @@
                        GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
                 <Label  fx:id="currentUserLabel" styleClass="menuLabel" text="Not Logged In" GridPane.columnIndex="5" GridPane.halignment="CENTER"
                        GridPane.valignment="CENTER"/>
-                <TextField fx:id="searchBar" onKeyPressed="#searchProgram" id="menuSearch" maxWidth="275.0" prefHeight="27.0" prefWidth="275.0" promptText="Search..."
+                <TextField fx:id="searchBar" onKeyReleased="#searchProgram" id="menuSearch" maxWidth="275.0" prefHeight="27.0" prefWidth="275.0" promptText="Search..."
                            GridPane.columnIndex="1" GridPane.halignment="CENTER">
                     <font>
                         <Font size="13.0"/>

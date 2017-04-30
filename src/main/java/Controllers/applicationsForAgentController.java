@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -25,14 +26,23 @@ public class applicationsForAgentController extends UIController{
 
     @FXML
     private TableView resultsTable;
-    private ObservableList<AgentRecord> olAR = FXCollections.observableArrayList();
+    private ObservableList<AppRecord> olAR = FXCollections.observableArrayList();
     private Form form = new Form();
     private DBManager dbManager = new DBManager();
+   // private menuBarController mbc = menuBarSingleton.getInstance().getMenuBarController();
 
     @FXML
-    public void initialize(){
-        initApplicationTableView();
+    private CheckBox simpleMaltBeveragesCheckbox;
+    @FXML
+    private CheckBox simpleOtherCheckbox;
+    @FXML
+    private CheckBox simpleWineCheckbox;
+
+    @FXML
+    private void simpleSearch(){
+        dbManager.filterForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation(), simpleMaltBeveragesCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected());
     }
+
     @FXML
     public void displayResults() {
 
@@ -122,7 +132,6 @@ public class applicationsForAgentController extends UIController{
      */
     @FXML
     public void refreshTable(){
-
         displayResults();
     }
     void initApplicationTableView() {

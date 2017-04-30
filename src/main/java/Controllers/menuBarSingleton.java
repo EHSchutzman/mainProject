@@ -24,7 +24,7 @@ public class menuBarSingleton {
     private superAgentSearchUsersController superAgentSearchUsersController;
     private applicationStatusForApplicantController applicationStatusForApplicantController;
     private applicationsForAgentController applicationsForAgentController;
-    private superAgentSearchPendingController superAgentSearchPendingController;
+    private superAgentPendingApplicationSearchController superAgentPendingApplicationSearchController;
     private ScrollPane superAgentSearchPendingPane;
     private ScrollPane applicationsForAgentsPane;
     private AnchorPane applicationsForApplicantPane;
@@ -65,10 +65,11 @@ public class menuBarSingleton {
         initializeApplicationStatusForApplicantsController();
         initializeFormsSearchController();
         initializeSuperAgentSearchUsersController();
-        initializeSuperAgentSearchPendingController();
+        initializeSuperAgentPendingApplicationSearchController();
 
         System.out.println("MENU BAR CONTROLLER " + menuBarController);
         System.out.println("SEARCHPAGE CONTROLLER " + searchPageController);
+        System.out.println("PENDING CONTROLLER IS " + superAgentPendingApplicationSearchController);
 
         this.menuBar = menuBar;
 
@@ -83,6 +84,7 @@ public class menuBarSingleton {
             this.searchPagePane = searchPane;
 
             searchPageController searchPageController = (searchPageController) searchLoader.getController();
+            System.out.println("FORMS SEARCH CONTROLLER IS BEING INITIALIZED TO " + searchPageController);
             this.searchPageController = searchPageController;
         }catch (Exception e){
             e.printStackTrace();
@@ -90,7 +92,7 @@ public class menuBarSingleton {
     }
 
     public void initializeSuperAgentSearchUsersController(){
-        URL searchPageURL = getClass().getResource("/Controllers/userSearchPage.fxml");
+        URL searchPageURL = getClass().getResource("/Controllers/superAgentSearchUsers.fxml");
         FXMLLoader searchLoader = new FXMLLoader();
         searchLoader.setLocation(searchPageURL);
         try {
@@ -99,6 +101,7 @@ public class menuBarSingleton {
             this.superAgentSearchUsersPane = searchPane;
 
             superAgentSearchUsersController superAgentSearchUsersController = (superAgentSearchUsersController) searchLoader.getController();
+            System.out.println("SUPER AGENT SEARCH USERS CONTROLLER IS BEING INITIALIZED TO " + superAgentSearchUsersController);
             this.superAgentSearchUsersController = superAgentSearchUsersController;
         }catch (Exception e){
             e.printStackTrace();
@@ -114,6 +117,7 @@ public class menuBarSingleton {
             this.applicationsForApplicantPane = searchPane;
 
             applicationStatusForApplicantController applicationStatusForApplicantController = (applicationStatusForApplicantController) searchLoader.getController();
+            System.out.println("APPLICATION STATUS FOR APPLICANTS CONTROLLER IS BEING INITIALIZED TO " + applicationStatusForApplicantController);
             this.applicationStatusForApplicantController = applicationStatusForApplicantController;
         }catch (Exception e){
             e.printStackTrace();
@@ -129,13 +133,14 @@ public class menuBarSingleton {
             this.applicationsForAgentsPane = searchPane;
 
             applicationsForAgentController applicationsForAgentController = (applicationsForAgentController) searchLoader.getController();
+            System.out.println("APPLICATIONS FOR AGENT CONTROLLER IS BEING INITIALIZED TO " + applicationsForAgentController);
             this.applicationsForAgentController = applicationsForAgentController;
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-    public void initializeSuperAgentSearchPendingController(){
-        URL searchPageURL = getClass().getResource("/Controllers/superAgentSearchPending.fxml");
+    public void initializeSuperAgentPendingApplicationSearchController(){
+        URL searchPageURL = getClass().getResource("/Controllers/superAgentPendingApplicationSearch.fxml");
         FXMLLoader searchLoader = new FXMLLoader();
         searchLoader.setLocation(searchPageURL);
         try {
@@ -143,8 +148,9 @@ public class menuBarSingleton {
             ScrollPane searchPane = (ScrollPane) searchRoot;
             this.superAgentSearchPendingPane = searchPane;
 
-            superAgentSearchPendingController superAgentSearchPendingController = (superAgentSearchPendingController) menuBarSingleton.getInstance().getSuperAgentSearchPendingController();
-            this.superAgentSearchPendingController = superAgentSearchPendingController;
+            superAgentPendingApplicationSearchController superAgentPendingApplicationSearchController = (superAgentPendingApplicationSearchController) searchLoader.getController();
+            System.out.println("SUPER AGENT SEARCH PENDING CONTROLLER IS BEING INITIALIZED TO " + superAgentPendingApplicationSearchController);
+            this.superAgentPendingApplicationSearchController = superAgentPendingApplicationSearchController;
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -221,8 +227,8 @@ public class menuBarSingleton {
         return superAgentSearchUsersPane;
     }
 
-    public Controllers.superAgentSearchPendingController getSuperAgentSearchPendingController() {
-        return superAgentSearchPendingController;
+    public Controllers.superAgentPendingApplicationSearchController getSuperAgentPendingApplicationSearchController() {
+        return superAgentPendingApplicationSearchController;
     }
 
     public ScrollPane getSuperAgentSearchPendingPane() {

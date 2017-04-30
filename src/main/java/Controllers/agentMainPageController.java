@@ -47,6 +47,7 @@ public class agentMainPageController extends UIController{
     @FXML
     private Button submissionButton, upgradeButton;
 
+    private Button agentReviewLabelButton;
 
     /**
      * Redirects to applicationsForAgent.fxml
@@ -54,16 +55,20 @@ public class agentMainPageController extends UIController{
      */
     @FXML
     public void setDisplayToApplicationsForAgent() throws IOException {
-
         BorderPane pane = main.getBorderPane();
         Stage stage;
-        stage=(Stage) submissionButton.getScene().getWindow();
+        stage=(Stage) agentReviewLabelButton.getScene().getWindow();
+
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
         applicationsForAgentController controller = menuBarSingleton.getInstance().getApplicationsForAgentController();
+        System.out.println(controller);
+        controller.initApplicationTableView();
         controller.displayResults();
         slideshow.stopAnimation();
         stage.show();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(3);
     }
 
 //    @FXML

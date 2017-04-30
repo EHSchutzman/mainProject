@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0"
-            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Controllers.searchPageController">
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.searchPageController">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
             <children>
@@ -16,10 +18,10 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:"/>
-                                        <CheckBox layoutX="15.0" layoutY="35.0" mnemonicParsing="false" text="Beer"/>
-                                        <CheckBox layoutX="85.0" layoutY="35.0" mnemonicParsing="false" text="Wine"/>
-                                        <CheckBox layoutX="15.0" layoutY="60.0" mnemonicParsing="false" text="Other"/>
+                                        <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:" />
+                                        <CheckBox fx:id="simpleMaltBeverageCheckbox" layoutX="15.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Beer" />
+                                        <CheckBox fx:id="simpleWineCheckbox" layoutX="85.0" layoutY="35.0" mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Wine" />
+                                        <CheckBox fx:id="simpleOtherCheckbox" layoutX="15.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Other" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -28,32 +30,24 @@
                             <content>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                     <children>
-                                        <TextField fx:id="brandName" layoutX="15.0" layoutY="35.0" prefHeight="25.0"
-                                                   prefWidth="195.0"/>
-                                        <TextField fx:id="fancifulName" layoutX="15.0" layoutY="90.0" prefHeight="25.0"
-                                                   prefWidth="195.0"/>
-                                        <DatePicker fx:id="dpDateRangeStart" layoutX="15.0" layoutY="235.0"
-                                                    prefHeight="25.0" prefWidth="195.0"/>
-                                        <DatePicker fx:id="dpDateRangeEnd" layoutX="15.0" layoutY="290.0"
-                                                    prefHeight="25.0" prefWidth="195.0"/>
-                                        <TextField fx:id="country" layoutX="15.0" layoutY="345.0" prefHeight="25.0"
-                                                   prefWidth="195.0"/>
-                                        <TextField fx:id="state" layoutX="15.0" layoutY="400.0" prefHeight="25.0"
-                                                   prefWidth="195.0"/>
-                                        <Label layoutX="15.0" layoutY="15.0" text="Brand Name:"/>
-                                        <Label layoutX="15.0" layoutY="70.0" text="Fanciful Name:"/>
-                                        <Label layoutX="15.0" layoutY="125.0" text="Alcohol Type:"/>
-                                        <Label layoutX="15.0" layoutY="195.0" text="Date Completed:"/>
-                                        <Label layoutX="15.0" layoutY="215.0" text="From:"/>
-                                        <Label layoutX="15.0" layoutY="270.0" text="To:"/>
-                                        <Label layoutX="15.0" layoutY="325.0" text="Country:"/>
-                                        <Label layoutX="15.0" layoutY="380.0" text="State:"/>
-                                        <CheckBox fx:id="maltBeverageCheckbox" layoutX="15.0" layoutY="145.0"
-                                                  mnemonicParsing="false" text="Beer"/>
-                                        <CheckBox fx:id="otherCheckbox" layoutX="85.0" layoutY="145.0"
-                                                  mnemonicParsing="false" text="Wine"/>
-                                        <CheckBox fx:id="wineCheckbox" layoutX="15.0" layoutY="170.0"
-                                                  mnemonicParsing="false" text="Other"/>
+                                        <TextField fx:id="brandName" layoutX="15.0" layoutY="35.0" prefHeight="25.0" prefWidth="195.0" />
+                                        <TextField fx:id="fancifulName" layoutX="15.0" layoutY="90.0" prefHeight="25.0" prefWidth="195.0" />
+                                        <DatePicker fx:id="dpDateRangeStart" layoutX="15.0" layoutY="235.0" prefHeight="25.0" prefWidth="195.0" />
+                                        <DatePicker fx:id="dpDateRangeEnd" layoutX="15.0" layoutY="290.0" prefHeight="25.0" prefWidth="195.0" />
+                                        <TextField fx:id="country" layoutX="15.0" layoutY="345.0" prefHeight="25.0" prefWidth="195.0" />
+                                        <TextField fx:id="state" layoutX="15.0" layoutY="400.0" prefHeight="25.0" prefWidth="195.0" />
+                                        <Label layoutX="15.0" layoutY="15.0" text="Brand Name:" />
+                                        <Label layoutX="15.0" layoutY="70.0" text="Fanciful Name:" />
+                                        <Label layoutX="15.0" layoutY="125.0" text="Alcohol Type:" />
+                                        <Label layoutX="15.0" layoutY="195.0" text="Date Completed:" />
+                                        <Label layoutX="15.0" layoutY="215.0" text="From:" />
+                                        <Label layoutX="15.0" layoutY="270.0" text="To:" />
+                                        <Label layoutX="15.0" layoutY="325.0" text="Country:" />
+                                        <Label layoutX="15.0" layoutY="380.0" text="State:" />
+                                        <CheckBox fx:id="advMaltBeverageCheckbox" layoutX="15.0" layoutY="145.0" mnemonicParsing="false" text="Beer" />
+                                        <CheckBox fx:id="advOtherCheckbox" layoutX="85.0" layoutY="145.0" mnemonicParsing="false" text="Wine" />
+                                        <CheckBox fx:id="advWineCheckbox" layoutX="15.0" layoutY="170.0" mnemonicParsing="false" text="Other" />
+                              <Button layoutX="160.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#advancedSearch" text="Search" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -62,19 +56,17 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TextField layoutX="20.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0"/>
+                                        <TextField fx:id="userSpecifiedValueText" layoutX="20.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0" />
                                         <Label layoutX="50.0" layoutY="5.0" text="CSV Format Options">
                                             <font>
-                                                <Font name="System Bold" size="15.0"/>
+                                                <Font name="System Bold" size="15.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="15.0" layoutY="30.0" text="Generate:"/>
-                                        <RadioButton layoutX="15.0" layoutY="50.0" mnemonicParsing="false"
-                                                     text="Comma separated values"/>
-                                        <RadioButton layoutX="15.0" layoutY="80.0" mnemonicParsing="false"
-                                                     text="Tab separated values"/>
-                                        <RadioButton layoutX="15.0" layoutY="110.0" mnemonicParsing="false"
-                                                     text="User specifiec separation:"/>
+                                        <Label layoutX="15.0" layoutY="30.0" text="Generate:" />
+                                        <RadioButton fx:id="commaSeparated" layoutX="15.0" layoutY="50.0" onMouseClicked="#onCommaSeparatedClick" mnemonicParsing="false" text="Comma separated values" />
+                                        <RadioButton fx:id="tabSeparated" layoutX="15.0" layoutY="80.0" onMouseClicked="#onTabSeparatedClick" mnemonicParsing="false" text="Tab separated values" />
+                                        <RadioButton fx:id="userSpecified" layoutX="15.0" layoutY="110.0" onMouseClicked="#onUserSpecifiedClick" mnemonicParsing="false" text="User specifiec separation:" />
+                                        <Button layoutX="120.0" layoutY="200.0" onMouseClicked="#generateCSV" mnemonicParsing="false" text="Generate CSV" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -111,8 +103,12 @@
                                             <cellValueFactory><PropertyValueFactory property="brandName" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="originCol" prefWidth="100.0" text="Origin">
-                                            <cellValueFactory><PropertyValueFactory property="originCode" />
+                                        <TableColumn fx:id="countryCol" prefWidth="100.0" text="Country">
+                                        <cellValueFactory><PropertyValueFactory property="country" />
+                                        </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn fx:id="stateCol" prefWidth="100.0" text="State">
+                                            <cellValueFactory><PropertyValueFactory property="state" />
                                             </cellValueFactory>
                                         </TableColumn>
                                         <TableColumn fx:id="typeIDCol" prefWidth="123.66668701171875" text="Type ID">

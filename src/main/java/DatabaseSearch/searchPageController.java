@@ -183,8 +183,8 @@ public class searchPageController {
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
             System.out.println("OBSERVABLE LIST IS " + arr);
-            main.userData.setObservableList(arr);
-            System.out.println("MAIN HAS" + main.userData.getObservableList());
+            main.userData.setObservableListApp(arr);
+            System.out.println("MAIN HAS" + main.userData.getObservableListApp());
             return arr;
         } catch (Exception e) {
             e.printStackTrace();
@@ -241,8 +241,8 @@ public class searchPageController {
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
             System.out.println("ARR IS " + arr);
-            main.userData.setObservableList(arr);
-            System.out.println("USERDATA IS " + main.userData.getObservableList());
+            main.userData.setObservableListApp(arr);
+            System.out.println("USERDATA IS " + main.userData.getObservableListApp());
             resultsTable.setItems(arr);
             resultsTable.refresh();
 
@@ -490,22 +490,22 @@ public class searchPageController {
     @FXML
     public void makeCSV() {
         DBManager manager = new DBManager();
-        System.out.println("MAIN HAS NOW" + main.userData.getObservableList());
+        System.out.println("MAIN HAS NOW" + main.userData.getObservableListApp());
 
-        manager.generateCSV(main.userData.getObservableList(), ",", ".csv");
+        manager.generateCSV(main.userData.getObservableListApp(), ",", ".csv");
     }
 
     @FXML
     public void makeTab() {
         DBManager manager = new DBManager();
-        manager.generateCSV(main.userData.getObservableList(), "\t", ".txt");
+        manager.generateCSV(main.userData.getObservableListApp(), "\t", ".txt");
     }
 
     @FXML
     public void makeUserSpecified() {
         DBManager manager = new DBManager();
         String separator = user_specified_value_text.getText();
-        manager.generateCSV(main.userData.getObservableList(), separator, ".txt");
+        manager.generateCSV(main.userData.getObservableListApp(), separator, ".txt");
     }
 
     @FXML

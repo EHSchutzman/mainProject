@@ -1,6 +1,7 @@
 package Controllers;
 
 import DBManager.DBManager;
+import DatabaseSearch.AppRecord;
 import DatabaseSearch.UserRecord;
 import UserAccounts.User;
 import javafx.beans.value.ChangeListener;
@@ -23,17 +24,19 @@ import java.io.IOException;
 public class superAgentSearchUsersController extends UIController {
 
     @FXML
-    public TextField search_users_text;
+    public CheckBox usernameCheckbox;
     @FXML
-    public CheckBox username_filter;
+    public CheckBox emailCheckbox;
     @FXML
-    public CheckBox email_filter;
+    public CheckBox firstNameCheckbox;
     @FXML
-    public CheckBox first_name_filter;
+    public CheckBox lastNameCheckbox;
     @FXML
-    public CheckBox last_name_filter;
+    public CheckBox agentCheckbox;
     @FXML
-    public ChoiceBox<String> authentication_filter;
+    public CheckBox superAgentCheckbox;
+    @FXML
+    public CheckBox applicantCheckbox;
     @FXML
     public TableColumn UserIDCol;
     @FXML
@@ -60,7 +63,9 @@ public class superAgentSearchUsersController extends UIController {
     private Button refreshButton;
 
     private DBManager dbManager = new DBManager();
+    private menuBarController mbc = menuBarSingleton.getInstance().getMenuBarController();
 
+/*
     public void initUserAuthenticationChoiceBox() {
         authentication_filter.getItems().addAll("0", "1", "2", "3");
         authentication_filter.setValue("0");
@@ -71,61 +76,13 @@ public class superAgentSearchUsersController extends UIController {
             }
         });
     }
+*/
+
 
     @FXML
     public void searchUsers() {
-        // refresh the table view
-        resultsTableUsers.refresh();
-        resultsTableUsers.setItems(null);
-        // build a query
-        String searchText = search_users_text.getText();
-        boolean usernameFilter = username_filter.isSelected();
-        boolean emailFilter = email_filter.isSelected();
-        boolean firstNameFilter = first_name_filter.isSelected();
-        boolean lastNameFilter = last_name_filter.isSelected();
-        String authenticationFilter = authentication_filter.getValue();
-        String options = "";
-        if (searchText != null && !searchText.isEmpty()) {
-            if (usernameFilter) {
-                if (!options.isEmpty()) {
-                    options = options.concat(" and ");
-                }
-                options = options.concat("username like '%" + searchText + "%'");
-            }
-            if (emailFilter) {
-                if (!options.isEmpty()) {
-                    options = options.concat(" and ");
-                }
-                options = options.concat("email like '%" + searchText + "%'");
-            }
-            if (firstNameFilter) {
-                if (!options.isEmpty()) {
-                    options = options.concat(" and ");
-                }
-                options = options.concat("first_name like '%" + searchText + "%'");
-            }
-            if (lastNameFilter) {
-                if (!options.isEmpty()) {
-                    options = options.concat(" and ");
-                }
-                options = options.concat("last_name like '%" + searchText + "%'");
-            }
-        }
-        if (authenticationFilter != null && !authenticationFilter.isEmpty()) {
-            if (!options.isEmpty()) {
-                options = options.concat(" and ");
-            }
-            options = options.concat("authentication=" + authenticationFilter);
-        }
-        ObservableList<UserRecord> userList = FXCollections.observableArrayList();
-        userList.clear();
-        userList = dbManager.searchUsers(options);
-        System.out.println(userList.size());
-        // display users in the table view
-        if (!userList.isEmpty()) {
-            resultsTableUsers.setItems(userList);
-            //resultsTableUsers.getItems().addAll(userList);
-        }
+        ObservableList<UserRecord> ol = mbc.searchUsers(usernameCheckbox.isSelected(), emailCheckbox.isSelected(), firstNameCheckbox.isSelected(), lastNameCheckbox.isSelected(), agentCheckbox.isSelected(), superAgentCheckbox.isSelected(), applicantCheckbox.isSelected());
+        displayData(ol);
     }
 
     @FXML
@@ -150,6 +107,16 @@ public class superAgentSearchUsersController extends UIController {
         });
     }
 
+    //Populates the results table with data from the database
+    protected void displayData(ObservableList<UserRecord> list) {
+        try {
+            resultsTableUsers.setItems(list);
+            resultsTableUsers.refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Displays edit user page for super agents after they have double clicked a row
     public void displayEditUser(User user) throws Exception {
         try {
@@ -171,6 +138,12 @@ public class superAgentSearchUsersController extends UIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void refreshView(){
+        System.out.println("super agent refresh");
+        resultsTableUsers.refresh();
     }
 
 }
