@@ -117,7 +117,10 @@ public abstract class UIController {
         borderPane.setLeft(pane);
         mainPageController controller = loader.getController();
         System.out.println("CONTROLLER IS " + controller);
+        controller.slideshow.initSlideshow(controller.imagebox);
         controller.slideshow.startAnimation(controller.imagebox);
+
+
     }
 
     /**
@@ -139,6 +142,7 @@ public abstract class UIController {
         borderPane.setLeft(pane);
         defaultUserMainPageController controller = loader.getController();
         System.out.println("CONTROLLER IS " + controller);
+        controller.slideshow.initSlideshow(controller.imagebox);
         controller.slideshow.startAnimation(controller.imagebox);
     }
 
@@ -162,6 +166,7 @@ public abstract class UIController {
         borderPane.setLeft(pane);
         applicantMainPageController controller = loader.getController();
         System.out.println("CONTROLLER IS " + controller);
+        controller.slideshow.initSlideshow(controller.imagebox);
         controller.slideshow.startAnimation(controller.imagebox);
     }
 
@@ -184,6 +189,7 @@ public abstract class UIController {
         borderPane.setLeft(pane);
         agentMainPageController controller = loader.getController();
         System.out.println("CONTROLLER IS " + controller);
+        controller.slideshow.initSlideshow(controller.imagebox);
         controller.slideshow.startAnimation(controller.imagebox);
 
     }
@@ -198,7 +204,7 @@ public abstract class UIController {
 
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/Controllers/superAgentInitialPage.fxml"));
+        loader.setLocation(getClass().getResource("/Controllers/superAgentMainPage.fxml"));
         //System.out.println(loader.getLocation().getPath());
         ScrollPane pane = loader.load();
         Scene scene = borderPane.getScene();
@@ -207,6 +213,7 @@ public abstract class UIController {
         borderPane.setLeft(pane);
         superAgentMainPageController controller = loader.getController();
         System.out.println("CONTROLLER IS " + controller);
+        controller.slideshow.initSlideshow(controller.imagebox);
         controller.slideshow.startAnimation(controller.imagebox);
     }
 

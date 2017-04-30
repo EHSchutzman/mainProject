@@ -94,7 +94,7 @@ public class slideshowController {
         //add timeLine
         anim = new Timeline(keyFrames.toArray(new KeyFrame[imageArrayList.size()]));
 
-        anim.setCycleCount(Timeline.INDEFINITE);
+        anim.setCycleCount(3);
         anim.playFromStart();
     }
 

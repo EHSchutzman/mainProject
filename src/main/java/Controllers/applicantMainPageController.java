@@ -231,7 +231,8 @@ public class applicantMainPageController extends UIController{
     @FXML
     public void setDisplayToIter2application() throws IOException {
         BorderPane borderPane = main.getBorderPane();
-
+        borderPane.setBottom(null);
+        borderPane.setLeft(null);
         FXMLLoader loader = new FXMLLoader();
         URL iter2URL = getClass().getResource("iter2application.fxml");
         loader.setLocation(iter2URL);
