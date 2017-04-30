@@ -77,7 +77,7 @@ public class mainPageController extends UIController {
         System.out.println(loader.getLocation().getPath());
         AnchorPane anchorPane = loader.load();
         Stage stage;
-        stage=(Stage) loginButton.getScene().getWindow();
+        stage=(Stage) menuBarSingleton.getInstance().getMenuBarController().getLoginButton().getScene().getWindow();
         Scene scene = borderPane.getScene();
         stage.setScene(scene);
         borderPane.setTop(menuBarSingleton.getInstance().getBar());
@@ -172,7 +172,7 @@ public class mainPageController extends UIController {
         //add timeLine
         Timeline anim = new Timeline(keyFrames.toArray(new KeyFrame[imageArrayList.size()]));
 
-        loginButton.setOnMouseClicked(event -> {
+        menuBarSingleton.getInstance().getMenuBarController().getLoginButton().setOnMouseClicked(event -> {
             System.out.println("stopping anim");
             if (event.getClickCount() == 1) {
                 anim.stop();
@@ -187,4 +187,5 @@ public class mainPageController extends UIController {
         anim.playFromStart();
 
     }
+
 }

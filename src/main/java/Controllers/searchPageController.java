@@ -151,6 +151,14 @@ public class searchPageController extends UIController {
                 params += "AND APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
             }
 
+            if (dpDateRangeStart.getValue() != null && dpDateRangeEnd.getValue() == null) {
+                params += "AND APPROVED_DATE BETWEEN '" + from + "' AND '01/01/3000'";
+            }
+
+            if (dpDateRangeStart.getValue() == null && dpDateRangeEnd.getValue() != null) {
+                params += "AND APPROVED_DATE BETWEEN '01/01/0001' AND '" + to + "'";
+            }
+
             boolean firstCheck = false;
 
             if (isMalt || isSpirit || isWine) {

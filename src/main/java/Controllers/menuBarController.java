@@ -41,6 +41,10 @@ public class menuBarController extends UIController {
 
     DBManager db = new DBManager();
 
+    public Button getLoginButton() {
+        return this.loginButton;
+    }
+
     public void setOnSearchPage(Boolean b) {
         this.onSearchPage = b;
     }
@@ -184,11 +188,11 @@ public class menuBarController extends UIController {
 
             boolean firstCheck = false;
 
-            String params = " WHERE STATUS = 'Accepted' AND";
+            String params = " WHERE STATUS = 'Accepted' ";
 
             if (isMalt || isSpirit || isWine) {
 
-                params += " (ALCOHOL_TYPE = ";
+                params += "AND (ALCOHOL_TYPE = ";
 
                 if (isWine) {
                     params += "'Wine'";
@@ -209,7 +213,10 @@ public class menuBarController extends UIController {
                     params += " OR ALCOHOL_TYPE = 'Malt Beverages'";
                 }
                 params += ")";
+            } else {
+                return null;
             }
+
             params += " AND (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
