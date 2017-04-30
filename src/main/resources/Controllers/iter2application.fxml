@@ -5,28 +5,27 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<ScrollPane maxHeight="1000.0" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.text.*?>
+<ScrollPane maxHeight="1000.0" maxWidth="1000.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Controllers.iter2applicationController">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1000.0">
             <children>
                 <Group fx:id="wineInfo" layoutX="21.0" layoutY="387.0" visible="false"/>
-                <TextField fx:id="repID" layoutX="153.0" layoutY="85.0" promptText="REP. ID. NO. (If Any)"/>
-                <Label fx:id="repIDLabel" layoutX="14.0" layoutY="90.0" text="Rep. ID. NO"/>
-                <Label fx:id="permitNOLabel" layoutX="14.0" layoutY="133.0" text="Permit/Brewers NO."/>
-                <TextField fx:id="permitNO" layoutX="153.0" layoutY="128.0" promptText="Brewer's NO. (Required)"/>
-                <TextField fx:id="serialNO" layoutX="153.0" layoutY="172.0" promptText="Serial Number (Required)"/>
-                <Label fx:id="serialNOLabel" layoutX="14.0" layoutY="177.0" text="Serial Number"/>
-                <TextField fx:id="brandName" layoutX="153.0" layoutY="213.0" promptText="Brand Name (Required)"/>
-                <Label fx:id="brandNameLabel" layoutX="14.0" layoutY="218.0" text="Brand Name"/>
-                <TextField fx:id="fancifulName" layoutX="153.0" layoutY="256.0" promptText="Fanciful Name (If Any)"/>
-                <Label fx:id="fancifulNameLabel" layoutX="14.0" layoutY="261.0" text="Fanciful Name"/>
-                <TextField fx:id="formula" layoutX="153.0" layoutY="295.0" prefHeight="31.0" prefWidth="100.0"
+                <TextField fx:id="repID" layoutX="155.0" layoutY="85.0" promptText="REP. ID. NO. (If Any)"/>
+                <Label fx:id="repIDLabel" layoutX="15.0" layoutY="90.0" text="Rep. ID. NO"/>
+                <Label fx:id="permitNOLabel" layoutX="15.0" layoutY="133.0" text="Permit/Brewers NO."/>
+                <TextField fx:id="permitNO" layoutX="155.0" layoutY="128.0" promptText="Brewer's NO. (Required)"/>
+                <TextField fx:id="serialNO" layoutX="155.0" layoutY="172.0" promptText="Serial Number (Required)"/>
+                <Label fx:id="serialNOLabel" layoutX="15.0" layoutY="177.0" text="Serial Number"/>
+                <TextField fx:id="brandName" layoutX="155.0" layoutY="213.0" promptText="Brand Name (Required)"/>
+                <Label fx:id="brandNameLabel" layoutX="15.0" layoutY="218.0" text="Brand Name"/>
+                <TextField fx:id="fancifulName" layoutX="155.0" layoutY="256.0" promptText="Fanciful Name (If Any)"/>
+                <Label fx:id="fancifulNameLabel" layoutX="15.0" layoutY="261.0" text="Fanciful Name"/>
+                <TextField fx:id="formula" layoutX="155.0" layoutY="297.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Formula"/>
-                <Label layoutX="14.0" layoutY="300.0" text="Formula"/>
+                <Label layoutX="15.0" layoutY="302.0" text="Formula"/>
                 <ComboBox fx:id="source_combobox" layoutX="363.0" layoutY="119.0" prefHeight="31.0" prefWidth="253.0"
                           promptText="Source of Product (Required)"/>
                 <ComboBox fx:id="alcohol_type_combobox" layoutX="363.0" layoutY="159.0" onAction="#checkType"
@@ -37,67 +36,132 @@
                         <Font size="24.0"/>
                     </font>
                 </Text>
-                <Text fx:id="ttbid" layoutX="109.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                <Text fx:id="ttbid" layoutX="108.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0"
                       text="Replace With TTBID">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Text>
-                <TextField fx:id="phoneNo" layoutX="150.0" layoutY="338.0" prefHeight="31.0" prefWidth="156.0"
+                <TextField fx:id="phoneNo" layoutX="155.0" layoutY="423.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Phone Number"/>
-                <Label layoutX="15.0" layoutY="343.0" text="Phone Number"/>
-                <TextField fx:id="email" layoutX="464.0" layoutY="295.0" prefHeight="31.0" prefWidth="156.0"
+                <Label layoutX="15.0" layoutY="428.0" text="Phone Number"/>
+                <TextField fx:id="email" layoutX="155.0" layoutY="381.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Email Address"/>
-                <Label layoutX="359.0" layoutY="300.0" text="Email Address"/>
+                <Label layoutX="15.0" layoutY="384.0" text="Email Address"/>
                 <Group layoutX="634.0" layoutY="240.0">
                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="232.0" stroke="BLACK"
-                                   strokeType="INSIDE" width="356.0"/>
-                        <CheckBox fx:id="option_1_checkbox" layoutX="17.0" layoutY="10.0" mnemonicParsing="false"
-                                  text="Certificate of Label Approval"/>
-                        <CheckBox fx:id="option_2_checkbox" layoutX="17.0" layoutY="36.0" mnemonicParsing="false"
-                                  text="Certificate of Exemption from Label Approval"/>
-                        <TextField fx:id="option_2_text" layoutX="96.0" layoutY="59.0" prefHeight="31.0"
-                                   prefWidth="65.0" promptText="State"/>
-                        <Label layoutX="18.0" layoutY="64.0" text="For Sale in:"/>
-                        <Label layoutX="175.0" layoutY="64.0" text="only (State Abbreviation)"/>
-                        <CheckBox fx:id="option_3_checkbox" layoutX="18.0" layoutY="100.0" mnemonicParsing="false"
-                                  text="Distinctive Bottle Approval, Total Bottle"/>
-                        <Label layoutX="17.0" layoutY="125.0" text="Capacity Before Closure"/>
-                        <TextField fx:id="option_3_text" layoutX="180.0" layoutY="120.0" prefHeight="31.0"
-                                   prefWidth="88.0" promptText="Capacity"/>
-                        <CheckBox fx:id="option_4_checkbox" layoutX="17.0" layoutY="158.0" mnemonicParsing="false"
-                                  text="Resubmission After Rejection"/>
-                        <TextField fx:id="option_4_text" layoutX="68.0" layoutY="179.0" promptText="TTB ID"/>
-                        <Label layoutX="17.0" layoutY="184.0" text="TTB ID"/>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="232.0" layoutX="-17.0"
+                                   stroke="BLACK" strokeType="INSIDE" width="363.0"/>
+                        <CheckBox fx:id="option_1_checkbox" layoutX="-9.0" layoutY="13.0" mnemonicParsing="false"
+                                  text="Certificate of Label Approval">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </CheckBox>
+                        <CheckBox fx:id="option_2_checkbox" layoutX="-9.0" layoutY="39.0" mnemonicParsing="false"
+                                  text="Certificate of Exemption from Label Approval">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </CheckBox>
+                        <TextField fx:id="option_2_text" layoutX="76.0" layoutY="65.0" maxHeight="30.0" minHeight="30.0"
+                                   prefHeight="30.0" prefWidth="65.0" promptText="State">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </TextField>
+                        <Label layoutX="-8.0" layoutY="67.0" text="For Sale in:">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </Label>
+                        <Label layoutX="149.0" layoutY="67.0" text="only (State Abbreviation)">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </Label>
+                        <CheckBox fx:id="option_3_checkbox" layoutX="-8.0" layoutY="103.0" mnemonicParsing="false"
+                                  text="Distinctive Bottle Approval, Total Bottle">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </CheckBox>
+                        <Label layoutX="-3.0" layoutY="128.0" text="Capacity Before Closure">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="option_3_text" layoutX="176.0" layoutY="126.0" maxHeight="30.0"
+                                   minHeight="30.0" prefHeight="30.0" prefWidth="88.0" promptText="Capacity">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </TextField>
+                        <CheckBox fx:id="option_4_checkbox" layoutX="-9.0" layoutY="161.0" mnemonicParsing="false"
+                                  text="Resubmission After Rejection">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </CheckBox>
+                        <TextField fx:id="option_4_text" layoutX="49.0" layoutY="185.0" maxHeight="30.0"
+                                   minHeight="30.0" prefHeight="30.0" promptText="TTB ID">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </TextField>
+                        <Label layoutX="-3.0" layoutY="187.0" text="TTB ID">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </Label>
                     </children>
                 </Group>
-                <CheckBox fx:id="sameAsApplicantBox" layoutX="8.0" layoutY="586.0" mnemonicParsing="false"
+                <CheckBox fx:id="sameAsApplicantBox" layoutX="15.0" layoutY="666.0" mnemonicParsing="false"
                           onMouseClicked="#showSecondAddress" text="Check if Mailing Address is Different"/>
                 <ImageView fx:id="label_image" fitHeight="199.0" fitWidth="344.0" layoutX="637.0" layoutY="29.0"
                            pickOnBounds="true" preserveRatio="true"/>
-                <Button fx:id="browse_button" layoutX="477.0" layoutY="56.0" mnemonicParsing="false"
-                        onMouseClicked="#browseForFile" text="Browse For Image"/>
-                <TextArea fx:id="extraLabelInfo" layoutX="628.0" layoutY="565.0" prefHeight="264.0" prefWidth="352.0"/>
-                <Label layoutX="628.0" layoutY="500.0" text="Show any Information that is Blown Branded, "/>
-                <Label layoutX="628.0" layoutY="521.0" text="Or Embossed on the Container Only if "/>
-                <Label layoutX="628.0" layoutY="542.0" text="It Does NOT Appear on the Labels Affixed Below "/>
-                <TextField fx:id="signature" layoutX="674.0" layoutY="845.0" prefHeight="31.0" prefWidth="303.0"
+                <Button fx:id="browse_button" layoutX="458.0" layoutY="55.0" mnemonicParsing="false"
+                        onMouseClicked="#browseForFile" text="Browse For Image">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Button>
+                <TextArea fx:id="extraLabelInfo" layoutX="621.0" layoutY="567.0" prefHeight="264.0" prefWidth="352.0"/>
+                <Label layoutX="638.0" layoutY="498.0" text="Show any Information that is Blown Branded, ">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="661.0" layoutY="519.0" text="Or Embossed on the Container Only if ">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <Label layoutX="624.0" layoutY="539.0" text="It Does NOT Appear on the Labels Affixed Below ">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+                <TextField fx:id="signature" layoutX="670.0" layoutY="845.0" prefHeight="31.0" prefWidth="303.0"
                            promptText="Signature (Required)"/>
-                <Label layoutX="603.0" layoutY="850.0" text="Signature"/>
-                <Button fx:id="submit_button" layoutX="883.0" layoutY="914.0" mnemonicParsing="false"
-                        onMouseClicked="#submitForm" text="Submit"/>
-                <TextField fx:id="applicantStreet" layoutX="79.0" layoutY="385.0" promptText="Street"/>
-                <TextField fx:id="applicantCity" layoutX="79.0" layoutY="425.0" promptText="City"/>
-                <TextField fx:id="applicantState" layoutX="79.0" layoutY="466.0" promptText="State"/>
-                <TextField fx:id="applicantZip" layoutX="79.0" layoutY="509.0" promptText="Zipcode"/>
-                <TextField fx:id="applicantCountry" layoutX="79.0" layoutY="548.0" promptText="Country"/>
-                <Label layoutX="18.0" layoutY="390.0" text="Street"/>
-                <Label layoutX="22.0" layoutY="430.0" text="City"/>
-                <Label layoutX="18.0" layoutY="471.0" text="State"/>
-                <Label layoutX="13.0" layoutY="553.0" text="Country"/>
-                <Label layoutX="13.0" layoutY="514.0" text="Zipcode"/>
-                <Group layoutX="9.0" layoutY="607.0">
+                <Label layoutX="589.0" layoutY="850.0" text="Signature"/>
+                <Button fx:id="submit_button" layoutX="738.0" layoutY="901.0" mnemonicParsing="false"
+                        onMouseClicked="#submitForm" prefHeight="37.0" prefWidth="127.0" text="Submit">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Button>
+                <TextField fx:id="applicantStreet" layoutX="155.0" layoutY="465.0" promptText="Street"/>
+                <TextField fx:id="applicantCity" layoutX="155.0" layoutY="505.0" promptText="City"/>
+                <TextField fx:id="applicantState" layoutX="155.0" layoutY="546.0" promptText="State"/>
+                <TextField fx:id="applicantZip" layoutX="155.0" layoutY="589.0" promptText="Zipcode"/>
+                <TextField fx:id="applicantCountry" layoutX="155.0" layoutY="628.0" promptText="Country"/>
+                <Label layoutX="15.0" layoutY="470.0" text="Street"/>
+                <Label layoutX="15.0" layoutY="510.0" text="City"/>
+                <Label layoutX="15.0" layoutY="551.0" text="State"/>
+                <Label layoutX="15.0" layoutY="633.0" text="Country"/>
+                <Label layoutX="15.0" layoutY="594.0" text="Zipcode"/>
+                <Group layoutX="15.0" layoutY="690.0">
                     <children>
                         <TextField fx:id="otherStreet" layoutX="66.0" promptText="Street" visible="false"/>
                         <TextField fx:id="otherCity" layoutX="66.0" layoutY="40.0" promptText="City" visible="false"/>
@@ -113,28 +177,27 @@
                         <Label fx:id="otherZipcodeLabel" layoutY="129.0" text="Zipcode" visible="false"/>
                     </children>
                 </Group>
-                <Rectangle fx:id="wineRec" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="178.0"
-                           layoutX="269.0" layoutY="378.0" stroke="BLACK" strokeType="INSIDE" visible="false"
-                           width="353.0"/>
-                <TextField fx:id="grapeVarietals" layoutX="408.0" layoutY="429.0" prefHeight="31.0" prefWidth="197.0"
+                <Rectangle fx:id="wineRec" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="305.0"
+                           layoutX="375.0" layoutY="202.0" stroke="BLACK" strokeType="INSIDE" visible="false"
+                           width="229.0"/>
+                <TextField fx:id="grapeVarietals" layoutX="396.0" layoutY="313.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Grape Varietal(s) " visible="false"/>
-                <Label fx:id="grapeVarietalsLabel" layoutX="284.0" layoutY="433.0" text="Grape Varietal(s)"
+                <Label fx:id="grapeVarietalsLabel" layoutX="435.0" layoutY="287.0" text="Grape Varietal(s)"
                        visible="false"/>
-                <TextField fx:id="wineAppellation" layoutX="411.0" layoutY="391.0" prefHeight="31.0" prefWidth="195.0"
+                <TextField fx:id="wineAppellation" layoutX="396.0" layoutY="241.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Wine Appelation (If On Label)" visible="false"/>
-                <Label fx:id="wineAppellationLabel" layoutX="285.0" layoutY="396.0" text="Wine Appelation"
+                <Label fx:id="wineAppellationLabel" layoutX="434.0" layoutY="208.0" text="Wine Appelation"
                        visible="false"/>
-                <Label fx:id="vintageYearLabel" layoutX="285.0" layoutY="476.0" text="Vintage Year" visible="false"/>
-                <TextField fx:id="vintageYear" layoutX="408.0" layoutY="471.0" prefHeight="31.0" prefWidth="198.0"
+                <Label fx:id="vintageYearLabel" layoutX="448.0" layoutY="359.0" text="Vintage Year" visible="false"/>
+                <TextField fx:id="vintageYear" layoutX="397.0" layoutY="390.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Vintage Year" visible="false"/>
-                <Label fx:id="phLevelLabel" layoutX="288.0" layoutY="514.0" text="PH Level" visible="false"/>
-                <TextField fx:id="phLevel" layoutX="408.0" layoutY="509.0" prefHeight="31.0" prefWidth="199.0"
+                <Label fx:id="phLevelLabel" layoutX="461.0" layoutY="439.0" text="PH Level" visible="false"/>
+                <TextField fx:id="phLevel" layoutX="396.0" layoutY="465.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="PH Level (Required)" visible="false"/>
-                <TextField fx:id="alcoholContent" layoutX="464.0" layoutY="248.0" prefHeight="27.0" prefWidth="158.0"
+                <TextField fx:id="alcoholContent" layoutX="154.0" layoutY="338.0" prefHeight="31.0" prefWidth="187.0"
                            promptText="Alcohol Content"/>
-                <Label layoutX="359.0" layoutY="253.0" text="Alcohol Content"/>
+                <Label layoutX="15.0" layoutY="343.0" text="Alcohol Content"/>
             </children>
         </AnchorPane>
     </content>
 </ScrollPane>
-

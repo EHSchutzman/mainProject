@@ -2,12 +2,6 @@ package Controllers;
 
 import DBManager.DBManager;
 import Form.Form;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,11 +10,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -213,6 +204,7 @@ public class applicantMainPageController extends UIController{
         stage=(Stage) viewFormsButton.getScene().getWindow();
         pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForApplicantPane());
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Submitted Applications");
         applicationStatusForApplicantController controller = menuBarSingleton.getInstance().getApplicationStatusForApplicantController();
         menuBarController menuBarController = menuBarSingleton.getInstance().getMenuBarController();
         menuBarController.setOnSearchPage(true);
@@ -227,6 +219,7 @@ public class applicantMainPageController extends UIController{
         borderPane.setLeft(null);
         FXMLLoader loader = new FXMLLoader();
         URL iter2URL = getClass().getResource("iter2application.fxml");
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Submit New Label Application");
         loader.setLocation(iter2URL);
         ScrollPane pane = loader.load();
         //System.out.println(loader.getLocation().getPath());
