@@ -4,6 +4,7 @@ import UserAccounts.Authentication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -38,6 +39,12 @@ public class superAgentCreateAgentController extends UIController {
         int authLvl = 2;
 
         isAuthentic.createUser(firstNameText, middleIn, lastNameText, loginNameText, passwordText, emailText, phoneNum, authLvl);
+
+        // get a handle to the stage
+        Stage stage = (Stage) username.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+
         try {
             returnToMainPage();
         } catch (Exception e) {

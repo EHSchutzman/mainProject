@@ -2,10 +2,8 @@ package Initialization;
 
 import AgentWorkflow.WorkflowController;
 import Controllers.ActionController;
-import Controllers.UIController;
 import Controllers.mainPageController;
-import Controllers.*;
-import Controllers.searchPageController;
+import Controllers.menuBarSingleton;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import Form.Form;
@@ -16,14 +14,9 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -32,7 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -75,7 +67,7 @@ public class Main extends Application {
             loader.setLocation(getClass().getResource("/Controllers/mainPage.fxml"));
             //System.out.println(loader.getLocation().getPath());
             ScrollPane pane = loader.load();
-            Scene scene = new Scene(root, 1000, 2000);
+            Scene scene = new Scene(root, 1000, 1000);
             scene.getStylesheets().add(getClass().getResource("/Controllers/style.css").toExternalForm());
             root.setTop(menuBar);
             root.setBottom(pane);

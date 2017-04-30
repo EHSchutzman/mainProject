@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.applicationsForAgentController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
@@ -21,9 +14,12 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:" />
-                              <CheckBox fx:id="simpleMaltBeveragesCheckbox" layoutX="25.0" layoutY="30.0" onMouseClicked="#simpleSearch" mnemonicParsing="false" text="Beer" />
-                              <CheckBox fx:id="simpleWineCheckbox" layoutX="85.0" layoutY="30.0" onMouseClicked="#simpleSearch" mnemonicParsing="false" text="Wine" />
-                              <CheckBox fx:id="simpleOtherCheckbox" layoutX="25.0" layoutY="50.0" onMouseClicked="#simpleSearch" mnemonicParsing="false" text="Other" />
+                               <CheckBox fx:id="simpleMaltBeveragesCheckbox" layoutX="15.0" layoutY="40.0"
+                                         mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Beer"/>
+                               <CheckBox fx:id="simpleWineCheckbox" layoutX="85.0" layoutY="40.0"
+                                         mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Wine"/>
+                               <CheckBox fx:id="simpleOtherCheckbox" layoutX="15.0" layoutY="70.0"
+                                         mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Other"/>
                            </children>
                         </AnchorPane>
                     </content>

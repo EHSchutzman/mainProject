@@ -1,12 +1,8 @@
 package Controllers;
 
 import DBManager.DBManager;
-import DatabaseSearch.AppRecord;
 import DatabaseSearch.UserRecord;
 import UserAccounts.User;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,6 +123,7 @@ public class superAgentSearchUsersController extends UIController {
             AnchorPane newWindow = loader.load();
             // Show the scene containing the root layout.
             Scene scene = new Scene(newWindow, 1000, 500);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             // Debugger works better when full screen is off
             stage.setFullScreen(false);

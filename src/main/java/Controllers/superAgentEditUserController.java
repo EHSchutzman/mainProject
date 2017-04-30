@@ -74,6 +74,7 @@ public class superAgentEditUserController extends UIController {
                 loader.setLocation(getClass().getResource("../../../resources/main/Controllers/confirmationMessage.fxml"));
                 //System.out.println(loader.getLocation().toString());
                 Scene scene = new Scene(loader.load());
+                scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
                 System.out.println("We here");
 
                 stage.setScene(scene);

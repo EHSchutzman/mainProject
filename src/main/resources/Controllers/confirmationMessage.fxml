@@ -6,15 +6,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.confirmationMessageController">
+<AnchorPane prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.confirmationMessageController">
    <children>
-      <Button fx:id="closeButton" layoutX="102.0" layoutY="155.0" mnemonicParsing="false" onMouseClicked="#closeWindow" prefHeight="31.0" prefWidth="96.0" text="Close" />
-      <Label layoutX="102.0" layoutY="14.0" text="Success!" fx:id="header">
+      <Button fx:id="closeButton" layoutX="103.0" layoutY="189.0" mnemonicParsing="false" onMouseClicked="#closeWindow"
+              prefHeight="31.0" prefWidth="96.0" text="Close"/>
+      <Label fx:id="header" layoutX="84.0" layoutY="14.0" styleClass="normalTitle" text="Success!">
          <font>
-            <Font size="26.0" />
+            <Font size="36.0"/>
          </font>
       </Label>
-      <ImageView fitHeight="101.0" fitWidth="160.0" layoutX="92.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="101.0" fitWidth="160.0" layoutX="92.0" layoutY="67.0" pickOnBounds="true"
+                 preserveRatio="true">
          <image>
             <Image url="@images/green_checkmark.png" />
          </image>

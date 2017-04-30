@@ -49,6 +49,7 @@ public class agentMainPageController extends UIController{
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
         applicationsForAgentController controller = menuBarSingleton.getInstance().getApplicationsForAgentController();
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Review Pending Applications");
         System.out.println(controller);
         controller.initApplicationTableView();
         controller.displayResults();

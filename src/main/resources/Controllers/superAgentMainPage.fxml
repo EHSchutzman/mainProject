@@ -9,7 +9,8 @@
             prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="Controllers.superAgentMainPageController">
    <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: white;">
+       <AnchorPane id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                   minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
          <children>
              <Button fx:id="reviewLabelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="468.0"
                      layoutY="633.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentSearchApplications"
@@ -33,8 +34,10 @@
                </font>
             </Button>
             <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="790.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="250.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="820.0" layoutX="750.0" layoutY="-21.0" stroke="WHITE" strokeType="INSIDE" width="250.0" />
+             <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE"
+                        width="250.0"/>
+             <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutX="750.0" layoutY="-21.0" stroke="WHITE"
+                        strokeType="INSIDE" width="250.0"/>
              <Button fx:id="viewUpgrades" layoutX="468.0" layoutY="699.0" mnemonicParsing="false"
                      onMouseClicked="#viewPendingRoleUpgrades" prefHeight="37.0" prefWidth="250.0"
                      text="View Upgrade Requests">

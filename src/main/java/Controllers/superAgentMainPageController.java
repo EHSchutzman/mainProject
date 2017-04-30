@@ -59,6 +59,7 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchUsersPane());
         superAgentSearchUsersController controller = menuBarSingleton.getInstance().getSuperAgentSearchUsersController();
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Search System Users");
         menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
         menuBarSingleton.getInstance().getMenuBarController().setSearchType(2);
         controller.displayResults();
@@ -71,12 +72,14 @@ public class superAgentMainPageController extends UIController{
     // TODO: change to createUser page? is this what we really want?
     @FXML
     public void setDisplayToSuperAgentCreateAgent() throws IOException {
-        Stage stage;
-        stage=(Stage) createAgentButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentCreateAgent.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane newWindow = loader.load(getClass().getResource("superAgentCreateAgent.fxml"));
+        Scene scene = new Scene(newWindow, 1000, 500);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
+        stage.setFullScreen(false);
+        stage.getScene().setRoot(newWindow);
         stage.show();
         superAgentCreateAgentController controller = loader.getController();
         slideshow.stopAnimation();
@@ -85,12 +88,14 @@ public class superAgentMainPageController extends UIController{
 
     @FXML
     private void setDisplayToSuperAgentSearchApplications() throws IOException {
-        Stage stage;
-        stage=(Stage) backButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentSearchApplications.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane newWindow = loader.load(getClass().getResource("superAgentSearchApplications.fxml"));
+        Scene scene = new Scene(newWindow, 1000, 700);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
+        stage.setFullScreen(false);
+        stage.getScene().setRoot(newWindow);
         stage.show();
         superAgentSearchApplicationsController controller = loader.getController();
         controller.initsuperAgentApplicationTableView();

@@ -56,12 +56,6 @@
                 <Font size="24.0" />
             </font>
         </Button>
-        <Button fx:id="returnToMainButton" layoutX="30.0" layoutY="30.0" mnemonicParsing="false"
-                onMouseClicked="#returnToMainPage" text="Return To Main">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Button>
         <Label layoutX="354.0" layoutY="23.0" styleClass="titleText" text="Create New Agent">
             <font>
                 <Font size="36.0" />

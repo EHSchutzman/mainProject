@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" fx:controller="Controllers.superAgentSearchUsersController" prefHeight="850.0"
-            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.superAgentSearchUsersController">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
             <children>
@@ -59,18 +60,25 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
                                         <Label layoutX="15.0" layoutY="15.0" text="Filter By:"/>
-                                        <CheckBox fx:id="usernameCheckbox" layoutX="25.0" layoutY="35.0" onMouseClicked="#searchUsers" mnemonicParsing="false"
+                                        <CheckBox fx:id="usernameCheckbox" layoutX="25.0" layoutY="35.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
                                                   text="Username"/>
-                                        <CheckBox fx:id="lastNameCheckbox" layoutX="25.0" layoutY="85.0" onMouseClicked="#searchUsers" mnemonicParsing="false"
+                                        <CheckBox fx:id="lastNameCheckbox" layoutX="25.0" layoutY="85.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
                                                   text="Last Name"/>
-                                        <CheckBox fx:id="firstNameCheckbox" layoutX="25.0" layoutY="60.0" onMouseClicked="#searchUsers" mnemonicParsing="false"
+                                        <CheckBox fx:id="firstNameCheckbox" layoutX="25.0" layoutY="60.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
                                                   text="First Name"/>
-                                        <CheckBox fx:id="emailCheckbox" layoutX="25.0" layoutY="110.0" onMouseClicked="#searchUsers" mnemonicParsing="false" text="Email"/>
+                                        <CheckBox fx:id="emailCheckbox" layoutX="25.0" layoutY="110.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers" text="Email"/>
                                         <Label layoutX="15.0" layoutY="150.0" text="Authentication Level:"/>
-                                        <CheckBox fx:id="agentCheckbox" layoutX="25.0" layoutY="170.0" onMouseClicked="#searchUsers" mnemonicParsing="false" text="Agent"/>
-                                        <CheckBox fx:id="superAgentCheckbox" layoutX="25.0" layoutY="195.0" onMouseClicked="#searchUsers" mnemonicParsing="false"
+                                        <CheckBox fx:id="agentCheckbox" layoutX="25.0" layoutY="170.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers" text="Agent"/>
+                                        <CheckBox fx:id="superAgentCheckbox" layoutX="25.0" layoutY="195.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
                                                   text="Super Agent"/>
-                                        <CheckBox fx:id="applicantCheckbox" layoutX="24.0" layoutY="220.0" onMouseClicked="#searchUsers" mnemonicParsing="false"
+                                        <CheckBox fx:id="applicantCheckbox" layoutX="25.0" layoutY="220.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
                                                   text="Applicant"/>
                                     </children>
                                 </AnchorPane>
