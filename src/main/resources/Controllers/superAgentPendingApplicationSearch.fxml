@@ -64,10 +64,6 @@
                                 <cellValueFactory><PropertyValueFactory property="assignedAgent" />
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn fx:id="completedDateCol" prefWidth="140.0" text="Completed Date">
-                                <cellValueFactory><PropertyValueFactory property="completedDate" />
-                                </cellValueFactory>
-                            </TableColumn>
                             <TableColumn fx:id="fancifulNameCol" prefWidth="125.0" text="Fanciful Name">
                                 <cellValueFactory><PropertyValueFactory property="fancifulName" />
                                 </cellValueFactory>

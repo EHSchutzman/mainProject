@@ -171,7 +171,7 @@ public class menuBarController extends UIController {
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
 
-            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            ObservableList<AppRecord> arr = db.findLabelsSA(searchParams, params);
 
             menuBarSingleton.getInstance().getGlobalData().setObservableListApp(arr);
             System.out.println("ARR IS " + menuBarSingleton.getInstance().getGlobalData().getObservableListApp());
@@ -324,7 +324,7 @@ public class menuBarController extends UIController {
 
             ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
 
-            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+            ObservableList<AppRecord> arr = db.findLabelsSA(searchParams, params);
             System.out.println("ARR IS " + arr);
             main.userData.setObservableListApp(arr);
             System.out.println("USERDATA IS " + main.userData.getObservableListApp());

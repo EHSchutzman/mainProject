@@ -62,12 +62,6 @@ public class superAgentPendingApplicationSearchController extends UIController {
     @FXML
     private CheckBox simpleWineCheckbox;
     @FXML
-    private CheckBox advMaltBeverageCheckbox;
-    @FXML
-    private CheckBox advOtherCheckbox;
-    @FXML
-    private CheckBox advWineCheckbox;
-    @FXML
     private TextField state;
     @FXML
     private TextField country;

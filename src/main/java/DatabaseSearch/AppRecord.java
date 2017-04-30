@@ -15,6 +15,8 @@ public class AppRecord {
     private final SimpleStringProperty brandName = new SimpleStringProperty("");
     private final SimpleStringProperty country = new SimpleStringProperty("");
     private final SimpleStringProperty state = new SimpleStringProperty("");
+    private final SimpleStringProperty applicantName = new SimpleStringProperty("");
+    private final SimpleStringProperty assignedAgent = new SimpleStringProperty("");
     //private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
     private final SimpleStringProperty status = new SimpleStringProperty("");
@@ -34,9 +36,20 @@ public class AppRecord {
         setBrandName(brandName);
         setCountry(country);
         setState(state);
-        //setOriginCode(originCode);
         setTypeID(typeID);
     }
+
+    public AppRecord(String formID, String permitNo, String serialNo, String applicantName, String assignedAgent, String fancifulName, String brandName, String typeID) {
+        setFormID(formID);
+        setPermitNo(permitNo);
+        setSerialNo(serialNo);
+        setApplicantName(applicantName);
+        setAssignedAgent(assignedAgent);
+        setFancifulName(fancifulName);
+        setBrandName(brandName);
+        setTypeID(typeID);
+    }
+
 
     public String getTtbID() {
         return ttbID.get();
@@ -129,6 +142,14 @@ public class AppRecord {
     public void setState(String state) { this.state.set(state); }
 
     public String getState() { return state.get(); }
+
+    public void setApplicantName(String applicantName) { this.applicantName.set(applicantName); }
+
+    public String getApplicantName() { return this.applicantName.get(); }
+
+    public void setAssignedAgent(String assignedAgent) { this.assignedAgent.set(assignedAgent); }
+
+    public String getAssignedAgent() { return this.assignedAgent.get(); }
 
 //    public String getOriginCode() {
 //        return originCode.get();

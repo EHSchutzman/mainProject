@@ -304,6 +304,60 @@ public class DBManager {
         return null;
     }
 
+    public ObservableList<AppRecord> findLabelsSA(ArrayList<ArrayList<String>> filters, String more) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String fields = "ttb_id, permit_no, serial_no, applicant_id, agent_id, fanciful_name, brand_name, alcohol_type";
+        String query = queryBuilder.createLikeStatement("APP.FORMS", fields, filters);
+        if (more != null && !more.isEmpty()) {
+            if (filters.isEmpty()) {
+                query = query.concat(more);
+            } else if (!filters.get(0).isEmpty()) {
+                query = query.concat(more);
+            } else {
+                query = query.concat(" and " + more);
+            }
+        }
+        System.out.println(query);
+
+        ObservableList<AppRecord> ol = FXCollections.observableArrayList();
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                String ttbID = rs.getString("ttb_id");
+                String permitNo = rs.getString("permit_no");
+                String serialNo = rs.getString("serial_no");
+                String applicantID = rs.getString("applicant_id");
+                String agentID = rs.getString("agent_id");
+                String fancifulName = rs.getString("fanciful_name");
+                String brandName = rs.getString("brand_name");
+                String alcoholType = rs.getString("alcohol_type");
+                //ObservableList<String> observableList = FXCollections.observableArrayList();
+                //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
+                //ol.add(observableList);
+                AppRecord application = new AppRecord();
+                application.setFormID(ttbID);
+                application.setPermitNo(permitNo);
+                application.setSerialNo(serialNo);
+                application.setApplicantName(findUsersName(applicantID));
+                application.setApplicantName(findUsersName(agentID));
+                application.setFancifulName(fancifulName);
+                application.setBrandName(brandName);
+                application.setTypeID(alcoholType);
+                ol.add(application);
+            }
+
+            rs.close();
+            stmt.close();
+            connection.close();
+            return ol;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public ObservableList<AgentRecord> findForms(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
