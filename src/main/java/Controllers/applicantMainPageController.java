@@ -169,7 +169,7 @@ public class applicantMainPageController extends UIController{
                     Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                             brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                             applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                            labeltext, null, submitdate, signature, "Incomplete", null, super.main.userData.getUserInformation().getUid(),
+                            labeltext, null, submitdate, signature, "Incomplete", null, menuBarSingleton.getInstance().getGlobalData().getUserInformation().getUid(),
                             null, null, vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                             null);
 

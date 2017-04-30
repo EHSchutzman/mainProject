@@ -14,7 +14,6 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.newUpgradeRequestFormController">
    <children>
       <ComboBox fx:id="requestedLevel" layoutX="50.0" layoutY="173.0" prefHeight="27.0" prefWidth="247.0" promptText="desired authentication level" />
-      <TextField fx:id="saName" layoutX="342.0" layoutY="173.0" promptText="super agent name" />
       <Button fx:id="closeButton" layoutX="184.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#closeWindow" text="Close">
          <font>
             <Font size="18.0" />
@@ -24,7 +23,6 @@
             <Font size="18.0" />
          </font></Button>
       <Label layoutX="87.0" layoutY="131.0" text="Desired Authentication level:" />
-      <Label layoutX="351.0" layoutY="131.0" text="super agent name:" />
       <Label layoutX="189.0" layoutY="39.0" text="New Upgrade Request Form">
          <font>
             <Font size="18.0" />

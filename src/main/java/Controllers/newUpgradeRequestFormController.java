@@ -63,32 +63,13 @@ public class newUpgradeRequestFormController extends UIController {
      */
     public void flagUser() throws IOException{
         boolean isRequestedLevelEmpty = !(requestedLevel.getValue() == null);
-        boolean isSANameEmpty = !(saName.getText().trim().length() < 1);
-
         // check if super agent name is correct
         if(isRequestedLevelEmpty) {
             error1Label.setVisible(false);
-            if(isSANameEmpty){
-                error2Label.setVisible(false);
-                User superAgent = dbManager.findUser("username = '" + saName.getText() + "' and authentication = 3");
-                if(superAgent != null && superAgent.getUid() != null) {
-                    error3Label.setVisible(false);
-
-                    // update text in userUpgradeForm
-
                     // adds user to db
                     upgradeRequest();
-
                     // close window
                     super.closeWindow();
-                }
-                else {
-                    error3Label.setVisible(true);
-                }
-            }
-            else {
-                error2Label.setVisible(true);
-            }
         }
         else {
             error1Label.setVisible(true);
@@ -103,6 +84,6 @@ public class newUpgradeRequestFormController extends UIController {
         if (requestedLevel.getValue().equals("Super Agent")) {
             authLevel = 3;
         }
-        dbManager.persistUpgrade(menuBarSingleton.getInstance().getGlobalData().getUserInformation().getUid(),saName.getText(),authLevel, "Pending");
+        dbManager.persistUpgrade(menuBarSingleton.getInstance().getGlobalData().getUserInformation().getUid(),authLevel, "Pending");
     }
 }

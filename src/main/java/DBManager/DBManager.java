@@ -848,13 +848,13 @@ public class DBManager {
         return null;
     }
 
-    public boolean persistUpgrade(String userID, String saUsername, int authentication, String status){
+    public boolean persistUpgrade(String userID, int authentication, String status){
         QueryBuilder queryBuilder = new QueryBuilder();
         ArrayList<String> fields = new ArrayList<>();
         fields.add("\'" + userID + "\'");
         String saID = "";
         try{
-            String saString = queryBuilder.createSelectStatement("USERS", "user_id", "username = '" + saUsername + "'");
+            String saString = queryBuilder.createSelectStatement("USERS", "user_id", "username = 'NULL'");
             Connection saConnect = TTB_database.connect();
             Statement saStatement = saConnect.createStatement();
             ResultSet saResultSet = saStatement.executeQuery(saString);

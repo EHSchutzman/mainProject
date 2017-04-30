@@ -22,7 +22,7 @@
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button layoutX="297.0" layoutY="725.0" mnemonicParsing="false" text="Import Applications by CSV" />
+            <Button layoutX="297.0" layoutY="725.0" mnemonicParsing="false" onMouseClicked="#submitCSV" text="Import Applications by CSV" />
             </children>
         </AnchorPane>
     </content>
