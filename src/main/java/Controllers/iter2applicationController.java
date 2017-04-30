@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import static Form.StringParsing.*;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 public class iter2applicationController extends UIController {
@@ -122,6 +123,24 @@ public class iter2applicationController extends UIController {
 
 
 
+    }
+
+
+    /**
+     * Function acts upon clicking submission button, checks whether page is valid to submit.
+     * TODO Add tooltips to FXML after imported. On mouse over, shows user proper format.
+     * If throwing null pointer exception, look to other form data, as well as if loginPageErrorLabel is present
+     * TODO Check for other fields being null, throw error and message on label.
+     */
+    @FXML
+    public void submitAction(){
+        removeValidityError();
+
+        if (isValid()){
+            submitForm();
+            loginPageErrorLabel.setText("");
+        }
+        else {displayValidityError();}
     }
 
     @FXML
@@ -330,6 +349,46 @@ public class iter2applicationController extends UIController {
             vintageYearLabel.setVisible(false);
         }
     }
+
+    /**
+     * Helper function for checking boxes that need validation
+     * @return
+     */
+    private boolean isValid(){
+        return (emailValidation(email.getText()) &
+                repIDValidation(repID.getText()) &
+                permitValidation(permitNO.getText()) &
+                phoneNmbrValidation(phoneNo.getText()) &
+                serialValidation(serialNO.getText()));
+    }
+
+    private void displayValidityError(){
+        if (!emailValidation(email.getText())){setRed(email);}
+        if (!repIDValidation(repID.getText())){setRed(repID);}
+        if (!permitValidation(permitNO.getText())){setRed(permitNO);}
+        if (!phoneNmbrValidation(phoneNo.getText())){setRed(phoneNo);}
+        if (!serialValidation(serialNO.getText())){setRed(serialNO);}
+
+        loginPageErrorLabel.setText("Please correct mistakes highlighted in red");
+
+    }
+
+    private void removeValidityError(){
+        TextField[] items = {email,repID,permitNO,phoneNo,serialNO};
+        for (TextField item : items) {
+            removeRed(item);
+        }
+    }
+
+
+    private void setRed(TextField text){
+        text.setStyle("-fx-text-fill:red");
+    }
+
+    private void removeRed(TextField text){
+        text.setStyle("-fx-text-fill: green");
+    }
+
 
 
 
