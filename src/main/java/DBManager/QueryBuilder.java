@@ -50,7 +50,7 @@ public class QueryBuilder {
             }
         }
         // Put options into query string
-        if(!options.isEmpty() && options != null) {
+        if(options != null && !options.isEmpty()) {
            query = query.concat(" where " + options);
         }
         return query;
@@ -69,7 +69,7 @@ public class QueryBuilder {
         // Put the fields and table search in the query string
         query = query.concat("select " + fields + " from " + tablename);
         // Put options into query string
-        if(!options.isEmpty() && options != null) {
+        if(options != null && !options.isEmpty()) {
            query = query.concat(" where " + options);
         }
         return query;
@@ -77,14 +77,44 @@ public class QueryBuilder {
 
     protected String createLikeStatement(String tablename, String fields, ArrayList<ArrayList<String>> options) {
         String query = "select " + fields + " from " + tablename;
-        if(!options.isEmpty() && options != null) {
+        if(options != null && !options.isEmpty()) {
             query = query.concat(" where ");
             System.out.println("0" + query);
             for(int i = 0; i < options.size(); i++) {
                 if (options.get(i).size() > 0) {
                     if (!options.get(i).get(1).isEmpty()) {
                         query = query.concat(options.get(i).get(0) + " like '%" + options.get(i).get(1) + "%'");
-                        if (i < options.size() - 2) {
+                        System.out.println(options.size());
+                        System.out.println("I: " + i);
+                        if (i < options.size() - 1) {
+                            System.out.println("yay");
+                            query = query.concat(" and ");
+                        }
+                    }
+                }
+                System.out.println("1" + query);
+            }
+        }
+        System.out.println("2" + query);
+        return query;
+    }
+
+    protected String createLikeStatement1(String tablename, String fields, ArrayList<ArrayList<String>> options) {
+        String query = "select " + fields + " from " + tablename;
+        if(options != null && !options.isEmpty()) {
+            query = query.concat(" where ");
+            System.out.println("0" + query);
+            for(int i = 0; i < options.size(); i++) {
+                if (options.get(i).size() > 0) {
+                    if (!options.get(i).get(0).isEmpty()) {
+                        if(options.get(i).get(0).equals("=")) {
+                            query = query.concat(options.get(i).get(1) + "='" + options.get(i).get(2) + "'");
+                        } else if(options.get(i).get(0).equals("like")) {
+                            query = query.concat(options.get(i).get(1) + " like UPPER('%" + options.get(i).get(2) + "%')");
+                        } else if(options.get(i).get(0).equals("in")) {
+                            query = query.concat(options.get(i).get(1) + " in (" + options.get(i).get(2) + ")");
+                        }
+                        if (i < options.size() - 1) {
                             query = query.concat(" and ");
                         }
                     }

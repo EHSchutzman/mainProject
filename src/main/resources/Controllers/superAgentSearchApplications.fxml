@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentSearchApplicationsController">
+   <children>
+      <Rectangle fx:id="searchBar" arcHeight="5.0" arcWidth="5.0" fill="#FAFFFF" height="570.0" layoutX="-25.0" layoutY="67.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#597B99" height="100.0" layoutX="667.0" layoutY="664.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="763.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <Label fx:id="pageLabel" layoutX="379.0" layoutY="28.0" text="Application Search Results">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="returnToMainButton" layoutX="20.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#returnToMainPage" text="Return to Search">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="resultsTable" layoutX="20.0" layoutY="142.0" prefHeight="408.0" prefWidth="960.0">
+         <columns>
+            <TableColumn fx:id="formIDCol" prefWidth="92.0" text="Form ID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="ttbID" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="agentNameCol" prefWidth="104.0" text="Agent Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="agentName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="applicantNameCol" prefWidth="132.0" text="Applicant Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="applicantName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="brandNameCol" minWidth="0.0" prefWidth="118.0" text="Brand Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="brandName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="fancifulNameCol" prefWidth="129.0" text="Fanciful Name">
+                    <cellValueFactory>
+                       <PropertyValueFactory property="fancifulName" />
+                    </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="typeIdCol" prefWidth="125.0" text="TypeID">
+                    <cellValueFactory>
+                       <PropertyValueFactory property="typeID" />
+                    </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="statusCol" prefWidth="151.0" text="Status">
+                    <cellValueFactory>
+                       <PropertyValueFactory property="status" />
+                    </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <TextField fx:id="searchBox" layoutX="28.0" layoutY="105.0" onKeyReleased="#getSearchResults" prefHeight="31.0" prefWidth="482.0" promptText="Search Brand or Fanciful Names " />
+      <CheckBox fx:id="brandNameCheckbox" layoutX="838.0" layoutY="26.0" mnemonicParsing="false" onAction="#getSearchResults" text="Brand Name" />
+      <CheckBox fx:id="fancifulNameCheckbox" layoutX="838.0" layoutY="53.0" mnemonicParsing="false" onAction="#getSearchResults" text="Fanciful Name" />
+      <CheckBox fx:id="applicantNameCheckbox" layoutX="988.0" layoutY="26.0" mnemonicParsing="false" onAction="#getSearchResults" text="Applicant Name" />
+      <CheckBox fx:id="agentNameCheckbox" layoutX="988.0" layoutY="53.0" mnemonicParsing="false" onAction="#getSearchResults" text="Agent Name" />
+   </children>
+</AnchorPane>

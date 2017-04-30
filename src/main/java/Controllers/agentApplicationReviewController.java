@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * Created by James Corse on 4/25/17.
  */
 public class agentApplicationReviewController extends UIController{
+
+    //TODO: clean up code, doxygen, gather up fxml fields, make neater
     @FXML
     public void initialize() {
         source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
@@ -110,10 +112,10 @@ public class agentApplicationReviewController extends UIController{
     public TextField submit_date;
     public ImageView label_image;
 
-    private DBManager db = new DBManager();
-    private Form form;
+    private Form form = new Form();
+    private DBManager dbManager = new DBManager();
 
-    void setReviewForm(Form form) {
+    void setReviewForm(Form form){
         this.form = form;
     }
 
@@ -196,16 +198,13 @@ public class agentApplicationReviewController extends UIController{
     /**
      * Sets form status to APPROVED, adds approval comments and closes window
      * TODO: change Accepted to APPROVED
-     *
      * @throws IOException - throws exception
      */
     @FXML
     public void acceptAction() throws IOException{
         form.setapproval_comments(null);
         form.setStatus("Accepted");
-        db.updateForm(form);
-        System.out.println("accepted form");
-
+        dbManager.updateForm(form);
         closeWindow();
     }
 

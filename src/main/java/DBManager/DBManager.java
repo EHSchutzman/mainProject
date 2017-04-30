@@ -283,15 +283,81 @@ public class DBManager {
                 application.setFormID(ttbID);
                 application.setPermitNo(permitNo);
                 application.setSerialNo(serialNo);
-                application.setFancifulName(fancifulName);
                 application.setBrandName(brandName);
-                application.setCountry("");
-                application.setState("");
+                application.setFancifulName(fancifulName);
                 application.setTypeID(alcoholType);
-                application.setCompletedDate(approvedDate);
+                application.setTtbID(ttbID);
                 ol.add(application);
+                application.setCompletedDate(approvedDate);
+                application.setTtbID(ttbID);
             }
 
+            rs.close();
+            stmt.close();
+            connection.close();
+            return ol;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<SuperAgentAppRecord> findLabelsForSuperAgent(ArrayList<ArrayList<String>> filters) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String fields = "ttb_id, applicant_id, agent_id, fanciful_name, brand_name, alcohol_type, status";
+        String formsQuery = queryBuilder.createLikeStatement1("APP.FORMS", fields, filters);
+        System.out.println("formsQuery: " + formsQuery);
+        ObservableList<SuperAgentAppRecord> ol = FXCollections.observableArrayList();
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(formsQuery);
+            while (rs.next()) {
+                String ttbID = rs.getString("ttb_id");
+                String applicantID = rs.getString("applicant_id");
+                String agent_ID = rs.getString("agent_id");
+                String fancifulName = rs.getString("fanciful_name");
+                String brandName = rs.getString("brand_name");
+                String alcoholType = rs.getString("alcohol_type");
+                String status = rs.getString("status");
+
+                // Nested query
+                String applicantNameQuery = queryBuilder.createSelectStatement("USERS", "username", "user_id='" + applicantID + "'");
+                String agentNameQuery = queryBuilder.createSelectStatement("USERS", "username", "user_id='" + agent_ID + "'");
+                String applicantName = "";
+                String agentName = "";
+                System.out.println(applicantNameQuery);
+                System.out.println(agentNameQuery);
+                try {
+                    Connection innerConnection = TTB_database.connect();
+                    Statement innerStatement = innerConnection.createStatement();
+                    ResultSet innerResultSet = innerStatement.executeQuery(applicantNameQuery);
+                    while (innerResultSet.next()) {
+                        applicantName = innerResultSet.getString("username");
+                    }
+                    innerResultSet.close();
+                    ResultSet innerResultSet2 = innerStatement.executeQuery(agentNameQuery);
+                    while (innerResultSet2.next()) {
+                        agentName = innerResultSet2.getString("username");
+                    }
+                    innerStatement.close();
+                    innerConnection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+
+                SuperAgentAppRecord appRecord = new SuperAgentAppRecord();
+                appRecord.setTtbID(ttbID);
+                appRecord.setAgentName(agentName);
+                appRecord.setFancifulName(fancifulName);
+                appRecord.setBrandName(brandName);
+                appRecord.setTypeID(alcoholType);
+                appRecord.setStatus(status);
+                appRecord.setApplicantName(applicantName);
+
+                ol.add(appRecord);
+            }
             rs.close();
             stmt.close();
             connection.close();
@@ -311,14 +377,16 @@ public class DBManager {
 
         if (user.getAuthenticationLevel() == 1) {
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("applicant_id= \'" + user.getUid() + "\'"));
+            System.out.println(query);
         } else if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
             query = queryBuilder.createSelectStatement("APP.FORMS", "*", ("agent_id= \'" + user.getUid() + "\'"));
+            System.out.println(query);
 
         }
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
-            System.out.println("QUERY IS " + query);
+            System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 AgentRecord application = new AgentRecord();
@@ -381,8 +449,7 @@ public class DBManager {
                 String formula = rs.getString("formula");
                 String phone_no = rs.getString("phone_no");
                 String email = rs.getString("email");
-//                String label_text = rs.getString("label_text");
-                String label_text = "";//rs.getString("label_text");
+                String label_text = rs.getString("extraLabelInfo");
                 String label_image = rs.getString("label_image");
                 Date submit_date = rs.getDate("submit_date");
                 String signature = rs.getString("signature");
@@ -418,7 +485,7 @@ public class DBManager {
                 form = new Form(ttb_id, rep_id, permit_no, source, serial_no, alcohol_type,
                         brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                         applicant_zip, applicant_country, mailing_address, formula, phone_no,
-                        email, "", label_image, submit_date, signature, status,
+                        email, label_text, label_image, submit_date, signature, status,
                         agent_id, applicant_id, approved_date, expiration_date, vintage_year,
                         ph_level, grape_varietals, wine_appellation, application_type, application_type_text, approval_comments);
             }
@@ -458,6 +525,40 @@ public class DBManager {
             statement.close();
             connection.close();
             return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<User> findUsers(String options) {
+        System.out.println(options);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERS", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ArrayList<User> users = new ArrayList<>();
+            while (rs.next()) {
+                User user = new User();
+                String user_id = rs.getString("user_id");
+                int authentication = rs.getInt("authentication");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String phone_no = rs.getString("phone_no");
+                String first_name = rs.getString("first_name");
+                String middle_initial = rs.getString("middle_initial");
+                String last_name = rs.getString("last_name");
+                user = new User(user_id, username, password, first_name, middle_initial, last_name, email, phone_no, authentication);
+                users.add(user);
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return users;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -639,7 +740,6 @@ public class DBManager {
         try {
             Connection connection = TTB_database.connect();
             Statement stmt = connection.createStatement();
-            System.out.println("QUERY IS " + queryString);
             stmt.executeUpdate(queryString);
             if (!wine.isEmpty()) {
                 System.out.println("Updating wine");
