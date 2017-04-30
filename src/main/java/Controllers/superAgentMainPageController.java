@@ -28,7 +28,6 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         applicationStatusForApplicantController controller = loader.getController();
-        controller.init(super.mainData);
     }
 
     @FXML
@@ -41,7 +40,6 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         superAgentSearchUsersController controller = loader.getController();
-        controller.init(super.mainData);
         controller.initUserAuthenticationChoiceBox();
         controller.displayResults();
     }
@@ -57,20 +55,20 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         superAgentCreateAgentController controller = loader.getController();
-        controller.init(super.mainData);
     }
 
     @FXML
     private void setDisplayToSuperAgentSearchApplications() throws IOException {
         Stage stage;
-        stage=(Stage) searchApplicationsButton.getScene().getWindow();
+        stage=(Stage) backButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentSearchApplications.fxml"));
         System.out.println(loader.getLocation().getPath());
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();
         superAgentSearchApplicationsController controller = loader.getController();
-        controller.init(super.mainData);
         controller.initsuperAgentApplicationTableView();
     }
+
+
 }

@@ -2,6 +2,7 @@ package DBManager;
 
 import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
+import DatabaseSearch.SuperAgentAppRecord;
 import DatabaseSearch.UserRecord;
 import Form.Form;
 import Initialization.Main;

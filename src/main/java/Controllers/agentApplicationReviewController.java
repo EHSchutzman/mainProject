@@ -217,7 +217,7 @@ public class agentApplicationReviewController extends UIController{
     public void rejectAction() throws IOException{
         form.setapproval_comments(null);
         form.setStatus("Rejected");
-        db.updateForm(form);
+        dbManager.updateForm(form);
         System.out.println("rejected form");
 
         closeWindow();

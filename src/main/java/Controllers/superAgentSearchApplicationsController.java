@@ -136,7 +136,6 @@ public class superAgentSearchApplicationsController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
             inspectApplicationsController controller = loader.getController();
-            controller.init(super.mainData);
             controller.setData(data);
         } catch (Exception e) {
             e.printStackTrace();

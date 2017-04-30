@@ -211,8 +211,6 @@ public abstract class UIController {
         borderPane.setLeft(pane);
         superAgentMainPageController controller = loader.getController();
         System.out.println("CONTROLLER IS " + controller);
-        controller.initSlideshow();
-        controller.startAnimation();
     }
 
     /**
