@@ -250,7 +250,7 @@ public class DBManager {
 
     public ObservableList<AppRecord> findLabels(ArrayList<ArrayList<String>> filters, String more) {
         QueryBuilder queryBuilder = new QueryBuilder();
-        String fields = "ttb_id, permit_no, serial_no, fanciful_name, brand_name, alcohol_type, approved_date";
+        String fields = "ttb_id, permit_no, serial_no, fanciful_name, brand_name, applicant_state, applicant_country, alcohol_type, approved_date";
         String query = queryBuilder.createLikeStatement("APP.FORMS", fields, filters);
         if (more != null && !more.isEmpty()) {
             if (filters.isEmpty()) {
@@ -274,6 +274,8 @@ public class DBManager {
                 String serialNo = rs.getString("serial_no");
                 String fancifulName = rs.getString("fanciful_name");
                 String brandName = rs.getString("brand_name");
+                String state = rs.getString("applicant_state");
+                String country = rs.getString("applicant_country");
                 String alcoholType = rs.getString("alcohol_type");
                 String approvedDate = rs.getDate("approved_date").toString();
                 //ObservableList<String> observableList = FXCollections.observableArrayList();
@@ -285,8 +287,8 @@ public class DBManager {
                 application.setSerialNo(serialNo);
                 application.setFancifulName(fancifulName);
                 application.setBrandName(brandName);
-                application.setCountry("");
-                application.setState("");
+                application.setCountry(country);
+                application.setState(state);
                 application.setTypeID(alcoholType);
                 application.setCompletedDate(approvedDate);
                 ol.add(application);

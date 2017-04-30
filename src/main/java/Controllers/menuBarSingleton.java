@@ -148,7 +148,7 @@ public class menuBarSingleton {
             ScrollPane searchPane = (ScrollPane) searchRoot;
             this.superAgentSearchPendingPane = searchPane;
 
-            superAgentPendingApplicationSearchController superAgentPendingApplicationSearchController = (superAgentPendingApplicationSearchController) menuBarSingleton.getInstance().getSuperAgentPendingApplicationSearchController();
+            superAgentPendingApplicationSearchController superAgentPendingApplicationSearchController = (superAgentPendingApplicationSearchController) searchLoader.getController();
             System.out.println("SUPER AGENT SEARCH PENDING CONTROLLER IS BEING INITIALIZED TO " + superAgentPendingApplicationSearchController);
             this.superAgentPendingApplicationSearchController = superAgentPendingApplicationSearchController;
         }catch (Exception e){

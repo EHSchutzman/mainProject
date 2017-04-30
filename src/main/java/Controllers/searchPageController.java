@@ -50,8 +50,6 @@ public class searchPageController extends UIController {
 
     //Variables for JavaFX buttons
     @FXML
-    private TextField searchBar;
-    @FXML
     private DatePicker dpDateRangeStart;
     @FXML
     private DatePicker dpDateRangeEnd;
@@ -78,9 +76,13 @@ public class searchPageController extends UIController {
     @FXML
     public TableView<AppRecord> resultsTable;
     @FXML
-    private Button return_to_main_button;
-    @FXML
     private TextField userSpecifiedValueText;
+    @FXML
+    private RadioButton commaSeparated;
+    @FXML
+    private RadioButton tabSeparated;
+    @FXML
+    private RadioButton userSpecified;
 
 /*
     //Function that returns the user to the main page
@@ -203,12 +205,12 @@ public class searchPageController extends UIController {
                 searchParams.add(fancifulArray);
             }
             if (stateInfo != null) {
-                stateArray.add("STATE");
+                stateArray.add("APPLICANT_STATE");
                 stateArray.add(stateInfo);
                 searchParams.add(stateArray);
             }
             if (countryInfo != null) {
-                countryArray.add("COUNTRY");
+                countryArray.add("APPLICANT_COUNTRY");
                 countryArray.add(countryInfo);
                 searchParams.add(countryArray);
             }
@@ -273,8 +275,43 @@ public class searchPageController extends UIController {
         });
     }
 
+    @FXML
+    private void onCommaSeparatedClick(){
+        if(tabSeparated.isSelected() || userSpecified.isSelected()){
+            tabSeparated.setSelected(false);
+            userSpecified.setSelected(false);
+        }
+    }
+
+    @FXML
+    private void onTabSeparatedClick(){
+        if(commaSeparated.isSelected() || userSpecified.isSelected()){
+            commaSeparated.setSelected(false);
+            userSpecified.setSelected(false);
+        }
+    }
+
+    @FXML
+    private void onUserSpecifiedClick(){
+        if(tabSeparated.isSelected() || commaSeparated.isSelected()){
+            tabSeparated.setSelected(false);
+            commaSeparated.setSelected(false);
+        }
+    }
+
+
 
     //CSV OPTIONS:
+
+    public void generateCSV(){
+        if (commaSeparated.isSelected()){
+            makeCSV();
+        } else if(tabSeparated.isSelected()){
+            makeTab();
+        } else if(userSpecified.isSelected()){
+            makeUserSpecified();
+        }
+    }
 
     void passListOfForms(ObservableList<AppRecord> listOfForms) {
         this.observableList = listOfForms;
