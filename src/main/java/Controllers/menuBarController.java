@@ -184,6 +184,28 @@ public class menuBarController extends UIController {
     }
 
     @FXML
+    private void searchFromOnPageApplications() {
+        //Set all variables equal to input data
+        String searchBarContent = searchBar.getText();
+        try {
+            String params = " WHERE STATUS = 'Pending' AND AGENT_ID = \'" + menuBarSingleton.getInstance().getGlobalData().getUserInformation().getUid() + "\' AND ";
+            params += " (UPPER(BRAND_NAME) LIKE UPPER('%" + searchBarContent + "%') OR UPPER(FANCIFUL_NAME) LIKE UPPER('%" + searchBarContent + "%'))";
+
+            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
+
+            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
+
+            menuBarSingleton.getInstance().getGlobalData().setObservableListApp(arr);
+            System.out.println("ARR IS " + menuBarSingleton.getInstance().getGlobalData().getObservableListApp());
+            searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
+            controller.displayData(arr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not build a query from search criteria.");
+        }
+    }
+
+    @FXML
     private void searchFromOnPageForms() {
         //Set all variables equal to input data
         String searchBarContent = searchBar.getText();
@@ -411,6 +433,8 @@ public class menuBarController extends UIController {
                 System.out.println("searching users");
                 searchFromOnPageUsers();
                 //call form search
+            } else if (this.searchType == 3){
+                searchFromOnPageApplications();
             }
 
         } else {

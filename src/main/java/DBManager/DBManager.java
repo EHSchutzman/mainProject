@@ -173,10 +173,93 @@ public class DBManager {
 
     //SELECT FUNCTIONS:
 
-    public ObservableList<AgentRecord> pullFormBatch(User user) {
+    public ObservableList<AppRecord> filterForms(User user, boolean isMaltBeverages, boolean isWine, boolean isOther) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ObservableList<AppRecord> o1 = FXCollections.observableArrayList();
+        System.out.println(user.getAuthenticationLevel());
+        if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
+            String query0="";
+
+            // Search for pre-assigned, un-reviewed applications first
+            if(isMaltBeverages && isWine && isOther) {
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\' OR ALCOHOL_TYPE = \'Wine\' OR ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else if (isMaltBeverages && isWine){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\' OR ALCOHOL_TYPE = \'Wine\')");
+            } else if (isMaltBeverages && isOther){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\' OR ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else if (isWine && isOther){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Wine\' OR ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else if (isMaltBeverages){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\')");
+            } else if (isWine){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Wine\')");
+            } else if (isOther){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else {
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "AGENT_ID = \'" + user.getUid() +
+                        "\' AND STATUS = \'Pending\'");
+            }
+
+            System.out.println(query0);
+            try {
+                Connection connection = TTB_database.connect();
+                Statement stmt0 = connection.createStatement();
+
+                ResultSet rs0 = stmt0.executeQuery(query0);
+
+                int i = 0;
+
+                // Iterate through pre-assigned, un-reviewed applications
+                while (rs0.next() && i < 10) {
+                    String ttbID = rs0.getString("ttb_id");
+                    String permitNo = rs0.getString("permit_no");
+                    String serialNo = rs0.getString("serial_no");
+                    String fancifulName = rs0.getString("fanciful_name");
+                    String brandName = rs0.getString("brand_name");
+                    String state = rs0.getString("applicant_state");
+                    String country = rs0.getString("applicant_country");
+                    String alcoholType = rs0.getString("alcohol_type");
+                    String approvedDate = rs0.getDate("approved_date").toString();
+                    //ObservableList<String> observableList = FXCollections.observableArrayList();
+                    //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
+                    //ol.add(observableList);
+                    AppRecord application = new AppRecord();
+                    application.setFormID(ttbID);
+                    application.setPermitNo(permitNo);
+                    application.setSerialNo(serialNo);
+                    application.setFancifulName(fancifulName);
+                    application.setBrandName(brandName);
+                    application.setCountry(country);
+                    application.setState(state);
+                    application.setTypeID(alcoholType);
+                    application.setCompletedDate(approvedDate);
+                    o1.add(application);
+                    i++;
+                }
+                stmt0.close();
+                connection.close();
+                return o1;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ten applications were not able to be pulled and assigned to the specified agent.");
+            }
+        } else {
+            System.out.println("The specified user does not have permission to perform that task.");
+        }
+        return null;
+    }
+
+    public ObservableList<AppRecord> pullFormBatch(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = "";
-        ObservableList<AgentRecord> o1 = FXCollections.observableArrayList();
+        ObservableList<AppRecord> o1 = FXCollections.observableArrayList();
         System.out.println(user.getAuthenticationLevel());
         if (user.getAuthenticationLevel() == 2 || user.getAuthenticationLevel() == 3) {
 
@@ -199,17 +282,29 @@ public class DBManager {
 
                 // Iterate through pre-assigned, un-reviewed applications
                 while (rs0.next() && i < 10) {
-                    String ttb_id = rs0.getString("TTB_ID");
-                    String brand_name = rs0.getString("BRAND_NAME");
-                    String fanciful_name = rs0.getString("FANCIFUL_NAME");
-                    String submit_date = rs0.getString("SUBMIT_DATE");
-                    String status = rs0.getString("STATUS");
-                    AgentRecord agentRecord = new AgentRecord();
-                    agentRecord.setIDNo(ttb_id);
-                    agentRecord.setName(fanciful_name + ", " + brand_name);
-                    agentRecord.setStatus(status);
-                    agentRecord.setDate(submit_date);
-                    o1.add(agentRecord);
+                    String ttbID = rs0.getString("ttb_id");
+                    String permitNo = rs0.getString("permit_no");
+                    String serialNo = rs0.getString("serial_no");
+                    String fancifulName = rs0.getString("fanciful_name");
+                    String brandName = rs0.getString("brand_name");
+                    String state = rs0.getString("applicant_state");
+                    String country = rs0.getString("applicant_country");
+                    String alcoholType = rs0.getString("alcohol_type");
+                    String approvedDate = rs0.getDate("approved_date").toString();
+                    //ObservableList<String> observableList = FXCollections.observableArrayList();
+                    //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
+                    //ol.add(observableList);
+                    AppRecord application = new AppRecord();
+                    application.setFormID(ttbID);
+                    application.setPermitNo(permitNo);
+                    application.setSerialNo(serialNo);
+                    application.setFancifulName(fancifulName);
+                    application.setBrandName(brandName);
+                    application.setCountry(country);
+                    application.setState(state);
+                    application.setTypeID(alcoholType);
+                    application.setCompletedDate(approvedDate);
+                    o1.add(application);
                     i++;
                 }
 
@@ -223,16 +318,29 @@ public class DBManager {
                     form.setagent_id(user.getUid());
                     updateForm(form);
 
-                    String brand_name = rs.getString("BRAND_NAME");
-                    String fanciful_name = rs.getString("FANCIFUL_NAME");
-                    String submit_date = rs.getString("SUBMIT_DATE");
-                    String status = rs.getString("STATUS");
-                    AgentRecord agentRecord = new AgentRecord();
-                    agentRecord.setIDNo(ttb_id);
-                    agentRecord.setName(fanciful_name + ", " + brand_name);
-                    agentRecord.setStatus(status);
-                    agentRecord.setDate(submit_date);
-                    o1.add(agentRecord);
+                    String ttbID = rs.getString("ttb_id");
+                    String permitNo = rs.getString("permit_no");
+                    String serialNo = rs.getString("serial_no");
+                    String fancifulName = rs.getString("fanciful_name");
+                    String brandName = rs.getString("brand_name");
+                    String state = rs.getString("applicant_state");
+                    String country = rs.getString("applicant_country");
+                    String alcoholType = rs.getString("alcohol_type");
+                    String approvedDate = rs.getDate("approved_date").toString();
+                    //ObservableList<String> observableList = FXCollections.observableArrayList();
+                    //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
+                    //ol.add(observableList);
+                    AppRecord application = new AppRecord();
+                    application.setFormID(ttbID);
+                    application.setPermitNo(permitNo);
+                    application.setSerialNo(serialNo);
+                    application.setFancifulName(fancifulName);
+                    application.setBrandName(brandName);
+                    application.setCountry(country);
+                    application.setState(state);
+                    application.setTypeID(alcoholType);
+                    application.setCompletedDate(approvedDate);
+                    o1.add(application);
                     i++;
                 }
                 stmt.close();

@@ -45,7 +45,7 @@ public class agentMainPageController extends UIController{
     @FXML
     private HBox imagebox;
     @FXML
-    private Button submissionButton;
+    private Button agentReviewLabelButton;
 
     /**
      * Redirects to applicationsForAgent.fxml
@@ -53,15 +53,18 @@ public class agentMainPageController extends UIController{
      */
     @FXML
     public void setDisplayToApplicationsForAgent() throws IOException {
-
         BorderPane pane = main.getBorderPane();
         Stage stage;
-        stage=(Stage) submissionButton.getScene().getWindow();
+        stage=(Stage) agentReviewLabelButton.getScene().getWindow();
+
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
         applicationsForAgentController controller = menuBarSingleton.getInstance().getApplicationsForAgentController();
+        System.out.println(controller);
+        controller.initApplicationTableView();
         controller.displayResults();
-        stage.show();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(3);
     }
 
 
@@ -135,7 +138,7 @@ public class agentMainPageController extends UIController{
         //add timeLine
         Timeline anim = new Timeline(keyFrames.toArray(new KeyFrame[imageArrayList.size()]));
 
-        submissionButton.setOnMouseClicked(event -> {
+        agentReviewLabelButton.setOnMouseClicked(event -> {
             System.out.println("stopping anim");
             if (event.getClickCount() == 1) {
                 anim.stop();
