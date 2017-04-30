@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,15 +47,18 @@ public class loginPageController extends UIController{
      */
     @FXML
     private void setDisplayToCreateUser() throws IOException{
-        Stage stage;
-        stage=(Stage) createUserButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("createUser.fxml"));
-        Scene scene = new Scene(loader.load());
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane newWindow = loader.load(getClass().getResource("createUser.fxml"));
+        Scene scene = new Scene(newWindow, 1000, 500);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
+        stage.setFullScreen(false);
+        stage.getScene().setRoot(newWindow);
         stage.show();
         createUserController controller = loader.getController();
-        controller.init(main);
-        controller.initializeComboBox();
+//        controller.init(super.main);
+//        controller.initializeComboBox();
     }
 
     /**
@@ -79,6 +83,7 @@ public class loginPageController extends UIController{
                menuBarController controller = menuBarSingleton.getInstance().getMenuBarController();
                controller.loginButton.setText("LOGOUT");
                controller.currentUserLabel.setText(menuBarSingleton.getInstance().getGlobalData().getUserInformation().getFirstName());
+                menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("WELCOME TO THE TTB DATABASE SYSTEM");
                returnToMainPage();
             } catch (IOException e){
                 e.printStackTrace();

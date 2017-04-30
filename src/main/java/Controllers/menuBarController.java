@@ -2,12 +2,12 @@ package Controllers;
 
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
-import UserAccounts.User;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +15,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -38,6 +37,8 @@ public class menuBarController extends UIController {
     public Button aboutButton;
     @FXML
     public TextField searchBar;
+    @FXML
+    public Label menuTitle;
 
     DBManager db = new DBManager();
 
@@ -60,6 +61,7 @@ public class menuBarController extends UIController {
 
     @FXML
     private void barSetDisplayToMainPage() throws IOException {
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("WELCOME TO THE TTB DATABASE SYSTEM");
         super.returnToMainPage();
     }
 
@@ -72,6 +74,7 @@ public class menuBarController extends UIController {
         FXMLLoader loader = new FXMLLoader();
 
         pane.setTop(menuBarSingleton.getInstance().getBar());
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Label Search");
         try {
             searchPageController controller = menuBarSingleton.getInstance().getSearchPageController();
             controller.resultsTable.setItems(menuBarSingleton.getInstance().getGlobalData().getObservableList());
@@ -96,6 +99,7 @@ public class menuBarController extends UIController {
             currentUserLabel.setText("Not Logged In");
             loginButton.setText("LOGIN");
             menuBarSingleton.getInstance().getGlobalData().setUserInformation(null);
+            menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("WELCOME TO THE TTB DATABASE SYSTEM");
             super.returnToMainPage();
         } else {
             System.out.println("Trying to log in");
@@ -108,6 +112,7 @@ public class menuBarController extends UIController {
             Scene scene = borderPane.getScene();
             stage.setScene(scene);
             borderPane.setTop(menuBarSingleton.getInstance().getBar());
+            menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("User Login");
             borderPane.setLeft(anchorPane);
             stage.show();
         }
@@ -120,7 +125,7 @@ public class menuBarController extends UIController {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             AnchorPane newWindow = loader.load(getClass().getResource("aboutPage.fxml"));
-            Scene scene = new Scene(newWindow, 500, 800);
+            Scene scene = new Scene(newWindow, 515, 800);
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);

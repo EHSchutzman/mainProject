@@ -6,22 +6,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.agentMainPageController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.agentMainPageController">
     <content>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
             <children>
                 <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="269.0" layoutY="639.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicationsForAgent" text="Review Label Application">
                     <font>
-                        <Font size="16.0" />
+                        <Font name="System Bold" size="16.0"/>
                     </font>
                 </Button>
                 <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" layoutY="-7.0" width="250.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutX="750.0" layoutY="-21.0" width="250.0" />
-            <Button layoutX="555.0" layoutY="638.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="150.0" text="Request Role Change">
+                <Button layoutX="512.0" layoutY="639.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="211.0"
+                        text="Request Role Change">
                <font>
-                  <Font size="16.0" />
+                   <Font name="System Bold" size="16.0"/>
                </font></Button>
             </children>
         </AnchorPane>

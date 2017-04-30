@@ -64,7 +64,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label id="pageTitle" text="WELCOME TO THE TTB DATABASE SYSTEM" textAlignment="CENTER"
+                <Label id="pageTitle" fx:id="menuTitle" text="WELCOME TO THE TTB DATABASE SYSTEM" textAlignment="CENTER"
                        GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font size="13.0"/>

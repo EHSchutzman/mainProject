@@ -6,23 +6,33 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.applicantMainPageController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.applicantMainPageController">
     <content>
         <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
             <children>
-                <Button fx:id="viewFormsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="676.0" mnemonicParsing="false" onMouseClicked="#setDisplayToApplicationStatusForApplicant" text="View Submitted Forms">
+                <Button fx:id="viewFormsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="289.0"
+                        layoutY="650.0" mnemonicParsing="false"
+                        onMouseClicked="#setDisplayToApplicationStatusForApplicant" text="View Submitted Forms">
                <font>
-                  <Font size="16.0" />
+                   <Font name="System Bold" size="16.0"/>
                </font></Button>
                 <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" width="250.0" y="-7.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" width="250.0" x="750.0" y="-21.0" />
-                <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="541.0" layoutY="676.0" mnemonicParsing="false" onMouseClicked="#setDisplayToIter2application" text="Submit New Form">
+                <Button fx:id="submissionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="507.0"
+                        layoutY="650.0" mnemonicParsing="false" onMouseClicked="#setDisplayToIter2application"
+                        prefHeight="37.0" prefWidth="193.0" text="Submit New Form">
                <font>
-                  <Font size="16.0" />
+                   <Font name="System Bold" size="16.0"/>
                </font></Button>
-            <Button layoutX="297.0" layoutY="725.0" mnemonicParsing="false" onMouseClicked="#submitCSV" text="Import Applications by CSV" />
+                <Button layoutX="385.0" layoutY="725.0" mnemonicParsing="false" onMouseClicked="#submitCSV"
+                        text="Import Applications by CSV">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Button>
             </children>
         </AnchorPane>
     </content>
