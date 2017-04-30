@@ -83,6 +83,8 @@ public class searchPageController extends UIController {
     private RadioButton tabSeparated;
     @FXML
     private RadioButton userSpecified;
+    @FXML
+    private RadioButton colonSeparated;
 
 /*
     //Function that returns the user to the main page
@@ -277,26 +279,38 @@ public class searchPageController extends UIController {
 
     @FXML
     private void onCommaSeparatedClick(){
-        if(tabSeparated.isSelected() || userSpecified.isSelected()){
+        if(tabSeparated.isSelected() || userSpecified.isSelected() || colonSeparated.isSelected()){
             tabSeparated.setSelected(false);
             userSpecified.setSelected(false);
+            colonSeparated.setSelected(false);
         }
     }
 
     @FXML
     private void onTabSeparatedClick(){
-        if(commaSeparated.isSelected() || userSpecified.isSelected()){
+        if(userSpecified.isSelected() || commaSeparated.isSelected() || colonSeparated.isSelected()){
             commaSeparated.setSelected(false);
             userSpecified.setSelected(false);
+            colonSeparated.setSelected(false);
         }
     }
 
     @FXML
     private void onUserSpecifiedClick(){
-        if(tabSeparated.isSelected() || commaSeparated.isSelected()){
+        if(tabSeparated.isSelected() || commaSeparated.isSelected() || colonSeparated.isSelected()){
             tabSeparated.setSelected(false);
             commaSeparated.setSelected(false);
+            colonSeparated.setSelected(false);
         }
+    }
+    @FXML
+    private void onColonSeparatedClick(){
+        if(tabSeparated.isSelected() || commaSeparated.isSelected() || userSpecified.isSelected()){
+            tabSeparated.setSelected(false);
+            commaSeparated.setSelected(false);
+            userSpecified.setSelected(false);
+        }
+
     }
 
 
@@ -310,6 +324,8 @@ public class searchPageController extends UIController {
             makeTab();
         } else if(userSpecified.isSelected()){
             makeUserSpecified();
+        }else if(colonSeparated.isSelected()){
+            makeColon();
         }
     }
 
@@ -322,7 +338,16 @@ public class searchPageController extends UIController {
      */
     @FXML
     public void makeCSV() {
-        db.generateCSV(observableList, ",", ".csv");
+        db.generateCSV(menuBarSingleton.getInstance().getGlobalData().getObservableListApp(), ",", ".csv");
+        try {
+            displayConfirmationMessage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void makeColon(){
+        db.generateCSV(menuBarSingleton.getInstance().getGlobalData().getObservableListApp(), ":", ".txt");
         try {
             displayConfirmationMessage();
         } catch (Exception e) {
@@ -335,7 +360,7 @@ public class searchPageController extends UIController {
      */
     @FXML
     public void makeTab() {
-        db.generateCSV(observableList, "\t", ".txt");
+        db.generateCSV(menuBarSingleton.getInstance().getGlobalData().getObservableListApp(), "\t", ".txt");
         try {
             displayConfirmationMessage();
         } catch (Exception e) {
@@ -349,7 +374,7 @@ public class searchPageController extends UIController {
     @FXML
     public void makeUserSpecified() {
         String separator = userSpecifiedValueText.getText();
-        db.generateCSV(observableList, separator, ".txt");
+        db.generateCSV(menuBarSingleton.getInstance().getGlobalData().getObservableListApp(), separator, ".txt");
         try {
             displayConfirmationMessage();
         } catch (Exception e) {

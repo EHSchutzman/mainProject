@@ -22,8 +22,7 @@ public class superAgentMainPageController extends UIController{
 
     @FXML
     public HBox imagebox;
-    @FXML
-    private Button reviewLabelButton, userSearchButton, createAgentButton, viewUpgrades;
+
 
     public void initialize(){
         super.init(main);
@@ -55,14 +54,8 @@ public class superAgentMainPageController extends UIController{
     public void setDisplayToSuperAgentSearchUsers() throws IOException {
         Stage stage;
         stage=(Stage) userSearchButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("superAgentSearchUsers.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        superAgentSearchUsersController controller = loader.getController();
-        controller.initUserAuthenticationChoiceBox();
 
+        BorderPane pane = main.getBorderPane();
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchUsersPane());
         superAgentSearchUsersController controller = menuBarSingleton.getInstance().getSuperAgentSearchUsersController();

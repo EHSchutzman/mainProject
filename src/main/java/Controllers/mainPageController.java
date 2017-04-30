@@ -36,7 +36,7 @@ public class mainPageController extends UIController {
     @FXML
     private Button loginButton; // This is a different loginButton from UIController's? double check
     @FXML
-    private HBox imagebox;
+    public HBox imagebox;
     @FXML
     private Hyperlink aboutLink;
 

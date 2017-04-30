@@ -67,7 +67,8 @@ public abstract class UIController {
             loader.setLocation(getClass().getResource("confirmationMessage.fxml"));
             AnchorPane newWindow = loader.load();
             // Show the scene containing the root layout.
-            Scene scene = new Scene(newWindow, 299, 204);
+            Scene scene = new Scene(newWindow, 290, 224);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);

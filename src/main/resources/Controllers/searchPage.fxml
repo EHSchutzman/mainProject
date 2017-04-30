@@ -56,7 +56,7 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <TextField fx:id="userSpecifiedValueText" layoutX="20.0" layoutY="140.0" prefHeight="25.0" prefWidth="190.0" />
+                                        <TextField fx:id="userSpecifiedValueText" layoutX="20.0" layoutY="170.0" prefHeight="25.0" prefWidth="190.0" />
                                         <Label layoutX="50.0" layoutY="5.0" text="CSV Format Options">
                                             <font>
                                                 <Font name="System Bold" size="15.0" />
@@ -65,8 +65,9 @@
                                         <Label layoutX="15.0" layoutY="30.0" text="Generate:" />
                                         <RadioButton fx:id="commaSeparated" layoutX="15.0" layoutY="50.0" onMouseClicked="#onCommaSeparatedClick" mnemonicParsing="false" text="Comma separated values" />
                                         <RadioButton fx:id="tabSeparated" layoutX="15.0" layoutY="80.0" onMouseClicked="#onTabSeparatedClick" mnemonicParsing="false" text="Tab separated values" />
-                                        <RadioButton fx:id="userSpecified" layoutX="15.0" layoutY="110.0" onMouseClicked="#onUserSpecifiedClick" mnemonicParsing="false" text="User specifiec separation:" />
-                                        <Button layoutX="120.0" layoutY="200.0" onMouseClicked="#generateCSV" mnemonicParsing="false" text="Generate CSV" />
+                                        <RadioButton fx:id="colonSeparated" layoutX="15.0" layoutY="110.0" onMouseClicked="#onColonSeparatedClick" mnemonicParsing="false" text="Colon Separated" />
+                                        <RadioButton fx:id="userSpecified" layoutX="15.0" layoutY="140.0" onMouseClicked="#onUserSpecifiedClick" mnemonicParsing="false" text="User specifiec separation:" />
+                                        <Button layoutX="50.0" layoutY="210.0" onMouseClicked="#generateCSV" mnemonicParsing="false" text="Generate CSV" />
                                     </children>
                                 </AnchorPane>
                             </content>
