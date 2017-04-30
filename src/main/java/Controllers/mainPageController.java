@@ -58,9 +58,7 @@ public class mainPageController extends UIController {
         stage.setScene(root.getScene());
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(super.main);
-
-        System.out.println("FUCK ME USE THIS!");
+        slideshow.stopAnimation();
     }
 
 
@@ -85,8 +83,9 @@ public class mainPageController extends UIController {
         slideshow.stopAnimation();
         stage.show();
         loginPageController controller = loader.getController();
-        controller.init(super.main);
         controller.setActionOnEnter();
+        slideshow.stopAnimation();
+
     }
 
     /**

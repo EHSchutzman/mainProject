@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,10 @@ import java.io.IOException;
  */
 public class superAgentMainPageController extends UIController{
 
+    public slideshowController slideshow = new slideshowController();
+
+    @FXML
+    public HBox imagebox;
     @FXML
     private Button reviewLabelButton, userSearchButton, createAgentButton;
 
@@ -28,6 +33,8 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         applicationStatusForApplicantController controller = loader.getController();
+        slideshow.stopAnimation();
+
     }
 
     @FXML
@@ -42,6 +49,8 @@ public class superAgentMainPageController extends UIController{
         superAgentSearchUsersController controller = loader.getController();
         controller.initUserAuthenticationChoiceBox();
         controller.displayResults();
+        slideshow.stopAnimation();
+
     }
 
     // TODO: change to createUser page? is this what we really want?
@@ -55,6 +64,8 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(scene);
         stage.show();
         superAgentCreateAgentController controller = loader.getController();
+        slideshow.stopAnimation();
+
     }
 
     @FXML
@@ -68,6 +79,8 @@ public class superAgentMainPageController extends UIController{
         stage.show();
         superAgentSearchApplicationsController controller = loader.getController();
         controller.initsuperAgentApplicationTableView();
+        slideshow.stopAnimation();
+
     }
 
 

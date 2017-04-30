@@ -55,8 +55,8 @@ public class defaultUserMainPageController extends UIController{
         stage.setScene(root.getScene());
         stage.show();
         searchPageController controller = loader.getController();
-        controller.init(super.main);
-
+        slideshow.stopAnimation();
+        System.out.println("");
     }
 
     @FXML
