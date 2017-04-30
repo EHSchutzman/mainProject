@@ -2,6 +2,7 @@ package DBManager;
 
 import AgentWorkflow.AgentRecord;
 import DatabaseSearch.AppRecord;
+import DatabaseSearch.UpgradeUserRecord;
 import DatabaseSearch.UserRecord;
 import Form.Form;
 import Initialization.Main;
@@ -657,6 +658,30 @@ public class DBManager {
         }
     }
 
+    public boolean updateUserUpgrade(UpgradeUserRecord record) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ArrayList<String> fields = new ArrayList<>();
+        fields.add("user_id = \'" + record.getUserID() + "\'");
+        fields.add("superagent_id = \'" + record.getSuperAgentID() + "\'");
+        fields.add("requested_authentication = " + record.getRequestedAuthentication());
+        fields.add("request_status = \'" + record.getRequestStatus() + "\'");
+        String updateString = queryBuilder.createUpdateStatement("USERUPGRADE", fields, ("user_id = \'" + record.getUserID() + "\'"));
+        System.out.println(updateString);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate(updateString);
+            stmt.close();
+            connection.close();
+            System.out.println("Update success");
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Update failed");
+            return false;
+        }
+    }
+
 
     public void generateCSV(ObservableList<AppRecord> list, String separator, String extension) {
         DirectoryChooser dc = new DirectoryChooser();
@@ -839,6 +864,40 @@ public class DBManager {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public ObservableList<UpgradeUserRecord> findUpgradeUsers(String options) {
+        System.out.println(options);
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String query = queryBuilder.createSelectStatement("USERUPGRADE", "*", options);
+        System.out.println(query);
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            ObservableList<UpgradeUserRecord> users = FXCollections.observableArrayList();
+            while (rs.next()) {
+                UpgradeUserRecord userInfo = new UpgradeUserRecord();
+                String user_id = rs.getString("user_id");
+                String sa_id = rs.getString("superagent_id");
+                int requested_authentication = rs.getInt("requested_authentication");
+                String request_status = rs.getString("request_status");
+                userInfo.setUserID(user_id);
+                userInfo.setSuperAgentID(sa_id);
+                userInfo.setRequestedAuthentication(Integer.toString(requested_authentication));
+                userInfo.setRequestStatus(request_status);
+                if (userInfo.getRequestStatus().equals("Pending")) {
+                    users.add(userInfo);
+                }
+            }
+            rs.close();
+            statement.close();
+            connection.close();
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

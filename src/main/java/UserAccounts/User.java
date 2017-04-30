@@ -80,6 +80,11 @@ public class User {
         return phoneNo;
     }
 
+    public void setAuthenticationLevel(int newAuthenticationLevel) {
+        this.authenticationLevel = newAuthenticationLevel;
+        System.out.println(newAuthenticationLevel);
+    }
+
     public int getAuthenticationLevel() {
         return authenticationLevel;
     }

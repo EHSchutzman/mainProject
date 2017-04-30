@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentMainPageController">
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
@@ -39,6 +46,11 @@
        <Button fx:id="createAgentButton" alignment="CENTER" contentDisplay="CENTER" layoutX="414.0" layoutY="264.0" mnemonicParsing="false" onMouseClicked="#displayCreateAgentPage" text="Create Agent">
          <font>
              <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="upgradeRequestsButton" layoutX="684.0" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#setDisplayToUpgradeRequests" text="Review Upgrade Requests">
+         <font>
+            <Font size="24.0" />
          </font>
       </Button>
    </children>
