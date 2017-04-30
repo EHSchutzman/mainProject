@@ -219,8 +219,8 @@ public class searchPageController extends UIController {
 
             ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
             System.out.println("OBSERVABLE LIST IS " + arr);
-            main.userData.setObservableList(arr);
-            System.out.println("MAIN HAS" + main.userData.getObservableList());
+            main.userData.setObservableListApp(arr);
+            System.out.println("MAIN HAS" + main.userData.getObservableListApp());
             displayData(arr);
             return arr;
         } catch (Exception e) {

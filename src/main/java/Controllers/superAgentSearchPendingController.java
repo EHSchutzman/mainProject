@@ -93,11 +93,6 @@ public class superAgentSearchPendingController extends UIController {
     }
     */
 
-    @FXML
-    public void initialize() {
-        initApplicationTableView();
-    }
-
     //Populates the results table with data from the database
     protected void displayData(ObservableList<AppRecord> list) {
         try {
@@ -109,113 +104,8 @@ public class superAgentSearchPendingController extends UIController {
     }
 
     @FXML
-    private void simpleSearch() {
-        displayData(mbc.simpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
-    }
-
-    @FXML
-    protected ObservableList<AppRecord> advancedSearch() {
-        try {
-            String params = "";
-
-            //Set all variables equal to input data
-            if (dpDateRangeStart.getValue() != null) {
-                from = (dpDateRangeStart.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-            }
-            if (dpDateRangeEnd.getValue() != null) {
-                to = (dpDateRangeEnd.getValue()).format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-            }
-            if (brandName.getText() != null) {
-                brand = brandName.getText();
-            }
-            if (fancifulName.getText() != null) {
-                fanciful = fancifulName.getText();
-            }
-            isMalt = advMaltBeverageCheckbox.isSelected();
-            isSpirit = advOtherCheckbox.isSelected();
-            isWine = advWineCheckbox.isSelected();
-            if (state.getText() != null) {
-                stateInfo = state.getText();
-            }
-            if (country.getText() != null) {
-                countryInfo = country.getText();
-            }
-
-            params += " STATUS = \'Accepted\' ";
-
-            if (dpDateRangeStart.getValue() != null && dpDateRangeEnd.getValue() != null) {
-                params += "AND APPROVED_DATE BETWEEN '" + from + "' AND '" + to + "'";
-            }
-
-            boolean firstCheck = false;
-
-            if (isMalt || isSpirit || isWine) {
-                params += " AND (ALCOHOL_TYPE = ";
-
-                if (isWine) {
-                    params += "\'Wine\'";
-                    firstCheck = true;
-                }
-                if (isSpirit && !firstCheck) {
-                    params += "\'Distilled Spirits\'";
-                    firstCheck = true;
-                } else if (isSpirit && firstCheck) {
-                    params += " OR ALCOHOL_TYPE = \'Distilled Spirit\'";
-                }
-                if (isMalt && !firstCheck) {
-                    params += "\'Malt Beverages\'";
-                    firstCheck = true;
-                } else if (isMalt && firstCheck) {
-                    params += " OR ALCOHOL_TYPE = \'Malt Beverages\'";
-                }
-                params += ")";
-
-            }
-
-            ArrayList<ArrayList<String>> searchParams = new ArrayList<>();
-            ArrayList<String> brandArray = new ArrayList<>();
-            ArrayList<String> fancifulArray = new ArrayList<>();
-            ArrayList<String> typeArray = new ArrayList<>();
-            ArrayList<String> stateArray = new ArrayList<>();
-            ArrayList<String> countryArray = new ArrayList<>();
-            ArrayList<String> statusArray = new ArrayList<>();
-
-            if (brand != null) {
-                brandArray.add("BRAND_NAME");
-                brandArray.add(brand);
-                searchParams.add(brandArray);
-            }
-            if (fanciful != null) {
-                fancifulArray.add("FANCIFUL_NAME");
-                fancifulArray.add(fanciful);
-                searchParams.add(fancifulArray);
-            }
-            if (stateInfo != null) {
-                stateArray.add("STATE");
-                stateArray.add(stateInfo);
-                searchParams.add(stateArray);
-            }
-            if (countryInfo != null) {
-                countryArray.add("COUNTRY");
-                countryArray.add(countryInfo);
-                searchParams.add(countryArray);
-            }
-
-            searchParams.add(statusArray);
-
-            searchParams.add(typeArray);
-
-            ObservableList<AppRecord> arr = db.findLabels(searchParams, params);
-            System.out.println("OBSERVABLE LIST IS " + arr);
-            main.userData.setObservableList(arr);
-            System.out.println("MAIN HAS" + main.userData.getObservableList());
-            displayData(arr);
-            return arr;
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Could not build a query from search criteria.");
-            return null;
-        }
+    protected void simpleSearch() {
+        displayData(mbc.superAgentSimpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
     }
 
     private void displayApprovedLabel(Form form) {
@@ -259,53 +149,6 @@ public class superAgentSearchPendingController extends UIController {
             });
             return row;
         });
-    }
-
-
-    //CSV OPTIONS:
-
-    void passListOfForms(ObservableList<AppRecord> listOfForms) {
-        this.observableList = listOfForms;
-    }
-
-    /**
-     * Function makes a csv file out of observable list in this controller.
-     */
-    @FXML
-    public void makeCSV() {
-        db.generateCSV(observableList, ",", ".csv");
-        try {
-            displayConfirmationMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Function makes a tab delimited format text file out of observable list in this controller.
-     */
-    @FXML
-    public void makeTab() {
-        db.generateCSV(observableList, "\t", ".txt");
-        try {
-            displayConfirmationMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Function passes a parameter from the fxml file and sets the delimiter to this character, then exports text file.
-     */
-    @FXML
-    public void makeUserSpecified() {
-        String separator = userSpecifiedValueText.getText();
-        db.generateCSV(observableList, separator, ".txt");
-        try {
-            displayConfirmationMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML

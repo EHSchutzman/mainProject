@@ -90,7 +90,7 @@ public class menuBarSingleton {
     }
 
     public void initializeSuperAgentSearchUsersController(){
-        URL searchPageURL = getClass().getResource("/Controllers/userSearchPage.fxml");
+        URL searchPageURL = getClass().getResource("/Controllers/superAgentSearchUsers.fxml");
         FXMLLoader searchLoader = new FXMLLoader();
         searchLoader.setLocation(searchPageURL);
         try {

@@ -46,18 +46,19 @@ public class superAgentMainPageController extends UIController{
     public void setDisplayToSuperAgentSearchPending() throws IOException {
         BorderPane pane = main.getBorderPane();
         Stage stage;
-
         stage=(Stage) reviewLabelButton.getScene().getWindow();
 
 
 
         stage.setScene(pane.getScene());
-        pane.setCenter(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
-
-        stage.show();
+        pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
         superAgentSearchPendingController controller = menuBarSingleton.getInstance().getSuperAgentSearchPendingController();
+        System.out.println(controller);
+        controller.initApplicationTableView();
+        controller.simpleSearch();
         menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
-        menuBarSingleton.getInstance().getMenuBarController().setSearchType(2);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(1);
+
 
 
     }
@@ -69,9 +70,13 @@ public class superAgentMainPageController extends UIController{
         stage=(Stage) userSearchButton.getScene().getWindow();
 
         stage.setScene(pane.getScene());
-        pane.setCenter(menuBarSingleton.getInstance().getSuperAgentSearchUsersPane());
+        pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchUsersPane());
         superAgentSearchUsersController controller = menuBarSingleton.getInstance().getSuperAgentSearchUsersController();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(2);
         controller.displayResults();
+        System.out.println("Controller is" + controller);
+        controller.searchUsers();
 
     }
 
