@@ -66,19 +66,19 @@ public class agentMainPageController extends UIController{
         stage.show();
     }
 
-    @FXML
-    public void setDisplayToUserUpgradeForm() throws IOException{
-        Stage stage;
-        stage=(Stage) upgradeButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("userUpgradeForm.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        userUpgradeFormController controller = loader.getController();
-        controller.init(super.main);
-        controller.updateUpgradeInfo();
-    }
+//    @FXML
+//    public void setDisplayToUserUpgradeForm() throws IOException{
+//        Stage stage;
+//        stage=(Stage) upgradeButton.getScene().getWindow();
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("userUpgradeForm.fxml"));
+//        System.out.println(loader.getLocation().getPath());
+//        Scene scene = new Scene(loader.load());
+//        stage.setScene(scene);
+//        stage.show();
+//        userUpgradeFormController controller = loader.getController();
+//        controller.init(super.main);
+//        controller.updateUpgradeInfo();
+//    }
 }
 
 

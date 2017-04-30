@@ -29,7 +29,7 @@
             <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="790.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE" width="250.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="820.0" layoutX="750.0" layoutY="-21.0" stroke="WHITE" strokeType="INSIDE" width="250.0" />
-            <Button layoutX="460.0" layoutY="699.0" mnemonicParsing="false" text="View Upgrade Requests">
+            <Button fx:id="viewUpgrades" onMouseClicked="#viewPendingRoleUpgrades" layoutX="460.0" layoutY="699.0" mnemonicParsing="false" text="View Upgrade Requests">
                <font>
                   <Font size="24.0" />
                </font>

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -21,21 +22,8 @@ public class superAgentMainPageController extends UIController{
     @FXML
     public HBox imagebox;
     @FXML
-    private Button reviewLabelButton, userSearchButton, createAgentButton;
+    private Button reviewLabelButton, userSearchButton, createAgentButton, viewUpgrades;
 
-    @FXML
-    public void setDisplayApplicationReview() throws IOException {
-        Stage stage;
-        stage=(Stage) reviewLabelButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
-        stage.show();
-        applicationStatusForApplicantController controller = loader.getController();
-        slideshow.stopAnimation();
-
-    }
 
     @FXML
     public void setDisplayToSuperAgentSearchUsers() throws IOException {
@@ -82,6 +70,22 @@ public class superAgentMainPageController extends UIController{
         slideshow.stopAnimation();
 
     }
+    @FXML
+    private void viewPendingRoleUpgrades(){
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            AnchorPane newWindow = loader.load(getClass().getResource("superAgentUpgradeRequests.fxml"));
+            Scene scene = new Scene(newWindow, 1000, 1000);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setFullScreen(false);
+            stage.getScene().setRoot(newWindow);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
 
+        }
+    }
 
 }

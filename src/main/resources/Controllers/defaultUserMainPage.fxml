@@ -13,7 +13,7 @@
                 <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" layoutX="750.0" layoutY="-21.0" width="250.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutY="-7.0" width="250.0" />
-            <Button layoutX="280.0" layoutY="655.0" mnemonicParsing="false" text="Request Role Change" />
+            <Button fx:id="upgradeButton" onMouseClicked="#setDisplayToUserUpgradeForm" layoutX="280.0" layoutY="655.0" mnemonicParsing="false" text="Request Role Change" />
             </children>
         </AnchorPane>
     </content>

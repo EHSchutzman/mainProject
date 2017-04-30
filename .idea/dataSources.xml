@@ -13,5 +13,11 @@
       <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
       <jdbc-url>jdbc:derby:$PROJECT_DIR$/../Anthony/Database/appDB</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="THIS BETTER FUCKING STAY" uuid="cb5fac2f-5301-4483-9c1d-3afc16dd328a">
+      <driver-ref>derby.embedded</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby:$PROJECT_DIR$/../Database/Database/appDB</jdbc-url>
+    </data-source>
   </component>
 </project>
