@@ -2,6 +2,7 @@ package Controllers;
 
 import DBManager.DBManager;
 import Form.Form;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -14,47 +15,52 @@ import java.util.ArrayList;
  */
 public class agentApplicationReviewController extends UIController{
     @FXML
-    private TextArea approval_comments_text;
+    public void initialize() {
+        source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
+        alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
+    }
     @FXML
-    private Button rejectButton, acceptButton;
+    private Button back_button;
     @FXML
-    public TextField rep_id_text;
+    public Button browse_button;
     @FXML
-    public TextField permit_no_text;
+    public Button submit_button;
     @FXML
-    public TextField serial_no_text;
+    public Button close_button;
+    @FXML
+    public TextField repID;
+    @FXML
+    public TextField permitNO;
+    @FXML
+    public TextField serialNO;
 
     // Source and Alcohol Type ComboBoxes + their TextFields for Agent Review
     @FXML
     public ComboBox source_combobox;
     @FXML
-    public TextField source_text;
-    @FXML
     public ComboBox alcohol_type_combobox;
-    @FXML
-    public TextField alcohol_type_text;
 
     @FXML
-    public TextField brand_name_text;
+    public TextField brandName;
     @FXML
-    public TextField fanciful_name_text;
+    public TextField fancifulName;
     @FXML
-    public TextField alcohol_content_text;
+    public TextField alcoholContent;
     @FXML
-    public TextField formula_text;
+    public TextField formula;
 
     @FXML
-    public TextField label_text;
+    public TextArea extraLabelInfo;
 
     // Wine only
     @FXML
-    public TextField vintage_year_text;
+    public TextField vintageYear;
     @FXML
-    public TextField ph_level_text;
+    public TextField phLevel;
     @FXML
-    public TextField grape_varietals_text;
+    public TextField grapeVarietals;
     @FXML
-    public TextField wine_appellation_text;
+    public TextField wineAppellation;
 
 
     // CheckBoxes and TextFields for the Type of Application
@@ -78,45 +84,34 @@ public class agentApplicationReviewController extends UIController{
     // Addresses
     // street1 and street2 correspond to applicant_street
     @FXML
-    public TextField applicant_name_text;
+    public TextField applicantStreet;
     @FXML
-    public TextField applicant_street_1_text;
+    public TextField applicantCity;
     @FXML
-    public TextField applicant_street_2_text;
+    public TextField applicantState;
     @FXML
-    public TextField applicant_city_text;
+    public TextField applicantZip;
     @FXML
-    public TextField applicant_state_text;
-    @FXML
-    public TextField applicant_zip_text;
-    @FXML
-    public TextField applicant_country_text;
+    public TextField applicantCountry;
     //Mailing Address
     @FXML
-    public RadioButton sameAsApplicantButton;
+    public CheckBox sameAsApplicantButton;
     @FXML
-    public TextArea mailing_addressText;
+    public TextArea mailingAddress;
+
     @FXML
-    public TextField mailing_name_text;
-    public TextField mailing_street_2_text;
-    public TextField mailing_street_1_text;
-    public TextField mailing_city_text;
-    public TextField mailing_zip_text;
-    public TextField mailing_country_text;
-    public TextField mailing_state_text;
+    public TextField phoneNo;
     @FXML
-    public TextField phone_no_text;
+    public TextField signature;
     @FXML
-    public TextField signature_text;
-    @FXML
-    public TextField email_text;
+    public TextField email;
     @FXML
     public TextArea address_text;
     public TextField submit_date;
     public ImageView label_image;
 
-    private Form form = new Form();
-    private DBManager dbManager = new DBManager();
+    private DBManager db = new DBManager();
+    private Form form;
 
     void setReviewForm(Form form) {
         this.form = form;
@@ -125,26 +120,7 @@ public class agentApplicationReviewController extends UIController{
     void setLabels() {
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
-        if (form.getSource().equals("Imported")) {
-            //source_combobox.getSelectionModel().select(2);
-            source_text.setPromptText("Imported");
-        } else if (form.getSource().equals("Domestic")) {
-            //source_combobox.getSelectionModel().select(1);
-            source_text.setPromptText("Domestic");
-        }
-        // Get Alcohol Type info and set it to display for the Agent
-        //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        System.out.println("creating the form" + form.getalcohol_type());
-        if (form.getalcohol_type().equals("Malt Beverages")) {
-            //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_type_text.setText("Malt Beverages");
-        } else if (form.getalcohol_type().equals("Wine")) {
-            //alcohol_type_combobox.getSelectionModel().select(2);
-            alcohol_type_text.setText("Wine");
-        } else if (form.getalcohol_type().equals("Distilled Spirits")) {
-            //alcohol_type_combobox.getSelectionModel().select(3);
-            alcohol_type_text.setText("Distilled Spirits");
-        }
+
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields
         option_1_checkbox = new CheckBox("Certificate of Label Approval");
@@ -176,25 +152,25 @@ public class agentApplicationReviewController extends UIController{
             option_4_checkbox.setSelected(true);
         }
 
-        rep_id_text.setText(form.getrep_id());
-        permit_no_text.setText(form.getpermit_no());
-        serial_no_text.setText(form.getserial_no());
-        brand_name_text.setText(form.getbrand_name());
-        fanciful_name_text.setText(form.getfanciful_name());
-        alcohol_content_text.setText(String.valueOf(form.getalcohol_content()));
-        formula_text.setText(form.getFormula());
-        label_text.setText(form.getlabel_text());
+        repID.setText(form.getrep_id());
+        permitNO.setText(form.getpermit_no());
+        serialNO.setText(form.getserial_no());
+        brandName.setText(form.getbrand_name());
+        fancifulName.setText(form.getfanciful_name());
+        alcoholContent.setText(String.valueOf(form.getalcohol_content()));
+        formula.setText(form.getFormula());
+        extraLabelInfo.setText(form.getlabel_text());
         // Wines only
         if (form.getalcohol_type().equals("Wine")) {
-            vintage_year_text.setText(form.getvintage_year());
-            ph_level_text.setText(String.valueOf(form.getpH_level()));
-            grape_varietals_text.setText(form.getgrape_varietals());
-            wine_appellation_text.setText(form.getwine_appellation());
+            vintageYear.setText(form.getvintage_year());
+            phLevel.setText(String.valueOf(form.getpH_level()));
+            grapeVarietals.setText(form.getgrape_varietals());
+            wineAppellation.setText(form.getwine_appellation());
         } else {
-            vintage_year_text.setText(null);
-            ph_level_text.setText(null);
-            grape_varietals_text.setText(null);
-            wine_appellation_text.setText(null);
+            vintageYear.setText(null);
+            phLevel.setText(null);
+            grapeVarietals.setText(null);
+            wineAppellation.setText(null);
         }
 
         //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
@@ -210,10 +186,9 @@ public class agentApplicationReviewController extends UIController{
         DBManager manager = new DBManager();
         System.out.println("NAME IS THIS");
         System.out.println(manager.findUsersName(form.getapplicant_id()));
-        applicant_name_text.setText(null);
-        signature_text.setText(form.getSignature());
-        phone_no_text.setText(form.getphone_no());
-        email_text.setText(form.getEmail());
+        signature.setText(form.getSignature());
+        phoneNo.setText(form.getphone_no());
+        email.setText(form.getEmail());
     }
 
     //TODO: change approval_comments in DB to approve/reject comments (make up a better name)
@@ -226,9 +201,9 @@ public class agentApplicationReviewController extends UIController{
      */
     @FXML
     public void acceptAction() throws IOException{
-        form.setapproval_comments(approval_comments_text.getText());
+        form.setapproval_comments(null);
         form.setStatus("Accepted");
-        dbManager.updateForm(form);
+        db.updateForm(form);
         System.out.println("accepted form");
 
         closeWindow();
@@ -241,9 +216,9 @@ public class agentApplicationReviewController extends UIController{
      */
     @FXML
     public void rejectAction() throws IOException{
-        form.setapproval_comments(approval_comments_text.getText());
+        form.setapproval_comments(null);
         form.setStatus("Rejected");
-        dbManager.updateForm(form);
+        db.updateForm(form);
         System.out.println("rejected form");
 
         closeWindow();

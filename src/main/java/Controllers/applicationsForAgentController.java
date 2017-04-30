@@ -91,7 +91,7 @@ public class applicationsForAgentController extends UIController{
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
-            AnchorPane newWindow = loader.load();
+            ScrollPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
@@ -101,7 +101,7 @@ public class applicationsForAgentController extends UIController{
             Scene scene = new Scene(newWindow, 1500, 1000);
 
             stage.setScene(scene);
-            stage.getScene().getStylesheets().add(getClass().getResource("agentApplicationReview.css").toExternalForm());
+            stage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             // Debugger works better when full screen is off
             stage.setFullScreen(false);
 

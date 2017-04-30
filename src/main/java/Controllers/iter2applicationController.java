@@ -30,7 +30,6 @@ public class iter2applicationController extends UIController {
     @FXML
     public void initialize() {
         createApplicantForm();
-        super.init(main);
         source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
         alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
     }
@@ -114,12 +113,12 @@ public class iter2applicationController extends UIController {
 
     private DBManager db = new DBManager();
     private loginPageController lpc = new loginPageController();
-    private Form stroedForm = new Form();
+    private Form storedForm = new Form();
 
     //TODO Gut this funciton, it is never used and I need to do other things instead
     public void createApplicantForm() {
-        stroedForm.setttb_id(stroedForm.makeUniqueID());
-        ttbid.setText(stroedForm.getttb_id());
+        storedForm.setttb_id(storedForm.makeUniqueID());
+        ttbid.setText(storedForm.getttb_id());
 
 
 
@@ -208,12 +207,12 @@ public class iter2applicationController extends UIController {
         Form form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, stroedForm.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
+                labeltext, storedForm.getlabel_image(), submitdate, signature, "Pending", null, main.userData.getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
         db.persistForm(form);
-//        System.out.println(stroedForm.getsubmit_date());
+//        System.out.println(storedForm.getsubmit_date());
         //TODO return to applicant's application list page
     }
 
@@ -253,7 +252,7 @@ public class iter2applicationController extends UIController {
             e.printStackTrace();
         }
 
-        stroedForm.setlabel_image(newFileName);
+        storedForm.setlabel_image(newFileName);
         try {
             System.out.println("here");
             String path = (System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);
@@ -331,6 +330,8 @@ public class iter2applicationController extends UIController {
             vintageYearLabel.setVisible(false);
         }
     }
+
+
 
 
 }

@@ -36,6 +36,7 @@ public class revisionsMenuController extends UIController{
         stage=(Stage) reviseButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("reviseApplication.fxml"));
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
         reviseApplicationController controller = loader.getController();
@@ -53,10 +54,10 @@ public class revisionsMenuController extends UIController{
             Stage stage;
             stage=(Stage) viewButton.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
+            loader.setLocation(getClass().getResource("viewLabel.fxml"));
             AnchorPane newWindow = loader.load();
-            Scene scene = new Scene(newWindow, 1500, 1000);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            Scene scene = new Scene(newWindow, 1000, 1000);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);

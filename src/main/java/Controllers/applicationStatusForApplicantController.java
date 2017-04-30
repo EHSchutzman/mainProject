@@ -40,6 +40,7 @@ public class applicationStatusForApplicantController extends UIController{
             loader.setLocation(getClass().getResource("revisionsMenu.fxml"));
             AnchorPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1500, 1000);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
@@ -73,7 +74,8 @@ public class applicationStatusForApplicantController extends UIController{
 
                         Form viewForm = db.findSingleForm(rowData.getIDNo(), fieldList);
                         // Open selected form in new window
-                        if(viewForm.getStatus().equals("Incomplete")) {
+                        System.out.println("STATUS IS " + viewForm.getStatus());
+                        if(!viewForm.getStatus().equalsIgnoreCase("Accepted")) {
                             System.out.println("before displaying incomplete app: " + viewForm.getrep_id());
                             displayIncompleteApplication(viewForm);
                         } else {
@@ -95,13 +97,14 @@ public class applicationStatusForApplicantController extends UIController{
             stage.setTitle("Incomplete Application");
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("iter2application.fxml"));
+            loader.setLocation(getClass().getResource("viewLabel.fxml"));
             ScrollPane newWindow = loader.load();
             //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
 
             // Show the scene containing the root layout.
-            Scene scene = new Scene(newWindow, 1500, 1000);
+            Scene scene = new Scene(newWindow, 1010, 1000);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
             stage.setScene(scene);
             // Debugger works better when full screen is off
@@ -110,14 +113,15 @@ public class applicationStatusForApplicantController extends UIController{
             stage.getScene().setRoot(newWindow);
             stage.show();
 
-            iter2applicationController controller = loader.getController();
+            viewLabelController controller = loader.getController();
             controller.init(super.main);
             controller.setReviewForm(application);
-            controller.initializeComboBox();
             controller.createIncompleteForm();
 
         } catch (IOException e){
             e.printStackTrace();
         }
     }
+
+
 }

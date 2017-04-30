@@ -207,18 +207,8 @@ public class applicantMainPageController extends UIController{
         BorderPane pane = main.getBorderPane();
         Stage stage;
         stage=(Stage) viewFormsButton.getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("applicationStatusForApplicant.fxml"));
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = new Scene(loader.load());
-        System.out.println(loader.getLocation().getPath());
-        Scene scene = pane.getScene();
         pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForApplicantPane());
-        stage.setScene(scene);
-        stage.show();
-        applicationStatusForApplicantController controller = loader.getController();
-        controller.init(super.main);
-        controller.initApplicationStatusTableView();
         applicationStatusForApplicantController controller = menuBarSingleton.getInstance().getApplicationStatusForApplicantController();
         menuBarController menuBarController = menuBarSingleton.getInstance().getMenuBarController();
         menuBarController.setOnSearchPage(true);
@@ -239,36 +229,9 @@ public class applicantMainPageController extends UIController{
         FXMLLoader loader = new FXMLLoader();
         URL iter2URL = getClass().getResource("iter2application.fxml");
         loader.setLocation(iter2URL);
-        //System.out.println(loader.getLocation().getPath());
-
-    public void setDisplayToIter2application() throws IOException{
-        Stage stage;
-        stage=(Stage) submissionButton.getScene().getWindow();
-
-        BorderPane root = super.main.getBorderPane();
         ScrollPane pane = loader.load();
-
-        root.setTop(menuBarSingleton.getInstance().getBar());
-
-
-        root.setBottom(pane);
-        stage.setScene(root.getScene());
-        BorderPane root = super.main.getBorderPane();
-        URL iter2applicationURL = getClass().getResource("iter2application.fxml");
-        FXMLLoader loader = new FXMLLoader();
-        ScrollPane pane = loader.load(iter2applicationURL);
-        root.setTop(main.getMenuBar());
-        root.setBottom(pane);
-        Scene scene = root.getScene();
-        stage.setScene(root.getScene());
-        stage.show();
-
-
-        iter2applicationController controller = loader.getController();
-        System.out.println(controller);
-        controller.init(main);
-        controller.initialize();
-
+        //System.out.println(loader.getLocation().getPath());
+        borderPane.setLeft(pane);
 
     }
 
@@ -314,7 +277,6 @@ public class applicantMainPageController extends UIController{
         //slide action
         EventHandler<ActionEvent> slideAction = (ActionEvent t) -> {
             count++;
-            System.out.println("slide");
             TranslateTransition trans = new TranslateTransition(Duration.seconds(1.5), imagebox);
             trans.setByX(-500);
             trans.setInterpolator(Interpolator.EASE_BOTH);

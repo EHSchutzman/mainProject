@@ -58,7 +58,7 @@ public class agentMainPageController extends UIController{
         Stage stage;
         stage=(Stage) submissionButton.getScene().getWindow();
         stage.setScene(pane.getScene());
-        pane.setCenter(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
+        pane.setLeft(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
         applicationsForAgentController controller = menuBarSingleton.getInstance().getApplicationsForAgentController();
         controller.displayResults();
         stage.show();
