@@ -1,19 +1,14 @@
 package Controllers;
 
-import Form.Form;
 import DBManager.DBManager;
+import Form.Form;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -125,9 +120,6 @@ public class iter2applicationController extends UIController {
     public void createApplicantForm() {
         form.setttb_id(form.makeUniqueID());
         ttbid.setText(form.getttb_id());
-
-
-
     }
 
 
@@ -314,7 +306,7 @@ public class iter2applicationController extends UIController {
             otherZipcodeLabel.setVisible(false);
             otherCityLabel.setVisible(false);
             otherCountry.setVisible(false);
-            otherCountryLabel.setVisible(true);
+            otherCountryLabel.setVisible(false);
             otherZip.setVisible(false);
             otherState.setVisible(false);
             otherStreet.setVisible(false);

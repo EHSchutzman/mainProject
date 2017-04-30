@@ -292,7 +292,7 @@ public class DBManager {
                     String state = rs0.getString("applicant_state");
                     String country = rs0.getString("applicant_country");
                     String alcoholType = rs0.getString("alcohol_type");
-                    String approvedDate = rs0.getDate("approved_date").toString();
+                    String approvedDate = rs0.getDate("submit_date").toString();
                     //ObservableList<String> observableList = FXCollections.observableArrayList();
                     //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
                     //ol.add(observableList);
@@ -328,7 +328,7 @@ public class DBManager {
                     String state = rs.getString("applicant_state");
                     String country = rs.getString("applicant_country");
                     String alcoholType = rs.getString("alcohol_type");
-                    String approvedDate = rs.getDate("approved_date").toString();
+                    String approvedDate = rs.getDate("submit_date").toString();
                     //ObservableList<String> observableList = FXCollections.observableArrayList();
                     //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
                     //ol.add(observableList);

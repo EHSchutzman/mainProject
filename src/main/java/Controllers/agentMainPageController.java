@@ -1,27 +1,15 @@
 package Controllers;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -57,8 +45,7 @@ public class agentMainPageController extends UIController{
     public void setDisplayToApplicationsForAgent() throws IOException {
         BorderPane pane = main.getBorderPane();
         Stage stage;
-        stage=(Stage) agentReviewLabelButton.getScene().getWindow();
-
+        stage = (Stage) submissionButton.getScene().getWindow();
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForAgentsPane());
         applicationsForAgentController controller = menuBarSingleton.getInstance().getApplicationsForAgentController();
@@ -71,19 +58,17 @@ public class agentMainPageController extends UIController{
         menuBarSingleton.getInstance().getMenuBarController().setSearchType(3);
     }
 
-//    @FXML
-//    public void setDisplayToUserUpgradeForm() throws IOException{
-//        Stage stage;
-//        stage=(Stage) upgradeButton.getScene().getWindow();
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("userUpgradeForm.fxml"));
-//        System.out.println(loader.getLocation().getPath());
-//        Scene scene = new Scene(loader.load());
-//        stage.setScene(scene);
-//        stage.show();
-//        userUpgradeFormController controller = loader.getController();
-//        controller.init(super.main);
-//        controller.updateUpgradeInfo();
-//    }
+    @FXML
+    public void setDisplayToUserUpgradeForm() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        AnchorPane newWindow = loader.load(getClass().getResource("userUpgradeForm.fxml"));
+        Scene scene = new Scene(newWindow, 600, 400);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setScene(scene);
+        stage.setFullScreen(false);
+        stage.getScene().setRoot(newWindow);
+        stage.show();
+        userUpgradeFormController controller = loader.getController();
+    }
 }
-
-

@@ -21,7 +21,7 @@
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" layoutY="-7.0" width="250.0" />
                 <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutX="750.0" layoutY="-21.0" width="250.0" />
                 <Button layoutX="512.0" layoutY="639.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="211.0"
-                        text="Request Role Change">
+                        text="Request Role Change" onMouseClicked="#setDisplayToUserUpgradeForm">
                <font>
                    <Font name="System Bold" size="16.0"/>
                </font></Button>

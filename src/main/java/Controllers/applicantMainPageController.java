@@ -201,7 +201,7 @@ public class applicantMainPageController extends UIController{
     public void setDisplayToApplicationStatusForApplicant() throws IOException {
         BorderPane pane = main.getBorderPane();
         Stage stage;
-        stage=(Stage) viewFormsButton.getScene().getWindow();
+        stage = (Stage) viewFormsButton.getScene().getWindow();
         pane.setTop(menuBarSingleton.getInstance().getBar());
         pane.setLeft(menuBarSingleton.getInstance().getApplicationsForApplicantPane());
         menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Submitted Applications");
