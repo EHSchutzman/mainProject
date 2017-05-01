@@ -183,7 +183,26 @@ public class agentApplicationReviewController extends UIController{
         applicant_zip_text.setPromptText(form.getapplicant_zip());
         applicant_country_text.setPromptText(form.getapplicant_country());*/
 
-        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
+        /*
+        *     @FXML
+    public TextField applicantStreet;
+    @FXML
+    public TextField applicantCity;
+    @FXML
+    public TextField applicantState;
+    @FXML
+    public TextField applicantZip;
+    @FXML
+    public TextField applicantCountry;
+        * */
+
+        applicantStreet.setText(form.getapplicant_street());
+        applicantCity.setText(form.getapplicant_city());
+        applicantState.setText(form.getapplicant_state());
+        applicantZip.setText(form.getapplicant_zip());
+        applicantCountry.setText(form.getapplicant_country());
+
+//        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
         //mailing_addressText.setPromptText(form.getmailing_address());
         DBManager manager = new DBManager();

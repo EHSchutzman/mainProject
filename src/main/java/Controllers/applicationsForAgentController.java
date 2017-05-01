@@ -1,6 +1,5 @@
 package Controllers;
 
-import AgentWorkflow.AgentRecord;
 import DBManager.DBManager;
 import DatabaseSearch.AppRecord;
 import Form.Form;
@@ -13,7 +12,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -105,13 +103,9 @@ public class applicationsForAgentController extends UIController{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("agentApplicationReview.fxml"));
             ScrollPane newWindow = loader.load();
-            //rootLayout.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-            //primaryStage.getScene().getStylesheets().add(getClass().getResource("general.css").toExternalForm());
-
-
 
             // Show the scene containing the root layout.
-            Scene scene = new Scene(newWindow, 1500, 1000);
+            Scene scene = new Scene(newWindow, 1000, 1000);
 
             stage.setScene(scene);
             stage.getScene().getStylesheets().add(getClass().getResource("style.css").toExternalForm());
