@@ -40,7 +40,10 @@ public class applicationsForAgentController extends UIController{
 
     @FXML
     private void simpleSearch(){
-        dbManager.filterForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation(), simpleMaltBeveragesCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected());
+        ObservableList<AppRecord> list = dbManager.filterForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation(), simpleMaltBeveragesCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected());
+        menuBarSingleton.getInstance().getGlobalData().setObservableListApp(list);
+        resultsTable.setItems(list);
+        resultsTable.refresh();
     }
 
     @FXML
