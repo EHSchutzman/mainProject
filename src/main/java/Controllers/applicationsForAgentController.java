@@ -57,22 +57,22 @@ public class applicationsForAgentController extends UIController{
         // This block monitors the user's interaction with the tableview,
         //  determining when they double-click a row
         resultsTable.setRowFactory(tv -> {
-            TableRow<AgentRecord> row = new TableRow<>();
+            TableRow<AppRecord> row = new TableRow<>();
 
             // Open application if row double-clicked
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    AgentRecord rowData = row.getItem();
+                    AppRecord rowData = row.getItem();
 
-                    System.out.println(rowData);
-
+                    System.out.println("ROW DATA IS " + rowData);
+                    System.out.println("IDNO IS " + rowData.getTtbID());
                     ArrayList<String> fieldList = new ArrayList<>();
                     fieldList.add("*");
 
                     // Get form form DB using selected row's ID
                     try {
-                        Form viewForm = dbManager.findSingleForm(rowData.getIDNo(), fieldList);
-
+                        Form viewForm = dbManager.findSingleForm(rowData.getFormID(), fieldList);
+                        System.out.println("viewForm is" + viewForm);
                         //Joe's patented bug fix.
                         //olAR.remove(rowData);
                         // Open selected form in new window

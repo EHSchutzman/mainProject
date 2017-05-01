@@ -56,14 +56,6 @@
                                     <cellValueFactory><PropertyValueFactory property="brandName" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn fx:id="countryCol" prefWidth="100.0" text="Country">
-                                    <cellValueFactory><PropertyValueFactory property="country" />
-                                    </cellValueFactory>
-                                </TableColumn>
-                                <TableColumn fx:id="stateCol" prefWidth="100.0" text="State">
-                                    <cellValueFactory><PropertyValueFactory property="state" />
-                                    </cellValueFactory>
-                                </TableColumn>
                                 <TableColumn fx:id="typeIDCol" prefWidth="123.66668701171875" text="Type ID">
                                     <cellValueFactory><PropertyValueFactory property="typeID" />
                                     </cellValueFactory>

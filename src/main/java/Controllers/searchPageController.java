@@ -314,7 +314,6 @@ public class searchPageController extends UIController {
     }
 
 
-
     //CSV OPTIONS:
 
     public void generateCSV(){

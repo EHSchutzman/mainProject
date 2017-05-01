@@ -120,6 +120,7 @@ public class agentApplicationReviewController extends UIController{
     }
 
     void setLabels() {
+        System.out.println(form);
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
 
