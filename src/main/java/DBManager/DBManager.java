@@ -1,6 +1,7 @@
 package DBManager;
 
 import AgentWorkflow.AgentRecord;
+import Controllers.menuBarSingleton;
 import DatabaseSearch.AppRecord;
 import DatabaseSearch.SuperAgentAppRecord;
 import DatabaseSearch.UpgradeUserRecord;
@@ -264,7 +265,86 @@ public class DBManager {
         }
         return null;
     }
+    public ObservableList<AppRecord> filterFormsSA(boolean isMaltBeverages, boolean isWine, boolean isOther) {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ObservableList<AppRecord> o1 = FXCollections.observableArrayList();
+        if (menuBarSingleton.getInstance().getGlobalData().getUserInformation().getAuthenticationLevel() == 2 || menuBarSingleton.getInstance().getGlobalData().getUserInformation().getAuthenticationLevel()  == 3) {
+            String query0="";
 
+            // Search for pre-assigned, un-reviewed applications first
+            if(isMaltBeverages && isWine && isOther) {
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\' OR ALCOHOL_TYPE = \'Wine\' OR ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else if (isMaltBeverages && isWine){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\' OR ALCOHOL_TYPE = \'Wine\')");
+            } else if (isMaltBeverages && isOther){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\' OR ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else if (isWine && isOther){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Wine\' OR ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else if (isMaltBeverages){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Malt Beverages\')");
+            } else if (isWine){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Wine\')");
+            } else if (isOther){
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\' AND (ALCOHOL_TYPE = \'Distilled Spirits\')");
+            } else {
+                query0 = queryBuilder.createSelectStatement("APP.FORMS", "*", "STATUS = \'Pending\'");
+            }
+
+            System.out.println(query0);
+            try {
+                Connection connection = TTB_database.connect();
+                Statement stmt0 = connection.createStatement();
+
+                ResultSet rs0 = stmt0.executeQuery(query0);
+
+                int i = 0;
+
+                // Iterate through pre-assigned, un-reviewed applications
+                while (rs0.next() && i < 10) {
+                    String ttbID = rs0.getString("ttb_id");
+                    String permitNo = rs0.getString("permit_no");
+                    String serialNo = rs0.getString("serial_no");
+                    String fancifulName = rs0.getString("fanciful_name");
+                    String brandName = rs0.getString("brand_name");
+                    String state = rs0.getString("applicant_state");
+                    String country = rs0.getString("applicant_country");
+                    String alcoholType = rs0.getString("alcohol_type");
+
+                    String approvedDate;
+
+                    if (rs0.getDate("approved_date") != null) {
+                        approvedDate = rs0.getDate("approved_date").toString();
+                    } else {
+                        approvedDate = rs0.getDate("submit_date").toString();
+                    }
+                    //ObservableList<String> observableList = FXCollections.observableArrayList();
+                    //observableList.addAll(ttbID, permitNo, serialNo, approvedDate, fancifulName, brandName, alcoholType);
+                    //ol.add(observableList);
+                    AppRecord application = new AppRecord();
+                    application.setFormID(ttbID);
+                    application.setPermitNo(permitNo);
+                    application.setSerialNo(serialNo);
+                    application.setFancifulName(fancifulName);
+                    application.setBrandName(brandName);
+                    application.setCountry(country);
+                    application.setState(state);
+                    application.setTypeID(alcoholType);
+                    application.setCompletedDate(approvedDate);
+                    o1.add(application);
+                    i++;
+                }
+                stmt0.close();
+                connection.close();
+                return o1;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Ten applications were not able to be pulled and assigned to the specified agent.");
+            }
+        } else {
+            System.out.println("The specified user does not have permission to perform that task.");
+        }
+        return null;
+    }
     public ObservableList<AppRecord> pullFormBatch(User user) {
         QueryBuilder queryBuilder = new QueryBuilder();
         String query = "";
@@ -1174,6 +1254,45 @@ public class DBManager {
             e.printStackTrace();
             System.out.println("Update failed");
             return false;
+        }
+    }
+
+    public ObservableList<AppRecord> findPendingApplications() {
+        QueryBuilder queryBuilder = new QueryBuilder();
+        String queryString = queryBuilder.createSelectStatement("FORMS", "*", "status='Pending'");
+        System.out.println(queryString);
+        ObservableList<AppRecord> observableList = FXCollections.observableArrayList();
+        try {
+            Connection connection = TTB_database.connect();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(queryString);
+            while (resultSet.next()) {
+                AppRecord application = new AppRecord();
+                String ttbID = resultSet.getString("ttb_id");
+                String permitNo = resultSet.getString("permit_no");
+                String serialNo = resultSet.getString("serial_no");
+                String fancifulName = resultSet.getString("fanciful_name");
+                String brandName = resultSet.getString("brand_name");
+                String state = resultSet.getString("applicant_state");
+                String country = resultSet.getString("applicant_country");
+                String alcoholType = resultSet.getString("alcohol_type");
+                String approvedDate = resultSet.getDate("submit_date").toString();
+
+                application.setFormID(ttbID);
+                application.setPermitNo(permitNo);
+                application.setSerialNo(serialNo);
+                application.setFancifulName(fancifulName);
+                application.setBrandName(brandName);
+                application.setCountry(country);
+                application.setState(state);
+                application.setTypeID(alcoholType);
+                application.setCompletedDate(approvedDate);
+                observableList.add(application);
+            }
+            return observableList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

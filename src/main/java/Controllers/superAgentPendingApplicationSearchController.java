@@ -71,6 +71,7 @@ public class superAgentPendingApplicationSearchController extends UIController {
     private Button return_to_main_button;
     @FXML
     private TextField userSpecifiedValueText;
+    private DBManager dbManager = new DBManager();
 
 /*
     //Function that returns the user to the main page
@@ -99,7 +100,10 @@ public class superAgentPendingApplicationSearchController extends UIController {
 
     @FXML
     protected void simpleSearch() {
-        displayData(mbc.superAgentSimpleSearch(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected()));
+        ObservableList<AppRecord> list = dbManager.filterFormsSA(simpleMaltBeverageCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected());
+        menuBarSingleton.getInstance().getGlobalData().setObservableListApp(list);
+        resultsTable.setItems(list);
+        resultsTable.refresh();
     }
 
     private void displayApprovedLabel(Form form) {
@@ -143,6 +147,13 @@ public class superAgentPendingApplicationSearchController extends UIController {
             });
             return row;
         });
+    }
+    public void firstSearch(){
+
+        ObservableList<AppRecord> list = db.findPendingApplications();
+        menuBarSingleton.getInstance().getGlobalData().setObservableListApp(list);
+        resultsTable.setItems(list);
+        resultsTable.refresh();
     }
 
     @FXML

@@ -88,17 +88,19 @@ public class superAgentMainPageController extends UIController{
 
     @FXML
     private void setDisplayToSuperAgentSearchApplications() throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        AnchorPane newWindow = loader.load(getClass().getResource("superAgentSearchApplications.fxml"));
-        Scene scene = new Scene(newWindow, 1000, 700);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setScene(scene);
-        stage.setFullScreen(false);
-        stage.getScene().setRoot(newWindow);
-        stage.show();
-        superAgentSearchApplicationsController controller = loader.getController();
-        //controller.initsuperAgentApplicationTableView();
+        BorderPane pane = main.getBorderPane();
+        Stage stage;
+        stage=(Stage) reviewLabelButton.getScene().getWindow();
+
+
+        stage.setScene(pane.getScene());
+        pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
+        superAgentPendingApplicationSearchController controller = menuBarSingleton.getInstance().getSuperAgentPendingApplicationSearchController();
+        System.out.println(controller);
+        controller.initApplicationTableView();
+        menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);
+        menuBarSingleton.getInstance().getMenuBarController().setSearchType(1);
+        controller.firstSearch();
         slideshow.stopAnimation();
 
     }

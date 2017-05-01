@@ -149,7 +149,6 @@ public class menuBarSingleton {
             this.superAgentSearchPendingPane = searchPane;
 
             superAgentPendingApplicationSearchController superAgentPendingApplicationSearchController = (superAgentPendingApplicationSearchController) searchLoader.getController();
-            System.out.println("SUPER AGENT SEARCH PENDING CONTROLLER IS BEING INITIALIZED TO " + superAgentPendingApplicationSearchController);
             this.superAgentPendingApplicationSearchController = superAgentPendingApplicationSearchController;
         }catch (Exception e){
             e.printStackTrace();
