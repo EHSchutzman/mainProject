@@ -236,6 +236,7 @@ public class agentApplicationReviewController extends UIController{
                 form.setagent_id(forwardAgent.getUid());
                 dbManager.updateForm(form);
                 super.displayConfirmationMessage();
+                closeWindow();
             } else {
                 // set errorlabel
                 errorLabel.setText("Invalid agent username.");
