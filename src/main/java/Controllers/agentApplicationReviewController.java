@@ -2,6 +2,7 @@ package Controllers;
 
 import DBManager.DBManager;
 import Form.Form;
+import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -220,5 +221,21 @@ public class agentApplicationReviewController extends UIController{
 
         closeWindow();
     }
+
+    @FXML
+    private void forwardAction() throws Exception {
+        String agentUsername = forwardAgentUsername.getText();
+        if(agentUsername != null && !agentUsername.isEmpty()) {
+            User forwardAgent = dbManager.findUser("username='" + forwardAgentUsername.getText() + "'");
+            if(forwardAgent != null && forwardAgent.getUid() != null && forwardAgent.getAuthenticationLevel() == 2) {
+                form.setagent_id(forwardAgent.getUid());
+                dbManager.updateForm(form);
+                super.displayConfirmationMessage();
+            } else {
+                // set errorlabel
+            }
+        }
+    }
+
 }
 
