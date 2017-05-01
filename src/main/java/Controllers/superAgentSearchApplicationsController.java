@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -145,7 +144,7 @@ public class superAgentSearchApplicationsController extends UIController{
     /**
      * Monitors user double click on results table
      */
-    void initsuperAgentApplicationTableView() {
+    public void initialize() {
         resultsTable.setItems(null);
         resultsTable.setRowFactory(tv -> {
             TableRow<SuperAgentAppRecord> row = new TableRow<>();

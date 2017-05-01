@@ -98,7 +98,7 @@ public class superAgentMainPageController extends UIController{
         stage.getScene().setRoot(newWindow);
         stage.show();
         superAgentSearchApplicationsController controller = loader.getController();
-        controller.initsuperAgentApplicationTableView();
+        //controller.initsuperAgentApplicationTableView();
         slideshow.stopAnimation();
 
     }
