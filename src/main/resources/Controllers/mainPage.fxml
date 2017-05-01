@@ -8,11 +8,10 @@
             fx:controller="Controllers.mainPageController">
     <content>
         <AnchorPane id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                    minWidth="-Infinity"
-                    prefHeight="800.0" prefWidth="1000.0">
+                    minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
 
             <children>
-                <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="113.0" maxHeight="-Infinity"
+                <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="75.0" maxHeight="-Infinity"
                       maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
                       prefWidth="500.0" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="250.0"
                       AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="113.0"/>
