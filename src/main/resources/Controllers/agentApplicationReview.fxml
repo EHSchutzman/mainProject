@@ -188,28 +188,32 @@
               <TextField fx:id="alcoholContent" disable="true" layoutX="154.0" layoutY="338.0" prefHeight="31.0"
                          prefWidth="187.0" promptText="Alcohol Content"/>
               <Label layoutX="15.0" layoutY="343.0" text="Alcohol Content"/>
-              <Button layoutX="641.0" layoutY="861.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="90.0"
-                      text="Accept" onMouseClicked="#acceptAction">
+              <Button fx:id="acceptButton" layoutX="48.0" layoutY="920.0" mnemonicParsing="false"
+                      onMouseClicked="#acceptAction" prefHeight="37.0" prefWidth="90.0" text="Accept">
                <font>
                    <Font name="System Bold" size="16.0"/>
                </font>
               </Button>
-              <Button layoutX="641.0" layoutY="923.0" mnemonicParsing="false" prefWidth="90.0" text="Reject"
-                      onMouseClicked="#rejectAction">
+              <Button fx:id="rejectButton" layoutX="233.0" layoutY="920.0" mnemonicParsing="false"
+                      onMouseClicked="#rejectAction" prefWidth="90.0" text="Reject">
                <font>
                    <Font name="System Bold" size="16.0"/>
                </font>
               </Button>
-              <Button layoutX="760.0" layoutY="923.0" mnemonicParsing="false" prefWidth="200.0" text="Forward">
+              <Button layoutX="709.0" layoutY="920.0" mnemonicParsing="false" prefWidth="200.0" text="Forward">
                   <font>
                       <Font name="System Bold" size="16.0"/>
                   </font>
               </Button>
-              <Button layoutX="760.0" layoutY="861.0" mnemonicParsing="false" text="Accept With Conditions">
+              <TextField fx:id="forwardAgentUsername" layoutX="716.0" layoutY="877.0" onAction="#forwardAction"
+                         promptText="Agent Username"/>
+              <TextArea fx:id="comments" layoutX="35.0" layoutY="694.0" prefHeight="200.0" prefWidth="307.0"
+                        promptText="Approval/Rejection Comments, if any"/>
+              <Label styleClass="errorLabel" fx:id="errorLabel" layoutX="792.0" layoutY="856.0">
                   <font>
-                      <Font name="System Bold" size="16.0"/>
+                      <Font size="16.0"/>
                   </font>
-              </Button>
+              </Label>
          </children>
       </AnchorPane>
    </content>

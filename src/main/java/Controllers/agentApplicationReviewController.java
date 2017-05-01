@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,6 +113,10 @@ public class agentApplicationReviewController extends UIController{
     public TextArea address_text;
     public TextField submit_date;
     public ImageView label_image;
+    public TextField forwardAgentUsername;
+    public TextArea comments;
+    public Label errorLabel;
+    public Button acceptButton;
 
     private Form form = new Form();
     private DBManager dbManager = new DBManager();
@@ -201,7 +206,7 @@ public class agentApplicationReviewController extends UIController{
      */
     @FXML
     public void acceptAction() throws IOException{
-        form.setapproval_comments(null);
+        form.setapproval_comments(comments.getText());
         form.setStatus("Accepted");
         dbManager.updateForm(form);
         closeWindow();
@@ -214,7 +219,7 @@ public class agentApplicationReviewController extends UIController{
      */
     @FXML
     public void rejectAction() throws IOException{
-        form.setapproval_comments(null);
+        form.setapproval_comments(comments.getText());
         form.setStatus("Rejected");
         dbManager.updateForm(form);
         System.out.println("rejected form");
@@ -233,9 +238,20 @@ public class agentApplicationReviewController extends UIController{
                 super.displayConfirmationMessage();
             } else {
                 // set errorlabel
+                errorLabel.setText("Invalid agent username.");
             }
         }
     }
 
+    /**
+     * Closes current window
+     *
+     * @throws IOException - throws exception
+     */
+    @FXML
+    public void closeWindow() throws IOException {
+        Stage stage = (Stage) acceptButton.getScene().getWindow();
+        stage.close();
+    }
 }
 
