@@ -179,8 +179,6 @@ public class applicantMainPageController extends UIController{
         } else {
             System.out.println("Invalid file or no file chosen.");
         }
-
-
     }
 
     /**
@@ -222,7 +220,6 @@ public class applicantMainPageController extends UIController{
         menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Submit New Label Application");
         loader.setLocation(iter2URL);
         ScrollPane pane = loader.load();
-        //System.out.println(loader.getLocation().getPath());
         borderPane.setLeft(pane);
         slideshow.stopAnimation();
 
