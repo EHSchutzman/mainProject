@@ -6,10 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -184,5 +186,18 @@ public class viewLabelController extends UIController{
         signature.setText(storedForm.getSignature());
         phoneNo.setText(storedForm.getphone_no());
         email.setText(storedForm.getEmail());
+        System.out.println("Image creation");
+        File file = new File(System.getProperty("user.dir") + "/images/"+ storedForm.getlabel_image());
+        try{
+            String localURL = file.toURI().toURL().toString();
+            System.out.println("URL IS " + localURL);
+            Image image = new Image(localURL);
+            label_image.setImage(image);
+        }catch (Exception e){
+
+        }
+
+
+
     }
 }

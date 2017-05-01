@@ -28,6 +28,7 @@ import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 public class iter2applicationController extends UIController {
     private String uid;
+    private String image_name;
     @FXML
     public void initialize(){
         createApplicantForm();
@@ -187,13 +188,14 @@ public class iter2applicationController extends UIController {
 
         // Wines only
 
-        if (source_combobox.getValue().toString().equalsIgnoreCase("Wine")) {
-            pH_level = (Integer.parseInt(phLevel.getText()));
+        if (alcohol_type_combobox.getValue().toString().equalsIgnoreCase("Wine")) {
+            System.out.println("IS WINE BITHCESSSSSSSSS");
+             pH_level = (Integer.parseInt(phLevel.getText()));
              grape_varietals = (grapeVarietals.getText());
              wine_appellation = (wineAppellation.getText());
              vintage_year = (vintageYear.getText());
         } else {
-
+            System.out.println("NOT WINE ");
             pH_level = -1;
         }
 
@@ -216,19 +218,26 @@ public class iter2applicationController extends UIController {
         String phone_no = (phoneNo.getText());
         String email = (this.email.getText());
         Date submitdate = new Date(System.currentTimeMillis());
-
+        if(image_name== null){
+            image_name = "";
+        }
 
         //TODO Update image when adding image display things
         //TODO check if label_image.getId() pulls right value
         form = new Form(rep_id, permit_no, source, serial_no, alcohol_type,
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, mailing_address, formula, phone_no, email,
-                labeltext, label_image.getId(), submitdate, signature, "Pending", null, menuBarSingleton.getInstance().getGlobalData().getUserInformation().getUid(), null, null,
+                labeltext, image_name, submitdate, signature, "Pending", null, menuBarSingleton.getInstance().getGlobalData().getUserInformation().getUid(), null, null,
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 null);
 
         db.persistForm(form);
 //        System.out.println(form.getsubmit_date());
+        try {
+            super.returnToMainPage();
+        }catch (Exception e){
+
+        }
         //TODO return to applicant's application list page
     }
 
@@ -260,7 +269,7 @@ public class iter2applicationController extends UIController {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
-        File destInSys = new File(System.getProperty("user.dir") + "/src/mainData/resources/Controllers/images/" + newFileName);
+        File destInSys = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {
             Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
 
@@ -272,6 +281,7 @@ public class iter2applicationController extends UIController {
         try {
             System.out.println("here");
             String path = (System.getProperty("user.dir") + "/src/mainData/resources/Controllers/images/" + newFileName);
+            image_name = path;
             File file = new File(path);
             String localURL = file.toURI().toURL().toString();
             Image image = new Image(localURL);

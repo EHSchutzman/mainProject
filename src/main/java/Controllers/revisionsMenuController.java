@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -55,7 +56,7 @@ public class revisionsMenuController extends UIController{
             stage=(Stage) viewButton.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("viewLabel.fxml"));
-            AnchorPane newWindow = loader.load();
+            ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1000, 1000);
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
@@ -64,6 +65,7 @@ public class revisionsMenuController extends UIController{
             stage.show();
             inspectApprovedLabelController controller = loader.getController();
             controller.setForm(form);
+            controller.createReviseForm(form);
         } catch (Exception e) {
             e.printStackTrace();
         }

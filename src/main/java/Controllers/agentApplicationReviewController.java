@@ -6,10 +6,13 @@ import UserAccounts.User;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -119,6 +122,11 @@ public class agentApplicationReviewController extends UIController{
     public TextArea comments;
     public Label errorLabel;
     public Button acceptButton;
+    public Rectangle wineRec;
+    public Label vintageYearLabel;
+    public Label wineAppellationLabel;
+    public Label phLevelLabel;
+    public Label grapeVarietalsLabel;
 
     private Form form = new Form();
     private DBManager dbManager = new DBManager();
@@ -185,7 +193,8 @@ public class agentApplicationReviewController extends UIController{
             grapeVarietals.setText(null);
             wineAppellation.setText(null);
         }
-
+        source_combobox.setPromptText(form.getSource());
+        alcohol_type_combobox.setPromptText(form.getalcohol_type());
         applicantStreet.setText(form.getapplicant_street());
         applicantCity.setText(form.getapplicant_city());
         applicantState.setText(form.getapplicant_state());
@@ -199,6 +208,44 @@ public class agentApplicationReviewController extends UIController{
         signature.setText(form.getSignature());
         phoneNo.setText(form.getphone_no());
         email.setText(form.getEmail());
+        File file = new File(System.getProperty("user.dir") + "/images/"+ form.getlabel_image());
+        try{
+            String localURL = file.toURI().toURL().toString();
+            System.out.println("URL IS " + localURL);
+            Image image = new Image(localURL);
+            label_image.setImage(image);
+        }catch (Exception e){
+
+        }
+
+        String source = form.getalcohol_type();
+        System.out.println("SOURCE IS " + source);
+        if(source.equalsIgnoreCase("Wine")){
+            System.out.println("IS WINE");
+            wineRec.setVisible(true);
+            grapeVarietals.setVisible(true);
+            grapeVarietalsLabel.setVisible(true);
+            grapeVarietals.setDisable(true);
+
+            wineAppellation.setVisible(true);
+            wineAppellationLabel.setVisible(true);
+            wineAppellation.setDisable(true);
+
+            phLevel.setVisible(true);
+            phLevelLabel.setVisible(true);
+            phLevel.setDisable(true);
+
+            vintageYear.setVisible(true);
+            vintageYearLabel.setVisible(true);
+            vintageYear.setDisable(true);
+
+            vintageYear.setText(form.getvintage_year());
+            wineAppellation.setText(form.getwine_appellation());
+
+            phLevel.setText(Integer.toString(form.getpH_level()));
+            grapeVarietals.setText(form.getgrape_varietals());
+
+        }
     }
 
     //TODO: change approval_comments in DB to approve/reject comments (make up a better name)

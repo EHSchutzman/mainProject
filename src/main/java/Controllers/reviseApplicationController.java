@@ -202,20 +202,20 @@ public class reviseApplicationController extends UIController {
         System.out.println("creating revision form" + booleanArrayList);
         //TODO pull the applicant search from the DB
         if (form.getSource().equals("Imported")) {
-            source_combobox.setValue(0);
+            source_combobox.setValue("Imported");
         } else if (form.getSource().equals("Domestic")) {
-            source_combobox.setValue(1);
+            source_combobox.setValue("Domestic");
         }
 
         // Get Alcohol Type info and set it to display for the Agent
         //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
         if (form.getalcohol_type().equals("Malt Beverages")) {
             //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_type_combobox.setValue(0);
+            alcohol_type_combobox.setValue("Malt Beverages");
         } else if (form.getalcohol_type().equals("Wine")) {
-            alcohol_type_combobox.setValue(1);
+            alcohol_type_combobox.setValue("Wine");
         } else if (form.getalcohol_type().equals("Distilled Spirits")) {
-            alcohol_type_combobox.setValue(2);
+            alcohol_type_combobox.setValue("Distilled Spirits");
         }
 
         // Initialize checkboxes
