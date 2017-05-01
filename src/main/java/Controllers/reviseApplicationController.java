@@ -3,24 +3,35 @@ package Controllers;
 import DBManager.DBManager;
 import Form.Form;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 
 /**
  * Status: incomplete, needs work.
  * TODO: make sure revisions checkboxes allow editable fields
  */
 public class reviseApplicationController extends UIController {
+    private String image_name;
     @FXML
     public void initialize() {
         source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
@@ -182,10 +193,13 @@ public class reviseApplicationController extends UIController {
 
         Date date = new Date(0);
         Date submitdate = new Date(System.currentTimeMillis());
+        if(image_name == null){
+            image_name = form.getlabel_image();
+        }
         Form updatedForm = new Form(form.getttb_id(), form.getrep_id(), form.getpermit_no(), form.getSource(), form.getserial_no(), form.getalcohol_type(),
                 brand_name, fanciful_name, alcohol_content, applicant_street, applicant_city, applicant_state,
                 applicant_zip, applicant_country, form.getmailing_address(), formula, form.getphone_no(), form.getEmail(),
-                labeltext, form.getlabel_image(), form.getsubmit_date(), form.getSignature(), form.getStatus(), form.getagent_id(), form.getapplicant_id(), form.getapproved_date(), form.getexpiration_date(),
+                labeltext, image_name, form.getsubmit_date(), form.getSignature(), form.getStatus(), form.getagent_id(), form.getapplicant_id(), form.getapproved_date(), form.getexpiration_date(),
                 vintage_year, pH_level, grape_varietals, wine_appellation, application_type, application_type_text,
                 form.getapproval_comments());
 
@@ -196,6 +210,7 @@ public class reviseApplicationController extends UIController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public void createReviseForm(Form form, ArrayList<Boolean> booleanArrayList) {
@@ -351,4 +366,55 @@ public class reviseApplicationController extends UIController {
         this.form = form;
     }
 
+    @FXML
+    public void browseForFile() {
+        FileChooser fc = new FileChooser();
+        String currentDir = System.getProperty("user.dir");
+//        System.out.println(currentDir);
+
+        fc.setInitialDirectory(new File(currentDir));
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files (.jpg .png)", "*.jpg", "*.png"));
+        File selectedFile = fc.showOpenDialog(null);
+
+
+        if (selectedFile != null) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(selectedFile);
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                label_image.setImage(image);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Invalid File");
+        }
+
+        Date date = new Date(System.currentTimeMillis());
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
+        File destInSys = new File(System.getProperty("user.dir") + "/images/" + newFileName);
+        try {
+            Files.copy(selectedFile.toPath(), destInSys.toPath(), StandardCopyOption.REPLACE_EXISTING, NOFOLLOW_LINKS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        form.setlabel_image(newFileName);
+        try {
+            System.out.println("here");
+            String path = (System.getProperty("user.dir") + "/images/" + newFileName);
+            image_name = path;
+            File file = new File(path);
+            String localURL = file.toURI().toURL().toString();
+            Image image = new Image(localURL);
+            System.out.println("Now here");
+            System.out.println("down");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
