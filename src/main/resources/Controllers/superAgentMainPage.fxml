@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.superAgentMainPageController">
+   <content>
+       <AnchorPane id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                   minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0">
+         <children>
+             <Button fx:id="reviewLabelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="469.0"
+                     layoutY="611.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentSearchApplications"
+                     prefHeight="37.0" prefWidth="250.0" text="Search Pending Applications" textAlignment="CENTER">
+               <font>
+                   <Font name="System Bold" size="16.0"/>
+               </font>
+            </Button>
+             <Button fx:id="userSearchButton" alignment="CENTER" contentDisplay="CENTER" layoutX="281.0" layoutY="611.0"
+                     mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentSearchUsers" prefHeight="37.0"
+                     prefWidth="136.0" text="Search Users">
+               <font>
+                   <Font name="System Bold" size="16.0"/>
+               </font>
+            </Button>
+             <Button fx:id="createAgentButton" alignment="CENTER" contentDisplay="CENTER" layoutX="281.0"
+                     layoutY="677.0" mnemonicParsing="false" onMouseClicked="#setDisplayToSuperAgentCreateAgent"
+                     prefHeight="37.0" prefWidth="137.0" text="Create Agent">
+               <font>
+                   <Font name="System Bold" size="16.0"/>
+               </font>
+            </Button>
+             <HBox fx:id="imagebox" alignment="CENTER_LEFT" layoutX="250.0" layoutY="75.0" maxHeight="-Infinity"
+                   maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+                   prefWidth="500.0"/>
+             <Rectangle arcHeight="5.0" arcWidth="5.0" height="790.0" layoutY="-7.0" stroke="WHITE" strokeType="INSIDE"
+                        width="250.0"/>
+             <Rectangle arcHeight="5.0" arcWidth="5.0" height="820.0" layoutX="750.0" layoutY="-21.0" stroke="WHITE"
+                        strokeType="INSIDE" width="250.0"/>
+             <Button fx:id="viewUpgrades" layoutX="469.0" layoutY="677.0" mnemonicParsing="false"
+                     onMouseClicked="#viewPendingRoleUpgrades" prefHeight="37.0" prefWidth="250.0"
+                     text="View Upgrade Requests">
+               <font>
+                   <Font name="System Bold" size="16.0"/>
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

@@ -13,6 +13,10 @@ public class AppRecord {
     private final SimpleStringProperty completedDate = new SimpleStringProperty("");
     private final SimpleStringProperty fancifulName = new SimpleStringProperty("");
     private final SimpleStringProperty brandName = new SimpleStringProperty("");
+    private final SimpleStringProperty country = new SimpleStringProperty("");
+    private final SimpleStringProperty state = new SimpleStringProperty("");
+    private final SimpleStringProperty applicantName = new SimpleStringProperty("");
+    private final SimpleStringProperty assignedAgent = new SimpleStringProperty("");
     //private final SimpleStringProperty originCode = new SimpleStringProperty("");
     private final SimpleStringProperty typeID = new SimpleStringProperty("");
     private final SimpleStringProperty status = new SimpleStringProperty("");
@@ -20,22 +24,32 @@ public class AppRecord {
     private final SimpleStringProperty ttbID = new SimpleStringProperty("");
 
     public AppRecord() {
-        this("", "", "", "", "", "", "", "", "", "");
+        this("", "", "", "", "", "", "", "", "");
     }
 
-    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String typeID, String status, String applicantID, String ttbID) {
+    public AppRecord(String formID, String permitNo, String serialNo, String completedDate, String fancifulName, String brandName, String country, String state, String typeID) {
         setFormID(formID);
         setPermitNo(permitNo);
         setSerialNo(serialNo);
         setCompletedDate(completedDate);
         setFancifulName(fancifulName);
         setBrandName(brandName);
-        //setOriginCode(originCode);
+        setCountry(country);
+        setState(state);
         setTypeID(typeID);
-        setStatus(status);
-        setApplicantID(applicantID);
-        setTtbID(ttbID);
     }
+
+    public AppRecord(String formID, String permitNo, String serialNo, String applicantName, String assignedAgent, String fancifulName, String brandName, String typeID) {
+        setFormID(formID);
+        setPermitNo(permitNo);
+        setSerialNo(serialNo);
+        setApplicantName(applicantName);
+        setAssignedAgent(assignedAgent);
+        setFancifulName(fancifulName);
+        setBrandName(brandName);
+        setTypeID(typeID);
+    }
+
 
     public String getTtbID() {
         return ttbID.get();
@@ -120,6 +134,22 @@ public class AppRecord {
     public void setBrandName(String brandName) {
         this.brandName.set(brandName);
     }
+
+    public void setCountry(String country) { this.country.set(country); }
+
+    public String getCountry() { return country.get(); }
+
+    public void setState(String state) { this.state.set(state); }
+
+    public String getState() { return state.get(); }
+
+    public void setApplicantName(String applicantName) { this.applicantName.set(applicantName); }
+
+    public String getApplicantName() { return this.applicantName.get(); }
+
+    public void setAssignedAgent(String assignedAgent) { this.assignedAgent.set(assignedAgent); }
+
+    public String getAssignedAgent() { return this.assignedAgent.get(); }
 
 //    public String getOriginCode() {
 //        return originCode.get();

@@ -89,4 +89,8 @@ public class User {
         System.out.println(uniqueID.length());
         return uniqueID;
     }
+
+    public void setAuthenticationLevel(int authenticationLevel) {
+        this.authenticationLevel = authenticationLevel;
+    }
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentPendingApplicationSearchController">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
+         <children>
+            <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="200.0">
+               <panes>
+                  <TitledPane animated="false" text="Filters">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label layoutX="15.0" layoutY="15.0" text="Alcohol Type:" />
+                               <CheckBox fx:id="simpleMaltBeverageCheckbox" layoutX="15.0" layoutY="40.0"
+                                         mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Beer"/>
+                               <CheckBox fx:id="simpleWineCheckbox" layoutX="85.0" layoutY="40.0"
+                                         mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Wine"/>
+                               <CheckBox fx:id="simpleOtherCheckbox" layoutX="15.0" layoutY="65.0"
+                                         mnemonicParsing="false" onMouseClicked="#simpleSearch" text="Other"/>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </panes>
+            </Accordion>
+            <ScrollPane prefHeight="830.0" prefWidth="725.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
+                     <children>
+                        <TableView fx:id="resultsTable" onMouseEntered="#refreshView" prefHeight="830.0" prefWidth="1000.0">
+                            <columns>
+                            <TableColumn fx:id="formIDCol" prefWidth="120.0" text="Form ID">
+                                <cellValueFactory><PropertyValueFactory property="formID" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="permitNoCol" prefWidth="120.0" text="Permit No.">
+                                <cellValueFactory><PropertyValueFactory property="permitNo" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="serialNoCol" prefWidth="120.0" text="Serial No.">
+                                <cellValueFactory><PropertyValueFactory property="serialNo" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="applicantName" prefWidth="120.0" text="Applicant Name">
+                                <cellValueFactory><PropertyValueFactory property="applicantName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="agentAssigned" prefWidth="120.0" text="Assigned Agent">
+                                <cellValueFactory><PropertyValueFactory property="assignedAgent" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="fancifulNameCol" prefWidth="125.0" text="Fanciful Name">
+                                <cellValueFactory><PropertyValueFactory property="fancifulName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="brandNameCol" prefWidth="120.0" text="Brand Name">
+                                <cellValueFactory><PropertyValueFactory property="brandName" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="typeIDCol" prefWidth="123.66668701171875" text="Type ID">
+                                <cellValueFactory><PropertyValueFactory property="typeID" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children></AnchorPane>
+  </content>
+</ScrollPane>

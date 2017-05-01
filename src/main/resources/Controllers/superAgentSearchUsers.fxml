@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0"
+            prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.superAgentSearchUsersController">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="850.0" prefWidth="1000.0">
+            <children>
+                <TableView fx:id="resultsTableUsers" prefHeight="850.0" prefWidth="725.0">
+                    <columns>
+                        <TableColumn fx:id="UserIDCol" prefWidth="120.0" text="User ID">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="userID"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="UsernameCol" prefWidth="120.0" text="Username">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="username"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="firstNameCol" prefWidth="120.0" text="First Name">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="firstName"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="middleInitialCol" prefWidth="120.0" text="Middle Initial">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="middleInitial"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="lastNameCol" prefWidth="100.0" text="Last Name">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="lastName"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="emailCol" prefWidth="100.0" text="Email">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="email"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="phoneNumberCol" prefWidth="142.0" text="Phone Number">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="phoneNumber"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="authenticationCol" prefWidth="144.0" text="Authentication">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="authentication"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+                <Accordion layoutX="740.0" layoutY="30.0" prefHeight="780.0" prefWidth="233.0">
+                    <panes>
+                        <TitledPane animated="false" text="Search Filters">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Label layoutX="15.0" layoutY="15.0" text="Filter By:"/>
+                                        <CheckBox fx:id="usernameCheckbox" layoutX="25.0" layoutY="35.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
+                                                  text="Username"/>
+                                        <CheckBox fx:id="lastNameCheckbox" layoutX="25.0" layoutY="85.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
+                                                  text="Last Name"/>
+                                        <CheckBox fx:id="firstNameCheckbox" layoutX="25.0" layoutY="60.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
+                                                  text="First Name"/>
+                                        <CheckBox fx:id="emailCheckbox" layoutX="25.0" layoutY="110.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers" text="Email"/>
+                                        <Label layoutX="15.0" layoutY="150.0" text="Authentication Level:"/>
+                                        <CheckBox fx:id="agentCheckbox" layoutX="25.0" layoutY="170.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers" text="Agent"/>
+                                        <CheckBox fx:id="superAgentCheckbox" layoutX="25.0" layoutY="195.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
+                                                  text="Super Agent"/>
+                                        <CheckBox fx:id="applicantCheckbox" layoutX="25.0" layoutY="220.0"
+                                                  mnemonicParsing="false" onMouseClicked="#searchUsers"
+                                                  text="Applicant"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </TitledPane>
+                    </panes>
+                </Accordion>
+            </children>
+        </AnchorPane>
+    </content>
+</ScrollPane>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.revisionsMenuController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" layoutX="551.0" layoutY="129.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" width="1500.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" styleClass="titleBox" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        <Label layoutX="630.0" layoutY="24.0" styleClass="titleText" text="Label Revisions">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <CheckBox fx:id="revision1_checkbox" layoutX="348.0" layoutY="135.0" mnemonicParsing="false" text="Delete any non-mandatory label information, including text,  illustrations, graphics, etc.">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision3_checkbox" layoutX="346.0" layoutY="207.0" mnemonicParsing="false" prefHeight="178.0" prefWidth="1002.0" text="Change the color(s)(background and text), shape and proportionate size of labels. Change the type size&#10;and font, and make appropriate changes to the spelling (including punctuation marks, changing letters &#10;from upper case to lower case and vice versa, and abbreviations) of words, in compliance with the regulations. &#10;Change from an adhesive label to one where label information is etched, painted or printed directly on &#10;the container and vice versa." wrapText="true">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision2_checkbox" layoutX="348.0" layoutY="188.0" mnemonicParsing="false" text="Reposition any label information, including text, illustrations, graphics, etc.">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision4_checkbox" layoutX="348.0" layoutY="386.0" mnemonicParsing="false" text="Change the stated percentages for blends of grape varietals and appellations of origin for wine labels.">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision5_checkbox" layoutX="348.0" layoutY="443.0" mnemonicParsing="false" text="Add, change, or delete a vintage date for wine labels.">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision6_checkbox" layoutX="348.0" layoutY="493.0" mnemonicParsing="false" text="Change the optional &quot;produced&quot; or &quot;made&quot; by statements on wine labels to &quot;blended,&quot; &quot;vinted,&quot; or &quot;prepared&quot; &#10;by statements">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision7_checkbox" layoutX="348.0" layoutY="559.0" mnemonicParsing="false" text="Add, change, or delete the stated amount of acid and/or the pH level for wine labels">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision8_checkbox" layoutX="348.0" layoutY="609.0" mnemonicParsing="false" text="Change the stated amounts of sugar at harvest and/or residual sugar for wine labels">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision9_checkbox" layoutX="348.0" layoutY="659.0" mnemonicParsing="false" text="Add or delete bonded winery or taxpaid wine bottling house number for wine labels">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision10_checkbox" layoutX="348.0" layoutY="715.0" mnemonicParsing="false" text="Change the net contents statement">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision11_checkbox" layoutX="348.0" layoutY="772.0" mnemonicParsing="false" text="Change the mandatory statement of alcohol content, as long as the change is consistent with the labeled &#10;class and type designation, and all other labeling statements.">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <CheckBox fx:id="revision12_checkbox" layoutX="348.0" layoutY="860.0" mnemonicParsing="false" text="Add, delete, or change an optional statement of alcohol content for malt beverage labels">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </CheckBox>
+        <Button fx:id="reviseButton" layoutX="99.0" layoutY="188.0" mnemonicParsing="false"
+                onMouseClicked="#setDisplayToApplicantRevisionForm" prefHeight="50.0" prefWidth="181.0" text="Revise"/>
+        <Button fx:id="viewButton" layoutX="102.0" layoutY="283.0" mnemonicParsing="false"
+                onMouseClicked="#setDisplayToApplicantViewForm" prefHeight="50.0" prefWidth="181.0" text="View"/>
+        <Button fx:id="closeButton" layoutX="63.0" layoutY="27.0" mnemonicParsing="false" onMouseClicked="#closeWindow"
+                prefHeight="46.0" prefWidth="93.0" text="Close">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+        <Label fx:id="errorLabel" layoutX="344.0" layoutY="900.0" prefHeight="72.0" prefWidth="888.0">
+            <font>
+                <Font size="34.0"/>
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

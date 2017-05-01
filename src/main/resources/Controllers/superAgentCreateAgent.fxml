@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.superAgentCreateAgentController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="1000.0" layoutX="551.0" layoutY="129.0" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" width="1500.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.topAnchor="0.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" styleClass="titleBox" width="1500.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        <TextField fx:id="username" layoutX="257.0" layoutY="158.0" promptText="Login Name">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <PasswordField fx:id="password" layoutX="521.0" layoutY="158.0" promptText="Password">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </PasswordField>
+        <TextField fx:id="firstName" layoutX="257.0" layoutY="211.0" prefHeight="35.0" prefWidth="193.0"
+                   promptText="First Name">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="middleInitial" layoutX="476.0" layoutY="211.0" prefHeight="35.0" prefWidth="62.0"
+                   promptText="M. I.">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="lastName" layoutX="567.0" layoutY="211.0" prefHeight="35.0" prefWidth="186.0"
+                   promptText="Last Name">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="email" layoutX="257.0" layoutY="264.0" promptText="Email">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="phoneNo" layoutX="521.0" layoutY="264.0" promptText="Phone Number">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </TextField>
+        <Button fx:id="createUserButton" layoutX="421.0" layoutY="370.0" mnemonicParsing="false"
+                onMouseClicked="#createUserAction" text="Create Agent">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Button>
+        <Label layoutX="354.0" layoutY="23.0" styleClass="titleText" text="Create New Agent">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

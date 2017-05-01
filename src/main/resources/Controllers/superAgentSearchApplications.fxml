@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controllers.superAgentSearchApplicationsController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="600.0" layoutX="551.0" layoutY="129.0" width="1000.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0"/>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" width="1000.0" AnchorPane.leftAnchor="0.0"
+                 AnchorPane.topAnchor="0.0"/>
+      <TableView fx:id="resultsTable" layoutX="20.0" layoutY="177.0" prefHeight="511.0" prefWidth="960.0">
+         <columns>
+            <TableColumn fx:id="formIDCol" prefWidth="92.0" text="Form ID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="ttbID" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="agentNameCol" prefWidth="104.0" text="Agent Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="agentName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="applicantNameCol" prefWidth="132.0" text="Applicant Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="applicantName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="brandNameCol" minWidth="0.0" prefWidth="118.0" text="Brand Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="brandName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="fancifulNameCol" prefWidth="129.0" text="Fanciful Name">
+                    <cellValueFactory>
+                       <PropertyValueFactory property="fancifulName" />
+                    </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="typeIdCol" prefWidth="125.0" text="TypeID">
+                    <cellValueFactory>
+                       <PropertyValueFactory property="typeID" />
+                    </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="statusCol" prefWidth="151.0" text="Status">
+                    <cellValueFactory>
+                       <PropertyValueFactory property="status" />
+                    </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <TextField fx:id="searchBox" layoutX="20.0" layoutY="128.0" onKeyReleased="#getSearchResults" prefHeight="31.0"
+                 prefWidth="615.0" promptText="Search Brand or Fanciful Names "/>
+      <CheckBox fx:id="brandNameCheckbox" layoutX="656.0" layoutY="114.0" mnemonicParsing="false"
+                onAction="#getSearchResults" text="Brand Name"/>
+      <CheckBox fx:id="fancifulNameCheckbox" layoutX="656.0" layoutY="143.0" mnemonicParsing="false"
+                onAction="#getSearchResults" text="Fanciful Name"/>
+      <CheckBox fx:id="applicantNameCheckbox" layoutX="806.0" layoutY="114.0" mnemonicParsing="false"
+                onAction="#getSearchResults" text="Applicant Name"/>
+      <CheckBox fx:id="agentNameCheckbox" layoutX="806.0" layoutY="143.0" mnemonicParsing="false"
+                onAction="#getSearchResults" text="Agent Name"/>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" layoutX="667.0" layoutY="664.0" styleClass="titleBox"
+                 width="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+      <Label fx:id="pageLabel" layoutX="291.0" layoutY="24.0" styleClass="titleText" text="Application Search Results">
+         <font>
+            <Font size="36.0"/>
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

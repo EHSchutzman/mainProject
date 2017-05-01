@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.applicationsForAgentController">
+   <children>
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#FFFFFF" height="1000.0" layoutX="551.0" layoutY="129.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e8491d" height="110.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#35424a" height="100.0" stroke="BLACK" strokeType="INSIDE" width="1500.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+       <Label layoutX="434.0" layoutY="41.0" text="Applications" AnchorPane.topAnchor="41.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+       <Button fx:id="backButton" layoutX="12.0" layoutY="14.0" mnemonicParsing="false"
+               onMouseClicked="#returnToMainPage" text="Back" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="14.0">
+           <font>
+               <Font size="18.0"/>
+           </font>
+       </Button>
+       <TableView fx:id="resultsTable" layoutX="14.0" layoutY="107.0" prefHeight="379.0" prefWidth="971.0"
+                  AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0"
+                  AnchorPane.topAnchor="107.0">
+           <columns>
+               <TableColumn fx:id="IDNoCol" prefWidth="250.0" text="ID No.">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="IDNo"/>
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="nameCol" prefWidth="250.0" text="Name">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="name"/>
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="dateCol" prefWidth="250.0" text="Date">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="date"/>
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="statusCol" prefWidth="220.0" text="Status">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="status"/>
+                   </cellValueFactory>
+               </TableColumn>
+           </columns>
+      </TableView>
+      <Label fx:id="errorLabel" layoutX="463.0" layoutY="118.0" prefHeight="17.0" prefWidth="101.0" />
+   </children>
+</AnchorPane>

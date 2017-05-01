@@ -2,11 +2,9 @@ package DBManager; /**
  * Created by WilsonWong on 3/19/2017.
  */
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class TTB_database {
@@ -31,9 +29,9 @@ public class TTB_database {
         Connection connection = null;
 
         try {
-            // substitute your database name for myDB
-//            connection = DriverManager.getConnection("jdbc:derby:../Database/Database/appDB;create=true");
-            connection = DriverManager.getConnection("jdbc:derby:appDB;create=true");
+            // substitute your database search for myDB
+            connection = DriverManager.getConnection("jdbc:derby:../Database/Database/appDB;create=true");
+            //connection = DriverManager.getConnection("jdbc:derby:appDB;create=true");
             System.out.println(System.getProperty("user.dir"));
 
             return connection;

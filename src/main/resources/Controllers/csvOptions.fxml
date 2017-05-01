@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.csvOptionsController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="400.0" layoutX="-2.0" layoutY="22.0" width="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="110.0" layoutX="54.0" layoutY="100.0" strokeWidth="0.0" width="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="100.0" strokeWidth="0.0" styleClass="titleBox" width="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Label fx:id="header" layoutX="155.0" layoutY="24.0" styleClass="titleText" text="CSV Format Options">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <Button fx:id="commaSeparatedButton" layoutX="183.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#makeCSV" text="Generate comma separated values">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+        <Button fx:id="tabSeparatedButton" layoutX="198.0" layoutY="187.0" mnemonicParsing="false" onMouseClicked="#makeTab" text="Generate tab separated values">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+        <Button fx:id="userSpecifiedButton" layoutX="159.0" layoutY="255.0" mnemonicParsing="false" onMouseClicked="#makeUserSpecified" text="Generate user specified separated values:">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+        <TextField fx:id="userSpecifiedValueText" layoutX="223.0" layoutY="329.0" promptText="separation" />
+        <Button fx:id="closeButton" layoutX="25.0" layoutY="22.0" mnemonicParsing="false" onMouseClicked="#closeWindow" text="Close" />
+    </children>
+</AnchorPane>

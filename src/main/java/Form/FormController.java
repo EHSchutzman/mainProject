@@ -296,7 +296,7 @@ public class FormController {
 
 
 
-        //TODO reference actual applicant name below, if need be
+        //TODO reference actual applicant search below, if need be
 
         //main.userData.tempForm.setApplicantID(applicant_nameText.getText());
 
@@ -309,7 +309,7 @@ public class FormController {
 
 
     public void createAgentForm(Form form) {
-        //TODO pull the applicant name from the DB
+        //TODO pull the applicant search from the DB
         //System.out.println(main.userData.getUserInformation().getAuthenticationLevel());
         //System.out.println(main.userData.getUserInformation().getUsername());
         User currentUser = DBManager.findUser("user_id = \'" + form.getapplicant_id() + "\'");
@@ -432,7 +432,7 @@ public class FormController {
 
         //Agent Headers
         //form.setapproved_date(Date.valueOf(approved_date.getValue()));
-        //TODO reference agent name if needed
+        //TODO reference agent search if needed
 
         //form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
         //form.setapproval_comments(approval_comments_text.getText());
@@ -440,7 +440,7 @@ public class FormController {
 
     public void createReviseForm(Form form, ArrayList<Boolean> booleanArrayList) {
         System.out.println("creating revision form" + booleanArrayList);
-        //TODO pull the applicant name from the DB
+        //TODO pull the applicant search from the DB
         if (form.getSource().equals("Imported")) {
             source_text.setPromptText("Imported");
         } else if (form.getSource().equals("Domestic")) {
@@ -537,7 +537,7 @@ public class FormController {
         }
         if (booleanArrayList.get(6) == true && form.getalcohol_type().equals("Wine")) {
             ph_level_text.setDisable(false);
-            //ph_level_text.setEditable(true);
+            //phLevel.setEditable(true);
 
         }
         if (booleanArrayList.get(7) == true) {
@@ -571,7 +571,7 @@ public class FormController {
 
         //Agent Headers
         //form.setapproved_date(Date.valueOf(approved_date.getValue()));
-        //TODO reference agent name if needed
+        //TODO reference agent search if needed
 
         //form.setexpiration_date(Date.valueOf(expiration_date.getValue()));
         //form.setapproval_comments(approval_comments_text.getText());
@@ -1144,8 +1144,8 @@ public class FormController {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
 
         String newFileName = selectedFile.getName().split("\\.")[0] + dateFormat.format(date) + "." + selectedFile.getName().split("\\.")[1];
-        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Initialization/images/" + newFileName);
-        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Initialization/images/" + newFileName);
+        File destInSys = new File(System.getProperty("user.dir") + "/src/main/resources/Controllers/images/" + newFileName);
+        File destInBuild = new File(System.getProperty("user.dir") + "/build/resources/main/Controllers/images/" + newFileName);
         System.out.println(destInSys.getAbsolutePath());
         File destForJar = new File(System.getProperty("user.dir") + "/images/" + newFileName);
         try {
@@ -1302,7 +1302,7 @@ public class FormController {
         label_text_print.setText(form.getlabel_text());
         submit_date_print.setText(form.getsubmit_date().toString());
         signature_print.setText(form.getSignature());
-        applicant_name_print.setText(form.getapplicant_id()); // TODO: add query for getting name
+        applicant_name_print.setText(form.getapplicant_id()); // TODO: add query for getting search
         if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(0) == true) {
             cert_label_approval_print.setSelected(true);
         } else if(!form.getapplication_type().isEmpty() && form.getapplication_type().get(1) == true) {

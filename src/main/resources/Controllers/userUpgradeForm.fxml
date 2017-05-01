@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.userUpgradeFormController">
+   <children>
+      <Label layoutX="458.0" layoutY="248.0" text="Status:" />
+      <Button fx:id="addRequestButton" layoutX="215.0" layoutY="141.0" mnemonicParsing="false"
+              onMouseClicked="#setDisplayToNewUpgradeRequestForm" text=" + " textAlignment="CENTER"/>
+      <Button fx:id="removeRequestButton" layoutX="334.0" layoutY="141.0" mnemonicParsing="false"
+              onMouseClicked="#removeUpgradeRequest" text=" - " textAlignment="CENTER"/>
+      <Button fx:id="closeButton" layoutX="40.0" layoutY="37.0" mnemonicParsing="false" onMouseClicked="#closeWindow" text="Close" />
+      <Label fx:id="saName" layoutX="264.0" layoutY="310.0" text="No Upgrade Request" />
+      <Label fx:id="requestedAuthentication" layoutX="52.0" layoutY="310.0" text="No Upgrade Request" />
+      <Label layoutX="264.0" layoutY="248.0" text="Super Agent Name:" />
+      <Label layoutX="52.0" layoutY="248.0" text="Requested Authentication:" />
+      <Label fx:id="statusLabel" layoutX="458.0" layoutY="310.0" text="NA" />
+      <Label layoutX="144.0" layoutY="42.0" styleClass="normalTitle" text="User Upgrade Form" textAlignment="CENTER">
+         <font>
+            <Font size="36.0"/>
+         </font>
+      </Label>
+      <Button fx:id="refreshButton" layoutX="486.0" layoutY="37.0" mnemonicParsing="false"
+              onMouseClicked="#refreshToUserUpgradeForm" text="Refresh"/>
+   </children>
+</AnchorPane>

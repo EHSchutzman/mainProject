@@ -140,7 +140,7 @@ public class AuthenticationController {
 
 
         if(authenticUser) {
-        //if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(name) ){
+        //if(isAuthentic.getFoundUser().getUsername() != null && isAuthentic.getFoundUser().getUsername().equals(search) ){
 
             // Create persistent user
             main.userData.setUserInformation(isAuthentic.getFoundUser());
@@ -240,7 +240,7 @@ public class AuthenticationController {
                 stage = (Stage) edit_user_button.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader();
                 //loader.setLocation(getClass().getResource("editUserConfirmationMessage.fxml"));
-                loader.setLocation(getClass().getResource("../../../resources/main/Initialization/editUserConfirmationMessage.fxml"));
+                loader.setLocation(getClass().getResource("../../../resources/main/Controllers/confirmationMessage.fxml"));
                 //System.out.println(loader.getLocation().toString());
                 Scene scene = new Scene(loader.load());
                 stage.setScene(scene);
