@@ -116,7 +116,6 @@ public class applicationsForAgentController extends UIController{
             stage.show();
 
             agentApplicationReviewController controller = loader.getController();
-            controller.init(super.main);
             controller.setReviewForm(application);
             controller.setLabels();
             controller.setReviewForm(application);

@@ -200,12 +200,12 @@
                    <Font name="System Bold" size="16.0"/>
                </font>
               </Button>
-              <Button layoutX="709.0" layoutY="920.0" mnemonicParsing="false" prefWidth="200.0" text="Forward">
+              <Button  onMouseClicked="#forwardAction" layoutX="709.0" layoutY="920.0" mnemonicParsing="false" prefWidth="200.0" text="Forward">
                   <font>
                       <Font name="System Bold" size="16.0"/>
                   </font>
               </Button>
-              <TextField fx:id="forwardAgentUsername" layoutX="716.0" layoutY="877.0" onAction="#forwardAction"
+              <TextField fx:id="forwardAgentUsername" layoutX="716.0" layoutY="877.0"
                          promptText="Agent Username"/>
               <TextArea fx:id="comments" layoutX="35.0" layoutY="694.0" prefHeight="200.0" prefWidth="307.0"
                         promptText="Approval/Rejection Comments, if any"/>

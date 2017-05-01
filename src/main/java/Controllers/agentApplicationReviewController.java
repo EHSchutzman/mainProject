@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class agentApplicationReviewController extends UIController{
     public TextField permitNO;
     @FXML
     public TextField serialNO;
+    public Text ttbid;
 
     // Source and Alcohol Type ComboBoxes + their TextFields for Agent Review
     @FXML
@@ -125,8 +127,10 @@ public class agentApplicationReviewController extends UIController{
         this.form = form;
     }
 
+
     void setLabels() {
         System.out.println(form);
+        ttbid.setText(form.getttb_id());
         // Get Source info and set it to display for the Agent
         //source_combobox = new ComboBox(FXCollections.observableArrayList("Domestic", "Imported"));
 
@@ -229,12 +233,17 @@ public class agentApplicationReviewController extends UIController{
 
     @FXML
     private void forwardAction() throws Exception {
+        System.out.println("here");
         String agentUsername = forwardAgentUsername.getText();
-        if(agentUsername != null && !agentUsername.isEmpty()) {
+        System.out.println("now here");
+        if(agentUsername != null) {
+            System.out.println("username isnt null");
             User forwardAgent = dbManager.findUser("username='" + forwardAgentUsername.getText() + "'");
             if(forwardAgent != null && forwardAgent.getUid() != null && forwardAgent.getAuthenticationLevel() == 2) {
+                System.out.println("user is " + forwardAgent.getUsername());
                 form.setagent_id(forwardAgent.getUid());
                 dbManager.updateForm(form);
+                closeWindow();
                 super.displayConfirmationMessage();
             } else {
                 // set errorlabel

@@ -30,7 +30,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="830.0" prefWidth="1000.0">
                      <children>
-                        <TableView fx:id="resultsTable" prefHeight="850.0" prefWidth="1000.0">
+                        <TableView onMouseEntered="#refreshTable" fx:id="resultsTable" prefHeight="850.0" prefWidth="1000.0">
                             <columns>
                                 <TableColumn fx:id="formIDCol" prefWidth="120.0" text="Form ID">
                                     <cellValueFactory><PropertyValueFactory property="formID" />
