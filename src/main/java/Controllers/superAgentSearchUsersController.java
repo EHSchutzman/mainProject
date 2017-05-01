@@ -78,7 +78,9 @@ public class superAgentSearchUsersController extends UIController {
     @FXML
     public void searchUsers() {
         ObservableList<UserRecord> ol = mbc.searchUsers(usernameCheckbox.isSelected(), emailCheckbox.isSelected(), firstNameCheckbox.isSelected(), lastNameCheckbox.isSelected(), agentCheckbox.isSelected(), superAgentCheckbox.isSelected(), applicantCheckbox.isSelected());
-        displayData(ol);
+        menuBarSingleton.getInstance().getGlobalData().setObservableListUser(ol);
+        resultsTableUsers.setItems(ol);
+        resultsTableUsers.refresh();
     }
 
     @FXML
