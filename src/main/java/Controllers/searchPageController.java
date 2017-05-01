@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -240,7 +239,7 @@ public class searchPageController extends UIController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
             AnchorPane newWindow = loader.load();
-            Scene scene = new Scene(newWindow, 1500, 1000);
+            Scene scene = new Scene(newWindow, 1500, 900);
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
