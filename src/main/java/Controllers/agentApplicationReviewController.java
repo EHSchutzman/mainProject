@@ -245,6 +245,7 @@ public class agentApplicationReviewController extends UIController{
                 dbManager.updateForm(form);
                 closeWindow();
                 super.displayConfirmationMessage();
+                closeWindow();
             } else {
                 // set errorlabel
                 errorLabel.setText("Invalid agent username.");
