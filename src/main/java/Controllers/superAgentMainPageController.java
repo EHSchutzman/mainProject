@@ -96,6 +96,7 @@ public class superAgentMainPageController extends UIController{
         stage.setScene(pane.getScene());
         pane.setLeft(menuBarSingleton.getInstance().getSuperAgentSearchPendingPane());
         superAgentPendingApplicationSearchController controller = menuBarSingleton.getInstance().getSuperAgentPendingApplicationSearchController();
+        menuBarSingleton.getInstance().getMenuBarController().menuTitle.setText("Search Pending Applications");
         System.out.println(controller);
         controller.initApplicationTableView();
         menuBarSingleton.getInstance().getMenuBarController().setOnSearchPage(true);

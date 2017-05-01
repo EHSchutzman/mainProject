@@ -176,33 +176,11 @@ public class agentApplicationReviewController extends UIController{
             wineAppellation.setText(null);
         }
 
-        //TODO maybe seperate applicant_street_1_text and applicant_street_2_text because it might be too long
-        /*applicant_street_1_text.setPromptText(form.getapplicant_street());
-        applicant_city_text.setPromptText(form.getapplicant_city());
-        applicant_state_text.setPromptText(form.getapplicant_state());
-        applicant_zip_text.setPromptText(form.getapplicant_zip());
-        applicant_country_text.setPromptText(form.getapplicant_country());*/
-
-        /*
-        *     @FXML
-    public TextField applicantStreet;
-    @FXML
-    public TextField applicantCity;
-    @FXML
-    public TextField applicantState;
-    @FXML
-    public TextField applicantZip;
-    @FXML
-    public TextField applicantCountry;
-        * */
-
         applicantStreet.setText(form.getapplicant_street());
         applicantCity.setText(form.getapplicant_city());
         applicantState.setText(form.getapplicant_state());
         applicantZip.setText(form.getapplicant_zip());
         applicantCountry.setText(form.getapplicant_country());
-
-//        address_text.setText(form.getapplicant_street() + ", " + form.getapplicant_city() + ", " + form.getapplicant_state() + " " + form.getapplicant_zip() + ", " + form.getapplicant_country());
 
         //mailing_addressText.setPromptText(form.getmailing_address());
         DBManager manager = new DBManager();

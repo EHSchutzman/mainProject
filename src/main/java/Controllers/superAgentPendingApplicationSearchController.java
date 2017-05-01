@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -113,7 +112,7 @@ public class superAgentPendingApplicationSearchController extends UIController {
             loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
             AnchorPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1500, 1000);
-            scene.getStylesheets().add(getClass().getResource("general.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
