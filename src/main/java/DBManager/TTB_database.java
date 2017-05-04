@@ -30,8 +30,8 @@ public class TTB_database {
 
         try {
             // substitute your database search for myDB
-            connection = DriverManager.getConnection("jdbc:derby:../Database/Database/appDB;create=true");
-            //connection = DriverManager.getConnection("jdbc:derby:appDB;create=true");
+//            connection = DriverManager.getConnection("jdbc:derby:../Database/Database/appDB;create=true");
+            connection = DriverManager.getConnection("jdbc:derby:mainProjectDB;create=true");
             System.out.println(System.getProperty("user.dir"));
 
             return connection;

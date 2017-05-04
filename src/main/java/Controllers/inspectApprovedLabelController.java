@@ -33,8 +33,6 @@ public class inspectApprovedLabelController extends UIController{
 
     @FXML
     public void initialize() {
-        source_combobox.setItems(FXCollections.observableArrayList("Imported", "Domestic"));
-        alcohol_type_combobox.setItems(FXCollections.observableArrayList("Malt Beverages", "Wine", "Distilled Spirits"));
     }
     @FXML
     private Button back_button;
@@ -126,6 +124,8 @@ public class inspectApprovedLabelController extends UIController{
     public TextArea address_text;
     public TextField submit_date;
     public ImageView label_image;
+    public TextField source;
+    public TextField alcohol_content;
 
     private DBManager db = new DBManager();
     private Form form;
@@ -141,24 +141,8 @@ public class inspectApprovedLabelController extends UIController{
     }
 
 
-    public void createReviseForm(Form formt) {
+    public void createReviseForm(Form form) {
         //TODO pull the applicant search from the DB
-        if (form.getSource().equals("Imported")) {
-            source_combobox.setValue("Imported");
-        } else if (form.getSource().equals("Domestic")) {
-            source_combobox.setValue("Domestic");
-        }
-
-        // Get Alcohol Type info and set it to display for the Agent
-        //alcohol_type_combobox = new ComboBox(FXCollections.observableArrayList("Beer", "Wine", "Distilled Spirit"));
-        if (form.getalcohol_type().equals("Malt Beverages")) {
-            //alcohol_type_combobox.getSelectionModel().select(1);
-            alcohol_type_combobox.setValue("Malt Beverages");
-        } else if (form.getalcohol_type().equals("Wine")) {
-            alcohol_type_combobox.setValue("Wine");
-        } else if (form.getalcohol_type().equals("Distilled Spirits")) {
-            alcohol_type_combobox.setValue("Distilled Spirits");
-        }
 
         // Initialize checkboxes
         // Type of Application Check Boxes and their corresponding TextFields

@@ -36,6 +36,7 @@ public class applicationsForAgentController extends UIController{
     @FXML
     private CheckBox simpleWineCheckbox;
 
+
     @FXML
     private void simpleSearch(){
         ObservableList<AppRecord> list = dbManager.filterForms(menuBarSingleton.getInstance().getGlobalData().getUserInformation(), simpleMaltBeveragesCheckbox.isSelected(), simpleWineCheckbox.isSelected(), simpleOtherCheckbox.isSelected());
@@ -118,7 +119,6 @@ public class applicationsForAgentController extends UIController{
             agentApplicationReviewController controller = loader.getController();
             controller.setReviewForm(application);
             controller.setLabels();
-            controller.setReviewForm(application);
 
         } catch (IOException e){e.printStackTrace();}
     }

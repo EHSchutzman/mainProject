@@ -237,16 +237,18 @@ public class searchPageController extends UIController {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("inspectApprovedLabel.fxml"));
-            AnchorPane newWindow = loader.load();
+            loader.setLocation(getClass().getResource("viewLabel.fxml"));
+            ScrollPane newWindow = loader.load();
             Scene scene = new Scene(newWindow, 1500, 900);
             scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.getScene().setRoot(newWindow);
             stage.show();
-            inspectApprovedLabelController controller = loader.getController();
-            controller.setForm(form);
+            viewLabelController controller = loader.getController();
+            System.out.println("Controller is " + controller);
+            controller.setReviewForm(form);
+            controller.createIncompleteForm();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -265,6 +267,7 @@ public class searchPageController extends UIController {
                     // Get form form DB using selected row's ID
                     try {
                         Form viewForm = db.findSingleForm(rowData.getFormID(), fieldList);
+                        System.out.println("FORM IS " + viewForm.getttb_id());
                         // Open selected form in new window
                         displayApprovedLabel(viewForm);
                     } catch (Exception e) {
